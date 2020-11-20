@@ -19,8 +19,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public sealed class FindsController : BaseController<IWriteToOutput>
     {
-        private const string tabSpacer = "    ";
-
         public FindsController(IWriteToOutput iWriteToOutput)
             : base(iWriteToOutput)
         {
@@ -1464,6 +1462,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , nameof(EntityMetadata.Attributes)
                 );
 
+                string splitter = new string('-', 150);
+
                 foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
                 {
                     var primaryAttr = item.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, item.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
@@ -1481,7 +1481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             content
                                 .AppendLine()
                                 .AppendLine()
-                                .AppendLine(new string('-', 150))
+                                .AppendLine(splitter)
                                 .AppendLine()
                                 .AppendLine()
                                 .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
@@ -1564,6 +1564,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , nameof(EntityMetadata.Attributes)
                 );
 
+                string splitter = new string('-', 150);
+
                 foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
                 {
                     foreach (var field in item.Attributes
@@ -1584,7 +1586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 content
                                     .AppendLine()
                                     .AppendLine()
-                                    .AppendLine(new string('-', 150))
+                                    .AppendLine(splitter)
                                     .AppendLine()
                                     .AppendLine()
                                     .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
@@ -1725,6 +1727,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendFormat(formatList, temp.ToArray()).AppendLine();
 
+            string splitter = new string('-', 150);
+
             foreach (var component in solutionComponents)
             {
                 if (dict.ContainsKey(component))
@@ -1735,18 +1739,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (content.Length > 0) { content.AppendLine(); }
 
-                        content.AppendLine(new string('-', 150));
+                        content.AppendLine(splitter);
 
                         string componentDescription = descriptor.GetComponentDescription(component.ComponentType.Value, component.ObjectId.Value);
 
-                        content.AppendLine(tabSpacer + componentDescription);
-                        content.AppendLine(tabSpacer + Properties.OutputStrings.DependentComponents);
+                        content.Append(_tabSpacer).AppendLine(componentDescription);
+                        content.Append(_tabSpacer).AppendLine(Properties.OutputStrings.DependentComponents);
 
                         var coll = dependentComponents.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
                         foreach (var item in coll)
                         {
-                            content.AppendLine(tabSpacer + tabSpacer + item);
+                            content.Append(_tabSpacer).Append(_tabSpacer).AppendLine(item);
                         }
                     }
                 }
@@ -1789,7 +1793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 list.Sort();
 
-                list.ForEach(item => content.AppendLine(tabSpacer + item));
+                list.ForEach(item => content.Append(_tabSpacer).AppendLine(item));
             }
         }
     }

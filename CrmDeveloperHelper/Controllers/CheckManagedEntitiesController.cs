@@ -19,8 +19,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class CheckManagedEntitiesController : BaseController<IWriteToOutput>
     {
-        private const string tabSpacer = "    ";
-
         private static string[] _entitiesWithManagedProperty =
         {
             "activitymimeattachment"
@@ -261,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     content.AppendLine(string.Format("Global OptionSets with Unmanaged elements: {0}", wrongOptionSets.Count));
 
-                    table.GetFormatedLines(false).ForEach(s => content.AppendLine(tabSpacer + s));
+                    table.GetFormatedLines(false).ForEach(s => content.Append(_tabSpacer).AppendLine(s));
                 }
 
                 {
@@ -290,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 , optionSet.IsManaged.ToString()
                             );
 
-                            table.GetFormatedLines(false).ForEach(s => content.AppendLine(tabSpacer + s));
+                            table.GetFormatedLines(false).ForEach(s => content.Append(_tabSpacer).AppendLine(s));
 
                             var unmanagedProperties = wrongOptionSets[optionSet];
 
@@ -298,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 foreach (var str in unmanagedProperties)
                                 {
-                                    content.AppendLine(tabSpacer + tabSpacer + str);
+                                    content.Append(_tabSpacer).Append(_tabSpacer).AppendLine(str);
                                 }
                             }
                         }
@@ -398,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     content.AppendLine(string.Format("Entities with Unmanaged elements: {0}", wrongEntities.Count));
 
-                    table.GetFormatedLines(false).ForEach(s => content.AppendLine(tabSpacer + s));
+                    table.GetFormatedLines(false).ForEach(s => content.Append(_tabSpacer).AppendLine(s));
                 }
 
                 {
@@ -426,7 +424,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                , entity.IsManaged.ToString()
                            );
 
-                            table.GetFormatedLines(false).ForEach(s => content.AppendLine(tabSpacer + s));
+                            table.GetFormatedLines(false).ForEach(s => content.Append(_tabSpacer).AppendLine(s));
 
                             var unmanagedProperties = wrongEntities[entity];
 
@@ -434,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 foreach (var str in unmanagedProperties)
                                 {
-                                    content.AppendLine(tabSpacer + tabSpacer + str);
+                                    content.Append(_tabSpacer).Append(_tabSpacer).AppendLine(str);
                                 }
                             }
                         }
@@ -497,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     result.Add(string.Format("Attributes with Unmanaged elements: {0}", wrongEntityAttributes.Count));
 
-                    table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                    table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
                 }
 
                 {
@@ -532,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             if (result.Count > 0) { result.Add(string.Empty); }
 
-                            table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                            table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
 
                             var unmanagedProperties = wrongEntityAttributes[attr];
 
@@ -540,7 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 foreach (var str in unmanagedProperties)
                                 {
-                                    result.Add(tabSpacer + tabSpacer + str);
+                                    result.Add(_tabSpacer + _tabSpacer + str);
                                 }
                             }
                         }
@@ -595,7 +593,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     result.Add(string.Format("{0} - {1} with Unmanaged elements: {2}", className, relationTypeName, wrongEntityRelationshipsManyToOne.Count));
 
-                    table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                    table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
                 }
 
                 {
@@ -620,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 , relation.IsCustomRelationship.ToString()
                                 , relation.IsManaged.ToString());
 
-                            table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                            table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
 
                             var unmanagedProperties = wrongEntityRelationshipsManyToOne[relation];
 
@@ -628,7 +626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 foreach (var str in unmanagedProperties)
                                 {
-                                    result.Add(tabSpacer + tabSpacer + str);
+                                    result.Add(_tabSpacer + _tabSpacer + str);
                                 }
                             }
                         }
@@ -684,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     result.Add(string.Format("ManyToMany with Unmanaged elements: {0}", wrongEntityRelationshipsManyToMany.Count));
 
-                    table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                    table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
                 }
 
                 {
@@ -712,7 +710,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                , relation.IsManaged.ToString()
                                );
 
-                            table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                            table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
 
                             var unmanagedProperties = wrongEntityRelationshipsManyToMany[relation];
 
@@ -720,7 +718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 foreach (var str in unmanagedProperties)
                                 {
-                                    result.Add(tabSpacer + tabSpacer + str);
+                                    result.Add(_tabSpacer + _tabSpacer + str);
                                 }
                             }
                         }
@@ -772,7 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     result.Add(string.Format("Keys with Unmanaged elements: {0}", wrongEntityKeys.Count));
 
-                    table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                    table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
                 }
 
                 {
@@ -796,7 +794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 , string.Join(",", key.KeyAttributes.OrderBy(s => s))
                                 );
 
-                            table.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+                            table.GetFormatedLines(false).ForEach(s => result.Add(_tabSpacer + s));
 
                             var unmanagedProperties = wrongEntityKeys[key];
 
@@ -804,7 +802,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 foreach (var str in unmanagedProperties)
                                 {
-                                    result.Add(tabSpacer + tabSpacer + str);
+                                    result.Add(_tabSpacer + _tabSpacer + str);
                                 }
                             }
                         }
@@ -835,7 +833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 result.Add(string.Format("{0} with unmanaged labels: {1}", name, table.Count));
-                table.GetFormatedLines(false).ForEach(str => result.Add(tabSpacer + str));
+                table.GetFormatedLines(false).ForEach(str => result.Add(_tabSpacer + str));
             }
 
             return result;
@@ -937,7 +935,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 foreach (var str in unmanagedProperties)
                                 {
-                                    result.Add(tabSpacer + str);
+                                    result.Add(_tabSpacer + str);
                                 }
                             }
                         }
@@ -965,7 +963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             foreach (var str in unmanagedProperties)
                             {
-                                result.Add(tabSpacer + str);
+                                result.Add(_tabSpacer + str);
                             }
                         }
                     }
@@ -1056,7 +1054,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var str in unmanagedProperties)
                     {
-                        result.Add(tabSpacer + str);
+                        result.Add(_tabSpacer + str);
                     }
                 }
             }
@@ -1303,7 +1301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     table.AddLine(listValue.ToArray());
                 }
 
-                table.GetFormatedLines(true).ForEach(str => result.AppendLine(tabSpacer + str));
+                table.GetFormatedLines(true).ForEach(str => result.Append(_tabSpacer).AppendLine(str));
 
                 return result.ToString();
             }
@@ -1322,7 +1320,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         );
                 }
 
-                table.GetFormatedLines(true).ForEach(str => result.AppendLine(tabSpacer + str));
+                table.GetFormatedLines(true).ForEach(str => result.Append(_tabSpacer).AppendLine(str));
 
                 return result.ToString();
             }
@@ -1341,7 +1339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         );
                 }
 
-                table.GetFormatedLines(true).ForEach(str => result.AppendLine(tabSpacer + str));
+                table.GetFormatedLines(true).ForEach(str => result.Append(_tabSpacer).AppendLine(str));
             }
 
             return result.ToString();

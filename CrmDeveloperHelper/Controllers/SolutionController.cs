@@ -84,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var projectName in unknownProjectNames)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, projectName);
+                this._iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, projectName);
             }
 
             var service = await QuickConnection.ConnectAsync(connectionData);

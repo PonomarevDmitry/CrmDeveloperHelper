@@ -871,8 +871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             int countEqualByContent = 0;
 
-            FormatTextTableHandler tableEqualByText = new FormatTextTableHandler();
-            tableEqualByText.SetHeader("FriendlyFilePath", "WebResourceName");
+            FormatTextTableHandler tableEqualByText = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName");
 
             FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
 
@@ -885,29 +884,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 tableDifferent.SetHeader("FriendlyFilePath", "WebResourceName");
             }
 
-            FormatTextTableHandler tableDifferentOnlyInserts = new FormatTextTableHandler();
-            tableDifferentOnlyInserts.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)");
+            FormatTextTableHandler tableDifferentOnlyInserts = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)");
 
-            FormatTextTableHandler tableDifferentOnlyDeletes = new FormatTextTableHandler();
-            tableDifferentOnlyDeletes.SetHeader("FriendlyFilePath", "WebResourceName", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentOnlyDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableDifferentComplexChanges = new FormatTextTableHandler();
-            tableDifferentComplexChanges.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentComplexChanges = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableDifferentMirror = new FormatTextTableHandler();
-            tableDifferentMirror.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentMirror = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableDifferentMirrorWithInserts = new FormatTextTableHandler();
-            tableDifferentMirrorWithInserts.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentMirrorWithInserts = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableDifferentMirrorWithDeletes = new FormatTextTableHandler();
-            tableDifferentMirrorWithDeletes.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentMirrorWithDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableLastLinkEqualByContent = new FormatTextTableHandler();
-            tableLastLinkEqualByContent.SetHeader("FriendlyFilePath", "WebResourceName");
+            FormatTextTableHandler tableLastLinkEqualByContent = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName");
 
-            FormatTextTableHandler listLastLinkEqualByText = new FormatTextTableHandler();
-            listLastLinkEqualByText.SetHeader("FriendlyFilePath", "WebResourceName");
+            FormatTextTableHandler listLastLinkEqualByText = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName");
 
             FormatTextTableHandler tableLastLinkDifferent = new FormatTextTableHandler();
             if (withDetails)
@@ -919,23 +910,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 tableLastLinkDifferent.SetHeader("FriendlyFilePath", "WebResourceName");
             }
 
-            FormatTextTableHandler tableLastLinkDifferentOnlyInserts = new FormatTextTableHandler();
-            tableLastLinkDifferentOnlyInserts.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)");
+            FormatTextTableHandler tableLastLinkDifferentOnlyInserts = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)");
 
-            FormatTextTableHandler tableLastLinkDifferentOnlyDeletes = new FormatTextTableHandler();
-            tableLastLinkDifferentOnlyDeletes.SetHeader("FriendlyFilePath", "WebResourceName", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentOnlyDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableLastLinkDifferentComplexChanges = new FormatTextTableHandler();
-            tableLastLinkDifferentComplexChanges.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentComplexChanges = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableLastLinkDifferentMirror = new FormatTextTableHandler();
-            tableLastLinkDifferentMirror.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentMirror = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableLastLinkDifferentMirrorWithInserts = new FormatTextTableHandler();
-            tableLastLinkDifferentMirrorWithInserts.SetHeader("FriendlyFilePath", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentMirrorWithInserts = new FormatTextTableHandler("FriendlyFilePath", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
-            FormatTextTableHandler tableLastLinkDifferentMirrorWithDeletes = new FormatTextTableHandler();
-            tableLastLinkDifferentMirrorWithDeletes.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentMirrorWithDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
@@ -1183,14 +1168,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 connectionData.Save();
             }
 
-            var tabSpacer = "    ";
-
             if (tableDifferent.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content: {0}", tableDifferent.Count);
 
-                tableDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentOnlyInserts.Count > 0)
@@ -1198,7 +1181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY INSERTS: {0}", tableDifferentOnlyInserts.Count);
 
-                tableDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentOnlyDeletes.Count > 0)
@@ -1206,7 +1189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY DELETES: {0}", tableDifferentOnlyDeletes.Count);
 
-                tableDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentComplexChanges.Count > 0)
@@ -1214,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH COMPLEX CHANGES: {0}", tableDifferentComplexChanges.Count);
 
-                tableDifferentComplexChanges.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableDifferentComplexChanges.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentMirror.Count > 0)
@@ -1222,7 +1205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES: {0}", tableDifferentMirror.Count);
 
-                tableDifferentMirror.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableDifferentMirror.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentMirrorWithInserts.Count > 0)
@@ -1230,7 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND INSERTS: {0}", tableDifferentMirrorWithInserts.Count);
 
-                tableDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentMirrorWithDeletes.Count > 0)
@@ -1238,7 +1221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND DELETES: {0}", tableDifferentMirrorWithDeletes.Count);
 
-                tableDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (listNotFoundedInCRMNoLink.Count > 0)
@@ -1248,7 +1231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 listNotFoundedInCRMNoLink.Sort();
 
-                listNotFoundedInCRMNoLink.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                listNotFoundedInCRMNoLink.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferent.Count > 0)
@@ -1256,7 +1239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT: {0}", tableLastLinkDifferent.Count);
 
-                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
 
@@ -1265,7 +1248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY INSERTS: {0}", tableLastLinkDifferentOnlyInserts.Count);
 
-                tableLastLinkDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentOnlyDeletes.Count > 0)
@@ -1273,7 +1256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY DELETES: {0}", tableLastLinkDifferentOnlyDeletes.Count);
 
-                tableLastLinkDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentComplexChanges.Count > 0)
@@ -1281,7 +1264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH COMPLEX CHANGES: {0}", tableLastLinkDifferentComplexChanges.Count);
 
-                tableLastLinkDifferentComplexChanges.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkDifferentComplexChanges.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirror.Count > 0)
@@ -1289,7 +1272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES: {0}", tableLastLinkDifferentMirror.Count);
 
-                tableLastLinkDifferentMirror.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkDifferentMirror.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirrorWithInserts.Count > 0)
@@ -1297,7 +1280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND INSERTS: {0}", tableLastLinkDifferentMirrorWithInserts.Count);
 
-                tableLastLinkDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirrorWithDeletes.Count > 0)
@@ -1305,7 +1288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND DELETES: {0}", tableLastLinkDifferentMirrorWithDeletes.Count);
 
-                tableLastLinkDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (listLastLinkEqualByText.Count > 0)
@@ -1313,7 +1296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY TEXT: {0}", listLastLinkEqualByText.Count);
 
-                listLastLinkEqualByText.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                listLastLinkEqualByText.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkEqualByContent.Count > 0)
@@ -1321,7 +1304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY CONTENT: {0}", tableLastLinkEqualByContent.Count);
 
-                tableLastLinkEqualByContent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableLastLinkEqualByContent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (listNotExistsOnDisk.Count > 0)
@@ -1331,7 +1314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 listNotExistsOnDisk.Sort();
 
-                listNotExistsOnDisk.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                listNotExistsOnDisk.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableEqualByText.Count > 0)
@@ -1339,7 +1322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY TEXT: {0}", tableEqualByText.Count);
 
-                tableEqualByText.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+                tableEqualByText.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (countEqualByContent > 0)
@@ -1370,7 +1353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var pluginTypeName in unknownPluginTypes)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, pluginTypeName);
+                this._iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, pluginTypeName);
             }
 
             var service = await QuickConnection.ConnectAsync(connectionData);

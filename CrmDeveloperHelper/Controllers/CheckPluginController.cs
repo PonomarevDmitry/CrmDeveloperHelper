@@ -17,8 +17,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class CheckPluginController : BaseController<IWriteToOutput>
     {
-        private const string tabSpacer = "    ";
-
         public CheckPluginController(IWriteToOutput iWriteToOutput)
             : base(iWriteToOutput)
         {
@@ -34,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var gr in images)
                 {
-                    builder.AppendFormat(tabSpacer + "{0}.{1}. {2}", stepNumber, duplicateNumber, gr.Key).AppendLine();
+                    builder.Append(_tabSpacer).AppendFormat("{0}.{1}. {2}", stepNumber, duplicateNumber, gr.Key).AppendLine();
 
                     int imageNumber = 1;
 
@@ -46,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         foreach (var item in coll)
                         {
-                            builder.AppendLine(tabSpacer + item);
+                            builder.Append(_tabSpacer).AppendLine(item);
                         }
 
                         imageNumber++;
@@ -370,7 +368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             foreach (var item in coll)
                             {
-                                content.AppendLine(tabSpacer + tabSpacer + item);
+                                content.Append(_tabSpacer).Append(_tabSpacer).AppendLine(item);
                             }
 
                             numberImage++;
