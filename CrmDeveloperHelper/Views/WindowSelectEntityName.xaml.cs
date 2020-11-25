@@ -18,6 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public WindowSelectEntityName(
             ConnectionData connectionData
             , string windowTitle
+            , string selectionText
         )
         {
             InitializeComponent();
@@ -29,6 +30,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             LoadEntityNames(cmBEntityTypeNameOrCode, connectionData);
+
+            cmBEntityTypeNameOrCode.Text = selectionText;
 
             cmBConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
             cmBConnection.SelectedItem = connectionData;

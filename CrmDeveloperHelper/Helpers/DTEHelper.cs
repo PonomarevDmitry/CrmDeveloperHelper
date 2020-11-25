@@ -354,11 +354,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                string selection = GetSelectedText();
+
                 var worker = new System.Threading.Thread(() =>
                 {
                     try
                     {
-                        var dialog = new WindowSelectEntityName(connectionData, "EntityName");
+                        var dialog = new WindowSelectEntityName(connectionData, "EntityName", selection);
 
                         if (dialog.ShowDialog().GetValueOrDefault())
                         {
@@ -421,11 +423,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                string selection = GetSelectedText();
+
                 var worker = new System.Threading.Thread(() =>
                 {
                     try
                     {
-                        var dialog = new WindowSelectEntityName(connectionData, "EntityName");
+                        var dialog = new WindowSelectEntityName(connectionData, "EntityName", selection);
 
                         if (dialog.ShowDialog().GetValueOrDefault())
                         {
@@ -434,10 +438,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             connectionData = dialog.GetConnectionData();
 
+                            CheckWishToChangeCurrentConnection(connectionData);
+
                             ActivateOutputWindow(connectionData);
                             WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                            CheckWishToChangeCurrentConnection(connectionData);
 
                             try
                             {
@@ -479,11 +483,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                string selection = GetSelectedText();
+
                 var worker = new System.Threading.Thread(() =>
                 {
                     try
                     {
-                        var dialog = new WindowSelectEntityName(connectionData, "EntityName");
+                        var dialog = new WindowSelectEntityName(connectionData, "EntityName", selection);
 
                         if (dialog.ShowDialog().GetValueOrDefault())
                         {
@@ -546,11 +552,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                string selection = GetSelectedText();
+
                 var worker = new System.Threading.Thread(() =>
                 {
                     try
                     {
-                        var dialog = new WindowSelectEntityName(connectionData, "EntityName");
+                        var dialog = new WindowSelectEntityName(connectionData, "EntityName", selection);
 
                         if (dialog.ShowDialog().GetValueOrDefault())
                         {
