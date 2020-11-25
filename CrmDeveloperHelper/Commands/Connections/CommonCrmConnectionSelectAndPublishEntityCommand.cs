@@ -4,10 +4,10 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 {
-    internal sealed class CommonCrmConnectionSelectAndPublishEntityCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CommonCrmConnectionSelectAndPublishEntityCommand : AbstractSingleCommand
     {
         private CommonCrmConnectionSelectAndPublishEntityCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCrmConnectionSelectAndPublishEntityCommandId)
+            : base(commandService, PackageIds.guidCommandSet.CommonCrmConnectionSelectAndPublishEntityCommandId)
         {
         }
 
@@ -18,9 +18,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
             Instance = new CommonCrmConnectionSelectAndPublishEntityCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
+        protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleSelectAndPublishEntityCommand(connectionData);
+            helper.HandleSelectAndPublishEntityCommand();
         }
     }
 }

@@ -1396,8 +1396,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Ribbon Get Current
 
-        //ExecuteRibbonAndRibbonDiffXmlGetCurrent
-
         #region RibbonDiffXml Get Current
 
         public async Task ExecuteRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
@@ -1552,6 +1550,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Ribbon and RibbonDiffXml Get Current
 
+        #region Opening EntityMetadata in Web
+
         public async Task ExecuteOpeningEntityMetadataInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityInWebFormat1, connectionData?.Name);
@@ -1603,6 +1603,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             service.TryDispose();
         }
 
+        #endregion Opening EntityMetadata in Web
+
+        #region Opening Entity List in Web
+
         public async Task ExecuteOpeningEntityListInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityListInWebFormat1, connectionData?.Name);
@@ -1653,6 +1657,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             service.TryDispose();
         }
+
+        #endregion Opening Entity List in Web
+
+        #region Opening Entity Instance by Id in Web
+
+        public async Task ExecuteOpeningEntityInstanceByIdInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningEntityListInWebFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningEntityInstanceByIdInWeb(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningEntityInstanceByIdInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new EntityMetadataRepository(service);
+
+            var entityMetadataList = await repository.FindEntitiesPropertiesOrEmptyAsync(entityName, entityTypeCode
+                , nameof(EntityMetadata.LogicalName)
+            );
+
+            if (!entityMetadataList.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                return;
+            }
+
+            foreach (var entityMetadata in entityMetadataList)
+            {
+                service.ConnectionData.OpenEntityInstanceInWeb(entityMetadata.LogicalName, entityId);
+            }
+
+            service.TryDispose();
+        }
+
+        #endregion Opening Entity Instance by Id in Web
+
+        #region Opening Entity Fetch File
 
         public async Task ExecuteOpeningEntityFetchXmlFile(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
         {
@@ -1707,6 +1770,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        #endregion Opening Entity Fetch File
+
+        #region Publishing Entity
+
         public async Task ExecutePublishEntity(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
         {
             var correctedName = new StringBuilder(entityName);
@@ -1754,5 +1821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             service.TryDispose();
         }
+
+        #endregion Publishing Entity
     }
 }

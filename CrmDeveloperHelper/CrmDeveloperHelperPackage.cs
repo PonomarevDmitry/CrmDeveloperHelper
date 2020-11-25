@@ -718,6 +718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonOpenCrmWebSiteCommand.Initialize,
             CommonOpenCrmWebSiteEntityMetadataCommand.Initialize,
             CommonOpenCrmWebSiteEntityListCommand.Initialize,
+            CommonOpenCrmWebSiteEntityInstanceByIdCommand.Initialize,
 
             CommonFetchXmlOpenEntityFileInConnectionCommand.Initialize,
 

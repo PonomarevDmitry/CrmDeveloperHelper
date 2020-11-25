@@ -1,13 +1,12 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal sealed class CommonFetchXmlOpenEntityFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CommonFetchXmlOpenEntityFileInConnectionCommand : AbstractSingleCommand
     {
         private CommonFetchXmlOpenEntityFileInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CommonFetchXmlOpenEntityFileInConnectionCommandId)
+            : base(commandService, PackageIds.guidCommandSet.CommonFetchXmlOpenEntityFileInConnectionCommandId)
         {
         }
 
@@ -18,9 +17,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
             Instance = new CommonFetchXmlOpenEntityFileInConnectionCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
+        protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleConnectionOpenFetchXmlFile(connectionData);
+            helper.HandleConnectionOpenFetchXmlFile();
         }
     }
 }

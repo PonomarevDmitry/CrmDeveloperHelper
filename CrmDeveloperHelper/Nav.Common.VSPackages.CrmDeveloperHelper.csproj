@@ -108,6 +108,7 @@
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
+    <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityInstanceByIdCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionOpenFetchXmlFolderCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationConfigurationCommand.cs" />
@@ -1565,6 +1566,9 @@
     <Compile Include="Views\WindowSdkMessageProcessingStepImage.xaml.cs">
       <DependentUpon>WindowSdkMessageProcessingStepImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowSelectEntityNameAndId.xaml.cs">
+      <DependentUpon>WindowSelectEntityNameAndId.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowTreeSdkMessageRequest.xaml.cs">
       <DependentUpon>WindowTreeSdkMessageRequest.xaml</DependentUpon>
     </Compile>
@@ -2416,6 +2420,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSdkMessageProcessingStepImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSelectEntityNameAndId.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

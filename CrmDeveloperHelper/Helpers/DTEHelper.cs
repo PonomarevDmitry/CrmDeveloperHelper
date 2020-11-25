@@ -336,6 +336,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleConnectionOpenEntityMetadataInWeb()
+        {
+            HandleConnectionOpenEntityMetadataInWeb(null);
+        }
+
         public void HandleConnectionOpenEntityMetadataInWeb(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -405,64 +410,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleSelectAndPublishEntityCommand(ConnectionData connectionData)
+        public void HandleConnectionOpenEntityListInWeb()
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                string selection = GetSelectedText();
-
-                var worker = new System.Threading.Thread(() =>
-                {
-                    try
-                    {
-                        var dialog = new WindowSelectEntityName(connectionData, "EntityName", selection);
-
-                        if (dialog.ShowDialog().GetValueOrDefault())
-                        {
-                            string entityName = dialog.EntityTypeName;
-                            int? entityTypeCode = dialog.EntityTypeCode;
-
-                            connectionData = dialog.GetConnectionData();
-
-                            CheckWishToChangeCurrentConnection(connectionData);
-
-                            ActivateOutputWindow(connectionData);
-                            WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                            try
-                            {
-                                Controller.StartPublishEntityMetadata(connectionData, commonConfig, entityName, entityTypeCode);
-                            }
-                            catch (Exception ex)
-                            {
-                                WriteErrorToOutput(connectionData, ex);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-                worker.Start();
-            }
+            HandleConnectionOpenEntityListInWeb(null);
         }
 
         public void HandleConnectionOpenEntityListInWeb(ConnectionData connectionData)
@@ -534,6 +484,86 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleConnectionOpenEntityInstanceByIdInWeb()
+        {
+            HandleConnectionOpenEntityInstanceByIdInWeb(null);
+        }
+
+        public void HandleConnectionOpenEntityInstanceByIdInWeb(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
+
+                var worker = new System.Threading.Thread(() =>
+                {
+                    try
+                    {
+                        var dialog = new WindowSelectEntityNameAndId(connectionData, "EntityName", selection);
+
+                        if (dialog.ShowDialog().GetValueOrDefault())
+                        {
+                            string entityName = dialog.EntityTypeName;
+                            int? entityTypeCode = dialog.EntityTypeCode;
+                            Guid entityId = dialog.EntityId;
+
+                            connectionData = dialog.GetConnectionData();
+
+                            CheckWishToChangeCurrentConnection(connectionData);
+
+                            var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+
+                            if (idEntityMetadata.HasValue)
+                            {
+                                connectionData.OpenEntityInstanceInWeb(entityName, entityId);
+                            }
+                            else
+                            {
+                                ActivateOutputWindow(connectionData);
+                                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                                try
+                                {
+                                    Controller.StartOpeningEntityInstanceByIdInWeb(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                                }
+                                catch (Exception ex)
+                                {
+                                    WriteErrorToOutput(connectionData, ex);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
+            }
+        }
+
+        public void HandleConnectionOpenFetchXmlFile()
+        {
+            HandleConnectionOpenFetchXmlFile(null);
+        }
+
         public void HandleConnectionOpenFetchXmlFile(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -588,6 +618,71 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 {
                                     WriteErrorToOutput(connectionData, ex);
                                 }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
+            }
+        }
+
+        public void HandleSelectAndPublishEntityCommand()
+        {
+            HandleSelectAndPublishEntityCommand(null);
+        }
+
+        public void HandleSelectAndPublishEntityCommand(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
+
+                var worker = new System.Threading.Thread(() =>
+                {
+                    try
+                    {
+                        var dialog = new WindowSelectEntityName(connectionData, "EntityName", selection);
+
+                        if (dialog.ShowDialog().GetValueOrDefault())
+                        {
+                            string entityName = dialog.EntityTypeName;
+                            int? entityTypeCode = dialog.EntityTypeCode;
+
+                            connectionData = dialog.GetConnectionData();
+
+                            CheckWishToChangeCurrentConnection(connectionData);
+
+                            ActivateOutputWindow(connectionData);
+                            WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                            try
+                            {
+                                Controller.StartPublishEntityMetadata(connectionData, commonConfig, entityName, entityTypeCode);
+                            }
+                            catch (Exception ex)
+                            {
+                                WriteErrorToOutput(connectionData, ex);
                             }
                         }
                     }

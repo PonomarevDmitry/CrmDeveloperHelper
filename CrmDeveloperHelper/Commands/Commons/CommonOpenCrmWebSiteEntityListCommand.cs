@@ -1,13 +1,12 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal sealed class CommonOpenCrmWebSiteEntityListCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CommonOpenCrmWebSiteEntityListCommand : AbstractSingleCommand
     {
         private CommonOpenCrmWebSiteEntityListCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CommonOpenCrmWebSiteEntityListCommandId)
+            : base(commandService, PackageIds.guidCommandSet.CommonOpenCrmWebSiteEntityListCommandId)
         {
         }
 
@@ -18,9 +17,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
             Instance = new CommonOpenCrmWebSiteEntityListCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
+        protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleConnectionOpenEntityListInWeb(connectionData);
+            helper.HandleConnectionOpenEntityListInWeb();
         }
     }
 }

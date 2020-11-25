@@ -2265,10 +2265,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupPublish_MenuPublishAllDyn_Group = 0x1198;
 
-            public const int commonMenu_GroupPublish_MenuPublishEntityDyn = 0x1555;
-
-            public const int commonMenu_GroupPublish_MenuPublishEntityDyn_Group = 0x1556;
-
             public const int commonMenu_GroupFileGenerationOptions = 0x13EE;
 
             public const int commonMenu_GroupFileGenerationOptions_Menu = 0x13EF;
@@ -2276,10 +2272,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent = 0x13F0;
 
             public const int commonMenu_GroupFetchXml = 0x149A;
-
-            public const int commonMenu_GroupFetchXml_MenuFetchXmlFileDyn = 0x149E;
-
-            public const int commonMenu_GroupFetchXml_MenuFetchXmlFileDyn_Group = 0x149F;
 
             public const int commonMenu_GroupConfiguration = 0x10F1;
 
@@ -2434,14 +2426,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuNewsDyn_Group = 0x139F;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity = 0x1429;
-
-            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn = 0x142A;
-
-            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn_Group = 0x142B;
-
-            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn = 0x144F;
-
-            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group = 0x1450;
 
             public const int commonMenu_GroupConfiguration_MenuConnectionAction = 0x1551;
 
@@ -2626,8 +2610,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId = 0x01A4;
 
-            public const int CommonFetchXmlOpenEntityFileInConnectionCommandId = 0x3A34;
-
             public const int CommonOpenCrmWebSiteCommandId = 0x06A4;
 
             public const int CommonOpenAdvancedFindCommandId = 0x0672;
@@ -2690,10 +2672,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonOpenNewsCommandId = 0x2B2A;
 
-            public const int CommonOpenCrmWebSiteEntityMetadataCommandId = 0x3296;
-
-            public const int CommonOpenCrmWebSiteEntityListCommandId = 0x3520;
-
             public const int CommonTraceReaderCommandId = 0x0CE4;
 
             public const int CommonExportDefaultSiteMapsCommandId = 0x10CC;
@@ -2727,8 +2705,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonCrmConnectionSelectCommandId = 0x0064;
 
             public const int CommonCrmConnectionPublishAllCommandId = 0x0898;
-
-            public const int CommonCrmConnectionSelectAndPublishEntityCommandId = 0x4650;
 
             public const int CommonCrmConnectionEditCommandId = 0x286E;
 
@@ -3977,13 +3953,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonOpenOrganizationDifferenceImageCommandId = 0x2171;
 
+            public const int CommonFetchXmlOpenEntityFileInConnectionCommandId = 0x2282;
+
             public const int CommonOpenConfigFolderCommandId = 0x2188;
+
+            public const int CommonOpenCrmWebSiteEntityMetadataCommandId = 0x2284;
+
+            public const int CommonOpenCrmWebSiteEntityListCommandId = 0x2285;
+
+            public const int CommonOpenCrmWebSiteEntityInstanceByIdCommandId = 0x2286;
 
             public const int CommonCrmConnectionListCommandId = 0x2041;
 
             public const int CommonConfigCommandId = 0x2042;
 
             public const int CommonCurrentConnectionCommandId = 0x214A;
+
+            public const int CommonCrmConnectionSelectAndPublishEntityCommandId = 0x2283;
 
             public const int CommonFileGenerationOptionsCommandId = 0x2235;
 

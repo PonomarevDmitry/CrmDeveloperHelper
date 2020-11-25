@@ -674,6 +674,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningEntityListInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityListInWeb, commonConfig, entityName, entityTypeCode);
 
+        public void StartOpeningEntityInstanceByIdInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityInstanceByIdInWeb, commonConfig, entityName, entityTypeCode, entityId);
+
         public void StartOpeningEntityFetchXmlFile(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityFetchXmlFile, commonConfig, entityName, entityTypeCode);
 
