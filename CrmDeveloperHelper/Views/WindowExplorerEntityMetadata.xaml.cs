@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -913,6 +915,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
 
+        #region Create EntityXml File
+
         private async void miExportEntityXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -923,18 +927,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             await ExecuteActionAsync(entity, CreateEntityXmlFileAsync);
-        }
-
-        private async void miPublishEntity_Click(object sender, RoutedEventArgs e)
-        {
-            var entitiesList = GetSelectedEntitiesList();
-
-            if (!entitiesList.Any())
-            {
-                return;
-            }
-
-            await ExecuteActionOnListAsync(entitiesList, PublishEntityAsync);
         }
 
         private async Task CreateEntityXmlFileAsync(string folder, EntityMetadataListViewItem entityMetadata)
@@ -982,10 +974,123 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
+        #endregion Create EntityXml File
+
+        #region Create EntityMetadata Xml File
+
+        private async void miExportEntityMetadataXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionAsync(entity, CreateEntityMetadataXmlFileAsync);
+        }
+
+        private async Task CreateEntityMetadataXmlFileAsync(string folder, EntityMetadataListViewItem entityMetadataViewItem)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_blockNotMetadata)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadataViewItem.LogicalName);
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForEntityFormat1, entityMetadataViewItem.LogicalName);
+
+            try
+            {
+                var repository = new EntityMetadataRepository(service);
+
+                var entityMetadata = await repository.GetEntityMetadataAsync(entityMetadataViewItem.LogicalName);
+
+                var serializer = new DataContractSerializer(typeof(EntityMetadata));
+
+                byte[] fileBody = null;
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    try
+                    {
+                        var settings = new XmlWriterSettings
+                        {
+                            Indent = true,
+                            Encoding = Encoding.UTF8
+                        };
+
+                        using (var xmlWriter = XmlWriter.Create(memoryStream, settings))
+                        {
+                            serializer.WriteObject(xmlWriter, entityMetadata);
+                            xmlWriter.Flush();
+                        }
+
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
+                        fileBody = memoryStream.ToArray();
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToLog(ex);
+
+                        fileBody = null;
+                    }
+                }
+
+                var fileName = string.Format("{0}.{1} - EntityMetadata at {2}.xml", service.ConnectionData.Name, entityMetadataViewItem.LogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllBytes(filePath, fileBody);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedEntityXmlFileFormat3, service.ConnectionData.Name, entityMetadataViewItem.LogicalName, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForEntityCompletedFormat1, entityMetadataViewItem.LogicalName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForEntityFailedFormat1, entityMetadataViewItem.LogicalName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadataViewItem.LogicalName);
+        }
+
+        #endregion Create EntityMetadata Xml File
+
+        #region Publish Entity
+
+        private async void miPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var entitiesList = GetSelectedEntitiesList();
+
+            if (!entitiesList.Any())
+            {
+                return;
+            }
+
+            await ExecuteActionOnListAsync(entitiesList, PublishEntityAsync);
+        }
+
         protected Task PublishEntityAsync(string folder, IEnumerable<EntityMetadataListViewItem> entityMetadataList)
         {
             return base.PublishEntityAsync(GetSelectedConnection(), entityMetadataList.Select(e => e.EntityMetadata.LogicalName));
         }
+
+        #endregion Publish Entity
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

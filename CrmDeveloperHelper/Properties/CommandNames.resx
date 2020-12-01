@@ -371,8 +371,11 @@
   <data name="CommonEntityPrivilegesExplorerCommand" xml:space="preserve">
     <value>Entity Privileges Explorer</value>
   </data>
-  <data name="CommonExportEntityMetadataCommand" xml:space="preserve">
+  <data name="CommonEntityMetadataExplorerCommand" xml:space="preserve">
     <value>Entity Metadata</value>
+  </data>
+  <data name="CommonEntityMetadataDocumentExplorerCommand" xml:space="preserve">
+    <value>Entity Metadata Document</value>
   </data>
   <data name="CommonExportOrganizationCommand" xml:space="preserve">
     <value>Organization</value>

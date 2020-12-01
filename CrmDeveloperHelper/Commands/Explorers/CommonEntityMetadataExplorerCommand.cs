@@ -1,13 +1,14 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonEntityMetadataExplorerCommand : AbstractSingleCommand
     {
         private CommonEntityMetadataExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.guidCommandSet.CommonEntityMetadataExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonEntityMetadataExplorerCommandId)
+        {
+        }
 
         public static CommonEntityMetadataExplorerCommand Instance { get; private set; }
 
@@ -23,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CommonExportEntityMetadataCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CommonEntityMetadataExplorerCommand);
         }
     }
 }

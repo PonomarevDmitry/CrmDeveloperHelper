@@ -131,7 +131,7 @@
 
                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" CanUserResize="False">
                     <DataGridCheckBoxColumn.Header>
-                        <Label Content="S" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Is Selected" />
+                        <Label Content="Ch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="IsChecked" />
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
 

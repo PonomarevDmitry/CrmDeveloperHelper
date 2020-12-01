@@ -718,6 +718,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity Metadata Document.
+        /// </summary>
+        internal static string CommonEntityMetadataDocumentExplorerCommand {
+            get {
+                return ResourceManager.GetString("CommonEntityMetadataDocumentExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity Metadata.
+        /// </summary>
+        internal static string CommonEntityMetadataExplorerCommand {
+            get {
+                return ResourceManager.GetString("CommonEntityMetadataExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity Privileges Explorer.
         /// </summary>
         internal static string CommonEntityPrivilegesExplorerCommand {
@@ -741,15 +759,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CommonEntityRelationshipOneToManyExplorerCommand {
             get {
                 return ResourceManager.GetString("CommonEntityRelationshipOneToManyExplorerCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Entity Metadata.
-        /// </summary>
-        internal static string CommonExportEntityMetadataCommand {
-            get {
-                return ResourceManager.GetString("CommonExportEntityMetadataCommand", resourceCulture);
             }
         }
         

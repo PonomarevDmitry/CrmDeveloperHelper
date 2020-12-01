@@ -89,9 +89,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (File.Exists(filePath))
             {
-                DataContractSerializer ser = new DataContractSerializer(typeof(WindowSettings));
+                var ser = new DataContractSerializer(typeof(WindowSettings));
 
-                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                using (var mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
                     try
                     {
@@ -139,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void Save(string filePath)
         {
-            DataContractSerializer ser = new DataContractSerializer(typeof(WindowSettings));
+            var serializer = new DataContractSerializer(typeof(WindowSettings));
 
             byte[] fileBody = null;
 
@@ -147,15 +147,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 try
                 {
-                    XmlWriterSettings settings = new XmlWriterSettings
+                    var settings = new XmlWriterSettings
                     {
                         Indent = true,
                         Encoding = Encoding.UTF8
                     };
 
-                    using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, settings))
+                    using (var xmlWriter = XmlWriter.Create(memoryStream, settings))
                     {
-                        ser.WriteObject(xmlWriter, this);
+                        serializer.WriteObject(xmlWriter, this);
                         xmlWriter.Flush();
                     }
 
@@ -173,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (fileBody != null)
             {
-                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                using (var mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
                 {
                     try
                     {
