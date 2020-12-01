@@ -103,6 +103,9 @@
                 <Separator x:Uid="blockNotMetadata" />
                 <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
 
+                <Separator x:Uid="blockNotMetadata" />
+                <MenuItem x:Uid="blockNotMetadata" Header="Export EntityMetadata Xml" Click="miExportEntityMetadataXml_Click"/>
+
                 <Separator/>
                 <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
 
@@ -227,8 +230,7 @@
 
             <Label Content="Filter" Grid.Row="2" Grid.Column="0" />
             <TextBox x:Name="txtBFilterEnitity" Grid.Row="2" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" Grid.ColumnSpan="2" />
-        </Grid
->
+        </Grid>
 
         <DataGrid x:Name="lstVwEntities" Grid.Row="2" AutoGenerateColumns="False" SelectionMode="Extended" Margin="10,5" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
@@ -384,6 +386,12 @@
 
                             <Separator x:Uid="blockNotMetadata" />
                             <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
+
+                            <Separator x:Uid="blockNotMetadata" />
+                            <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
+
+                            <Separator x:Uid="blockNotMetadata" />
+                            <MenuItem x:Uid="blockNotMetadata" Header="Export EntityMetadata Xml" Click="miExportEntityMetadataXml_Click"/>
 
                             <Separator x:Uid="blockNotMetadata" />
                             <MenuItem x:Uid="blockNotMetadata" Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
