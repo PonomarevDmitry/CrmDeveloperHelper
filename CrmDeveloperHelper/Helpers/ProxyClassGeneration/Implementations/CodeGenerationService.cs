@@ -55,6 +55,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
         private const string CSharpLanguage = "CSharp";
 
+        private const string VariableMethodOnPropertyChanged = "onPropertyChanged";
+        private const string VariableMethodOnPropertyChanging = "onPropertyChanging";
+
         private const string MethodNameOnPropertyChanged = "OnPropertyChanged";
         private const string MethodNameOnPropertyChanging = "OnPropertyChanging";
 
@@ -733,8 +736,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
                 entityClass.Members.Add(this.Event(nameof(INotifyPropertyChanged.PropertyChanged), typeof(PropertyChangedEventHandler), typeof(INotifyPropertyChanged)));
                 entityClass.Members.Add(this.Event(nameof(INotifyPropertyChanging.PropertyChanging), typeof(PropertyChangingEventHandler), typeof(INotifyPropertyChanging)));
-                entityClass.Members.Add(this.RaiseEvent(MethodNameOnPropertyChanged, nameof(INotifyPropertyChanged.PropertyChanged), typeof(PropertyChangedEventArgs)));
-                entityClass.Members.Add(this.RaiseEvent(MethodNameOnPropertyChanging, nameof(INotifyPropertyChanging.PropertyChanging), typeof(PropertyChangingEventArgs)));
+                entityClass.Members.Add(this.RaiseEvent(MethodNameOnPropertyChanged, VariableMethodOnPropertyChanged, nameof(INotifyPropertyChanged.PropertyChanged), typeof(PropertyChangedEventHandler), typeof(PropertyChangedEventArgs)));
+                entityClass.Members.Add(this.RaiseEvent(MethodNameOnPropertyChanging, VariableMethodOnPropertyChanging, nameof(INotifyPropertyChanging.PropertyChanging), typeof(PropertyChangingEventHandler), typeof(PropertyChangingEventArgs)));
 
                 CreateEndCodeRegionInNeeded(startCodeRegionDirective, entityClass.Members, regionName);
             }
@@ -2216,7 +2219,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
         private CodeMemberMethod RaiseEvent(
             string methodName
+            , string variableName
             , string eventName
+            , Type eventHandlerType
             , Type eventArgsType
         )
         {
@@ -2227,8 +2232,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             codeMemberMethod.Parameters.Add(Param(TypeRef(typeof(string)), VariableNamePropertyName));
 
-            var referenceExpression = new CodeEventReferenceExpression(This(), eventName);
-            codeMemberMethod.Statements.Add(If(IsNotNull(referenceExpression), new CodeDelegateInvokeExpression(referenceExpression, new CodeExpression[2]
+            var variableRef = VarRef(variableName);
+
+            codeMemberMethod.Statements.Add(Var(eventHandlerType, variableName, new CodeEventReferenceExpression(This(), eventName)));
+            codeMemberMethod.Statements.Add(If(IsNotNull(variableRef), new CodeDelegateInvokeExpression(variableRef, new CodeExpression[2]
             {
                 This(),
                 New(TypeRef(eventArgsType), (CodeExpression) VarRef(VariableNamePropertyName))
