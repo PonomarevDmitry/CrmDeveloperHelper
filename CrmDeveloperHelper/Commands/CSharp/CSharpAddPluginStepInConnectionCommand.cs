@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         {
             var sourceCode = CodeSourceSelectedFiles.CreateSource();
 
-            var sourceFile = FileSourceSelectedFiles.CreateSource();
+            var sourceFile = FileSourceSelectedFileSingle.CreateSource();
 
             InstanceCode = new CSharpAddPluginStepInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.CodeCSharpAddPluginStepInConnectionCommandId, sourceCode);
 
