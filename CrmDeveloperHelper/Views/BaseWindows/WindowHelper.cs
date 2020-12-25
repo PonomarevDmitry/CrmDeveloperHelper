@@ -1415,7 +1415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            , string filter = null
+            , string filter
         )
         {
             ExecuteInSTAThread(() =>
@@ -1614,7 +1614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var savedQuery = descriptor.GetEntity<SavedQuery>((int)ComponentType.SavedQuery, objectId);
 
-                        OpenSavedQueryExplorer(iWriteToOutput, service, commonConfig, savedQuery.ReturnedTypeCode, savedQuery.Name);
+                        OpenSavedQueryExplorer(iWriteToOutput, service, commonConfig, savedQuery.ReturnedTypeCode, savedQuery.Id.ToString());
                     }
                     break;
 
@@ -1622,7 +1622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var savedQueryVisualization = descriptor.GetEntity<SavedQueryVisualization>((int)ComponentType.SavedQueryVisualization, objectId);
 
-                        OpenSavedQueryVisualizationExplorer(iWriteToOutput, service, commonConfig, savedQueryVisualization.PrimaryEntityTypeCode, savedQueryVisualization.Name);
+                        OpenSavedQueryVisualizationExplorer(iWriteToOutput, service, commonConfig, savedQueryVisualization.PrimaryEntityTypeCode, savedQueryVisualization.Id.ToString());
                     }
                     break;
 
@@ -1630,7 +1630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var systemForm = descriptor.GetEntity<SystemForm>((int)ComponentType.SystemForm, objectId);
 
-                        OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, systemForm.ObjectTypeCode, systemForm.Name);
+                        OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, systemForm.ObjectTypeCode, systemForm.Id.ToString());
                     }
                     break;
 
@@ -1638,7 +1638,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var workflow = descriptor.GetEntity<Workflow>((int)ComponentType.Workflow, objectId);
 
-                        OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, workflow.PrimaryEntity, workflow.Name);
+                        OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, workflow.PrimaryEntity, workflow.Id.ToString());
                     }
                     break;
 
@@ -1646,7 +1646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var report = descriptor.GetEntity<Report>((int)ComponentType.Report, objectId);
 
-                        OpenReportExplorer(iWriteToOutput, service, commonConfig, report.Name);
+                        OpenReportExplorer(iWriteToOutput, service, commonConfig, report.Id.ToString());
                     }
                     break;
 
@@ -1715,7 +1715,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var customControl = descriptor.GetEntity<CustomControl>((int)ComponentType.CustomControl, objectId);
 
-                        OpenCustomControlExplorer(iWriteToOutput, service, commonConfig, customControl.Name);
+                        OpenCustomControlExplorer(iWriteToOutput, service, commonConfig, customControl.Id.ToString());
                     }
                     break;
             }
