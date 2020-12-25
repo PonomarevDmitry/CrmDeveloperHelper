@@ -57,7 +57,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
 
-            //ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType {x:Type entities:WebResource+Schema+OptionSets+webresourcetype}}}}" 
             cmBType.ItemsSource = new EnumBindingSourceExtension(typeof(WebResource.Schema.OptionSets.webresourcetype?)).ProvideValue(null) as IEnumerable;
 
             LoadFromConfig();

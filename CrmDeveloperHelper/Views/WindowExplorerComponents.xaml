@@ -155,7 +155,7 @@
             <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
 
             <Label Content="Component Type" Grid.Row="0" Grid.Column="2" />
-            <ComboBox x:Name="cmBComponentType" Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType entities:ComponentType}, SortByName=True}}" IsEditable="False" SelectionChanged="cmBComponentType_SelectionChanged" />
+            <ComboBox x:Name="cmBComponentType" Grid.Row="0" Grid.Column="3" IsEditable="False" SelectionChanged="cmBComponentType_SelectionChanged" />
 
         </Grid>
 

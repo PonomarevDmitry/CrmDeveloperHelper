@@ -142,7 +142,7 @@
             <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" KeyDown="txtBFilterEnitity_KeyDown" />
 
             <Label Content="Component Type" Grid.Row="1" Grid.Column="0" />
-            <ComboBox x:Name="cmBComponentType" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType entities:ComponentType}, SortByName=True}}" IsEditable="False" SelectionChanged="cmBComponentType_SelectionChanged" />
+            <ComboBox x:Name="cmBComponentType" Grid.Row="1" Grid.Column="1" IsEditable="False" SelectionChanged="cmBComponentType_SelectionChanged" />
 
             <Label Content="Solution Component Type" Grid.Row="1" Grid.Column="2" />
             <ComboBox x:Name="cmBSolutionComponentsType" Grid.Row="1" Grid.Column="3" SelectedIndex="0" IsEditable="False" SelectionChanged="cmBSolutionComponentType_SelectionChanged">

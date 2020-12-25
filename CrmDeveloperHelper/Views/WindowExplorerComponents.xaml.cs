@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -54,6 +55,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.IncreaseInit();
 
             InitializeComponent();
+
+            cmBComponentType.ItemsSource = new EnumBindingSourceExtension(typeof(ComponentType?))
+            { 
+                SortByName = true,
+            }.ProvideValue(null) as IEnumerable;
 
             SetInputLanguageEnglish();
 

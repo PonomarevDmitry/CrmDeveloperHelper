@@ -45,7 +45,7 @@
         </ComboBox>
 
         <Label Content="Component Type" HorizontalAlignment="Right" Margin="0,66,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96"/>
-        <ComboBox x:Name="cmBComponentType" SelectedIndex="0" ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType entities:ComponentType}, SortByName=True}}" Height="23" Margin="0,66,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265"/>
+        <ComboBox x:Name="cmBComponentType" SelectedIndex="0" Height="23" Margin="0,66,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265"/>
 
         <DataGrid x:Name="lstVwComponents" AutoGenerateColumns="False" Margin="10,94,10,100" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
