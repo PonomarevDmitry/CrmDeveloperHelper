@@ -630,12 +630,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async void AddToCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            await AddToSolution(true, null, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0);
+        }
+
+        private async void AddToCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            await AddToSolution(true, null, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1);
+        }
+
+        private async void AddToCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            await AddToSolution(true, null, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2);
+        }
+
+        private async void AddToCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0);
+            }
+        }
+
+        private async void AddToCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1);
+            }
+        }
+
+        private async void AddToCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2);
+            }
+        }
+
         private async void AddToCurrentSolution_Click(object sender, RoutedEventArgs e)
         {
             if (GetSolutionComponentsType() == SolutionComponentsType.SolutionComponents
                 || _solution == null
                 || _solution.IsManaged.GetValueOrDefault()
-                )
+            )
             {
                 return;
             }
@@ -651,6 +699,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+
+            await AddComponentsToSolution(withSelect, solutionUniqueName, solutionComponents);
+        }
+
+        private async Task AddToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior behavior)
+        {
+            var solutionComponents = lstVSolutionComponents.SelectedItems.OfType<SolutionComponentViewItem>().Select(en => en.SolutionComponent).ToList();
+
+            if (!solutionComponents.Any())
+            {
+                return;
+            }
+
+            solutionComponents = solutionComponents.Select(en => new SolutionComponent()
+            {
+                ComponentType = en.ComponentType,
+                ObjectId = en.ObjectId,
+                RootComponentBehaviorEnum = behavior,
+            }).ToList();
 
             await AddComponentsToSolution(withSelect, solutionUniqueName, solutionComponents);
         }
@@ -695,6 +762,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             FillLastSolutionItems(_service.ConnectionData, items, true, AddToSolutionLast_Click, "contMnAddToSolutionLast");
+
+            FillLastSolutionItems(_service.ConnectionData, items, true, AddToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddToSolutionWithBehaviourLastIncludeSubcomponents");
+
+            FillLastSolutionItems(_service.ConnectionData, items, true, AddToCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddToSolutionWithBehaviourLastDoNotIncludeSubcomponents");
+
+            FillLastSolutionItems(_service.ConnectionData, items, true, AddToCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddToSolutionWithBehaviourLastIncludeAsShellOnly");
+
+            ActivateControls(items, true && _service.ConnectionData.LastSelectedSolutionsUniqueName != null && _service.ConnectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddToSolutionWithBehaviour");
 
             var selectedSolutionComponent = GetSelectedSolutionComponent();
 
@@ -755,7 +830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Header = "Open in Browser",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenInWeb.Click += MILinkedComponentOpenInWeb_Click;
+            mILinkedComponentOpenInWeb.Click += mILinkedComponentOpenInWeb_Click;
 
             MenuItem mILinkedComponentOpenEntityListInWeb = new MenuItem()
             {
@@ -769,14 +844,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Header = "Open Explorer",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenExplorer.Click += MILinkedComponentOpenExplorer_Click;
+            mILinkedComponentOpenExplorer.Click += mILinkedComponentOpenExplorer_Click;
 
             MenuItem mILinkedComponentAddToCurrentSolution = new MenuItem()
             {
                 Header = "Add to Current Solution",
                 Tag = solutionComponent,
             };
-            mILinkedComponentAddToCurrentSolution.Click += MILinkedComponentAddToCurrentSolution_Click;
+            mILinkedComponentAddToCurrentSolution.Click += mILinkedComponentAddToCurrentSolution_Click;
 
             MenuItem mILinkedComponentAddToSolutionLast = new MenuItem()
             {
@@ -785,35 +860,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Uid = "mILinkedComponentAddToSolutionLast",
             };
 
-            FillLastSolutionItems(_service.ConnectionData, new[] { mILinkedComponentAddToSolutionLast }, true, MILinkedComponentAddToSolutionLast_Click, "mILinkedComponentAddToSolutionLast");
+            FillLastSolutionItems(_service.ConnectionData, new[] { mILinkedComponentAddToSolutionLast }, true, mILinkedComponentAddToSolutionLast_Click, "mILinkedComponentAddToSolutionLast");
 
             MenuItem mILinkedComponentAddToSolution = new MenuItem()
             {
                 Header = "Add to Crm Solution",
                 Tag = solutionComponent,
             };
-            mILinkedComponentAddToSolution.Click += MILinkedComponentAddToSolution_Click;
+            mILinkedComponentAddToSolution.Click += miLinkedComponentAddToSolution_Click;
 
             MenuItem mILinkedComponentOpenSolutionsContainingComponentInExplorer = new MenuItem()
             {
                 Header = "Open Solutions Containing Component in Explorer",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenSolutionsContainingComponentInExplorer.Click += MILinkedComponentOpenSolutionsContainingComponentInExplorer_Click;
+            mILinkedComponentOpenSolutionsContainingComponentInExplorer.Click += mILinkedComponentOpenSolutionsContainingComponentInExplorer_Click;
 
             MenuItem mILinkedComponentOpenDependentComponentsInWeb = new MenuItem()
             {
                 Header = "Open Dependent Components in Browser",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenDependentComponentsInWeb.Click += MILinkedComponentOpenDependentComponentsInWeb_Click;
+            mILinkedComponentOpenDependentComponentsInWeb.Click += mILinkedComponentOpenDependentComponentsInWeb_Click;
 
             MenuItem mILinkedComponentOpenDependentComponentsInExplorer = new MenuItem()
             {
                 Header = "Open Dependent Components in Explorer",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenDependentComponentsInExplorer.Click += MILinkedComponentOpenDependentComponentsInExplorer_Click;
+            mILinkedComponentOpenDependentComponentsInExplorer.Click += mILinkedComponentOpenDependentComponentsInExplorer_Click;
 
             //MenuItem mILinkedComponent = new MenuItem()
             //{
@@ -853,7 +928,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(mILinkedComponentOpenDependentComponentsInExplorer);
         }
 
-        private void MILinkedComponentOpenInWeb_Click(object sender, RoutedEventArgs e)
+        private void mILinkedComponentOpenInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                 || menuItem.Tag == null
@@ -888,7 +963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenEntityInstanceListInWeb(entityMetadata.LogicalName);
         }
 
-        private void MILinkedComponentOpenExplorer_Click(object sender, RoutedEventArgs e)
+        private void mILinkedComponentOpenExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                 || menuItem.Tag == null
@@ -908,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenComponentExplorer(_iWriteToOutput, _service, _commonConfig, _descriptor, componentType, solutionComponent.ObjectId.Value);
         }
 
-        private async void MILinkedComponentAddToCurrentSolution_Click(object sender, RoutedEventArgs e)
+        private async void mILinkedComponentAddToCurrentSolution_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                 || menuItem.Tag == null
@@ -920,7 +995,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (_solution == null
                 || _solution.IsManaged.GetValueOrDefault()
-                )
+            )
             {
                 return;
             }
@@ -928,7 +1003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await AddComponentsToSolution(false, _solution.UniqueName, new[] { solutionComponent });
         }
 
-        private async void MILinkedComponentAddToSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void mILinkedComponentAddToSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -942,7 +1017,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void MILinkedComponentAddToSolution_Click(object sender, RoutedEventArgs e)
+        private async void miLinkedComponentAddToSolution_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                || menuItem.Tag == null
@@ -955,7 +1030,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await AddComponentsToSolution(true, null, new[] { solutionComponent });
         }
 
-        private void MILinkedComponentOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
+        private void mILinkedComponentOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                || menuItem.Tag == null
@@ -977,7 +1052,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void MILinkedComponentOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        private void mILinkedComponentOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                || menuItem.Tag == null
@@ -990,7 +1065,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb((ComponentType)solutionComponent.ComponentType.Value, solutionComponent.ObjectId.Value);
         }
 
-        private void MILinkedComponentOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
+        private void mILinkedComponentOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                || menuItem.Tag == null

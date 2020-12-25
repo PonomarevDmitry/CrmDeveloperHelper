@@ -49,6 +49,26 @@
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddToSolution_Click" />
 
+                <Separator />
+                <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLast" Header="Add to Last Crm Solution with Behaviour">
+                    <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastIncludeSubcomponents" Header="Include Subcomponents" />
+
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastDoNotIncludeSubcomponents" Header="Do not include subcomponents" />
+
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastIncludeAsShellOnly" Header="Include As Shell Only" />
+                </MenuItem>
+                <MenuItem Header="Add to Crm Solution with Behaviour">
+                    <MenuItem Header="Include Subcomponents" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Do not include subcomponents" Click="AddToCrmSolutionDoNotIncludeSubcomponents_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Include As Shell Only" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
+                </MenuItem>
+
                 <Separator x:Uid="contMnRemoveFromSolution" />
                 <MenuItem x:Uid="contMnRemoveFromSolution" Header="Remove Component From Solution" Click="RemoveComponentFromSolution_Click" />
 
