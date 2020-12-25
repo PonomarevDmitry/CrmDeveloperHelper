@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = optionSetValue.Value;
                 }
 
-                return new PicklistAttributeMetadataControl(fillAllways, entity, picklistAttrib, initialValue);
+                return new PicklistAttributeMetadataControl(fillAllways, entity.FormattedValues, picklistAttrib, initialValue);
             }
 
             if (attributeMetadata is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttributeMetadata)
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                         initialValueState = optionSetValueState.Value;
                     }
 
-                    return new StatusAttributeMetadataControl(fillAllways, entity, statusAttrib, stateAttrib, initialValueStatus, initialValueState);
+                    return new StatusAttributeMetadataControl(fillAllways, entity.FormattedValues, statusAttrib, stateAttrib, initialValueStatus, initialValueState);
                 }
             }
 

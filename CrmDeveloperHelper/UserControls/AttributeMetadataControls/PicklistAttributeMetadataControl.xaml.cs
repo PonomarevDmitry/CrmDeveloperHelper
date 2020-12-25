@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly bool _fillAllways;
 
-        public PicklistAttributeMetadataControl(bool fillAllways, Entity entity, PicklistAttributeMetadata attributeMetadata, int? initialValue)
+        public PicklistAttributeMetadataControl(bool fillAllways, FormattedValueCollection formattedValues, PicklistAttributeMetadata attributeMetadata, int? initialValue)
         {
             InitializeComponent();
 
@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             this._fillAllways = fillAllways;
             this.AttributeMetadata = attributeMetadata;
 
-            FillComboBox(entity);
+            FillComboBox(formattedValues);
 
             btnRemoveControl.IsEnabled = _fillAllways;
 
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void FillComboBox(Entity entity)
+        private void FillComboBox(FormattedValueCollection formattedValues)
         {
             cmBValue.Items.Clear();
             cmBValue.Items.Add("<Null>");
@@ -54,12 +54,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
                 name.Append(_initialValue.Value);
 
-                if (entity != null
-                    && entity.FormattedValues.ContainsKey(AttributeMetadata.LogicalName)
-                    && !string.IsNullOrEmpty(entity.FormattedValues[AttributeMetadata.LogicalName])
+                if (formattedValues != null
+                    && formattedValues.ContainsKey(AttributeMetadata.LogicalName)
+                    && !string.IsNullOrEmpty(formattedValues[AttributeMetadata.LogicalName])
                 )
                 {
-                    name.AppendFormat(" - {0}", entity.FormattedValues[AttributeMetadata.LogicalName]);
+                    name.AppendFormat(" - {0}", formattedValues[AttributeMetadata.LogicalName]);
                 }
                 else
                 {
