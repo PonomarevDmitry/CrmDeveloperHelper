@@ -516,6 +516,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        public void OpenWebResourceOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerWebResourcesWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2, filter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
         #endregion Organization Comparer
     }
 }

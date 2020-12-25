@@ -663,6 +663,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenWebResourceExplorer(conn, commonConfig, selection));
         }
 
+        public void HandleOpenWebResourceOrganizationComparerCommand(ConnectionData connectionData1, ConnectionData connectionData2, string filter)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.OpenWebResourceOrganizationComparer(connectionData1, connectionData2, commonConfig, filter);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
+        }
+
         public void HandleWebResourceCreateLaskLinkMultipleCommand(List<SelectedFile> selectedFiles)
         {
             if (!selectedFiles.Any())

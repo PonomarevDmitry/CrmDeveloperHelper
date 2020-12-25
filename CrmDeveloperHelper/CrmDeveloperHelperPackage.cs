@@ -207,6 +207,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             WebResourceShowDifferenceThreeFileCommand.Initialize,
 
             WebResourceExplorerCommand.Initialize,
+            WebResourceOrganizationComparerCommand.Initialize,
+
             WebResourceChangeInEditorInConnectionCommand.Initialize,
             WebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
             WebResourceGetAttributeInConnectionCommand.Initialize,

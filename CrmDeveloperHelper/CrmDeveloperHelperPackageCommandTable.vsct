@@ -120,6 +120,8 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x06000"/>
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" priority="0x06000"/>
+
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent" priority="0x06000"/>
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb" priority="0x06000"/>
@@ -328,11 +330,11 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
-
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" priority="0x06000" />
@@ -481,13 +483,18 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution_GroupConnectionDyn" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType" priority="0x06000" />
+      
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
+      
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06000" />
+      
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000" />
@@ -580,7 +587,10 @@
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb" priority="0x06000" />
@@ -663,6 +673,19 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution_GroupLastSolution" priority="0x06000" />
@@ -677,30 +700,22 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution_GroupConnectionDyn" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" priority="0x06000" />
-
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group" priority="0x06000" />
 
       <!-- #endregion fileMenuCSharp -->
 
@@ -820,6 +835,13 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution_GroupLastSolution" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
@@ -832,23 +854,21 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution_GroupConnectionDyn" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType" priority="0x06000" />
+      
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" priority="0x06000" />
+      
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06000" />
+      
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" priority="0x06000" />
 
       <!-- #endregion folderMenuCSharp -->
 
@@ -881,6 +901,11 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn_Group" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription_MenuDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution_MenuAddAssemblyToSolution_GroupLastSolution" priority="0x06000" />
@@ -891,15 +916,10 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution_MenuAddAssemblyStepsToSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution_MenuAddAssemblyStepsToSolution_GroupConnectionDyn" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" priority="0x06000" />
-
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInWebDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInExplorerDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription_MenuDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription_MenuDyn_Group" priority="0x06000" />
@@ -1579,6 +1599,14 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>WebResource Organization Comparer</ButtonText>
+          <MenuText>WebResource Organization Comparer</MenuText>
+        </Strings>
+      </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -2172,18 +2200,18 @@
           <MenuText>Create PluginType EntityDescription in Connection</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <Strings>
-          <ButtonText>Get PluginType CustomWorkflowActivityInfo in Connection</ButtonText>
-          <MenuText>Get PluginType CustomWorkflowActivityInfo in Connection</MenuText>
-        </Strings>
-      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Create PluginType Description in Connection</ButtonText>
           <MenuText>Create PluginType Description in Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Get PluginType CustomWorkflowActivityInfo in Connection</ButtonText>
+          <MenuText>Get PluginType CustomWorkflowActivityInfo in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -2678,18 +2706,18 @@
           <MenuText>Create PluginTypes EntityDescription in Connection</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <Strings>
-          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection</ButtonText>
-          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection</MenuText>
-        </Strings>
-      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Create PluginTypes Description in Connection</ButtonText>
           <MenuText>Create PluginTypes Description in Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection</ButtonText>
+          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -2988,6 +3016,18 @@
           <MenuText>Show Three Way Difference</MenuText>
         </Strings>
       </Menu>
+
+
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>WebResource Organization Comparer</ButtonText>
+          <MenuText>WebResource Organization Comparer</MenuText>
+        </Strings>
+      </Menu>
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3347,18 +3387,18 @@
           <MenuText>Create PluginTypes EntityDescription in Connection</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <Strings>
-          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection</ButtonText>
-          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection</MenuText>
-        </Strings>
-      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Create PluginTypes Description in Connection</ButtonText>
           <MenuText>Create PluginTypes Description in Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection</ButtonText>
+          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -3774,18 +3814,18 @@
           <MenuText>Create PluginTypes EntityDescription in Connection (Recursive)</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <Strings>
-          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection (Recursive)</ButtonText>
-          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection (Recursive)</MenuText>
-        </Strings>
-      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Create PluginTypes Description in Connection (Recursive)</ButtonText>
           <MenuText>Create PluginTypes Description in Connection (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection (Recursive)</ButtonText>
+          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection (Recursive)</MenuText>
         </Strings>
       </Menu>
 
@@ -5179,6 +5219,18 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>WebResource Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOrganizationComparerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeWebResourceOrganizationComparerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8583,6 +8635,18 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>WebResource Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceOrganizationComparerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileWebResourceOrganizationComparerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -14771,6 +14835,9 @@
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceExplorerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" />
+    </CommandPlacement>
 
     <!-- #endregion CommandPlacements codeMenuWebResource_GroupExplorer -->
 
@@ -15597,22 +15664,22 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddToSolution" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginTypeAddPluginStep" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginExplorers" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginTypeAddPluginStep" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginExplorers" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" priority="0x06050">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddToSolution" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x06060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
 
@@ -15845,10 +15912,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06030">
@@ -15868,17 +15935,6 @@
 
     <!-- #endregion CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription -->
 
-    <!-- #region CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
-    <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
     <!-- #region CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
 
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectPluginTypeCreateDescriptionCommandId" priority="0x06000">
@@ -15889,6 +15945,17 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
+
+    <!-- #region CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
+
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
 
     <!-- #region CommandPlacements codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther -->
 
@@ -16393,20 +16460,22 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupAddToSolution" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupAddToSolution" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements documentsMenuCSharp -->
+
+
 
     <!-- #region CommandPlacements documentsMenuCSharp_GroupActionOnPluginAssembly -->
 
@@ -16522,6 +16591,36 @@
 
     <!-- #endregion CommandPlacements documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther -->
 
+
+
+    <!-- #region CommandPlacements documentsMenuCSharp_GroupEntityMetadata -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuCSharp_GroupEntityMetadata -->
+
+    <!-- #region CommandPlacements documentsMenuCSharp_GroupGlobalOptionSets -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuCSharp_GroupGlobalOptionSets -->
+
     <!-- #region CommandPlacements documentsMenuCSharp_GroupAddToSolution -->
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution" priority="0x0601">
@@ -16582,10 +16681,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06030">
@@ -16605,17 +16704,6 @@
 
     <!-- #endregion CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription -->
 
-    <!-- #region CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
-    <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
     <!-- #region CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
 
     <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpProjectPluginTypeCreateDescriptionCommandId" priority="0x06000">
@@ -16626,6 +16714,17 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
+
+    <!-- #region CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
+
+    <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
 
     <!-- #region CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther -->
 
@@ -16640,34 +16739,6 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther -->
-
-    <!-- #region CommandPlacements documentsMenuCSharp_GroupEntityMetadata -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements documentsMenuCSharp_GroupEntityMetadata -->
-
-    <!-- #region CommandPlacements documentsMenuCSharp_GroupGlobalOptionSets -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements documentsMenuCSharp_GroupGlobalOptionSets -->
 
 
 
@@ -17054,7 +17125,7 @@
 
     <!-- #region CommandPlacements fileMenuWebResource_GroupEncoding -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" />
     </CommandPlacement>
 
@@ -17062,7 +17133,7 @@
 
     <!-- #region CommandPlacements fileMenuWebResource_GroupEncoding_Menu-->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands" />
     </CommandPlacement>
 
@@ -17070,16 +17141,16 @@
 
     <!-- #region CommandPlacements fileMenuWebResource_GroupEncoding_MenuCommands_Group-->
 
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingOpenFilesCommandId" priority="0x0111">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingOpenFilesCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingCompareFilesCommandId" priority="0x0112">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingCompareFilesCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingCompareWithDetailsFilesCommandId" priority="0x0113">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceCheckEncodingCompareWithDetailsFilesCommandId" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
 
@@ -17087,7 +17158,10 @@
 
     <!-- #region CommandPlacements fileMenuWebResource_GroupExplorer -->
 
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceExplorerCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer" />
     </CommandPlacement>
 
@@ -17310,22 +17384,22 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x06050">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x06060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
 
@@ -17447,6 +17521,68 @@
 
 
 
+    <!-- #region CommandPlacements fileMenuCSharp_GroupAddPluginStep -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpAddPluginStepCommandId" priority="0x0114">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn" priority="0x0115">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupAddPluginStep -->
+
+    <!-- #region CommandPlacements fileMenuCSharp_GroupEntityMetadata -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" priority="0x6010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x6020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x6030">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x6040">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupEntityMetadata -->
+
+    <!-- #region CommandPlacements fileMenuCSharp_GroupGlobalOptionSets -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" priority="0x6010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x6020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupGlobalOptionSets -->
+
+    <!-- #region CommandPlacements fileMenuCSharp_GroupPluginExplorers -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTypeExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginAssemblyExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginStepsExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupPluginExplorers -->
+
     <!-- #region CommandPlacements fileMenuCSharp_GroupAddToSolution -->
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution" priority="0x06000">
@@ -17494,23 +17630,6 @@
 
     <!-- #endregion CommandPlacements fileMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyStepsToSolution -->
 
-    <!-- #region CommandPlacements fileMenuCSharp_GroupPluginExplorers -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTypeExplorerCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginAssemblyExplorerCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginStepsExplorerCommandId" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements fileMenuCSharp_GroupPluginExplorers -->
-
     <!-- #region CommandPlacements fileMenuCSharp_GroupActionOnPluginType -->
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu" priority="0x06000">
@@ -17524,10 +17643,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06030">
@@ -17547,17 +17666,6 @@
 
     <!-- #endregion CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription -->
 
-    <!-- #region CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
     <!-- #region CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
 
     <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectPluginTypeCreateDescriptionCommandId" priority="0x06000">
@@ -17568,6 +17676,17 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
+
+    <!-- #region CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
 
     <!-- #region CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther -->
 
@@ -17582,51 +17701,6 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther -->
-
-    <!-- #region CommandPlacements fileMenuCSharp_GroupAddPluginStep -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpAddPluginStepCommandId" priority="0x0114">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn" priority="0x0115">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements fileMenuCSharp_GroupAddPluginStep -->
-
-    <!-- #region CommandPlacements fileMenuCSharp_GroupEntityMetadata -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x6000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" priority="0x6010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x6020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x6030">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x6040">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements fileMenuCSharp_GroupEntityMetadata -->
-
-    <!-- #region CommandPlacements fileMenuCSharp_GroupGlobalOptionSets -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x6000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" priority="0x6010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x6020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements fileMenuCSharp_GroupGlobalOptionSets -->
 
 
 
@@ -18052,20 +18126,22 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuCSharp -->
+
+
 
     <!-- #region CommandPlacements folderMenuCSharp_GroupActionOnPluginAssembly -->
 
@@ -18181,6 +18257,36 @@
 
     <!-- #endregion CommandPlacements folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther -->
 
+
+
+    <!-- #region CommandPlacements folderMenuCSharp_GroupEntityMetadata -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FolderCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuCSharp_GroupEntityMetadata -->
+
+    <!-- #region CommandPlacements folderMenuCSharp_GroupGlobalOptionSets -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuCSharp_GroupGlobalOptionSets -->
+
     <!-- #region CommandPlacements folderMenuCSharp_GroupAddToSolution -->
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution" priority="0x0100">
@@ -18241,10 +18347,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06030">
@@ -18264,17 +18370,6 @@
 
     <!-- #endregion CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription -->
 
-    <!-- #region CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
-    <CommandPlacement guid="guidCommandSet" id="FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
-
     <!-- #region CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
 
     <CommandPlacement guid="guidCommandSet" id="FolderCSharpProjectPluginTypeCreateDescriptionCommandId" priority="0x06000">
@@ -18285,6 +18380,17 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription -->
+
+    <!-- #region CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
+
+    <CommandPlacement guid="guidCommandSet" id="FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo -->
 
     <!-- #region CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther -->
 
@@ -18299,34 +18405,6 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther -->
-
-    <!-- #region CommandPlacements folderMenuCSharp_GroupEntityMetadata -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuCSharp_GroupEntityMetadata -->
-
-    <!-- #region CommandPlacements folderMenuCSharp_GroupGlobalOptionSets -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuCSharp_GroupGlobalOptionSets -->
 
 
 
@@ -18447,17 +18525,16 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution" priority="0x06050">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" priority="0x06060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" priority="0x06070">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" priority="0x06070">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription" priority="0x06080">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent" priority="0x06090">
@@ -18518,6 +18595,45 @@
 
     <!-- #endregion CommandPlacements folderMenuProject_GroupRegister -->
 
+    <!-- #region CommandPlacements folderMenuProject_GroupPluginAssemblyEntityDescription -->
+
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyCreateEntityDescriptionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuProject_GroupPluginAssemblyEntityDescription -->
+
+    <!-- #region CommandPlacements folderMenuProject_GroupPluginAssemblyDescription -->
+
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyCreateDescriptionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuProject_GroupPluginAssemblyDescription -->
+
+    <!-- #region CommandPlacements folderMenuProject_GroupExplorers -->
+
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginTypeExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginStepsExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuProject_GroupExplorers -->
+
     <!-- #region CommandPlacements folderMenuProject_GroupAddToSolution -->
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution_MenuAddAssemblyToSolution" priority="0x06000">
@@ -18550,45 +18666,6 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuProject_GroupAddToSolution_MenuAddAssemblyStepsToSolution -->
-
-    <!-- #region CommandPlacements folderMenuProject_GroupExplorers -->
-
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginTypeExplorerCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyExplorerCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginStepsExplorerCommandId" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuProject_GroupExplorers -->
-
-    <!-- #region CommandPlacements folderMenuProject_GroupPluginAssemblyEntityDescription -->
-
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyCreateEntityDescriptionCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuProject_GroupPluginAssemblyEntityDescription -->
-
-    <!-- #region CommandPlacements folderMenuProject_GroupPluginAssemblyDescription -->
-
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyCreateDescriptionCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription_MenuDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuProject_GroupPluginAssemblyDescription -->
 
     <!-- #region CommandPlacements folderMenuProject_GroupPluginAssemblyActionOnComponent -->
 
@@ -20551,6 +20628,17 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn_Group" />
     </CommandPlacement>
 
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOrganizationComparerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" />
+    </CommandPlacement>
+
+
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn" />
     </CommandPlacement>
@@ -22052,6 +22140,17 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceGetAttributeDependencyXmlInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group2_MenuGetAttributeDependencyXmlDyn_Group" />
     </CommandPlacement>
+
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOrganizationComparerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" />
+    </CommandPlacement>
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn" />
@@ -24155,6 +24254,9 @@
 
       <IDSymbol name="codeMenuWebResource_GroupExplorer" value="0x1006" />
 
+      <IDSymbol name="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" value="0x1597" />
+      <IDSymbol name="codeMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" value="0x1598" />
+
       <IDSymbol name="codeMenuWebResource_GroupActionOnComponent" value="0x107D" />
       <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu" value="0x13F9" />
 
@@ -24553,13 +24655,13 @@
       <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" value="0x1483" />
       <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" value="0x1484" />
 
-      <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x1485" />
-      <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x1486" />
-      <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x1487" />
-
       <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" value="0x1488" />
       <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" value="0x1489" />
       <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" value="0x148A" />
+
+      <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x1485" />
+      <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x1486" />
+      <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x1487" />
 
       <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x1460" />
 
@@ -24770,6 +24872,24 @@
 
 
 
+      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata" value="0x1187" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" value="0x1390" />
+      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" value="0x1391" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" value="0x130F" />
+      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" value="0x1310" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x127F" />
+      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1280" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets" value="0x13A0" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" value="0x1281" />
+      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" value="0x1282" />
+
+
+
       <IDSymbol name="documentsMenuCSharp_GroupAddToSolution" value="0x12A6" />
 
       <IDSymbol name="documentsMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution" value="0x12CD" />
@@ -24796,6 +24916,8 @@
 
       <IDSymbol name="documentsMenuCSharp_GroupAddToSolution_MenuAddPluginTypeStepsToSolution_GroupConnectionDyn" value="0x12AB" />
 
+
+
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType" value="0x1467" />
 
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu" value="0x1468" />
@@ -24804,13 +24926,13 @@
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" value="0x14AA" />
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" value="0x14AB" />
 
-      <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14AC" />
-      <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x14AD" />
-      <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x14AE" />
-
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" value="0x14AF" />
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" value="0x14B0" />
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" value="0x14B1" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14AC" />
+      <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x14AD" />
+      <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x14AE" />
 
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x1469" />
 
@@ -24822,22 +24944,6 @@
 
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" value="0x146E" />
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" value="0x146F" />
-
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata" value="0x1187" />
-
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" value="0x1390" />
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" value="0x1391" />
-
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" value="0x130F" />
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" value="0x1310" />
-
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x127F" />
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1280" />
-
-      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets" value="0x13A0" />
-
-      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" value="0x1281" />
-      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" value="0x1282" />
 
       <!-- #endregion documentsMenuCSharp GroupAndMenuSet Definitions -->
 
@@ -24986,6 +25092,9 @@
 
       <IDSymbol name="fileMenuWebResource_GroupExplorer" value="0x1026" />
 
+      <IDSymbol name="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" value="0x1599" />
+      <IDSymbol name="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" value="0x159A" />
+
       <IDSymbol name="fileMenuWebResource_GroupActionOnComponent" value="0x107E" />
 
       <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu" value="0x13FD" />
@@ -25097,26 +25206,6 @@
       <!-- #region fileMenuCSharp GroupAndMenuSet Definitions -->
 
       <IDSymbol name="fileMenuCSharp" value="0x102A" />
-      <IDSymbol name="fileMenuCSharp_GroupPluginExplorers" value="0x1100" />
-
-      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep" value="0x1271" />
-      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn" value="0x1272" />
-      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" value="0x1273" />
-
-      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata" value="0x102C" />
-
-      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" value="0x1311" />
-      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" value="0x138D" />
-
-      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" value="0x127B" />
-      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" value="0x127C" />
-
-      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x1312" />
-      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1313" />
-
-      <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets" value="0x102D" />
-      <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" value="0x127D" />
-      <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group" value="0x127E" />
 
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly" value="0x14BB" />
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu" value="0x14BC" />
@@ -25156,6 +25245,30 @@
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" value="0x14C8" />
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" value="0x14C9" />
 
+
+      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep" value="0x1271" />
+      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn" value="0x1272" />
+      <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" value="0x1273" />
+
+      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata" value="0x102C" />
+
+      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" value="0x1311" />
+      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" value="0x138D" />
+
+      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" value="0x127B" />
+      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" value="0x127C" />
+
+      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x1312" />
+      <IDSymbol name="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1313" />
+
+      <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets" value="0x102D" />
+      <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" value="0x127D" />
+      <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group" value="0x127E" />
+
+
+      <IDSymbol name="fileMenuCSharp_GroupPluginExplorers" value="0x1100" />
+
+
       <IDSymbol name="fileMenuCSharp_GroupAddToSolution" value="0x1127" />
 
       <IDSymbol name="fileMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution" value="0x12B0" />
@@ -25190,13 +25303,13 @@
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" value="0x14A1" />
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" value="0x14A2" />
 
-      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14A3" />
-      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x14A4" />
-      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x14A5" />
-
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" value="0x14A6" />
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" value="0x14A7" />
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" value="0x14A8" />
+
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14A3" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x14A4" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x14A5" />
 
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x1472" />
 
@@ -25397,6 +25510,24 @@
 
 
 
+      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata" value="0x107A" />
+
+      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" value="0x138E" />
+      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" value="0x138F" />
+
+      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" value="0x130D" />
+      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" value="0x130E" />
+
+      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x1283" />
+      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1284" />
+
+      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets" value="0x13A1" />
+
+      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" value="0x1285" />
+      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" value="0x1286" />
+
+
+
       <IDSymbol name="folderMenuCSharp_GroupAddToSolution" value="0x12D0" />
 
       <IDSymbol name="folderMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution" value="0x12D1" />
@@ -25433,13 +25564,13 @@
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" value="0x14B3" />
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group" value="0x14B4" />
 
-      <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14B5" />
-      <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x14B6" />
-      <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x14B7" />
-
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription" value="0x14B8" />
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" value="0x14B9" />
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group" value="0x14BA" />
+
+      <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14B5" />
+      <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" value="0x14B6" />
+      <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group" value="0x14B7" />
 
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x147B" />
 
@@ -25451,24 +25582,6 @@
 
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" value="0x1480" />
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" value="0x1481" />
-
-
-
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata" value="0x107A" />
-
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" value="0x138E" />
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" value="0x138F" />
-
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" value="0x130D" />
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" value="0x130E" />
-
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x1283" />
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1284" />
-
-      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets" value="0x13A1" />
-
-      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" value="0x1285" />
-      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" value="0x1286" />
 
       <!-- #endregion folderMenuCSharp GroupAndMenuSet Definitions -->
 
@@ -26229,8 +26342,6 @@
 
       <IDSymbol name="CodeWebResourceUpdateContentPublishInConnectionGroupCommandId" value="3650" />
 
-      <IDSymbol name="CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId" value="16100" />
-
       <IDSymbol name="CodeWebResourceGetCurrentContentInConnectionGroupCommandId" value="18600" />
 
       <IDSymbol name="CodeWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4450" />
@@ -26242,13 +26353,17 @@
       <IDSymbol name="CodeWebResourceGetAttributeContentJsonInConnectionCommandId" value="11500" />
       <IDSymbol name="CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId" value="11550" />
 
-      <IDSymbol name="CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId" value="15700" />
-
-      <IDSymbol name="CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="15900" />
+      <IDSymbol name="CodeWebResourceOrganizationComparerCommandId" value="18800" />
 
       <!-- #endregion CodeWebResource Commands Dynamic Definitions -->
 
       <!-- #region CodeJavaScript Commands Dynamic Definitions -->
+
+      <IDSymbol name="CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId" value="16100" />
+
+      <IDSymbol name="CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId" value="15700" />
+
+      <IDSymbol name="CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="15900" />
 
       <IDSymbol name="CodeJavaScriptUpdateEntityMetadataFileCommandId" value="8950" />
       <IDSymbol name="CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9400" />
@@ -26541,9 +26656,7 @@
       <IDSymbol name="FileWebResourceShowDifferenceOneByOneCommandId" value="2100" />
 
       <IDSymbol name="FileWebResourceUpdateContentPublishInConnectionGroupCommandId" value="3750" />
-      <IDSymbol name="FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId" value="16200" />
       <IDSymbol name="FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" value="3350" />
-      <IDSymbol name="FileJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId" value="16350" />
 
       <IDSymbol name="FileWebResourceGetCurrentContentInConnectionGroupCommandId" value="18650" />
 
@@ -26577,9 +26690,15 @@
       <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="16881" />
       <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="16885" />
 
+      <IDSymbol name="FileWebResourceOrganizationComparerCommandId" value="18850" />
+
       <!-- #endregion FileWebResource Commands Dynamic Definitions -->
 
       <!-- #region FileJavaScript Commands Dynamic Definitions -->
+
+      <IDSymbol name="FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId" value="16200" />
+
+      <IDSymbol name="FileJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId" value="16350" />
 
       <IDSymbol name="FileJavaScriptUpdateEntityMetadataFileCommandId" value="9050" />
       <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9500" />
@@ -27436,7 +27555,7 @@
       <IDSymbol name="CommonConfigCommandId" value="0x2042" />
 
       <IDSymbol name="CommonCurrentConnectionCommandId" value="0x214A" />
-      
+
       <IDSymbol name="CommonCrmConnectionSelectAndPublishEntityCommandId" value="0x2283" />
 
       <IDSymbol name="CommonFileGenerationOptionsCommandId" value="0x2235" />
@@ -27643,13 +27762,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1597 -->
+    <!-- 0x159B -->
 
     <!-- Commands -->
     <!-- 0x2287 -->
 
     <!-- Commands Dynamic -->
-    <!-- 18800 -->
+    <!-- 18900 -->
 
     <!-- 16905 - 16950 -->
 

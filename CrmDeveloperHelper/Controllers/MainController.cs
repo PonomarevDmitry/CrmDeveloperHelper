@@ -264,6 +264,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        private void ExecuteInThreadVoid<T1, T2, T3>(Action<T1, T2, T3> action, T1 art1, T2 arg2, T3 arg3)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    action(art1, arg2, arg3);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        private void ExecuteInThreadVoid<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 art1, T2 arg2, T3 arg3, T4 arg4)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    action(art1, arg2, arg3, arg4);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         private void ExecuteInThread<T1>(Func<T1, Task> action, T1 arg1)
         {
             var worker = new Thread(() =>
@@ -509,6 +543,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void StartOrganizationComparer(ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
             => ExecuteInThreadVoid(this._explorerController.ExecuteOrganizationComparer, crmConfig, commonConfig);
+
+        public void OpenWebResourceOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+            => ExecuteInThreadVoid(this._explorerController.OpenWebResourceOrganizationComparer, connectionData1, connectionData2, commonConfig, filter);
 
         #endregion Explorers
 

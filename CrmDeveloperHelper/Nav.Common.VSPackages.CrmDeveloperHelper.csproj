@@ -315,6 +315,7 @@
     <Compile Include="Commands\ListForPublish\CodePublishListRemoveCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceOpenFilesByTypeCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceOrganizationComparerCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceRemoveFilesFromListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceShowDifferenceCommand.cs" />
