@@ -22,12 +22,15 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Xaml" Click="mIShowDifferenceXaml_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference InputParameters" Click="mIShowDifferenceInputParameters_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference ClientData" Click="mIShowDifferenceClientData_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference UIData" Click="mIShowDifferenceUIData_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click" FontWeight="Bold"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference All Different" Click="btnShowDifferenceAll_Click" FontWeight="Bold" />
+
+                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Xaml" Click="mIShowDifferenceXaml_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference InputParameters" Click="mIShowDifferenceInputParameters_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference ClientData" Click="mIShowDifferenceClientData_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference UIData" Click="mIShowDifferenceUIData_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click" />
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
@@ -246,7 +249,7 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
+                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All Different" Click="btnShowDifferenceAll_Click"/>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">

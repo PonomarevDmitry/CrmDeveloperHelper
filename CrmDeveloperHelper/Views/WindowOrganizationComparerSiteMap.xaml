@@ -21,8 +21,8 @@
             <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference SiteMap XML" Click="mIShowDifferenceSiteMapXml_Click" FontWeight="Bold"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />

@@ -22,14 +22,18 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Description" Click="mIShowDifferenceFormDescription_Click" FontWeight="Bold" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Form XML" Click="mIShowDifferenceFormXml_Click" FontWeight="Bold" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Json" Click="mIShowDifferenceFormJson_Click" FontWeight="Bold" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
-                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference All Different" Click="btnShowDifferenceAll_Click" FontWeight="Bold" />
 
+                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Description" Click="mIShowDifferenceFormDescription_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form XML" Click="mIShowDifferenceFormXml_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Json" Click="mIShowDifferenceFormJson_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
+                
+                <Separator x:Uid="menuContextDifference"/>
                 <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
+
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
@@ -229,7 +233,7 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
+                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All Different" Click="btnShowDifferenceAll_Click"/>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
