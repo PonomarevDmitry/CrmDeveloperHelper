@@ -289,8 +289,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlSiteMapGetCurrentCommand.Initialize,
             CodeXmlSiteMapGetCurrentInConnectionCommand.Initialize,
 
-            CodeXmlSiteMapOpenInWebInConnectionCommand.Initialize,
             CodeXmlSiteMapExplorerCommand.Initialize,
+            CodeXmlSiteMapOrganizationComparerCommand.Initialize,
+
+            CodeXmlSiteMapOpenInWebInConnectionCommand.Initialize,
 
             CodeXmlSiteMapShowDifferenceDefaultCommand.Initialize,
             CodeXmlSiteMapShowDifferenceCommand.Initialize,
@@ -307,6 +309,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlSystemFormGetCurrentInConnectionCommand.Initialize,
 
             CodeXmlSystemFormExplorerCommand.Initialize,
+            CodeXmlSystemFormOrganizationComparerCommand.Initialize,
+
             CodeXmlSystemFormOpenInWebInConnectionCommand.Initialize,
 
             CodeXmlSystemFormShowDifferenceCommand.Initialize,
@@ -323,6 +327,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlSavedQueryGetCurrentInConnectionCommand.Initialize,
 
             CodeXmlSavedQueryExplorerCommand.Initialize,
+            CodeXmlSavedQueryOrganizationComparerCommand.Initialize,
+
             CodeXmlSavedQueryOpenInWebInConnectionCommand.Initialize,
 
             CodeXmlSavedQueryShowDifferenceCommand.Initialize,
@@ -338,6 +344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRibbonOpenInWebInConnectionCommand.Initialize,
 
             CodeXmlRibbonExplorerCommand.Initialize,
+            CodeXmlRibbonOrganizationComparerCommand.Initialize,
 
             CodeXmlRibbonShowDifferenceCommand.Initialize,
             CodeXmlRibbonShowDifferenceInConnectionGroupCommand.Initialize,
@@ -368,6 +375,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlWorkflowGetCurrentInConnectionCommand.Initialize,
 
             CodeXmlWorkflowExplorerCommand.Initialize,
+            CodeXmlWorkflowOrganizationComparerCommand.Initialize,
+
             CodeXmlWorkflowOpenInWebInConnectionCommand.Initialize,
 
             CodeXmlWorkflowShowDifferenceCommand.Initialize,
@@ -384,6 +393,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand.Initialize,
 
             CodeXmlWebResourceDependencyXmlExplorerCommand.Initialize,
+            CodeXmlWebResourceDependencyXmlOrganizationComparerCommand.Initialize,
+
             CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommand.Initialize,
 
             CodeXmlWebResourceDependencyXmlShowDifferenceCommand.Initialize,

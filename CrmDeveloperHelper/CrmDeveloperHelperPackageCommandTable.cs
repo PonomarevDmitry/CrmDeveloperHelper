@@ -387,6 +387,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupSiteMapCurrent_MenuOpenInWebConnectionDyn_Group = 0x1337;
 
+            public const int codeMenuXml_GroupSiteMapCurrent_MenuOrganizationComparerDyn = 0x159F;
+
+            public const int codeMenuXml_GroupSiteMapCurrent_MenuOrganizationComparerDyn_Group = 0x15A0;
+
             public const int codeMenuXml_GroupSiteMapCurrent_MenuGetCurrentDyn = 0x13DC;
 
             public const int codeMenuXml_GroupSiteMapCurrent_MenuGetCurrentDyn_Group = 0x13DD;
@@ -412,6 +416,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn = 0x133C;
 
             public const int codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn_Group = 0x133D;
+
+            public const int codeMenuXml_GroupRibbonOpenEntity_MenuOrganizationComparerDyn = 0x15A5;
+
+            public const int codeMenuXml_GroupRibbonOpenEntity_MenuOrganizationComparerDyn_Group = 0x15A6;
 
             public const int codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent = 0x1557;
 
@@ -455,6 +463,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupSystemFormCurrent_MenuOpenInWebConnectionDyn_Group = 0x1339;
 
+            public const int codeMenuXml_GroupSystemFormCurrent_MenuOrganizationComparerDyn = 0x159D;
+
+            public const int codeMenuXml_GroupSystemFormCurrent_MenuOrganizationComparerDyn_Group = 0x159E;
+
             public const int codeMenuXml_GroupSystemFormCurrent_MenuGetCurrentDyn = 0x13DF;
 
             public const int codeMenuXml_GroupSystemFormCurrent_MenuGetCurrentDyn_Group = 0x13E0;
@@ -476,6 +488,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int codeMenuXml_GroupSavedQueryCurrent_MenuOpenInWebConnectionDyn = 0x133A;
 
             public const int codeMenuXml_GroupSavedQueryCurrent_MenuOpenInWebConnectionDyn_Group = 0x133B;
+
+            public const int codeMenuXml_GroupSavedQueryCurrent_MenuOrganizationComparerDyn = 0x15A3;
+
+            public const int codeMenuXml_GroupSavedQueryCurrent_MenuOrganizationComparerDyn_Group = 0x15A4;
 
             public const int codeMenuXml_GroupSavedQueryCurrent_MenuGetCurrentDyn = 0x13E2;
 
@@ -499,6 +515,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupWorkflowCurrent_MenuOpenInWebConnectionDyn_Group = 0x1385;
 
+            public const int codeMenuXml_GroupWorkflowCurrent_MenuOrganizationComparerDyn = 0x159B;
+
+            public const int codeMenuXml_GroupWorkflowCurrent_MenuOrganizationComparerDyn_Group = 0x159C;
+
             public const int codeMenuXml_GroupWorkflowCurrent_MenuGetCurrentDyn = 0x13E5;
 
             public const int codeMenuXml_GroupWorkflowCurrent_MenuGetCurrentDyn_Group = 0x13E6;
@@ -520,6 +540,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn = 0x13D1;
 
             public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group = 0x13D2;
+
+            public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOrganizationComparerDyn = 0x15A1;
+
+            public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOrganizationComparerDyn_Group = 0x15A2;
 
             public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn = 0x13D9;
 
@@ -2840,6 +2864,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId = 0x2FA8;
 
+            public const int CodeXmlRibbonOrganizationComparerCommandId = 0x4ACE;
+
             public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId = 0x4682;
 
             public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId = 0x1356;
@@ -2856,6 +2882,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlSiteMapGetCurrentInConnectionCommandId = 0x2F44;
 
+            public const int CodeXmlSiteMapOrganizationComparerCommandId = 0x4A38;
+
             public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId = 0x17A2;
 
             public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId = 0x17D4;
@@ -2863,6 +2891,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlSystemFormOpenInWebInConnectionCommandId = 0x2742;
 
             public const int CodeXmlSystemFormGetCurrentInConnectionCommandId = 0x2F12;
+
+            public const int CodeXmlSystemFormOrganizationComparerCommandId = 0x4A06;
 
             public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId = 0x1806;
 
@@ -2872,6 +2902,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlSavedQueryGetCurrentInConnectionCommandId = 0x2F76;
 
+            public const int CodeXmlSavedQueryOrganizationComparerCommandId = 0x4A9C;
+
             public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId = 0x28D2;
 
             public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId = 0x2904;
@@ -2880,6 +2912,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlWorkflowGetCurrentInConnectionCommandId = 0x2EE0;
 
+            public const int CodeXmlWorkflowOrganizationComparerCommandId = 0x49D4;
+
             public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId = 0x2E18;
 
             public const int CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId = 0x2E4A;
@@ -2887,6 +2921,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId = 0x2E7C;
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
+
+            public const int CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId = 0x4A6A;
 
             public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId = 0x45BA;
 

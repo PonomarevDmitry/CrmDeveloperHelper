@@ -1,4 +1,5 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -87,6 +88,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public void HandleExplorerSystemSavedQuery(ConnectionData connectionData, string selection)
         {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemSavedQueryXml(conn, commonConfig, selection));
+        }
+
+        public void HandleOpenSavedQueryOrganizationComparerCommand(ConnectionData connectionData1, ConnectionData connectionData2, string filter)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.OpenSavedQueryOrganizationComparer(connectionData1, connectionData2, commonConfig, filter);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
         }
 
         public void HandleExportSystemSavedQueryVisualization()

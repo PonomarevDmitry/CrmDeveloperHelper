@@ -547,6 +547,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void OpenWebResourceOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
             => ExecuteInThreadVoid(this._explorerController.OpenWebResourceOrganizationComparer, connectionData1, connectionData2, commonConfig, filter);
 
+        public void OpenWorkflowOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+            => ExecuteInThreadVoid(this._explorerController.OpenWorkflowOrganizationComparer, connectionData1, connectionData2, commonConfig, filter);
+
+        public void OpenSystemFormOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+            => ExecuteInThreadVoid(this._explorerController.OpenSystemFormOrganizationComparer, connectionData1, connectionData2, commonConfig, filter);
+
+        public void OpenSiteMapOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+            => ExecuteInThreadVoid(this._explorerController.OpenSiteMapOrganizationComparer, connectionData1, connectionData2, commonConfig, filter);
+
+        public void OpenSavedQueryOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+            => ExecuteInThreadVoid(this._explorerController.OpenSavedQueryOrganizationComparer, connectionData1, connectionData2, commonConfig, filter);
+
+        public void OpenEntityMetadataOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+            => ExecuteInThreadVoid(this._explorerController.OpenEntityMetadataOrganizationComparer, connectionData1, connectionData2, commonConfig, filter);
+
+        public void OpenApplicationRibbonOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig)
+            => ExecuteInThreadVoid(this._explorerController.OpenApplicationRibbonOrganizationComparer, connectionData1, connectionData2, commonConfig);
+
         #endregion Explorers
 
         #region Xml Files

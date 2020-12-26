@@ -516,6 +516,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        public void OpenEntityMetadataOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2, filter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
+        public void OpenApplicationRibbonOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
         public void OpenWebResourceOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
@@ -523,6 +559,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             try
             {
                 WindowHelper.OpenOrganizationComparerWebResourcesWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2, filter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
+        public void OpenWorkflowOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2, string.Empty, filter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
+        public void OpenSystemFormOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2, string.Empty, filter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
+        public void OpenSiteMapOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerSiteMapWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2, filter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
+        public void OpenSavedQueryOrganizationComparer(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, string filter)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, commonConfig, connectionData1, connectionData2, string.Empty, filter);
             }
             catch (Exception ex)
             {

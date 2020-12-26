@@ -188,6 +188,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonExplorer(conn, commonConfig, selectedFile));
         }
 
+        public void HandleOpenEntityMetadataOrganizationComparerCommand(ConnectionData connectionData1, ConnectionData connectionData2, string filter)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.OpenEntityMetadataOrganizationComparer(connectionData1, connectionData2, commonConfig, filter);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
+        }
+
+        public void HandleOpenApplicationRibbonOrganizationComparerCommand(ConnectionData connectionData1, ConnectionData connectionData2)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.OpenApplicationRibbonOrganizationComparer(connectionData1, connectionData2, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
+        }
+
         public void HandleOpenApplicationRibbonExplorer()
         {
             HandleOpenApplicationRibbonExplorer(null);
