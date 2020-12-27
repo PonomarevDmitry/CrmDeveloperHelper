@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            List<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).Take(2).ToList();
+            List<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).ToList();
 
             helper.HandleWebResourceGetAttributeCommand(connectionData, selectedFiles, this._fieldName, this._fieldTitle);
         }
