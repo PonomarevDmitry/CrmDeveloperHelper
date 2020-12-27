@@ -436,14 +436,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceChangeInEntityEditor(conn, commonConfig, selectedFile));
         }
 
-        public void HandleWebResourceGetAttributeCommand(ConnectionData connectionData, SelectedFile selectedFile, string fieldName, string fieldTitle)
+        public void HandleWebResourceGetAttributeCommand(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, string fieldName, string fieldTitle)
         {
-            if (selectedFile == null)
+            if (selectedFiles == null || !selectedFiles.Any())
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceGetAttribute(conn, commonConfig, selectedFile, fieldName, fieldTitle));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceGetAttribute(conn, commonConfig, selectedFiles, fieldName, fieldTitle));
         }
 
         public void HandleWebResourceThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)

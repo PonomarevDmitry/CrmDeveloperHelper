@@ -800,8 +800,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartWebResourceCreateEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingWebResourceEntityDescriptionAsync, commonConfig, selectedFile);
 
-        public void StartWebResourceGetAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteWebResourceGettingAttributeAsync, commonConfig, selectedFile, fieldName, fieldTitle);
+        public void StartWebResourceGetAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, string fieldName, string fieldTitle)
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteWebResourceGettingAttributeAsync, commonConfig, selectedFiles, fieldName, fieldTitle);
 
         public void StartWebResourceChangeInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteChangingWebResourceInEntityEditorAsync, commonConfig, selectedFile);

@@ -2012,7 +2012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Getting WebResource Attribute
 
-        public async Task ExecuteWebResourceGettingAttributeAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
+        public async Task ExecuteWebResourceGettingAttributeAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, string fieldName, string fieldTitle)
         {
             string operation = string.Format(Properties.OperationNames.GettingWebResourceAttributeFormat2, connectionData?.Name, fieldTitle);
 
@@ -2020,9 +2020,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
 
-                await WebResourceGettingAttributeAsync(selectedFile, fieldName, fieldTitle, connectionData, commonConfig);
+                await WebResourceGettingAttributeAsync(connectionData, commonConfig, selectedFiles, fieldName, fieldTitle);
             }
             catch (Exception ex)
             {
@@ -2034,11 +2034,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task WebResourceGettingAttributeAsync(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task WebResourceGettingAttributeAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, string fieldName, string fieldTitle)
         {
-            if (!File.Exists(selectedFile.FilePath))
+            if (!selectedFiles.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -2049,66 +2048,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            WebResource webResource = null;
-
             using (service.Lock())
             {
-                // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
 
-                webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+                foreach (var selectedFile in selectedFiles)
+                {
+                    if (!File.Exists(selectedFile.FilePath))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                        continue;
+                    }
+
+                    WebResource webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+
+                    if (webResource == null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
+                        continue;
+                    }
+
+                    connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
+                    connectionData.Save();
+
+                    string xmlContent = webResource.GetAttributeValue<string>(fieldName);
+
+                    if (string.IsNullOrEmpty(xmlContent))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                        continue;
+                    }
+
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , commonConfig
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
+                            , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
+                            , webResourceName: webResource.Name
+                        );
+                    }
+                    else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentComparerHelper.FormatJson(xmlContent);
+                    }
+
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                    string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, FileExtension.xml);
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    try
+                    {
+                        File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                    }
+
+                    this._iWriteToOutput.PerformAction(connectionData, filePath);
+                }
             }
-
-            if (webResource == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
-                return;
-            }
-
-            connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
-            connectionData.Save();
-
-            string xmlContent = webResource.GetAttributeValue<string>(fieldName);
-
-            if (string.IsNullOrEmpty(xmlContent))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
-            {
-                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
-                    xmlContent
-                    , commonConfig
-                    , XmlOptionsControls.WebResourceDependencyXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
-                    , webResourceName: webResource.Name
-                );
-            }
-            else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
-            {
-                xmlContent = ContentComparerHelper.FormatJson(xmlContent);
-            }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, FileExtension.xml);
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            try
-            {
-                File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-
-            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Getting WebResource Attribute
@@ -2166,12 +2171,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         continue;
                     }
 
-                    var webResourceContentArray = Convert.FromBase64String(webResource.Content);
-
-                    File.WriteAllBytes(selectedFile.FilePath, webResourceContentArray);
-
                     connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
                     connectionData.Save();
+
+                    try
+                    {
+                        var webResourceContentArray = Convert.FromBase64String(webResource.Content);
+
+                        File.WriteAllBytes(selectedFile.FilePath, webResourceContentArray);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                    }
                 }
             }
         }

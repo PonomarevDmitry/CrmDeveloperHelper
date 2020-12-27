@@ -27,15 +27,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static WebResourceGetAttributeInConnectionCommand InstanceCodeDependencyXml { get; private set; }
 
-        public static WebResourceGetAttributeInConnectionCommand InstanceContentJson { get; private set; }
+        public static WebResourceGetAttributeInConnectionCommand InstanceDocumentsContentJson { get; private set; }
 
-        public static WebResourceGetAttributeInConnectionCommand InstanceDependencyXml { get; private set; }
+        public static WebResourceGetAttributeInConnectionCommand InstanceDocumentsDependencyXml { get; private set; }
+
+        public static WebResourceGetAttributeInConnectionCommand InstanceFileContentJson { get; private set; }
+
+        public static WebResourceGetAttributeInConnectionCommand InstanceFileDependencyXml { get; private set; }
+
+        public static WebResourceGetAttributeInConnectionCommand InstanceFolderContentJson { get; private set; }
+
+        public static WebResourceGetAttributeInConnectionCommand InstanceFolderDependencyXml { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
             var sourceCode = CodeSourceSelectedFiles.CreateSource();
 
-            var sourceFile = FileSourceSelectedFileSingle.CreateSource();
+            var sourceDocuments = DocumentsSourceSelectedFiles.CreateSource();
+
+            var sourceFile = FileSourceSelectedFiles.CreateSource();
+
+            var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
             InstanceCodeContentJson = new WebResourceGetAttributeInConnectionCommand(
                 commandService
@@ -53,7 +65,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
                , WebResource.Schema.Headers.dependencyxml
             );
 
-            InstanceContentJson = new WebResourceGetAttributeInConnectionCommand(
+            InstanceDocumentsContentJson = new WebResourceGetAttributeInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.DocumentsWebResourceGetAttributeContentJsonInConnectionCommandId
+                , sourceDocuments
+                , WebResource.Schema.Attributes.contentjson
+                , WebResource.Schema.Headers.contentjson
+            );
+
+            InstanceDocumentsDependencyXml = new WebResourceGetAttributeInConnectionCommand(
+               commandService
+               , PackageIds.guidDynamicCommandSet.DocumentsWebResourceGetAttributeDependencyXmlInConnectionCommandId
+               , sourceDocuments
+               , WebResource.Schema.Attributes.dependencyxml
+               , WebResource.Schema.Headers.dependencyxml
+            );
+
+            InstanceFileContentJson = new WebResourceGetAttributeInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceGetAttributeContentJsonInConnectionCommandId
                 , sourceFile
@@ -61,10 +89,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
                 , WebResource.Schema.Headers.contentjson
             );
 
-            InstanceDependencyXml = new WebResourceGetAttributeInConnectionCommand(
+            InstanceFileDependencyXml = new WebResourceGetAttributeInConnectionCommand(
                commandService
                , PackageIds.guidDynamicCommandSet.FileWebResourceGetAttributeDependencyXmlInConnectionCommandId
                , sourceFile
+               , WebResource.Schema.Attributes.dependencyxml
+               , WebResource.Schema.Headers.dependencyxml
+            );
+
+            InstanceFolderContentJson = new WebResourceGetAttributeInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FolderWebResourceGetAttributeContentJsonInConnectionCommandId
+                , sourceFolder
+                , WebResource.Schema.Attributes.contentjson
+                , WebResource.Schema.Headers.contentjson
+            );
+
+            InstanceFolderDependencyXml = new WebResourceGetAttributeInConnectionCommand(
+               commandService
+               , PackageIds.guidDynamicCommandSet.FolderWebResourceGetAttributeDependencyXmlInConnectionCommandId
+               , sourceFolder
                , WebResource.Schema.Attributes.dependencyxml
                , WebResource.Schema.Headers.dependencyxml
             );
@@ -74,10 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         {
             List<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).Take(2).ToList();
 
-            if (selectedFiles.Count == 1)
-            {
-                helper.HandleWebResourceGetAttributeCommand(connectionData, selectedFiles.FirstOrDefault(), this._fieldName, this._fieldTitle);
-            }
+            helper.HandleWebResourceGetAttributeCommand(connectionData, selectedFiles, this._fieldName, this._fieldTitle);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
