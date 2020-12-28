@@ -212,7 +212,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             WebResourceChangeInEditorInConnectionCommand.Initialize,
             WebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
             WebResourceGetAttributeInConnectionCommand.Initialize,
-            WebResourceActionOnComponentInConnectionCommand.Initialize,
+
+            WebResourceOpenInWebInConnectionCommand.Initialize,
+            WebResourceOpenInExplorerInConnectionCommand.Initialize,
 
 
 

@@ -1875,7 +1875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Creating WebResources EntityDescription
 
-        public async Task ExecuteCreatingWebResourceEntityDescriptionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public async Task ExecuteCreatingWebResourceEntityDescriptionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles)
         {
             string operation = string.Format(Properties.OperationNames.CreatingWebResourceEntityDescriptionFormat1, connectionData?.Name);
 
@@ -1883,9 +1883,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
 
-                await CreatingWebResourceEntityDescriptionAsync(selectedFile, connectionData, commonConfig);
+                await CreatingWebResourceEntityDescriptionAsync(connectionData, commonConfig, selectedFiles);
             }
             catch (Exception ex)
             {
@@ -1897,11 +1897,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CreatingWebResourceEntityDescriptionAsync(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task CreatingWebResourceEntityDescriptionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles)
         {
-            if (!File.Exists(selectedFile.FilePath))
+            if (!selectedFiles.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
@@ -1912,40 +1911,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            WebResource webResource = null;
-
             using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
 
-                webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+                foreach (var selectedFile in selectedFiles)
+                {
+                    if (!File.Exists(selectedFile.FilePath))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                        continue;
+                    }
+
+                    WebResource webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+
+                    if (webResource == null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
+                        continue;
+                    }
+
+                    connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
+                    connectionData.Save();
+
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                    string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, connectionData);
+
+                    this._iWriteToOutput.WriteToOutput(connectionData
+                        , Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
+                        , connectionData.Name
+                        , webResource.LogicalName
+                        , filePath
+                    );
+
+                    this._iWriteToOutput.PerformAction(connectionData, filePath);
+                }
             }
-
-            if (webResource == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
-                return;
-            }
-
-            connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
-            connectionData.Save();
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, connectionData);
-
-            this._iWriteToOutput.WriteToOutput(connectionData
-                , Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
-                , connectionData.Name
-                , webResource.LogicalName
-                , filePath
-            );
-
-            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Creating WebResources EntityDescription
@@ -2331,7 +2337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие веб-ресурсов.
 
-        public async Task ExecuteOpeningWebResourceAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
+        public async Task ExecuteOpeningWebResourceInExplorerAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
         {
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
@@ -2346,7 +2352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
-                await OpeningWebResourceAsync(commonConfig, connectionData, selectedFile, actionOnComponent);
+                await OpeningWebResourceInExplorerAsync(commonConfig, connectionData, selectedFile, actionOnComponent);
             }
             catch (Exception ex)
             {
@@ -2358,7 +2364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningWebResourceAsync(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
+        private async Task OpeningWebResourceInExplorerAsync(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -2386,17 +2392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (actionOnComponent == ActionOnComponent.OpenInWeb)
-            {
-                service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.WebResource, webresource.Id);
-                service.TryDispose();
-            }
-            else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb)
-            {
-                connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, webresource.Id);
-                service.TryDispose();
-            }
-            else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInExplorer)
+            if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
@@ -2422,6 +2418,77 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Открытие веб-ресурсов.
+
+        public async Task ExecuteOpeningWebResourceInWebAsync(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent actionOnComponent, IEnumerable<SelectedFile> selectedFiles)
+        {
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , WebResource.EntitySchemaName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(actionOnComponent)
+            );
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
+
+                await OpeningWebResourceInWebAsync(commonConfig, connectionData, actionOnComponent, selectedFiles);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningWebResourceInWebAsync(CommonConfiguration commonConfig, ConnectionData connectionData, ActionOnComponent actionOnComponent, IEnumerable<SelectedFile> selectedFiles)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            using (service.Lock())
+            {
+                // Репозиторий для работы с веб-ресурсами
+                var webResourceRepository = new WebResourceRepository(service);
+
+                foreach (var selectedFile in selectedFiles)
+                {
+                    if (!File.Exists(selectedFile.FilePath))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                        continue;
+                    }
+
+                    WebResource webresource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+
+                    if (webresource == null)
+                    {
+                        service.TryDispose();
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.FileName);
+                        continue;
+                    }
+
+                    if (actionOnComponent == ActionOnComponent.OpenInWeb)
+                    {
+                        service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.WebResource, webresource.Id);
+                    }
+                    else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb)
+                    {
+                        connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, webresource.Id);
+                    }
+                }
+            }
+        }
 
         #region Проверка кодировки файлов.
 

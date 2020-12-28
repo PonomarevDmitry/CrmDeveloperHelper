@@ -797,8 +797,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartWebResourceDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteDifferenceWebResourcesAsync, commonConfig, selectedFile, withSelect);
 
-        public void StartWebResourceCreateEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingWebResourceEntityDescriptionAsync, commonConfig, selectedFile);
+        public void StartWebResourceCreateEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles)
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingWebResourceEntityDescriptionAsync, commonConfig, selectedFiles);
 
         public void StartWebResourceGetAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, string fieldName, string fieldTitle)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteWebResourceGettingAttributeAsync, commonConfig, selectedFiles, fieldName, fieldTitle);
@@ -821,8 +821,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartWebResourcesGetContent(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteGettingContentAsync, commonConfig, selectedFiles);
 
-        public void StartOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpeningWebResourceAsync, commonConfig, selectedFile, actionOnComponent);
+        public void StartOpeningWebResourceInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpeningWebResourceInExplorerAsync, commonConfig, selectedFile, actionOnComponent);
+
+        public void StartOpeningWebResourceInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent actionOnComponent, IEnumerable<SelectedFile> selectedFiles)
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpeningWebResourceInWebAsync, commonConfig, actionOnComponent, selectedFiles);
 
         public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteAddingIntoPublishListFilesByTypeAsync, commonConfig, selectedFiles, openFilesType);

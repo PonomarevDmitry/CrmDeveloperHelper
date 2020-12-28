@@ -416,14 +416,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDifference(conn, commonConfig, selectedFile, withSelect));
         }
 
-        public void HandleWebResourceCreateEntityDescriptionCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        public void HandleWebResourceCreateEntityDescriptionCommand(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles)
         {
-            if (selectedFile == null)
+            if (selectedFiles == null || !selectedFiles.Any())
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceCreateEntityDescription(conn, commonConfig, selectedFile));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceCreateEntityDescription(conn, commonConfig, selectedFiles));
         }
 
         public void HandleWebResourceChangeInEntityEditorCommand(ConnectionData connectionData, SelectedFile selectedFile)
@@ -471,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenWebResource(ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
+        public void HandleOpenWebResourceInExplorer(ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -492,29 +492,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var objectId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (objectId.HasValue)
-                {
-                    switch (actionOnComponent)
-                    {
-                        case ActionOnComponent.OpenInWeb:
-                            connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, objectId.Value);
-                            return;
-
-                        case ActionOnComponent.OpenDependentComponentsInWeb:
-                            connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, objectId.Value);
-                            return;
-                    }
-                }
-
                 try
                 {
-                    Controller.StartOpeningWebResource(connectionData, commonConfig, selectedFile, actionOnComponent);
+                    Controller.StartOpeningWebResourceInExplorer(connectionData, commonConfig, selectedFile, actionOnComponent);
                 }
                 catch (Exception ex)
                 {
                     WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleOpenWebResourceInWeb(ConnectionData connectionData, ActionOnComponent actionOnComponent, IEnumerable<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles == null || !selectedFiles.Any())
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var list = new List<SelectedFile>();
+
+                foreach (var selectedFile in selectedFiles)
+                {
+                    var objectId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                    if (objectId.HasValue)
+                    {
+                        switch (actionOnComponent)
+                        {
+                            case ActionOnComponent.OpenInWeb:
+                                connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, objectId.Value);
+                                break;
+
+                            case ActionOnComponent.OpenDependentComponentsInWeb:
+                                connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, objectId.Value);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        list.Add(selectedFile);
+                    }
+                }
+
+                if (list.Any())
+                {
+                    try
+                    {
+                        Controller.StartOpeningWebResourceInWeb(connectionData, commonConfig, actionOnComponent, list);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(connectionData, ex);
+                    }
                 }
             }
         }

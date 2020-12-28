@@ -965,6 +965,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn = 0x12A3;
 
+            public const int documentsMenuWebResource_GroupActionOnComponent = 0x15AF;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu = 0x15B0;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb = 0x15B1;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn = 0x15B2;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn_Group = 0x15B3;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group1 = 0x15B4;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn = 0x15B5;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn_Group = 0x15B6;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x15B7;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x15B8;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn = 0x15B9;
+
+            public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn_Group = 0x15BA;
+
             public const int documentsMenuWebResource_GroupLastLink = 0x1180;
 
             public const int documentsMenuXml = 0x12E5;
@@ -1728,6 +1752,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int folderMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn_Group = 0x110B;
 
             public const int folderMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn = 0x12B7;
+
+            public const int folderMenuWebResource_GroupActionOnComponent = 0x15BB;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu = 0x15BC;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb = 0x15BD;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn = 0x15BE;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn_Group = 0x15BF;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group1 = 0x15C0;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn = 0x15C1;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn_Group = 0x15C2;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x15C3;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x15C4;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn = 0x15C5;
+
+            public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn_Group = 0x15C6;
 
             public const int folderMenuWebResource_GroupLastLink = 0x1078;
 
@@ -2784,6 +2832,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceGetCurrentContentInConnectionGroupCommandId = 0x48A8;
 
+            public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId = 0x2D1E;
+
+            public const int CodeWebResourceGetAttributeContentJsonInConnectionCommandId = 0x2CEC;
+
             public const int CodeWebResourceCompareWithDetailsInConnectionGroupCommandId = 0x1162;
 
             public const int CodeWebResourceAddToSolutionInConnectionCommandId = 0x1D1A;
@@ -2791,10 +2843,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeWebResourceCreateEntityDescriptionInConnectionCommandId = 0x2C88;
 
             public const int CodeWebResourceChangeInEditorInConnectionCommandId = 0x2CBA;
-
-            public const int CodeWebResourceGetAttributeContentJsonInConnectionCommandId = 0x2CEC;
-
-            public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId = 0x2D1E;
 
             public const int CodeWebResourceOrganizationComparerCommandId = 0x4970;
 
@@ -3037,6 +3085,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId = 0x11C6;
 
             public const int DocumentsWebResourceAddToSolutionInConnectionCommandId = 0x1D7E;
+
+            public const int DocumentsWebResourceOpenInWebInConnectionCommandId = 0x4BC8;
+
+            public const int DocumentsWebResourceCreateEntityDescriptionInConnectionCommandId = 0x4BFA;
+
+            public const int DocumentsWebResourceOpenDependentInWebInConnectionCommandId = 0x4C2C;
 
             public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x4173;
 
@@ -3309,6 +3363,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderWebResourceCompareWithDetailsInConnectionGroupCommandId = 0x128E;
 
             public const int FolderWebResourceAddToSolutionInConnectionCommandId = 0x1E46;
+
+            public const int FolderWebResourceOpenInWebInConnectionCommandId = 0x4C5E;
+
+            public const int FolderWebResourceCreateEntityDescriptionInConnectionCommandId = 0x4C90;
+
+            public const int FolderWebResourceOpenDependentInWebInConnectionCommandId = 0x4CC2;
 
             public const int FolderWebResourceOpenFilesByTypeOrdinalCommandId = 0x41A0;
 

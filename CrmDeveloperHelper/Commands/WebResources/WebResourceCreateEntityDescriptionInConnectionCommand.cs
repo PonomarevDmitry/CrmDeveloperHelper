@@ -20,13 +20,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static WebResourceCreateEntityDescriptionInConnectionCommand InstanceCode { get; private set; }
 
+        public static WebResourceCreateEntityDescriptionInConnectionCommand InstanceDocuments { get; private set; }
+
         public static WebResourceCreateEntityDescriptionInConnectionCommand InstanceFile { get; private set; }
+
+        public static WebResourceCreateEntityDescriptionInConnectionCommand InstanceFolder { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
             var sourceCode = CodeSourceSelectedFiles.CreateSource();
 
-            var sourceFile = FileSourceSelectedFileSingle.CreateSource();
+            var sourceDocuments = DocumentsSourceSelectedFiles.CreateSource();
+
+            var sourceFile = FileSourceSelectedFiles.CreateSource();
+
+            var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
             InstanceCode = new WebResourceCreateEntityDescriptionInConnectionCommand(
                 commandService
@@ -34,21 +42,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
                 , sourceCode
             );
 
+            InstanceDocuments = new WebResourceCreateEntityDescriptionInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.DocumentsWebResourceCreateEntityDescriptionInConnectionCommandId
+                , sourceDocuments
+            );
+
             InstanceFile = new WebResourceCreateEntityDescriptionInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceCreateEntityDescriptionInConnectionCommandId
                 , sourceFile
             );
+
+            InstanceFolder = new WebResourceCreateEntityDescriptionInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FolderWebResourceCreateEntityDescriptionInConnectionCommandId
+                , sourceFolder
+            );
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            List<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).Take(2).ToList();
+            List<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).ToList();
 
-            if (selectedFiles.Count == 1)
-            {
-                helper.HandleWebResourceCreateEntityDescriptionCommand(connectionData, selectedFiles.FirstOrDefault());
-            }
+            helper.HandleWebResourceCreateEntityDescriptionCommand(connectionData, selectedFiles);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
