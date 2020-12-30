@@ -327,6 +327,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn_Group = 0x13C2;
 
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard = 0x15C7;
+
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn = 0x15C8;
+
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group = 0x15C9;
+
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn = 0x15CA;
+
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group = 0x15CB;
+
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x1401;
 
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x13FA;
@@ -1357,6 +1367,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn_Group = 0x13CB;
 
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard = 0x15CC;
+
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn = 0x15CD;
+
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group = 0x15CE;
+
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn = 0x15CF;
+
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group = 0x15D0;
+
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x13C7;
 
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x1403;
@@ -1725,15 +1745,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupEntityMetadata = 0x1305;
 
-            public const int folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn = 0x1306;
+            public const int folderMenuWebResource_GroupEntityMetadata_MenuDyn = 0x1306;
 
-            public const int folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group = 0x1307;
+            public const int folderMenuWebResource_GroupEntityMetadata_MenuDyn_Group = 0x1307;
 
             public const int folderMenuWebResource_GroupGlobalOptionSetSingle = 0x131D;
 
-            public const int folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection = 0x1308;
+            public const int folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn = 0x1308;
 
-            public const int folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group = 0x1309;
+            public const int folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn_Group = 0x1309;
 
             public const int folderMenuWebResource_GroupEncoding = 0x1076;
 
@@ -2908,6 +2928,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId = 0x34EE;
 
+            public const int CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId = 0x4D26;
+
+            public const int CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId = 0x4D58;
+
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
 
             public const int CodeXmlCommonXsdSchemaSetCommandId = 0x10FE;
@@ -3225,6 +3249,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileWebResourceCreateEntityDescriptionInConnectionCommandId = 0x2D50;
 
             public const int FileWebResourceChangeInEditorInConnectionCommandId = 0x2D82;
+
+            public const int FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId = 0x4D8A;
+
+            public const int FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId = 0x4DBC;
 
             public const int FileWebResourceOpenFilesByTypeOrdinalCommandId = 0x4182;
 

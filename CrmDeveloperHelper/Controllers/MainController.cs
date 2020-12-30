@@ -842,6 +842,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartWebResourceOpeningFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpenFilesAsync, commonConfig, selectedFiles, openFilesType, isTextEditor);
 
+        public void StartWebResourceCopyToClipboardRibbonObjects(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, RibbonPlacement ribbonPlacement)
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCopyToClipboardRibbonObjectsAsync, commonConfig, selectedFile, ribbonPlacement);
+
         #endregion WebResource
 
         #region JavaScript Files

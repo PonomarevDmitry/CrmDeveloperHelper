@@ -137,6 +137,10 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn_Group" priority="0x06000"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn_Group" priority="0x06000"/>
 
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" priority="0x06000"/>
+
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" priority="0x06000"/>
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3" priority="0x06000"/>
@@ -643,6 +647,10 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn_Group" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group3" priority="0x06000" />
@@ -799,10 +807,10 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn_Group" priority="0x06000" />
 
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" priority="0x06000" />
@@ -1392,23 +1400,23 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer_MenuOpenInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open in Browser</ButtonText>
-          <MenuText>Open in Browser</MenuText>
+          <ButtonText>Open in Browser in</ButtonText>
+          <MenuText>Open in Browser in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections_MenuTypeConstructorDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Copy to Clipboard Current Tabs and Sections for TypeConstructor</ButtonText>
-          <MenuText>Copy to Clipboard Current Tabs and Sections for TypeConstructor</MenuText>
+          <ButtonText>Copy to Clipboard Current Tabs and Sections for TypeConstructor in</ButtonText>
+          <MenuText>Copy to Clipboard Current Tabs and Sections for TypeConstructor in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections_MenuJsonObjectDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Copy to Clipboard Current Tabs and Sections for JsonObject</ButtonText>
-          <MenuText>Copy to Clipboard Current Tabs and Sections for JsonObject</MenuText>
+          <ButtonText>Copy to Clipboard Current Tabs and Sections for JsonObject in</ButtonText>
+          <MenuText>Copy to Clipboard Current Tabs and Sections for JsonObject in</MenuText>
         </Strings>
       </Menu>
 
@@ -1444,8 +1452,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupChange_MenuChangeInEditorDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Change in Entity Editor</ButtonText>
-          <MenuText>Change in Entity Editor</MenuText>
+          <ButtonText>Change in Entity Editor in</ButtonText>
+          <MenuText>Change in Entity Editor in</MenuText>
         </Strings>
       </Menu>
 
@@ -1467,22 +1475,22 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with Form in Explorer</ButtonText>
-          <MenuText>Open Solutions List with Form in Explorer</MenuText>
+          <ButtonText>Open Solutions List with Form in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with Form in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -1499,16 +1507,16 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuOpenInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open in Browser</ButtonText>
-          <MenuText>Open in Browser</MenuText>
+          <ButtonText>Open in Browser in</ButtonText>
+          <MenuText>Open in Browser in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuOpenListInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open List in Browser</ButtonText>
-          <MenuText>Open List in Browser</MenuText>
+          <ButtonText>Open List in Browser in</ButtonText>
+          <MenuText>Open List in Browser in</MenuText>
         </Strings>
       </Menu>
 
@@ -1568,22 +1576,22 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with Entity in Explorer</ButtonText>
-          <MenuText>Open Solutions List with Entity in Explorer</MenuText>
+          <ButtonText>Open Solutions List with Entity in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with Entity in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -1685,8 +1693,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource in Browser</ButtonText>
-          <MenuText>Open WebResource in Browser</MenuText>
+          <ButtonText>Open WebResource in Browser in</ButtonText>
+          <MenuText>Open WebResource in Browser in</MenuText>
         </Strings>
       </Menu>
 
@@ -1700,30 +1708,49 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Change WebResource in Entity Editor</ButtonText>
-          <MenuText>Change WebResource in Entity Editor</MenuText>
+          <ButtonText>Change WebResource in Entity Editor in</ButtonText>
+          <MenuText>Change WebResource in Entity Editor in</MenuText>
         </Strings>
       </Menu>
+
+
+
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Copy to Clipboard Ribbon Load CustomRules for EnableRule in</ButtonText>
+          <MenuText>Copy to Clipboard Ribbon Load CustomRules for EnableRule in</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Copy to Clipboard Ribbon JavaScriptFunctions for Command in</ButtonText>
+          <MenuText>Copy to Clipboard Ribbon JavaScriptFunctions for Command in</MenuText>
+        </Strings>
+      </Menu>
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Browser</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Browser</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Browser in</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Explorer</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Explorer</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with WebResource in Explorer</ButtonText>
-          <MenuText>Open Solutions List with WebResource in Explorer</MenuText>
+          <ButtonText>Open Solutions List with WebResource in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with WebResource in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -1758,8 +1785,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapCurrent_MenuOpenInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open SiteMap in Browser</ButtonText>
-          <MenuText>Open SiteMap in Browser</MenuText>
+          <ButtonText>Open SiteMap in Browser in</ButtonText>
+          <MenuText>Open SiteMap in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapCurrent_MenuOrganizationComparerDyn" priority="0x06000" type="Menu">
@@ -1772,16 +1799,16 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapCurrent_MenuGetCurrentDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get SiteMap Current Xml</ButtonText>
-          <MenuText>Get SiteMap Current Xml</MenuText>
+          <ButtonText>Get SiteMap Current Xml in</ButtonText>
+          <MenuText>Get SiteMap Current Xml in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapShowDifference_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference SiteMap in Connection Group</ButtonText>
-          <MenuText>Show Difference SiteMap in Connection Group</MenuText>
+          <ButtonText>Show Difference SiteMap in</ButtonText>
+          <MenuText>Show Difference SiteMap in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapShowDifference_MenuSiteMapsDyn" priority="0x06000" type="Menu">
@@ -1795,8 +1822,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update SiteMap in Connection Group</ButtonText>
-          <MenuText>Update SiteMap in Connection Group</MenuText>
+          <ButtonText>Update SiteMap in</ButtonText>
+          <MenuText>Update SiteMap in</MenuText>
         </Strings>
       </Menu>
 
@@ -1819,44 +1846,44 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get Ribbon and RibbonDiffXml Current Xml in Connection Group</ButtonText>
-          <MenuText>Get Ribbon and RibbonDiffXml Current Xml in Connection Group</MenuText>
+          <ButtonText>Get Ribbon and RibbonDiffXml Current Xml in</ButtonText>
+          <MenuText>Get Ribbon and RibbonDiffXml Current Xml in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get Ribbon Current Xml in Connection Group</ButtonText>
-          <MenuText>Get Ribbon Current Xml in Connection Group</MenuText>
+          <ButtonText>Get Ribbon Current Xml in</ButtonText>
+          <MenuText>Get Ribbon Current Xml in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonShowDifference_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference Ribbon in Connection Group</ButtonText>
-          <MenuText>Show Difference Ribbon in Connection Group</MenuText>
+          <ButtonText>Show Difference Ribbon in</ButtonText>
+          <MenuText>Show Difference Ribbon in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlGetCurrent_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get RibbonDiff Current Xml in Connection Group</ButtonText>
-          <MenuText>Get RibbonDiff Current Xml in Connection Group</MenuText>
+          <ButtonText>Get RibbonDiff Current Xml in</ButtonText>
+          <MenuText>Get RibbonDiff Current Xml in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlShowDifference_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference RibbonDiffXml in Connection Group</ButtonText>
-          <MenuText>Show Difference RibbonDiffXml in Connection Group</MenuText>
+          <ButtonText>Show Difference RibbonDiffXml in</ButtonText>
+          <MenuText>Show Difference RibbonDiffXml in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update RibbonDiffXml in Connection Group</ButtonText>
-          <MenuText>Update RibbonDiffXml in Connection Group</MenuText>
+          <ButtonText>Update RibbonDiffXml in</ButtonText>
+          <MenuText>Update RibbonDiffXml in</MenuText>
         </Strings>
       </Menu>
 
@@ -1865,8 +1892,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent_MenuOpenInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open SystemForm in Browser</ButtonText>
-          <MenuText>Open SystemForm in Browser</MenuText>
+          <ButtonText>Open SystemForm in Browser in</ButtonText>
+          <MenuText>Open SystemForm in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent_MenuOrganizationComparerDyn" priority="0x06000" type="Menu">
@@ -1879,23 +1906,23 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent_MenuGetCurrentDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get SystemForm Current Xml</ButtonText>
-          <MenuText>Get SystemForm Current Xml</MenuText>
+          <ButtonText>Get SystemForm Current Xml in</ButtonText>
+          <MenuText>Get SystemForm Current Xml in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormShowDifference_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference SystemForm in Connection Group</ButtonText>
-          <MenuText>Show Difference SystemForm in Connection Group</MenuText>
+          <ButtonText>Show Difference SystemForm in</ButtonText>
+          <MenuText>Show Difference SystemForm in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update SystemForm in Connection Group</ButtonText>
-          <MenuText>Update SystemForm in Connection Group</MenuText>
+          <ButtonText>Update SystemForm in</ButtonText>
+          <MenuText>Update SystemForm in</MenuText>
         </Strings>
       </Menu>
 
@@ -1904,8 +1931,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent_MenuOpenInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Workflow in Browser</ButtonText>
-          <MenuText>Open Workflow in Browser</MenuText>
+          <ButtonText>Open Workflow in Browser in</ButtonText>
+          <MenuText>Open Workflow in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent_MenuOrganizationComparerDyn" priority="0x06000" type="Menu">
@@ -1918,8 +1945,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent_MenuGetCurrentDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get Workflow Current Xaml</ButtonText>
-          <MenuText>Get Workflow Current Xaml</MenuText>
+          <ButtonText>Get Workflow Current Xaml in</ButtonText>
+          <MenuText>Get Workflow Current Xaml in</MenuText>
         </Strings>
       </Menu>
 
@@ -1927,15 +1954,15 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowShowDifference_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference Workflow in Connection Group</ButtonText>
-          <MenuText>Show Difference Workflow in Connection Group</MenuText>
+          <ButtonText>Show Difference Workflow in</ButtonText>
+          <MenuText>Show Difference Workflow in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Workflow in Connection Group</ButtonText>
-          <MenuText>Update Workflow in Connection Group</MenuText>
+          <ButtonText>Update Workflow in</ButtonText>
+          <MenuText>Update Workflow in</MenuText>
         </Strings>
       </Menu>
 
@@ -1944,8 +1971,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryCurrent_MenuOpenInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open SavedQuery in Browser</ButtonText>
-          <MenuText>Open SavedQuery in Browser</MenuText>
+          <ButtonText>Open SavedQuery in Browser in</ButtonText>
+          <MenuText>Open SavedQuery in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryCurrent_MenuOrganizationComparerDyn" priority="0x06000" type="Menu">
@@ -1958,23 +1985,23 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryCurrent_MenuGetCurrentDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get SavedQuery Current Xml</ButtonText>
-          <MenuText>Get SavedQuery Current Xml</MenuText>
+          <ButtonText>Get SavedQuery Current Xml in</ButtonText>
+          <MenuText>Get SavedQuery Current Xml in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryShowDifference_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference SavedQuery in Connection Group</ButtonText>
-          <MenuText>Show Difference SavedQuery in Connection Group</MenuText>
+          <ButtonText>Show Difference SavedQuery in</ButtonText>
+          <MenuText>Show Difference SavedQuery in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update SavedQuery in Connection Group</ButtonText>
-          <MenuText>Update SavedQuery in Connection Group</MenuText>
+          <ButtonText>Update SavedQuery in</ButtonText>
+          <MenuText>Update SavedQuery in</MenuText>
         </Strings>
       </Menu>
 
@@ -1983,8 +2010,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource in Browser</ButtonText>
-          <MenuText>Open WebResource in Browser</MenuText>
+          <ButtonText>Open WebResource in Browser in</ButtonText>
+          <MenuText>Open WebResource in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOrganizationComparerDyn" priority="0x06000" type="Menu">
@@ -1997,8 +2024,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get WebResource Current DependencyXml</ButtonText>
-          <MenuText>Get WebResource Current DependencyXml</MenuText>
+          <ButtonText>Get WebResource Current DependencyXml in</ButtonText>
+          <MenuText>Get WebResource Current DependencyXml in</MenuText>
         </Strings>
       </Menu>
 
@@ -2024,16 +2051,16 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoCurrent_MenuGetCurrentDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get PluginType Current CustomWorkflowActivityInfo</ButtonText>
-          <MenuText>Get PluginType Current CustomWorkflowActivityInfo</MenuText>
+          <ButtonText>Get PluginType Current CustomWorkflowActivityInfo in</ButtonText>
+          <MenuText>Get PluginType Current CustomWorkflowActivityInfo in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoShowDifference_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference PluginType CustomWorkflowActivityInfo in Connection</ButtonText>
-          <MenuText>Show Difference PluginType CustomWorkflowActivityInfo in Connection</MenuText>
+          <ButtonText>Show Difference PluginType CustomWorkflowActivityInfo in</ButtonText>
+          <MenuText>Show Difference PluginType CustomWorkflowActivityInfo in</MenuText>
         </Strings>
       </Menu>
 
@@ -2068,8 +2095,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference OriginalBodyText in Connection Group</ButtonText>
-          <MenuText>Show Difference OriginalBodyText in Connection Group</MenuText>
+          <ButtonText>Show Difference OriginalBodyText in</ButtonText>
+          <MenuText>Show Difference OriginalBodyText in</MenuText>
         </Strings>
       </Menu>
 
@@ -2105,8 +2132,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyText_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference BodyText in Connection Group</ButtonText>
-          <MenuText>Show Difference BodyText in Connection Group</MenuText>
+          <ButtonText>Show Difference BodyText in</ButtonText>
+          <MenuText>Show Difference BodyText in</MenuText>
         </Strings>
       </Menu>
 
@@ -2142,15 +2169,15 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Report in Crm</ButtonText>
-          <MenuText>Update Report in Crm</MenuText>
+          <ButtonText>Update Report in</ButtonText>
+          <MenuText>Update Report in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create Report in Crm</ButtonText>
-          <MenuText>Create Report in Crm</MenuText>
+          <ButtonText>Create Report in</ButtonText>
+          <MenuText>Create Report in</MenuText>
         </Strings>
       </Menu>
 
@@ -2164,29 +2191,29 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report in Browser</ButtonText>
-          <MenuText>Open Report in Browser</MenuText>
+          <ButtonText>Open Report in Browser in</ButtonText>
+          <MenuText>Open Report in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Browser</ButtonText>
-          <MenuText>Open Report Dependent Components in Browser</MenuText>
+          <ButtonText>Open Report Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Report Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Report Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Report Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Report Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with Report in Explorer</ButtonText>
-          <MenuText>Open Solutions List with Report in Explorer</MenuText>
+          <ButtonText>Open Solutions List with Report in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with Report in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -2205,38 +2232,38 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class or Schema</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Class or Schema</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Class or Schema in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Class or Schema in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Class</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Class in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Class in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema File</ButtonText>
-          <MenuText>Update EntityMetadata Schema File</MenuText>
+          <ButtonText>Update EntityMetadata Schema File in</ButtonText>
+          <MenuText>Update EntityMetadata Schema File in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets File</ButtonText>
-          <MenuText>Update Global OptionSets File</MenuText>
+          <ButtonText>Update Global OptionSets File in</ButtonText>
+          <MenuText>Update Global OptionSets File in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginTypeAddPluginStep_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Add Plugin Step in Connection</ButtonText>
-          <MenuText>Add Plugin Step in Connection</MenuText>
+          <ButtonText>Add Plugin Step in</ButtonText>
+          <MenuText>Add Plugin Step in</MenuText>
         </Strings>
       </Menu>
 
@@ -2297,44 +2324,44 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginType EntityDescription in Connection</ButtonText>
-          <MenuText>Create PluginType EntityDescription in Connection</MenuText>
+          <ButtonText>Create PluginType EntityDescription in</ButtonText>
+          <MenuText>Create PluginType EntityDescription in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginType Description in Connection</ButtonText>
-          <MenuText>Create PluginType Description in Connection</MenuText>
+          <ButtonText>Create PluginType Description in</ButtonText>
+          <MenuText>Create PluginType Description in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get PluginType CustomWorkflowActivityInfo in Connection</ButtonText>
-          <MenuText>Get PluginType CustomWorkflowActivityInfo in Connection</MenuText>
+          <ButtonText>Get PluginType CustomWorkflowActivityInfo in</ButtonText>
+          <MenuText>Get PluginType CustomWorkflowActivityInfo in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginType in Explorer</ButtonText>
-          <MenuText>Open Solutions List with PluginType in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginType in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with PluginType in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -2351,69 +2378,69 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Project and Update PluginAssembly in Connection</ButtonText>
-          <MenuText>Build Project and Update PluginAssembly in Connection</MenuText>
+          <ButtonText>Build Project and Update PluginAssembly in</ButtonText>
+          <MenuText>Build Project and Update PluginAssembly in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection</ButtonText>
-          <MenuText>Build Project, Update PluginAssembly and Register New Plugins in Connection</MenuText>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in</ButtonText>
+          <MenuText>Build Project, Update PluginAssembly and Register New Plugins in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssembly in Window in Connection</ButtonText>
-          <MenuText>Update PluginAssembly in Window in Connection</MenuText>
+          <ButtonText>Update PluginAssembly in Window in</ButtonText>
+          <MenuText>Update PluginAssembly in Window in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Compare Types with Crm PluginAssembly in Connection</ButtonText>
-          <MenuText>Compare Types with Crm PluginAssembly in Connection</MenuText>
+          <ButtonText>Compare Types with Crm PluginAssembly in</ButtonText>
+          <MenuText>Compare Types with Crm PluginAssembly in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssembly EntityDescription in Connection</ButtonText>
-          <MenuText>Create PluginAssembly EntityDescription in Connection</MenuText>
+          <ButtonText>Create PluginAssembly EntityDescription in</ButtonText>
+          <MenuText>Create PluginAssembly EntityDescription in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssembly Description in Connection</ButtonText>
-          <MenuText>Create PluginAssembly Description in Connection</MenuText>
+          <ButtonText>Create PluginAssembly Description in</ButtonText>
+          <MenuText>Create PluginAssembly Description in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginAssembly in Explorer</ButtonText>
-          <MenuText>Open Solutions List with PluginAssembly in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginAssembly in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with PluginAssembly in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -2432,8 +2459,8 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm WebResources Opened</ButtonText>
-          <MenuText>Crm WebResources Opened</MenuText>
+          <ButtonText>Crm WebResources All Opened</ButtonText>
+          <MenuText>Crm WebResources All Opened</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishDyn" priority="0x06000" type="Menu">
@@ -2608,8 +2635,8 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution_MenuAddToSolution" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Add Opened WebResources to Crm Solution</ButtonText>
-          <MenuText>Add Opened WebResources to Crm Solution</MenuText>
+          <ButtonText>Add All Opened WebResources to Crm Solution</ButtonText>
+          <MenuText>Add All Opened WebResources to Crm Solution</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
@@ -2631,8 +2658,8 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource in Browser</ButtonText>
-          <MenuText>Open WebResource in Browser</MenuText>
+          <ButtonText>Open WebResource in Browser in</ButtonText>
+          <MenuText>Open WebResource in Browser in</MenuText>
         </Strings>
       </Menu>
 
@@ -2647,8 +2674,8 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Browser</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Browser</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Browser in</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
 
@@ -2659,8 +2686,8 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuXml" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm XML Opened</ButtonText>
-          <MenuText>Crm XML Opened</MenuText>
+          <ButtonText>Crm XML All Opened</ButtonText>
+          <MenuText>Crm XML All Opened</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06000" type="Menu">
@@ -2678,16 +2705,16 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuReport" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm Reports Opened</ButtonText>
-          <MenuText>Crm Reports Opened</MenuText>
+          <ButtonText>Crm Reports All Opened</ButtonText>
+          <MenuText>Crm Reports All Opened</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuReport_GroupAddToSolution_MenuAddToSolution" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Add Opened Reports to Crm Solution</ButtonText>
-          <MenuText>Add Opened Reports to Crm Solution</MenuText>
+          <ButtonText>Add All Opened Reports to Crm Solution</ButtonText>
+          <MenuText>Add All Opened Reports to Crm Solution</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
@@ -2713,32 +2740,32 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects and Update PluginAssemblies in Connection</ButtonText>
-          <MenuText>Build Projects and Update PluginAssemblies in Connection</MenuText>
+          <ButtonText>Build Projects and Update PluginAssemblies in</ButtonText>
+          <MenuText>Build Projects and Update PluginAssemblies in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</ButtonText>
-          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</MenuText>
+          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in</ButtonText>
+          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssemblies in Window in Connection</ButtonText>
-          <MenuText>Update PluginAssemblies in Window in Connection</MenuText>
+          <ButtonText>Update PluginAssemblies in Window in</ButtonText>
+          <MenuText>Update PluginAssemblies in Window in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Compare Types with Crm PluginAssemblies in Connection</ButtonText>
-          <MenuText>Compare Types with Crm PluginAssemblies in Connection</MenuText>
+          <ButtonText>Compare Types with Crm PluginAssemblies in</ButtonText>
+          <MenuText>Compare Types with Crm PluginAssemblies in</MenuText>
         </Strings>
       </Menu>
 
@@ -2747,37 +2774,37 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies EntityDescription in Connection</ButtonText>
-          <MenuText>Create PluginAssemblies EntityDescription in Connection</MenuText>
+          <ButtonText>Create PluginAssemblies EntityDescription in</ButtonText>
+          <MenuText>Create PluginAssemblies EntityDescription in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies Description in Connection</ButtonText>
-          <MenuText>Create PluginAssemblies Description in Connection</MenuText>
+          <ButtonText>Create PluginAssemblies Description in</ButtonText>
+          <MenuText>Create PluginAssemblies Description in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginAssemblies in Explorer</ButtonText>
-          <MenuText>Open Solutions List with PluginAssemblies in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginAssemblies in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with PluginAssemblies in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -2786,8 +2813,8 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm C# Files Opened</ButtonText>
-          <MenuText>Crm C# Files Opened</MenuText>
+          <ButtonText>Crm C# Files All Opened</ButtonText>
+          <MenuText>Crm C# Files All Opened</MenuText>
         </Strings>
       </Menu>
 
@@ -2849,22 +2876,22 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginTypes EntityDescription in Connection</ButtonText>
-          <MenuText>Create PluginTypes EntityDescription in Connection</MenuText>
+          <ButtonText>Create PluginTypes EntityDescription in</ButtonText>
+          <MenuText>Create PluginTypes EntityDescription in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginTypes Description in Connection</ButtonText>
-          <MenuText>Create PluginTypes Description in Connection</MenuText>
+          <ButtonText>Create PluginTypes Description in</ButtonText>
+          <MenuText>Create PluginTypes Description in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection</ButtonText>
-          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection</MenuText>
+          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in</ButtonText>
+          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in</MenuText>
         </Strings>
       </Menu>
 
@@ -2872,22 +2899,22 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginType in Explorer</ButtonText>
-          <MenuText>Open Solutions List with PluginType in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginType in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with PluginType in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -2896,29 +2923,29 @@
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class or Schema</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Class or Schema</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Class or Schema in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Class or Schema in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Class</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Class in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Class in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema File</ButtonText>
-          <MenuText>Update EntityMetadata Schema File</MenuText>
+          <ButtonText>Update EntityMetadata Schema File in</ButtonText>
+          <MenuText>Update EntityMetadata Schema File in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets File</ButtonText>
-          <MenuText>Update Global OptionSets File</MenuText>
+          <ButtonText>Update Global OptionSets File in</ButtonText>
+          <MenuText>Update Global OptionSets File in</MenuText>
         </Strings>
       </Menu>
 
@@ -2942,7 +2969,7 @@
           <MenuText>Publish Files in</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishIncludeReferencesDyn_Group" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishIncludeReferencesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Publish Files and Include References in</ButtonText>
@@ -3194,45 +3221,66 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource in Browser</ButtonText>
-          <MenuText>Open WebResource in Browser</MenuText>
+          <ButtonText>Open WebResource in Browser in</ButtonText>
+          <MenuText>Open WebResource in Browser in</MenuText>
         </Strings>
       </Menu>
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create WebResource Entity Description</ButtonText>
-          <MenuText>Create WebResource Entity Description</MenuText>
+          <ButtonText>Create WebResource Entity Description in</ButtonText>
+          <MenuText>Create WebResource Entity Description in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Change WebResource in Entity Editor</ButtonText>
-          <MenuText>Change WebResource in Entity Editor</MenuText>
+          <ButtonText>Change WebResource in Entity Editor in</ButtonText>
+          <MenuText>Change WebResource in Entity Editor in</MenuText>
         </Strings>
       </Menu>
+
+
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Copy to Clipboard Ribbon Load CustomRules for EnableRule in</ButtonText>
+          <MenuText>Copy to Clipboard Ribbon Load CustomRules for EnableRule in</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Copy to Clipboard Ribbon JavaScriptFunctions for Command in</ButtonText>
+          <MenuText>Copy to Clipboard Ribbon JavaScriptFunctions for Command in</MenuText>
+        </Strings>
+      </Menu>
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Browser</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Browser</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Browser in</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Explorer</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Explorer</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with WebResource in Explorer</ButtonText>
-          <MenuText>Open Solutions List with WebResource in Explorer</MenuText>
+          <ButtonText>Open Solutions List with WebResource in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with WebResource in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -3285,15 +3333,15 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Report in Crm</ButtonText>
-          <MenuText>Update Report in Crm</MenuText>
+          <ButtonText>Update Report in</ButtonText>
+          <MenuText>Update Report in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create Report in Crm</ButtonText>
-          <MenuText>Create Report in Crm</MenuText>
+          <ButtonText>Create Report in</ButtonText>
+          <MenuText>Create Report in</MenuText>
         </Strings>
       </Menu>
 
@@ -3307,29 +3355,29 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report in Browser</ButtonText>
-          <MenuText>Open Report in Browser</MenuText>
+          <ButtonText>Open Report in Browser in</ButtonText>
+          <MenuText>Open Report in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Browser</ButtonText>
-          <MenuText>Open Report Dependent Components in Browser</MenuText>
+          <ButtonText>Open Report Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Report Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Report Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Report Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Report Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with Report in Explorer</ButtonText>
-          <MenuText>Open Solutions List with Report in Explorer</MenuText>
+          <ButtonText>Open Solutions List with Report in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with Report in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -3348,30 +3396,30 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class or Schema</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Class or Schema</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Class or Schema in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Class or Schema in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Class</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Class in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Class in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema File</ButtonText>
-          <MenuText>Update EntityMetadata Schema File</MenuText>
+          <ButtonText>Update EntityMetadata Schema File in</ButtonText>
+          <MenuText>Update EntityMetadata Schema File in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets File</ButtonText>
-          <MenuText>Update Global OptionSets File</MenuText>
+          <ButtonText>Update Global OptionSets File in</ButtonText>
+          <MenuText>Update Global OptionSets File in</MenuText>
         </Strings>
       </Menu>
 
@@ -3423,8 +3471,8 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Add Plugin Step in Connection</ButtonText>
-          <MenuText>Add Plugin Step in Connection</MenuText>
+          <ButtonText>Add Plugin Step in</ButtonText>
+          <MenuText>Add Plugin Step in</MenuText>
         </Strings>
       </Menu>
 
@@ -3441,32 +3489,32 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects and Update PluginAssemblies in Connection</ButtonText>
-          <MenuText>Build Projects and Update PluginAssemblies in Connection</MenuText>
+          <ButtonText>Build Projects and Update PluginAssemblies in</ButtonText>
+          <MenuText>Build Projects and Update PluginAssemblies in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</ButtonText>
-          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</MenuText>
+          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in</ButtonText>
+          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssemblies in Window in Connection</ButtonText>
-          <MenuText>Update PluginAssemblies in Window in Connection</MenuText>
+          <ButtonText>Update PluginAssemblies in Window in</ButtonText>
+          <MenuText>Update PluginAssemblies in Window in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Compare Types with Crm PluginAssemblies in Connection</ButtonText>
-          <MenuText>Compare Types with Crm PluginAssemblies in Connection</MenuText>
+          <ButtonText>Compare Types with Crm PluginAssemblies in</ButtonText>
+          <MenuText>Compare Types with Crm PluginAssemblies in</MenuText>
         </Strings>
       </Menu>
 
@@ -3475,37 +3523,37 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies EntityDescription in Connection</ButtonText>
-          <MenuText>Create PluginAssemblies EntityDescription in Connection</MenuText>
+          <ButtonText>Create PluginAssemblies EntityDescription in</ButtonText>
+          <MenuText>Create PluginAssemblies EntityDescription in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies Description in Connection</ButtonText>
-          <MenuText>Create PluginAssemblies Description in Connection</MenuText>
+          <ButtonText>Create PluginAssemblies Description in</ButtonText>
+          <MenuText>Create PluginAssemblies Description in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginAssemblies in Explorer</ButtonText>
-          <MenuText>Open Solutions List with PluginAssemblies in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginAssemblies in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with PluginAssemblies in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -3522,44 +3570,44 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginTypes EntityDescription in Connection</ButtonText>
-          <MenuText>Create PluginTypes EntityDescription in Connection</MenuText>
+          <ButtonText>Create PluginTypes EntityDescription in</ButtonText>
+          <MenuText>Create PluginTypes EntityDescription in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginTypes Description in Connection</ButtonText>
-          <MenuText>Create PluginTypes Description in Connection</MenuText>
+          <ButtonText>Create PluginTypes Description in</ButtonText>
+          <MenuText>Create PluginTypes Description in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection</ButtonText>
-          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection</MenuText>
+          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in</ButtonText>
+          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser</ButtonText>
-          <MenuText>Open Dependent Components in Browser</MenuText>
+          <ButtonText>Open Dependent Components in Browser in</ButtonText>
+          <MenuText>Open Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer</ButtonText>
-          <MenuText>Open Dependent Components in Explorer</MenuText>
+          <ButtonText>Open Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginTypes in Explorer</ButtonText>
-          <MenuText>Open Solutions List with PluginTypes in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginTypes in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with PluginTypes in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -3761,40 +3809,40 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource in Browser (Recursive)</ButtonText>
-          <MenuText>Open WebResource in Browser (Recursive)</MenuText>
+          <ButtonText>Open WebResource in Browser (Recursive) in</ButtonText>
+          <MenuText>Open WebResource in Browser (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create WebResource Entity Description (Recursive)</ButtonText>
-          <MenuText>Create WebResource Entity Description (Recursive)</MenuText>
+          <ButtonText>Create WebResource Entity Description (Recursive) in</ButtonText>
+          <MenuText>Create WebResource Entity Description (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Browser (Recursive)</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Browser (Recursive)</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Browser (Recursive) in</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Browser (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Files (Recursive)</ButtonText>
-          <MenuText>Update EntityMetadata Files (Recursive)</MenuText>
+          <ButtonText>Update EntityMetadata Files (Recursive) in</ButtonText>
+          <MenuText>Update EntityMetadata Files (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Single Global OptionSet Files (Recursive)</ButtonText>
-          <MenuText>Update Single Global OptionSet Files (Recursive)</MenuText>
+          <ButtonText>Update Single Global OptionSet Files (Recursive) in</ButtonText>
+          <MenuText>Update Single Global OptionSet Files (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
@@ -3840,32 +3888,32 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects and Update PluginAssemblies in Connection (Recursive)</ButtonText>
-          <MenuText>Build Projects and Update PluginAssemblies in Connection (Recursive)</MenuText>
+          <ButtonText>Build Projects and Update PluginAssemblies Connection (Recursive) in</ButtonText>
+          <MenuText>Build Projects and Update PluginAssemblies (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection (Recursive)</ButtonText>
-          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection (Recursive)</MenuText>
+          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins (Recursive) in</ButtonText>
+          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssemblies in Window in Connection (Recursive)</ButtonText>
-          <MenuText>Update PluginAssemblies in Window in Connection (Recursive)</MenuText>
+          <ButtonText>Update PluginAssemblies in Window (Recursive) in</ButtonText>
+          <MenuText>Update PluginAssemblies in Window (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Compare Types with Crm PluginAssemblies in Connection (Recursive)</ButtonText>
-          <MenuText>Compare Types with Crm PluginAssemblies in Connection (Recursive)</MenuText>
+          <ButtonText>Compare Types with Crm PluginAssemblies (Recursive) in</ButtonText>
+          <MenuText>Compare Types with Crm PluginAssemblies (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
@@ -3874,37 +3922,37 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies EntityDescription in Connection (Recursive)</ButtonText>
-          <MenuText>Create PluginAssemblies EntityDescription in Connection (Recursive)</MenuText>
+          <ButtonText>Create PluginAssemblies EntityDescription (Recursive) in</ButtonText>
+          <MenuText>Create PluginAssemblies EntityDescription (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies Description in Connection (Recursive)</ButtonText>
-          <MenuText>Create PluginAssemblies Description in Connection (Recursive)</MenuText>
+          <ButtonText>Create PluginAssemblies Description (Recursive) in</ButtonText>
+          <MenuText>Create PluginAssemblies Description (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser (Recursive)</ButtonText>
-          <MenuText>Open Dependent Components in Browser (Recursive)</MenuText>
+          <ButtonText>Open Dependent Components in Browser (Recursive) in</ButtonText>
+          <MenuText>Open Dependent Components in Browser (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer (Recursive)</ButtonText>
-          <MenuText>Open Dependent Components in Explorer (Recursive)</MenuText>
+          <ButtonText>Open Dependent Components in Explorer (Recursive) in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginAssemblies in Explorer (Recursive)</ButtonText>
-          <MenuText>Open Solutions List with PluginAssemblies in Explorer (Recursive)</MenuText>
+          <ButtonText>Open Solutions List with PluginAssemblies in Explorer (Recursive) in</ButtonText>
+          <MenuText>Open Solutions List with PluginAssemblies in Explorer (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
@@ -3956,29 +4004,29 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Classes or Schema Files (Recursive)</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Classes or Schema Files (Recursive)</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Classes or Schema Files (Recursive) in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Classes or Schema Files (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Classes (Recursive)</ButtonText>
-          <MenuText>Update EntityMetadata Proxy Classes (Recursive)</MenuText>
+          <ButtonText>Update EntityMetadata Proxy Classes (Recursive) in</ButtonText>
+          <MenuText>Update EntityMetadata Proxy Classes (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema Files (Recursive)</ButtonText>
-          <MenuText>Update EntityMetadata Schema Files (Recursive)</MenuText>
+          <ButtonText>Update EntityMetadata Schema Files (Recursive) in</ButtonText>
+          <MenuText>Update EntityMetadata Schema Files (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets Files (Recursive)</ButtonText>
-          <MenuText>Update Global OptionSets Files (Recursive)</MenuText>
+          <ButtonText>Update Global OptionSets Files (Recursive) in</ButtonText>
+          <MenuText>Update Global OptionSets Files (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
@@ -3995,44 +4043,44 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginTypes EntityDescription in Connection (Recursive)</ButtonText>
-          <MenuText>Create PluginTypes EntityDescription in Connection (Recursive)</MenuText>
+          <ButtonText>Create PluginTypes EntityDescription (Recursive) in</ButtonText>
+          <MenuText>Create PluginTypes EntityDescription (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginTypes Description in Connection (Recursive)</ButtonText>
-          <MenuText>Create PluginTypes Description in Connection (Recursive)</MenuText>
+          <ButtonText>Create PluginTypes Description (Recursive) in</ButtonText>
+          <MenuText>Create PluginTypes Description (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo in Connection (Recursive)</ButtonText>
-          <MenuText>Get PluginTypes CustomWorkflowActivityInfo in Connection (Recursive)</MenuText>
+          <ButtonText>Get PluginTypes CustomWorkflowActivityInfo (Recursive) in</ButtonText>
+          <MenuText>Get PluginTypes CustomWorkflowActivityInfo (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Browser (Recursive)</ButtonText>
-          <MenuText>Open Dependent Components in Browser (Recursive)</MenuText>
+          <ButtonText>Open Dependent Components in Browser (Recursive) in</ButtonText>
+          <MenuText>Open Dependent Components in Browser (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Dependent Components in Explorer (Recursive)</ButtonText>
-          <MenuText>Open Dependent Components in Explorer (Recursive)</MenuText>
+          <ButtonText>Open Dependent Components in Explorer (Recursive) in</ButtonText>
+          <MenuText>Open Dependent Components in Explorer (Recursive) in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginTypes in Explorer (Recursive)</ButtonText>
-          <MenuText>Open Solutions List with PluginTypes in Explorer (Recursive)</MenuText>
+          <ButtonText>Open Solutions List with PluginTypes in Explorer (Recursive) in</ButtonText>
+          <MenuText>Open Solutions List with PluginTypes in Explorer (Recursive) in</MenuText>
         </Strings>
       </Menu>
 
@@ -4050,29 +4098,29 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuEntityDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>C# or JavaScript EntityMetadata File</ButtonText>
-          <MenuText>C# or JavaScript EntityMetadata File</MenuText>
+          <ButtonText>C# or JavaScript EntityMetadata File in</ButtonText>
+          <MenuText>C# or JavaScript EntityMetadata File in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>C# or JavaScript Global OptionSet File</ButtonText>
-          <MenuText>C# or JavaScript Global OptionSet File</MenuText>
+          <ButtonText>C# or JavaScript Global OptionSet File in</ButtonText>
+          <MenuText>C# or JavaScript Global OptionSet File in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSdkMessageRequestDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>C# or JavaScript SdkMessageRequest Proxy Class File</ButtonText>
-          <MenuText>C# or JavaScript SdkMessageRequest Proxy Class File</MenuText>
+          <ButtonText>C# or JavaScript SdkMessageRequest Proxy Class File in</ButtonText>
+          <MenuText>C# or JavaScript SdkMessageRequest Proxy Class File in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSystemFormDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>JavaScript File Based on SystemForm</ButtonText>
-          <MenuText>JavaScript File Based on SystemForm</MenuText>
+          <ButtonText>JavaScript File Based on SystemForm in</ButtonText>
+          <MenuText>JavaScript File Based on SystemForm in</MenuText>
         </Strings>
       </Menu>
 
@@ -4121,55 +4169,55 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompareTypes_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Compare Types with Crm PluginAssemblies in Connection</ButtonText>
-          <MenuText>Compare Types with Crm PluginAssemblies in Connection</MenuText>
+          <ButtonText>Compare Types with Crm PluginAssemblies in</ButtonText>
+          <MenuText>Compare Types with Crm PluginAssemblies in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects and Update PluginAssemblies in Connection</ButtonText>
-          <MenuText>Build Projects and Update PluginAssemblies in Connection</MenuText>
+          <ButtonText>Build Projects and Update PluginAssemblies in</ButtonText>
+          <MenuText>Build Projects and Update PluginAssemblies in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</ButtonText>
-          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</MenuText>
+          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in</ButtonText>
+          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssemblies in Window in Connection</ButtonText>
-          <MenuText>Update PluginAssemblies in Window in Connection</MenuText>
+          <ButtonText>Update PluginAssemblies in Window in</ButtonText>
+          <MenuText>Update PluginAssemblies in Window in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Register PluginAssembly in Connection</ButtonText>
-          <MenuText>Register PluginAssembly in Connection</MenuText>
+          <ButtonText>Register PluginAssembly in</ButtonText>
+          <MenuText>Register PluginAssembly in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies EntityDescription in Connection</ButtonText>
-          <MenuText>Create PluginAssemblies EntityDescription in Connection</MenuText>
+          <ButtonText>Create PluginAssemblies EntityDescription in</ButtonText>
+          <MenuText>Create PluginAssemblies EntityDescription in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyDescription_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create PluginAssemblies Description in Connection</ButtonText>
-          <MenuText>Create PluginAssemblies Description in Connection</MenuText>
+          <ButtonText>Create PluginAssemblies Description in</ButtonText>
+          <MenuText>Create PluginAssemblies Description in</MenuText>
         </Strings>
       </Menu>
 
@@ -4178,22 +4226,22 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open PluginAssembly Dependent Components in Browser</ButtonText>
-          <MenuText>Open PluginAssembly Dependent Components in Browser</MenuText>
+          <ButtonText>Open PluginAssembly Dependent Components in Browser in</ButtonText>
+          <MenuText>Open PluginAssembly Dependent Components in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open PluginAssembly Dependent Components in Explorer</ButtonText>
-          <MenuText>Open PluginAssembly Dependent Components in Explorer</MenuText>
+          <ButtonText>Open PluginAssembly Dependent Components in Explorer in</ButtonText>
+          <MenuText>Open PluginAssembly Dependent Components in Explorer in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions List with PluginAssembly in Explorer</ButtonText>
-          <MenuText>Open Solutions List with PluginAssembly in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginAssembly in Explorer in</ButtonText>
+          <MenuText>Open Solutions List with PluginAssembly in Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -4207,29 +4255,29 @@
       <Menu guid="guidGroupAndMenuSet" id="AddGroupMetadata_MenuEntityDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm - C# or JavaScript EntityMetadata File</ButtonText>
-          <MenuText>Crm - C# or JavaScript EntityMetadata File</MenuText>
+          <ButtonText>Crm - C# or JavaScript EntityMetadata File in</ButtonText>
+          <MenuText>Crm - C# or JavaScript EntityMetadata File in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="AddGroupMetadata_MenuGlobalOptionSetDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm - C# or JavaScript Global OptionSet File</ButtonText>
-          <MenuText>Crm - C# or JavaScript Global OptionSet File</MenuText>
+          <ButtonText>Crm - C# or JavaScript Global OptionSet File in</ButtonText>
+          <MenuText>Crm - C# or JavaScript Global OptionSet File in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="AddGroupMetadata_MenuSdkMessageRequestDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm - C# or JavaScript SdkMessageRequest Proxy Class File</ButtonText>
-          <MenuText>Crm - C# or JavaScript SdkMessageRequest Proxy Class File</MenuText>
+          <ButtonText>Crm - C# or JavaScript SdkMessageRequest Proxy Class File in</ButtonText>
+          <MenuText>Crm - C# or JavaScript SdkMessageRequest Proxy Class File in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="AddGroupMetadata_MenuSystemFormDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Crm - JavaScript File Based on SystemForm</ButtonText>
-          <MenuText>Crm - JavaScript File Based on SystemForm</MenuText>
+          <ButtonText>Crm - JavaScript File Based on SystemForm in</ButtonText>
+          <MenuText>Crm - JavaScript File Based on SystemForm in</MenuText>
         </Strings>
       </Menu>
 
@@ -4251,30 +4299,30 @@
       <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files</ButtonText>
-          <MenuText>Publish Files</MenuText>
+          <ButtonText>Publish Files in</ButtonText>
+          <MenuText>Publish Files in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishIncludeReferencesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files and Include References</ButtonText>
-          <MenuText>Publish Files and Include References</MenuText>
+          <ButtonText>Publish Files and Include References in</ButtonText>
+          <MenuText>Publish Files and Include References in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishEqualByTextDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files Equal by Text</ButtonText>
-          <MenuText>Publish Files Equal by Text</MenuText>
+          <ButtonText>Publish Files Equal by Text in</ButtonText>
+          <MenuText>Publish Files Equal by Text in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishEqualByTextIncludeReferencesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files Equal by Text and Include References</ButtonText>
-          <MenuText>Publish Files Equal by Text and Include References</MenuText>
+          <ButtonText>Publish Files Equal by Text and Include References in</ButtonText>
+          <MenuText>Publish Files Equal by Text and Include References in</MenuText>
         </Strings>
       </Menu>
 
@@ -4424,8 +4472,8 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Entities Ownership</ButtonText>
-          <MenuText>Entities Ownership</MenuText>
+          <ButtonText>Entities Ownership in</ButtonText>
+          <MenuText>Entities Ownership in</MenuText>
         </Strings>
       </Menu>
 
@@ -4434,29 +4482,29 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Global OptionSet Duplicates on Entity</ButtonText>
-          <MenuText>Global OptionSet Duplicates on Entity</MenuText>
+          <ButtonText>Global OptionSet Duplicates on Entity in</ButtonText>
+          <MenuText>Global OptionSet Duplicates on Entity in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnumDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Solution ComponentType Enum</ButtonText>
-          <MenuText>Solution ComponentType Enum</MenuText>
+          <ButtonText>Solution ComponentType Enum in</ButtonText>
+          <MenuText>Solution ComponentType Enum in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Create All Dependency Nodes Description</ButtonText>
-          <MenuText>Create All Dependency Nodes Description</MenuText>
+          <ButtonText>Create All Dependency Nodes Description in</ButtonText>
+          <MenuText>Create All Dependency Nodes Description in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Unknown Form Control Types</ButtonText>
-          <MenuText>Unknown Form Control Types</MenuText>
+          <ButtonText>Unknown Form Control Types in</ButtonText>
+          <MenuText>Unknown Form Control Types in</MenuText>
         </Strings>
       </Menu>
 
@@ -4468,38 +4516,38 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Check Managed Entities in CRM</ButtonText>
-          <MenuText>Check Managed Entities in CRM</MenuText>
+          <ButtonText>Check Managed Entities in</ButtonText>
+          <MenuText>Check Managed Entities in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginStepsDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Steps Duplicates</ButtonText>
-          <MenuText>Plugin Steps Duplicates</MenuText>
+          <ButtonText>Plugin Steps Duplicates in</ButtonText>
+          <MenuText>Plugin Steps Duplicates in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImagesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Images Duplicates</ButtonText>
-          <MenuText>Plugin Images Duplicates</MenuText>
+          <ButtonText>Plugin Images Duplicates in</ButtonText>
+          <MenuText>Plugin Images Duplicates in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginStepsDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Steps Required Components</ButtonText>
-          <MenuText>Plugin Steps Required Components</MenuText>
+          <ButtonText>Plugin Steps Required Components in</ButtonText>
+          <MenuText>Plugin Steps Required Components in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Images Required Components</ButtonText>
-          <MenuText>Plugin Images Required Components</MenuText>
+          <ButtonText>Plugin Images Required Components in</ButtonText>
+          <MenuText>Plugin Images Required Components in</MenuText>
         </Strings>
       </Menu>
 
@@ -4573,16 +4621,16 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutionExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Solution Explorer in Connection</ButtonText>
-          <MenuText>Solution Explorer in Connection</MenuText>
+          <ButtonText>Solution Explorer in</ButtonText>
+          <MenuText>Solution Explorer in</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Solutions</ButtonText>
-          <MenuText>Solutions</MenuText>
+          <ButtonText>Solutions Tools</ButtonText>
+          <MenuText>Solutions Tools</MenuText>
         </Strings>
       </Menu>
 
@@ -4596,8 +4644,8 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>ImportJobs Explorer</ButtonText>
-          <MenuText>ImportJobs Explorer</MenuText>
+          <ButtonText>ImportJobs Explorer in</ButtonText>
+          <MenuText>ImportJobs Explorer in</MenuText>
         </Strings>
       </Menu>
 
@@ -4611,22 +4659,22 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuSolutionListDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Solution List in Browser</ButtonText>
-          <MenuText>Solution List in Browser</MenuText>
+          <ButtonText>Solution List in Browser in</ButtonText>
+          <MenuText>Solution List in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuCustomizationDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Customization in Browser</ButtonText>
-          <MenuText>Customization in Browser</MenuText>
+          <ButtonText>Customization in Browser in</ButtonText>
+          <MenuText>Customization in Browser in</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuOpenDefaultSolutionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Default Solution in Browser</ButtonText>
-          <MenuText>Open Default Solution in Browser</MenuText>
+          <ButtonText>Open Default Solution in Browser in</ButtonText>
+          <MenuText>Open Default Solution in Browser in</MenuText>
         </Strings>
       </Menu>
 
@@ -4650,8 +4698,8 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishAllDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Publish All in Connection</ButtonText>
-          <MenuText>Publish All in Connection</MenuText>
+          <ButtonText>Publish All in</ButtonText>
+          <MenuText>Publish All in</MenuText>
         </Strings>
       </Menu>
 
@@ -5181,6 +5229,31 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
+
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6566,6 +6639,7 @@
           <ButtonText>CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
+
 
 
       <Button guid="guidCommandSet" id="CodeXmlRibbonGetCurrentCommandId" priority="0x06000" type="Button">
@@ -8964,6 +9038,33 @@
           <ButtonText>FileWebResourceChangeInEditorInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
+
+
+
+      <Button guid="guidDynamicCommandSet" id="FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
 
       <Button guid="guidCommandSet" id="FileWebResourceExplorerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -15235,10 +15336,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group1" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu" />
     </CommandPlacement>
 
@@ -15263,6 +15367,18 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements codeMenuWebResource_GroupActionOnComponent_Menu_Group1 -->
+
+    <!-- #region CommandPlacements codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard -->
 
     <!-- #region CommandPlacements codeMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent -->
 
@@ -17665,10 +17781,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group1" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group3" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group3" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu" />
     </CommandPlacement>
 
@@ -17692,6 +17811,17 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements fileMenuWebResource_GroupActionOnComponent_Menu_Group1 -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard -->
 
     <!-- #region CommandPlacements fileMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent -->
 
@@ -18536,7 +18666,7 @@
 
     <!-- #region CommandPlacements folderMenuWebResource_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" priority="0x06000">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="FolderJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
@@ -18547,7 +18677,7 @@
 
     <!-- #region CommandPlacements folderMenuWebResource_GroupGlobalOptionSetSingle -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" priority="0x06000">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="FolderJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
@@ -21217,6 +21347,8 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb_MenuDyn_Group" />
     </CommandPlacement>
 
+
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn" />
     </CommandPlacement>
@@ -21230,6 +21362,24 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceChangeInEditorInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn_Group" />
     </CommandPlacement>
+
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" />
+    </CommandPlacement>
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupActionOnComponent_Menu_Group3_MenuOpenDependentInWebDyn" />
@@ -22780,6 +22930,22 @@
 
 
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" />
+    </CommandPlacement>
+
+
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer_MenuOrganizationComparerDyn" />
     </CommandPlacement>
@@ -23364,18 +23530,18 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptUpdateEntityMetadataFileCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn_Group" />
     </CommandPlacement>
 
     <!-- #endregion FolderJavaScript Dynamic -->
@@ -24954,6 +25120,14 @@
       <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn" value="0x13C1" />
       <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn_Group" value="0x13C2" />
 
+      <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" value="0x15C7" />
+
+      <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" value="0x15C8" />
+      <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" value="0x15C9" />
+
+      <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" value="0x15CA" />
+      <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" value="0x15CB" />
+
       <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" value="0x1401" />
 
       <IDSymbol name="codeMenuWebResource_GroupActionOnComponent_Menu_Group3" value="0x13FA" />
@@ -25840,6 +26014,14 @@
       <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn" value="0x13CA" />
       <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuChangeInEntityEditorDyn_Group" value="0x13CB" />
 
+      <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard" value="0x15CC" />
+
+      <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn" value="0x15CD" />
+      <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuCustomRulesDyn_Group" value="0x15CE" />
+
+      <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn" value="0x15CF" />
+      <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard_MenuJavaScriptFunctionsDyn_Group" value="0x15D0" />
+
       <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent" value="0x13C7" />
 
       <IDSymbol name="fileMenuWebResource_GroupActionOnComponent_Menu_Group3" value="0x1403" />
@@ -26156,12 +26338,12 @@
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x150E" />
 
       <IDSymbol name="folderMenuWebResource_GroupEntityMetadata" value="0x1305" />
-      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" value="0x1306" />
-      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" value="0x1307" />
+      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuDyn" value="0x1306" />
+      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuDyn_Group" value="0x1307" />
 
       <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle" value="0x131D" />
-      <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" value="0x1308" />
-      <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" value="0x1309" />
+      <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn" value="0x1308" />
+      <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn_Group" value="0x1309" />
 
       <IDSymbol name="folderMenuWebResource_GroupEncoding" value="0x1076" />
       <IDSymbol name="folderMenuWebResource_GroupEncoding_MenuCommands" value="0x118B" />
@@ -27153,6 +27335,9 @@
 
       <IDSymbol name="CodeJavaScriptLinkedEntityPublishInConnectionCommandId" value="13550" />
 
+      <IDSymbol name="CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId" value="19750" />
+      <IDSymbol name="CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId" value="19800" />
+
       <!-- #endregion CodeJavaScript Commands Dynamic Definitions -->
 
       <!-- #region CodeXml Commands Dynamic Definitions -->
@@ -27439,6 +27624,9 @@
 
       <IDSymbol name="FileWebResourceCreateEntityDescriptionInConnectionCommandId" value="11600" />
       <IDSymbol name="FileWebResourceChangeInEditorInConnectionCommandId" value="11650" />
+
+      <IDSymbol name="FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId" value="19850" />
+      <IDSymbol name="FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId" value="19900" />
 
       <IDSymbol name="FileWebResourceOpenFilesByTypeOrdinalCommandId" value="16770" />
       <IDSymbol name="FileWebResourceOpenFilesByTypeWithChangesCommandId" value="16776" />
@@ -28540,13 +28728,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x15C7 -->
+    <!-- 0x15CC -->
 
     <!-- Commands -->
     <!-- 0x2287 -->
 
     <!-- Commands Dynamic -->
-    <!-- 19550 -->
+    <!-- 19750 -->
 
     <!-- 16905 - 16950 -->
 

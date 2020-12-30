@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     [DataContract]
     public partial class ConnectionData : INotifyPropertyChanging, INotifyPropertyChanged
     {
-        internal const int CountConnectionToQuickList = 40;
+        internal const int CountConnectionToQuickList = 45;
 
         internal const int CountLastSolutions = 15;
 

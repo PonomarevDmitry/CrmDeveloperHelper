@@ -896,6 +896,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleWebResourceCopyToClipboardRibbonObjectsCommand(ConnectionData connectionData, SelectedFile selectedFile, RibbonPlacement ribbonPlacement)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceCopyToClipboardRibbonObjects(conn, commonConfig, selectedFile, ribbonPlacement));
+        }
+
         #endregion WebResource
 
         #region WebResourceDependencyXml

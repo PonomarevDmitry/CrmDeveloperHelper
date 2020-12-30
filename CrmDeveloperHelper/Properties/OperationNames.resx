@@ -890,5 +890,12 @@
     <value>{0} - Getting PluginType Current CustomWorkflowActivityInfo</value>
   </data>
   
+  <data name="CopingToClipboardSystemFormCurrentTabsAndSections" xml:space="preserve">
+    <value>{0} - Coping to Clipboard SystemForm Current Tabs and Sections</value>
+  </data>
+  <data name="CopingToClipboardRibbonObjects" xml:space="preserve">
+    <value>{0} - Coping to Clipboard Ribbon Load WebResource Objects</value>
+  </data>
+  
   
 </root>

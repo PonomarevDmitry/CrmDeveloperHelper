@@ -219,18 +219,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
 
 
+            JavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+
             JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
             JavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
 
             JavaScriptUpdateEntityMetadataFileCommand.Initialize,
             JavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize,
 
-            JavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
-
-            JavaScriptFileGenerationOptionsCommand.Initialize,
-
             JavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize,
             JavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize,
+
+            JavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize,
+
+            JavaScriptFileGenerationOptionsCommand.Initialize,
 
             JavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
@@ -242,7 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand.Initialize,
             JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithCurrentCommand.Initialize,
 
-            JavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize,
+            JavaScriptCopyToClipboardRibbonObjectsInConnectionCommand.Initialize,
 
             #region CodeJavaScript
 

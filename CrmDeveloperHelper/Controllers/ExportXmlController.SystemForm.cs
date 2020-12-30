@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteCopingToClipboardSystemFormCurrentTabsAndSections(ConnectionData connectionData, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
         {
             await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.ChangingLinkedSystemFormInEntityEditorFormat1
+                , Properties.OperationNames.CopingToClipboardSystemFormCurrentTabsAndSections
                 , (service) => CopingToClipboardSystemFormCurrentTabsAndSections(service, commonConfig, jsObjectType, entityName, formId, formType)
             );
         }

@@ -180,6 +180,7 @@
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\JavaScriptCopyToClipboardRibbonObjectsInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
@@ -1066,6 +1067,7 @@
     <Compile Include="Model\ContentCopareResult.cs" />
     <Compile Include="Model\OrganizationServiceExtentedLocker.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolShowStateCommand.cs" />
+    <Compile Include="Model\RibbonPlacement.cs" />
     <Compile Include="Model\Sources\CodeSourceSelectedFiles.cs" />
     <Compile Include="Model\Sources\CodeSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\DocumentsSourceSelectedFiles.cs" />

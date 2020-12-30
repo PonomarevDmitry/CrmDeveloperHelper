@@ -844,6 +844,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Coping to Clipboard Ribbon Load WebResource Objects.
+        /// </summary>
+        internal static string CopingToClipboardRibbonObjects {
+            get {
+                return ResourceManager.GetString("CopingToClipboardRibbonObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Coping to Clipboard SystemForm Current Tabs and Sections.
+        /// </summary>
+        internal static string CopingToClipboardSystemFormCurrentTabsAndSections {
+            get {
+                return ResourceManager.GetString("CopingToClipboardSystemFormCurrentTabsAndSections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Creating all Dependency Nodes Description.
         /// </summary>
         internal static string CreatingAllDependencyNodesDescriptionFormat1 {

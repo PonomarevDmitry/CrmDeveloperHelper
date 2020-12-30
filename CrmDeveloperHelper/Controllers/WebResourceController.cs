@@ -2335,7 +2335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Создание связи веб-ресурсов.
 
-        #region Открытие веб-ресурсов.
+        #region Opening WebResource in Explorer
 
         public async Task ExecuteOpeningWebResourceInExplorerAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
         {
@@ -2417,7 +2417,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Открытие веб-ресурсов.
+        #endregion Opening WebResource in Explorer
+
+        #region Opening WebResource in Web
 
         public async Task ExecuteOpeningWebResourceInWebAsync(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent actionOnComponent, IEnumerable<SelectedFile> selectedFiles)
         {
@@ -2487,6 +2489,111 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, webresource.Id);
                     }
                 }
+            }
+        }
+
+        #endregion Opening WebResource in Web
+
+        public async Task ExecuteCopyToClipboardRibbonObjectsAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, RibbonPlacement ribbonPlacement)
+        {
+            string operation = string.Format(Properties.OperationNames.CopingToClipboardRibbonObjects, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
+
+                await CopyToClipboardRibbonObjectsAsync(connectionData, commonConfig, selectedFile, ribbonPlacement);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CopyToClipboardRibbonObjectsAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, RibbonPlacement ribbonPlacement)
+        {
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            WebResource webResource = null;
+
+            using (service.Lock())
+            {
+                // Репозиторий для работы с веб-ресурсами
+                var webResourceRepository = new WebResourceRepository(service);
+
+                webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+
+                if (webResource == null)
+                {
+                    Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                    if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
+
+                        webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
+                    }
+                }
+
+                if (webResource == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
+                    return;
+                }
+
+                string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
+
+                string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
+
+                var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
+
+                var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
+                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+
+                string format = string.Empty;
+
+                if (ribbonPlacement == RibbonPlacement.JavaScriptFunctions)
+                {
+                    format = @"<JavaScriptFunction FunctionName=""isNaN"" Library=""$webresource:{0}"" />";
+                }
+                else if (ribbonPlacement == RibbonPlacement.CustomRules)
+                {
+                    format = @"<CustomRule Default=""true"" FunctionName=""isNaN"" InvertResult=""false"" Library=""$webresource:{0}"" />";
+                }
+
+                var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Values.Where(e => e.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3).Select(e => e.Name), StringComparer.InvariantCultureIgnoreCase);
+
+                var stringBuilder = new StringBuilder();
+
+                foreach (var webResourceName in fileDependencies.OrderBy(s => s))
+                {
+                    if (stringBuilder.Length > 0)
+                    {
+                        stringBuilder.AppendLine();
+                    }
+
+                    stringBuilder.AppendFormat(format, webResourceName);
+                }
+
+                ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
             }
         }
 
