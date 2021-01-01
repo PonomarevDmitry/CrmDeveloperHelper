@@ -29,9 +29,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Team>> GetListAsync(string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, ColumnSet columnSet)
+        public Task<List<Team>> GetListAsync(string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, bool? isTeamTemplate, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(filter, isDefault, teamType, columnSet));
+            return Task.Run(() => GetList(filter, isDefault, teamType, isTeamTemplate, columnSet));
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<Team> GetList(string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, ColumnSet columnSet)
+        private List<Team> GetList(string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, bool? isTeamTemplate, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -83,6 +83,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (isDefault.HasValue)
             {
                 query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.isdefault, ConditionOperator.Equal, isDefault.Value));
+            }
+
+            if (isTeamTemplate.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamtemplateid, isTeamTemplate.Value ? ConditionOperator.NotNull : ConditionOperator.Null));
             }
 
             if (teamType.HasValue)
