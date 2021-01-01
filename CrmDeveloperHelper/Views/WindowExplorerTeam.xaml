@@ -221,6 +221,9 @@
 
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
@@ -231,6 +234,9 @@
 
                     <Label Content="Default" Grid.Row="1" Grid.Column="4" />
                     <ComboBox x:Name="cmBIsDefault" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                    <Label Content="TeamTemplate" Grid.Row="1" Grid.Column="6" />
+                    <ComboBox x:Name="cmBIsTeamTemplate" Grid.Row="1" Grid.Column="7" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwTeam_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

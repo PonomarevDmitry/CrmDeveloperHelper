@@ -83,7 +83,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBTeamType.ItemsSource = new EnumBindingSourceExtension(typeof(Team.Schema.OptionSets.teamtype?)).ProvideValue(null) as IEnumerable;
 
             FillRoleEditorLayoutTabs();
-            FillIsDefaultComboBox();
+            FillIsDefaultComboBox(cmBIsDefault);
+            FillIsDefaultComboBox(cmBIsTeamTemplate);
 
             LoadFromConfig();
 
@@ -236,12 +237,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBRoleEditorLayoutTabsPrivileges.SelectedIndex = 0;
         }
 
-        private void FillIsDefaultComboBox()
+        private void FillIsDefaultComboBox(ComboBox comboBox)
         {
-            cmBIsDefault.Items.Clear();
-            cmBIsDefault.Items.Add(string.Empty);
-            cmBIsDefault.Items.Add(false);
-            cmBIsDefault.Items.Add(true);
+            comboBox.Items.Clear();
+            comboBox.Items.Add(string.Empty);
+            comboBox.Items.Add(false);
+            comboBox.Items.Add(true);
+
+            comboBox.SelectedItem = false;
         }
 
         protected override void LoadConfigurationInternal(WindowSettings winConfig)
@@ -431,6 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filterTeam = string.Empty;
             Team.Schema.OptionSets.teamtype? teamType = null;
             bool? isDefault = null;
+            bool? isTeamTemplate = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -450,9 +454,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                if (cmBIsDefault.SelectedItem is bool value)
+                if (cmBIsDefault.SelectedItem is bool valueDefault)
                 {
-                    isDefault = value;
+                    isDefault = valueDefault;
+                }
+
+                if (cmBIsTeamTemplate.SelectedItem is bool valueTeamTemplate)
+                {
+                    isTeamTemplate = valueTeamTemplate;
                 }
             });
 
@@ -467,6 +476,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = await repository.GetListAsync(filterTeam
                         , isDefault
                         , teamType
+                        , isTeamTemplate
                         , new ColumnSet
                         (
                             Team.Schema.Attributes.name
