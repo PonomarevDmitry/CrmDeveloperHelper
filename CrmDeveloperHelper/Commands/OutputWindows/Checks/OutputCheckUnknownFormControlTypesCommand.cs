@@ -4,22 +4,18 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
 {
-    internal sealed class OutputCheckUnknownFormControlTypes : AbstractOutputWindowCommand
+    internal sealed class OutputCheckUnknownFormControlTypesCommand : AbstractOutputWindowCommand
     {
-        private OutputCheckUnknownFormControlTypes(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidCommandSet.OutputCheckUnknownFormControlTypesId
-            )
+        private OutputCheckUnknownFormControlTypesCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.OutputCheckUnknownFormControlTypesCommandId)
         {
-
         }
 
-        public static OutputCheckUnknownFormControlTypes Instance { get; private set; }
+        public static OutputCheckUnknownFormControlTypesCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new OutputCheckUnknownFormControlTypes(commandService);
+            Instance = new OutputCheckUnknownFormControlTypesCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

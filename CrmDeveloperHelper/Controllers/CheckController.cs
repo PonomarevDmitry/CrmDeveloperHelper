@@ -579,6 +579,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Поиск несуществующих используемых в БП сущностей
 
+        #region Checking Unknown Form Control Types
+
         public async Task ExecuteCheckingUnknownFormControlType(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             string operation = string.Format(Properties.OperationNames.CheckingUnknownFormControlTypeFormat1, connectionData?.Name);
@@ -705,5 +707,135 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
         }
+
+        #endregion Checking Unknown Form Control Types
+
+        #region Checking SystemForms with Non Existent TeamTemplate
+
+        public async Task ExecuteCheckingSystemFormsWithNonExistentTeamTemplate(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.CheckingSystemFormsWithNonExistentTeamTemplateFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckingSystemFormsWithNonExistentTeamTemplate(connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CheckingSystemFormsWithNonExistentTeamTemplate(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            using (service.Lock())
+            {
+                var content = new StringBuilder();
+
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var repositorySystemForm = new SystemFormRepository(service);
+                var repositoryTeamTemplate = new TeamTemplateRepository(service);
+
+                var templatesDict = (await repositoryTeamTemplate.GetListAsync(new ColumnSet(true))).ToDictionary(e => e.Id);
+
+                var formList = await repositorySystemForm.GetListAsync(null, null, null, new ColumnSet(true));
+
+                var tableTeamTemplatesNotExists = new FormatTextTableHandler("TeamTemplateId", "Grid Id", "Grid Location", "Form Entity", "FormType", "Form Name", "State", "Form Url");
+
+                var descriptor = new SolutionComponentDescriptor(service);
+                var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+                foreach (var systemForm in formList
+                    .OrderBy(f => f.ObjectTypeCode)
+                    .ThenBy(f => f.Type?.Value)
+                    .ThenBy(f => f.Name)
+                )
+                {
+                    string formXml = systemForm.FormXml;
+
+                    if (!string.IsNullOrEmpty(formXml))
+                    {
+                        XElement doc = XElement.Parse(formXml);
+
+                        var grids = handler.FormGridsTeamTemplate(doc);
+
+                        foreach (var grid in grids)
+                        {
+                            if (!templatesDict.ContainsKey(grid.TeamTemplateId))
+                            {
+                                tableTeamTemplatesNotExists.AddLine(
+                                    grid.TeamTemplateId.ToString()
+                                    , grid.Id
+                                    , grid.Location
+                                    , systemForm.ObjectTypeCode
+                                    , systemForm.FormattedValues[SystemForm.Schema.Attributes.type]
+                                    , systemForm.Name
+                                    , systemForm.FormattedValues[SystemForm.Schema.Attributes.formactivationstate]
+                                    , service.UrlGenerator.GetSolutionComponentUrl(ComponentType.SystemForm, systemForm.Id)
+                                );
+                            }
+                        }
+                    }
+                }
+
+                if (true)
+                {
+
+                }
+
+                if (tableTeamTemplatesNotExists.Count == 0)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "No SystemForms with Non Existent TeamTemplates were founded.");
+                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                    return;
+                }
+
+                content.AppendLine().AppendLine();
+
+                content
+                    .AppendFormat("TeamTemplates Not Exists in SystemForms: {0}", tableTeamTemplatesNotExists.Count)
+                    .AppendLine()
+                    .AppendLine()
+                    ;
+
+                foreach (var str in tableTeamTemplatesNotExists.GetFormatedLines(false))
+                {
+                    content.AppendLine(_tabSpacer + str);
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking SystemForms with Non Existent TeamTemplate at {1}.txt"
+                    , connectionData.Name
+                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "SystemForms with Non Existent TeamTemplates were exported to {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+        }
+
+        #endregion Checking SystemForms with Non Existent TeamTemplate
     }
 }

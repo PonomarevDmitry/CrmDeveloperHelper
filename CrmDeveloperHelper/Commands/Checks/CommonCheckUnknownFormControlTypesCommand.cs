@@ -4,18 +4,18 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 {
-    internal sealed class CommonCheckUnknownFormControlTypes : AbstractDynamicCommandByConnectionAll
+    internal sealed class CommonCheckUnknownFormControlTypesCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CommonCheckUnknownFormControlTypes(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckUnknownFormControlTypesId)
+        private CommonCheckUnknownFormControlTypesCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckUnknownFormControlTypesCommandId)
         {
         }
 
-        public static CommonCheckUnknownFormControlTypes Instance { get; private set; }
+        public static CommonCheckUnknownFormControlTypesCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonCheckUnknownFormControlTypes(commandService);
+            Instance = new CommonCheckUnknownFormControlTypesCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

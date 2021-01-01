@@ -518,11 +518,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     foreach (var nodeCell in nodeAllCells)
                     {
-                        FormControl control = GetControlFromNode("header", null, nodeCell);
+                        var nodeAllControls = nodeCell.Descendants("control");
 
-                        if (control != null)
+                        foreach (var nodeControl in nodeAllControls)
                         {
-                            section.Controls.Add(control);
+                            var formControl = new FormControl();
+
+                            FillFormControlProperites("header", null, nodeCell, nodeControl, formControl);
+
+                            section.Controls.Add(formControl);
                         }
                     }
                 }
@@ -556,11 +560,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     foreach (var nodeCell in nodeAllCells)
                     {
-                        FormControl control = GetControlFromNode("footer", null, nodeCell);
+                        var nodeAllControls = nodeCell.Descendants("control");
 
-                        if (control != null)
+                        foreach (var nodeControl in nodeAllControls)
                         {
-                            section.Controls.Add(control);
+                            var formControl = new FormControl();
+
+                            FillFormControlProperites("footer", null, nodeCell, nodeControl, formControl);
+
+                            section.Controls.Add(formControl);
                         }
                     }
                 }
@@ -640,11 +648,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         foreach (var nodeCell in nodeAllCells)
                         {
-                            FormControl control = GetControlFromNode(tab.Name, section.Name, nodeCell);
+                            var nodeAllControls = nodeCell.Descendants("control");
 
-                            if (control != null)
+                            foreach (var nodeControl in nodeAllControls)
                             {
-                                section.Controls.Add(control);
+                                var formControl = new FormControl();
+
+                                FillFormControlProperites(tab.Name, section.Name, nodeCell, nodeControl, formControl);
+
+                                section.Controls.Add(formControl);
                             }
                         }
                     }
@@ -654,53 +666,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private FormControl GetControlFromNode(string tabName, string sectionName, XElement nodeCell)
+        private void FillFormControlProperites(string tabName, string sectionName, XElement nodeCell, XElement nodeControl, FormControl formControl)
         {
-            FormControl control = null;
+            formControl.Id = (string)nodeCell.Attribute("id");
+            formControl.Name = (string)nodeControl.Attribute("id");
+            formControl.ShowLabel = (string)nodeCell.Attribute("showlabel") ?? "true";
+            formControl.ClassId = (string)nodeControl.Attribute("classid");
+            formControl.Attribute = (string)nodeControl.Attribute("datafieldname");
+            formControl.Disabled = (string)nodeControl.Attribute("disabled") ?? "false";
+            formControl.Visible = (string)nodeControl.Attribute("visible") ?? "true";
+            formControl.Location = tabName + (!string.IsNullOrEmpty(sectionName) ? string.Format(".{0}", sectionName) : string.Empty);
+            formControl.IndicationOfSubgrid = (string)nodeControl.Attribute("indicationOfSubgrid");
 
-            var nodeControl = nodeCell.Element("control");
-
-            if (nodeControl != null)
             {
-                control = new FormControl
-                {
-                    Id = (string)nodeCell.Attribute("id"),
-                    Name = (string)nodeControl.Attribute("id"),
-                    ShowLabel = (string)nodeCell.Attribute("showlabel") ?? "true",
-                    ClassId = (string)nodeControl.Attribute("classid"),
-                    Attribute = (string)nodeControl.Attribute("datafieldname"),
-                    Disabled = (string)nodeControl.Attribute("disabled") ?? "false",
-                    Visible = (string)nodeControl.Attribute("visible") ?? "true",
-                    Location = tabName + (!string.IsNullOrEmpty(sectionName) ? string.Format(".{0}", sectionName) : string.Empty),
-                    IndicationOfSubgrid = (string)nodeControl.Attribute("indicationOfSubgrid")
-                };
+                var nodeLabels = nodeCell.Element("labels");
 
+                if (nodeLabels != null)
                 {
-                    var nodeLabels = nodeCell.Element("labels");
-
-                    if (nodeLabels != null)
+                    foreach (var label in nodeLabels.Elements("label"))
                     {
-                        foreach (var label in nodeLabels.Elements("label"))
-                        {
-                            string description = (string)label.Attribute("description");
-                            int languageCode = (int)label.Attribute("languagecode");
+                        string description = (string)label.Attribute("description");
+                        int languageCode = (int)label.Attribute("languagecode");
 
-                            control.Labels.Add(new LabelString() { Value = description, LanguageCode = languageCode });
-                        }
-                    }
-                }
-
-                {
-                    var nodeParameters = nodeControl.Element("parameters");
-
-                    if (nodeParameters != null)
-                    {
-                        control.Parameters = GetParametersString(nodeParameters);
+                        formControl.Labels.Add(new LabelString() { Value = description, LanguageCode = languageCode });
                     }
                 }
             }
 
-            return control;
+            {
+                var nodeParameters = nodeControl.Element("parameters");
+
+                if (nodeParameters != null)
+                {
+                    formControl.Parameters = GetParametersString(nodeParameters);
+                }
+            }
         }
 
         private async Task SaveDisplayConditions(StringBuilder result, XElement doc)
@@ -876,7 +876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private List<FormControl> GetFormControls(XElement doc)
         {
-            List<FormControl> list = new List<FormControl>();
+            var result = new List<FormControl>();
 
             var allControls = doc.Descendants("control");
 
@@ -886,52 +886,100 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (nodeCell != null)
                 {
-                    string tabName = string.Empty;
-                    string sectionName = string.Empty;
+                    GetTabAndSectionNames(nodeCell, out string tabName, out string sectionName);
 
+                    var formControl = new FormControl();
+
+                    FillFormControlProperites(tabName, sectionName, nodeCell, nodeControl, formControl);
+
+                    result.Add(formControl);
+                }
+            }
+
+            return result;
+        }
+
+        public List<FormGridTeamTemplate> FormGridsTeamTemplate(XElement doc)
+        {
+            var result = new List<FormGridTeamTemplate>();
+
+            var allControls = doc.Descendants("control");
+
+            foreach (var nodeControl in allControls)
+            {
+                var nodeCell = nodeControl.Ancestors("cell").FirstOrDefault();
+
+                if (nodeCell != null)
+                {
+                    var nodeParameters = nodeControl.Element("parameters");
+
+                    if (nodeParameters != null)
                     {
-                        var nodeSection = nodeCell.Ancestors("section").FirstOrDefault();
+                        var nodeTargetEntityType = nodeParameters.Element("TargetEntityType");
+                        var nodeTeamTemplateId = nodeParameters.Element("TeamTemplateId");
 
-                        if (nodeSection != null)
+                        if (nodeTargetEntityType != null
+                            && nodeTeamTemplateId != null
+                            && !string.IsNullOrEmpty(nodeTargetEntityType.Value)
+                            && !string.IsNullOrEmpty(nodeTeamTemplateId.Value)
+                            && Guid.TryParse(nodeTeamTemplateId.Value, out Guid teamTemplateId)
+                        )
                         {
-                            var nodeTab = nodeSection.Ancestors("tab").FirstOrDefault();
+                            GetTabAndSectionNames(nodeCell, out string tabName, out string sectionName);
 
-                            if (nodeTab != null)
+                            var formGridTeamTemplate = new FormGridTeamTemplate()
                             {
-                                tabName = (string)nodeTab.Attribute("name") ?? (string)nodeTab.Attribute("id");
-                                sectionName = (string)nodeSection.Attribute("name") ?? (string)nodeSection.Attribute("id");
-                            }
+                                GridEntity = nodeTargetEntityType.Value,
+                                TeamTemplateId = teamTemplateId,
+                            };
+
+                            FillFormControlProperites(tabName, sectionName, nodeCell, nodeControl, formGridTeamTemplate);
+
+                            result.Add(formGridTeamTemplate);
                         }
-                    }
-
-                    {
-                        var node = nodeCell.Ancestors("header").FirstOrDefault();
-
-                        if (node != null)
-                        {
-                            tabName = "header";
-                        }
-                    }
-
-                    {
-                        var node = nodeCell.Ancestors("footer").FirstOrDefault();
-
-                        if (node != null)
-                        {
-                            tabName = "footer";
-                        }
-                    }
-
-                    var control = GetControlFromNode(tabName, sectionName, nodeCell);
-
-                    if (control != null)
-                    {
-                        list.Add(control);
                     }
                 }
             }
 
-            return list;
+            return result;
+        }
+
+        private static void GetTabAndSectionNames(XElement nodeCell, out string tabName, out string sectionName)
+        {
+            tabName = string.Empty;
+            sectionName = string.Empty;
+            {
+                var nodeSection = nodeCell.Ancestors("section").FirstOrDefault();
+
+                if (nodeSection != null)
+                {
+                    var nodeTab = nodeSection.Ancestors("tab").FirstOrDefault();
+
+                    if (nodeTab != null)
+                    {
+                        tabName = (string)nodeTab.Attribute("name") ?? (string)nodeTab.Attribute("id");
+                        sectionName = (string)nodeSection.Attribute("name") ?? (string)nodeSection.Attribute("id");
+                    }
+                }
+            }
+
+            {
+                var node = nodeCell.Ancestors("header").FirstOrDefault();
+
+                if (node != null)
+                {
+                    tabName = "header";
+                }
+            }
+
+            {
+                var node = nodeCell.Ancestors("footer").FirstOrDefault();
+
+                if (node != null)
+                {
+                    tabName = "footer";
+                }
+            }
         }
 
         private void SaveInfoControlsWithoutAttributes(StringBuilder result, XElement doc)

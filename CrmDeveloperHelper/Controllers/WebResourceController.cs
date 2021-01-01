@@ -2531,14 +2531,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            WebResource webResource = null;
-
             using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
 
-                webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+                WebResource webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
 
                 if (webResource == null)
                 {

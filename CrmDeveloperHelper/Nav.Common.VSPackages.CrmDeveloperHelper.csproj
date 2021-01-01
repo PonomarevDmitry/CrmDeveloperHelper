@@ -106,7 +106,8 @@
     <Compile Include="Commands\AbstractDynamicCommandXsdSchemas.cs" />
     <Compile Include="Commands\AbstractOutputWindowCommand.cs" />
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
-    <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
+    <Compile Include="Commands\Checks\CommonCheckSystemFormsWithNonExistentTeamTemplateCommand.cs" />
+    <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypesCommand.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityInstanceByIdCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionPoolClearCommand.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Commands\Explorers\CommonPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Checks\OutputCheckSystemFormsWithNonExistentTeamTemplateCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />
@@ -202,7 +204,7 @@
     <Compile Include="Commands\ListForPublish\ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\OutputWindows\Checks\OutputCheckUnknownFormControlTypes.cs" />
+    <Compile Include="Commands\OutputWindows\Checks\OutputCheckUnknownFormControlTypesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckCreateAllDependencyNodeDescriptionCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckEntitiesOwnerShipsCommand.cs" />
@@ -1065,6 +1067,7 @@
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
+    <Compile Include="Model\FormGridTeamTemplate.cs" />
     <Compile Include="Model\OrganizationServiceExtentedLocker.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolShowStateCommand.cs" />
     <Compile Include="Model\RibbonPlacement.cs" />
@@ -1266,6 +1269,7 @@
     <Compile Include="Repository\SystemFormRepository.cs" />
     <Compile Include="Repository\SystemUserRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
+    <Compile Include="Repository\TeamTemplateRepository.cs" />
     <Compile Include="Repository\TemplateRepository.cs" />
     <Compile Include="Repository\TranslationRepository.cs" />
     <Compile Include="Repository\WebResourceIntellisenseDataRepository.cs" />

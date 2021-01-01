@@ -1040,6 +1040,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartCheckUnknownFormControlTypes(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingUnknownFormControlType, commonConfig);
 
+        public void StartCheckSystemFormsWithNonExistentTeamTemplate(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingSystemFormsWithNonExistentTeamTemplate, commonConfig);
+
         public void StartCreateAllDependencyNodesDescription(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCreatingAllDependencyNodesDescription, commonConfig);
 

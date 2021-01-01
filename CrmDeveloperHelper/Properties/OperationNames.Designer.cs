@@ -691,6 +691,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Checking SystemForms with Non Existent TeamTemplates.
+        /// </summary>
+        internal static string CheckingSystemFormsWithNonExistentTeamTemplateFormat1 {
+            get {
+                return ResourceManager.GetString("CheckingSystemFormsWithNonExistentTeamTemplateFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CheckingSystem SavedQueries in {0} and {1}.
         /// </summary>
         internal static string CheckingSystemSavedQueriesFormat2 {

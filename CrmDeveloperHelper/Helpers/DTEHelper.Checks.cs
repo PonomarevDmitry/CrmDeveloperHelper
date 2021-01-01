@@ -24,6 +24,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCheckUnknownFormControlTypes(conn, commonConfig));
         }
 
+        public void HandleCheckSystemFormsWithNonExistentTeamTemplate(ConnectionData connectionData)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCheckSystemFormsWithNonExistentTeamTemplate(conn, commonConfig));
+        }
+
         public void HandleCheckCreateAllDependencyNodesDescription(ConnectionData connectionData)
         {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCreateAllDependencyNodesDescription(conn, commonConfig));
