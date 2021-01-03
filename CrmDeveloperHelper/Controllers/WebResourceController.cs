@@ -526,11 +526,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private static void FillNewDependenciesInfo(ConnectionData connectionData, WebResourceRepository webResourceRepository, Dictionary<Guid, ElementForPublish> elements)
         {
-            var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+            var knownFileWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var element in elements.Values)
             {
-                knownWebResources.Add(element.SelectedFile.FilePath, element.WebResource);
+                knownFileWebResources.Add(element.SelectedFile.FilePath, element.WebResource);
             }
 
             foreach (var element in elements.Values)
@@ -543,28 +543,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     continue;
                 }
 
-                var serializer = new XmlSerializer(typeof(Dependencies));
-
-                Dependencies webResourceDependencies = null;
-
-                if (!string.IsNullOrEmpty(webResource.DependencyXml))
-                {
-                    using (var reader = new StringReader(webResource.DependencyXml))
-                    {
-                        webResourceDependencies = serializer.Deserialize(reader) as Dependencies;
-                    }
-                }
-                else
-                {
-                    webResourceDependencies = new Dependencies();
-                }
-
                 string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
                 string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
 
                 var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
 
-                var referenceWebResourceDictionary = GetRefernecedWebResources(connectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+                var referenceWebResourceDictionary = GetRefernecedWebResources(connectionData, webResourceRepository, knownFileWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+
+                Dependencies webResourceDependencies = DeserializeDependencyXmlToDependenciesOrNew(webResource.DependencyXml);
 
                 IEnumerable<string> currentWebResourceDependenciesStrings = Enumerable.Empty<string>();
 
@@ -588,45 +574,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     continue;
                 }
 
-                DependenciesDependency dependenciesWebResource = null;
-
                 var librariesWebResource = new List<DependenciesDependencyLibrary>();
 
-                if (webResourceDependencies.Dependency != null)
-                {
-                    dependenciesWebResource = webResourceDependencies.Dependency.FirstOrDefault(d => d.componentType == componentType.WebResource);
-
-                    if (dependenciesWebResource != null)
-                    {
-                        if (dependenciesWebResource.Library != null)
-                        {
-                            librariesWebResource.AddRange(dependenciesWebResource.Library);
-                        }
-                    }
-                    else
-                    {
-                        dependenciesWebResource = new DependenciesDependency()
-                        {
-                            componentType = componentType.WebResource,
-                        };
-
-                        var dependenciesDependencies = new List<DependenciesDependency>();
-
-                        dependenciesDependencies.AddRange(webResourceDependencies.Dependency);
-                        dependenciesDependencies.Add(dependenciesWebResource);
-
-                        webResourceDependencies.Dependency = dependenciesDependencies.ToArray();
-                    }
-                }
-                else
-                {
-                    dependenciesWebResource = new DependenciesDependency()
-                    {
-                        componentType = componentType.WebResource,
-                    };
-
-                    webResourceDependencies.Dependency = new[] { dependenciesWebResource };
-                }
+                DependenciesDependency dependenciesWebResource = FindOrCreateWebResourceDependencyNode(webResourceDependencies, librariesWebResource);
 
                 foreach (var item in newDependencies)
                 {
@@ -651,6 +601,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 using (var writer = new StringWriter(newDependencyXmlStringBuilder))
                 {
+                    var serializer = new XmlSerializer(typeof(Dependencies));
+
                     serializer.Serialize(writer, webResourceDependencies, namespaces);
                 }
 
@@ -667,6 +619,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 element.NewDependenciesCount = newDependencies.Count;
                 element.NewDependencies = string.Join(", ", newDependencies.OrderBy(s => s));
             }
+        }
+
+        private static DependenciesDependency FindOrCreateWebResourceDependencyNode(Dependencies webResourceDependencies, List<DependenciesDependencyLibrary> librariesWebResource)
+        {
+            DependenciesDependency dependenciesWebResource = null;
+
+            if (webResourceDependencies.Dependency != null)
+            {
+                dependenciesWebResource = webResourceDependencies.Dependency.FirstOrDefault(d => d.componentType == componentType.WebResource);
+
+                if (dependenciesWebResource != null)
+                {
+                    if (dependenciesWebResource.Library != null)
+                    {
+                        librariesWebResource.AddRange(dependenciesWebResource.Library);
+                    }
+                }
+                else
+                {
+                    dependenciesWebResource = new DependenciesDependency()
+                    {
+                        componentType = componentType.WebResource,
+                    };
+
+                    var dependenciesDependencies = new List<DependenciesDependency>(webResourceDependencies.Dependency)
+                    {
+                        dependenciesWebResource
+                    };
+
+                    webResourceDependencies.Dependency = dependenciesDependencies.ToArray();
+                }
+            }
+            else
+            {
+                dependenciesWebResource = new DependenciesDependency()
+                {
+                    componentType = componentType.WebResource,
+                };
+
+                webResourceDependencies.Dependency = new[] { dependenciesWebResource };
+            }
+
+            return dependenciesWebResource;
+        }
+
+        private static Dependencies DeserializeDependencyXmlToDependenciesOrNew(string dependencyXml)
+        {
+            var serializer = new XmlSerializer(typeof(Dependencies));
+
+            Dependencies webResourceDependencies = null;
+
+            if (!string.IsNullOrEmpty(dependencyXml))
+            {
+                using (var reader = new StringReader(dependencyXml))
+                {
+                    webResourceDependencies = serializer.Deserialize(reader) as Dependencies;
+                }
+            }
+            else
+            {
+                webResourceDependencies = new Dependencies();
+            }
+
+            return webResourceDependencies;
         }
 
         #endregion Including References to WebResources DependencyXml
@@ -721,7 +737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private static Dictionary<string, WebResource> GetRefernecedWebResources(
             ConnectionData connectionData
             , WebResourceRepository webResourceRepository
-            , Dictionary<string, WebResource> knownWebResources
+            , Dictionary<string, WebResource> knownFileWebResources
             , string SolutionDirectoryPath
             , IEnumerable<string> referenceFilePathList
         )
@@ -737,7 +753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     continue;
                 }
 
-                if (!knownWebResources.ContainsKey(filePath))
+                if (!knownFileWebResources.ContainsKey(filePath))
                 {
                     string fileName = Path.GetFileName(filePath);
                     string friendlyFilePath = SelectedFile.GetFriendlyPath(filePath, SolutionDirectoryPath);
@@ -767,13 +783,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         // Запоминается файл
                         connectionData.AddMapping(webresource.Id, friendlyFilePath);
 
-                        knownWebResources.Add(filePath, webresource);
+                        knownFileWebResources.Add(filePath, webresource);
                     }
                 }
 
-                if (knownWebResources.ContainsKey(filePath))
+                if (knownFileWebResources.ContainsKey(filePath))
                 {
-                    var knowWebResource = knownWebResources[filePath];
+                    var knowWebResource = knownFileWebResources[filePath];
 
                     result.Add(knowWebResource.Name, knowWebResource);
                 }
@@ -981,7 +997,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             using (service.Lock())
             {
-                var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+                var knownFileWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 
                 var systemFormRepository = new SystemFormRepository(service);
 
@@ -1025,7 +1041,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
 
-                    var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+                    var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownFileWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
 
                     var formLibraries = docFormXml.Element(_formNodeformLibraries);
 
@@ -2494,6 +2510,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Opening WebResource in Web
 
+        #region Coping to Clipboard Ribbon Objects
+
         public async Task ExecuteCopyToClipboardRibbonObjectsAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, RibbonPlacement ribbonPlacement)
         {
             string operation = string.Format(Properties.OperationNames.CopingToClipboardRibbonObjects, connectionData?.Name);
@@ -2556,15 +2574,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
+                var knownFileWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
                 string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
 
                 string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
 
                 var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
 
-                var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
-
-                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownFileWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
 
                 string format = string.Empty;
 
@@ -2575,6 +2593,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 else if (ribbonPlacement == RibbonPlacement.CustomRules)
                 {
                     format = @"<CustomRule Default=""true"" FunctionName=""isNaN"" InvertResult=""false"" Library=""$webresource:{0}"" />";
+                }
+
+                Dependencies webResourceDependencies = DeserializeDependencyXmlToDependenciesOrNew(webResource.DependencyXml);
+
+                IEnumerable<string> currentWebResourceDependenciesStrings = Enumerable.Empty<string>();
+
+                if (webResourceDependencies.Dependency != null)
+                {
+                    currentWebResourceDependenciesStrings = from dep in webResourceDependencies.Dependency
+                                                            where dep.componentType == componentType.WebResource && dep.Library != null
+                                                            from lib in dep.Library
+                                                            select lib.name
+                                                            ;
+                }
+
+                foreach (var webResourceName in currentWebResourceDependenciesStrings)
+                {
+                    if (!referenceWebResourceDictionary.ContainsKey(webResourceName))
+                    {
+                        var dependentWebResource = await webResourceRepository.FindByExactNameAsync(webResourceName, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype));
+
+                        if (dependentWebResource != null)
+                        {
+                            referenceWebResourceDictionary.Add(dependentWebResource.Name, dependentWebResource);
+                        }
+                    }
                 }
 
                 var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Values.Where(e => e.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3).Select(e => e.Name), StringComparer.InvariantCultureIgnoreCase);
@@ -2594,6 +2638,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
             }
         }
+
+        #endregion Coping to Clipboard Ribbon Objects
 
         #region Проверка кодировки файлов.
 
