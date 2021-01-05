@@ -574,9 +574,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     continue;
                 }
 
+                DependenciesDependency dependenciesWebResource = FindOrCreateWebResourceDependencyNode(webResourceDependencies);
+
                 var librariesWebResource = new List<DependenciesDependencyLibrary>();
 
-                DependenciesDependency dependenciesWebResource = FindOrCreateWebResourceDependencyNode(webResourceDependencies, librariesWebResource);
+                if (dependenciesWebResource.Library != null)
+                {
+                    librariesWebResource.AddRange(dependenciesWebResource.Library);
+                }
 
                 foreach (var item in newDependencies)
                 {
@@ -621,7 +626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private static DependenciesDependency FindOrCreateWebResourceDependencyNode(Dependencies webResourceDependencies, List<DependenciesDependencyLibrary> librariesWebResource)
+        private static DependenciesDependency FindOrCreateWebResourceDependencyNode(Dependencies webResourceDependencies)
         {
             DependenciesDependency dependenciesWebResource = null;
 
@@ -629,14 +634,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 dependenciesWebResource = webResourceDependencies.Dependency.FirstOrDefault(d => d.componentType == componentType.WebResource);
 
-                if (dependenciesWebResource != null)
-                {
-                    if (dependenciesWebResource.Library != null)
-                    {
-                        librariesWebResource.AddRange(dependenciesWebResource.Library);
-                    }
-                }
-                else
+                if (dependenciesWebResource == null)
                 {
                     dependenciesWebResource = new DependenciesDependency()
                     {
@@ -2574,13 +2572,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                var knownFileWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
-
                 string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
 
                 string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
 
                 var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
+
+                var knownFileWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 
                 var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownFileWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
 
@@ -2640,6 +2638,174 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Coping to Clipboard Ribbon Objects
+
+        public async Task ExecuteDifferenceReferencesAndDependencyXmlAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceWebResourceReferencesAndDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
+
+                await DifferenceReferencesAndDependencyXmlAsync(connectionData, commonConfig, selectedFile);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceReferencesAndDependencyXmlAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            using (service.Lock())
+            {
+                // Репозиторий для работы с веб-ресурсами
+                var webResourceRepository = new WebResourceRepository(service);
+
+                WebResource webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
+
+                if (webResource == null)
+                {
+                    Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                    if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
+
+                        webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
+                    }
+                }
+
+                if (webResource == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
+                    return;
+                }
+
+                connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
+                connectionData.Save();
+
+                string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
+
+                string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
+
+                var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
+
+                var knownFileWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
+                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownFileWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+
+                Dependencies webResourceDependencies = DeserializeDependencyXmlToDependenciesOrNew(webResource.DependencyXml);
+
+                var dependenciesByReferencesLibraries = new List<DependenciesDependencyLibrary>();
+
+                if (webResourceDependencies.Dependency != null)
+                {
+                    foreach (var library in webResourceDependencies.Dependency
+                            .Where(d => d.componentType == componentType.WebResource && d.Library != null)
+                            .SelectMany(d => d.Library)
+                    )
+                    {
+                        if (referenceWebResourceDictionary.ContainsKey(library.name))
+                        {
+                            referenceWebResourceDictionary.Remove(library.name);
+
+                            dependenciesByReferencesLibraries.Add(library);
+                        }
+                    }
+                }
+
+                foreach (var webResourceName in referenceWebResourceDictionary.Keys.OrderBy(s => s))
+                {
+                    var newWebResource = referenceWebResourceDictionary[webResourceName];
+
+                    dependenciesByReferencesLibraries.Add(new DependenciesDependencyLibrary()
+                    {
+                        libraryUniqueId = Guid.NewGuid().ToString("B").ToLower(),
+                        name = webResourceName,
+                        displayName = newWebResource.DisplayName ?? string.Empty,
+                        description = newWebResource.Description ?? string.Empty,
+                        languagecode = newWebResource.LanguageCode.ToString(),
+                    });
+                }
+
+                DependenciesDependency dependenciesWebResource = FindOrCreateWebResourceDependencyNode(webResourceDependencies);
+
+                dependenciesWebResource.Library = dependenciesByReferencesLibraries.ToArray();
+
+                var newDependencyXmlStringBuilder = new StringBuilder();
+
+                var namespaces = new XmlSerializerNamespaces();
+                namespaces.Add(string.Empty, string.Empty);
+
+                using (var writer = new StringWriter(newDependencyXmlStringBuilder))
+                {
+                    var serializer = new XmlSerializer(typeof(Dependencies));
+
+                    serializer.Serialize(writer, webResourceDependencies, namespaces);
+                }
+
+                string referencesDependencyXml = newDependencyXmlStringBuilder.ToString();
+
+                referencesDependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    referencesDependencyXml
+                    , commonConfig
+                    , XmlOptionsControls.WebResourceDependencyXmlOptions
+                    , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
+                    , webResourceName: webResource.Name
+                );
+
+                string dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    webResource.DependencyXml
+                    , commonConfig
+                    , XmlOptionsControls.WebResourceDependencyXmlOptions
+                    , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
+                    , webResourceName: webResource.Name
+                );
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileTitleReferences = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, "References", FileExtension.xml);
+                string filePathReferences = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitleReferences), Path.GetExtension(fileTitleReferences));
+
+                string fileNameDependencyXml = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, WebResource.Schema.Headers.dependencyxml, FileExtension.xml);
+                string filePathDependencyXml = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameDependencyXml));
+
+                try
+                {
+                    File.WriteAllText(filePathDependencyXml, dependencyXml, new UTF8Encoding(false));
+
+                    File.WriteAllText(filePathReferences, referencesDependencyXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, WebResource.Schema.Headers.dependencyxml, filePathReferences);
+
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, filePathReferences, filePathDependencyXml, fileTitleReferences, fileNameDependencyXml);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
 
         #region Проверка кодировки файлов.
 

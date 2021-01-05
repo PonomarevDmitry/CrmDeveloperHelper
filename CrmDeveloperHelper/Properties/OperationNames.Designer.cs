@@ -1159,6 +1159,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Difference WebResource References and DependencyXml.
+        /// </summary>
+        internal static string DifferenceWebResourceReferencesAndDependencyXmlFormat1 {
+            get {
+                return ResourceManager.GetString("DifferenceWebResourceReferencesAndDependencyXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Difference Workflow.
         /// </summary>
         internal static string DifferenceWorkflowFormat1 {

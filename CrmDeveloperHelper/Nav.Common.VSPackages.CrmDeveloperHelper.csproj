@@ -189,6 +189,8 @@
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\JavaScriptShowDifferenceReferencesAndDependencyXmlCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\JavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithCurrentCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand.cs" />

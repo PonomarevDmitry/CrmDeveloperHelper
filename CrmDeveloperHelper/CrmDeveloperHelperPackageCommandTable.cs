@@ -141,6 +141,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn_Group = 0x14CE;
 
+            public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuShowDifferenceReferencesAndDependencyXmlInConnectionDyn = 0x15D3;
+
+            public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuShowDifferenceReferencesAndDependencyXmlInConnectionDyn_Group = 0x15D4;
+
             public const int codeMenuWebResource_GroupEntityMetadata = 0x12F7;
 
             public const int codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn = 0x12F8;
@@ -1246,6 +1250,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn = 0x14D0;
 
             public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn_Group = 0x14D1;
+
+            public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuShowDifferenceReferencesAndDependencyXmlInConnectionDyn = 0x15D5;
+
+            public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuShowDifferenceReferencesAndDependencyXmlInConnectionDyn_Group = 0x15D6;
 
             public const int fileMenuWebResource_GroupLinkedSystemForm = 0x14DA;
 
@@ -2876,6 +2884,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x3D54;
 
+            public const int CodeJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId = 0x4E20;
+
             public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3E1C;
 
             public const int CodeJavaScriptUpdateEntityMetadataFileCommandId = 0x22F6;
@@ -3304,6 +3314,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x3D86;
 
+            public const int FileJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId = 0x4E52;
+
             public const int FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3E4E;
 
             public const int FileJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x477C;
@@ -3609,6 +3621,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x223B;
 
+            public const int CodeJavaScriptShowDifferenceReferencesAndDependencyXmlCommandId = 0x2288;
+
             public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x225F;
 
             public const int CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219D;
@@ -3854,6 +3868,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileJavaScriptFileGenerationOptionsSingleCommandId = 0x2266;
 
             public const int FileJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x225C;
+
+            public const int FileJavaScriptShowDifferenceReferencesAndDependencyXmlCommandId = 0x2289;
 
             public const int FileJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x2260;
 

@@ -237,6 +237,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             JavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
 
+            JavaScriptShowDifferenceReferencesAndDependencyXmlCommand.Initialize,
+            JavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommand.Initialize,
+
             JavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
             JavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
 

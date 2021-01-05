@@ -416,6 +416,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDifference(conn, commonConfig, selectedFile, withSelect));
         }
 
+        public void HandleWebResourceDifferenceReferencesAndDependencyXmlCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDifferenceReferencesAndDependencyXml(conn, commonConfig, selectedFile));
+        }
+
         public void HandleWebResourceCreateEntityDescriptionCommand(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles)
         {
             if (selectedFiles == null || !selectedFiles.Any())

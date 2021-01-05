@@ -881,6 +881,9 @@
   <data name="ChangingLinkedSystemFormInEntityEditorFormat1" xml:space="preserve">
     <value>{0} - Changing Linked SystemForm in Entity Editor</value>
   </data>
+  <data name="DifferenceWebResourceReferencesAndDependencyXmlFormat1" xml:space="preserve">
+    <value>{0} - Difference WebResource References and DependencyXml</value>
+  </data>
 
 
   <data name="UpdatingPluginTypeCustomWorkflowActivityInfoFormat1" xml:space="preserve">

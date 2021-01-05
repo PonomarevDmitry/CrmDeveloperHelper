@@ -797,6 +797,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartWebResourceDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteDifferenceWebResourcesAsync, commonConfig, selectedFile, withSelect);
 
+        public void StartWebResourceDifferenceReferencesAndDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteDifferenceReferencesAndDependencyXmlAsync, commonConfig, selectedFile);
+
         public void StartWebResourceCreateEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingWebResourceEntityDescriptionAsync, commonConfig, selectedFiles);
 

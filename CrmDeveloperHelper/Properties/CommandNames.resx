@@ -687,4 +687,11 @@
     <value>Get Current Content from CRM (Recursive)</value>
   </data>
 
+  <data name="CodeJavaScriptShowDifferenceReferencesAndDependencyXmlCommand" xml:space="preserve">
+    <value>Show Difference References and DependencyXml</value>
+  </data>
+  <data name="FileJavaScriptShowDifferenceReferencesAndDependencyXmlCommand" xml:space="preserve">
+    <value>Show Difference References and DependencyXml</value>
+  </data>
+
 </root>

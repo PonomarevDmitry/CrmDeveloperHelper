@@ -214,6 +214,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Difference References and DependencyXml.
+        /// </summary>
+        internal static string CodeJavaScriptShowDifferenceReferencesAndDependencyXmlCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptShowDifferenceReferencesAndDependencyXmlCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publish File and Include References.
         /// </summary>
         internal static string CodeJavaScriptUpdateContentIncludeReferencesPublishCommand {
@@ -1119,6 +1128,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FileJavaScriptIncludeReferencesToLinkedSystemFormCommand {
             get {
                 return ResourceManager.GetString("FileJavaScriptIncludeReferencesToLinkedSystemFormCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference References and DependencyXml.
+        /// </summary>
+        internal static string FileJavaScriptShowDifferenceReferencesAndDependencyXmlCommand {
+            get {
+                return ResourceManager.GetString("FileJavaScriptShowDifferenceReferencesAndDependencyXmlCommand", resourceCulture);
             }
         }
         
