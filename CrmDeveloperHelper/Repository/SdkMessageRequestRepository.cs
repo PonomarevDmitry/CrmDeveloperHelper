@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -119,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageRequest.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
-                        Columns = new ColumnSet(true),
+                        Columns = ColumnSetInstances.AllColumns,
 
                         LinkEntities =
                         {
@@ -155,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
                             },
                         },
                     }
@@ -188,7 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     },
                 },
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
             };
 
             var coll = _service.RetrieveMultiple(query).Entities;
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {

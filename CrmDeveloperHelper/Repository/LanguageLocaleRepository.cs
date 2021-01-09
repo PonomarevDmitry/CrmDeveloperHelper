@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {

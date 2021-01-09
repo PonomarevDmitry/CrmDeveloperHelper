@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = DependencyNode.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
             };
 
             return _service.RetrieveMultipleAll<DependencyNode>(query);

@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = DisplayString.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {

@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SiteMap.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SiteMap.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -110,7 +110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SiteMap.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
             };
 
             if (!string.IsNullOrEmpty(sitemapName))
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {

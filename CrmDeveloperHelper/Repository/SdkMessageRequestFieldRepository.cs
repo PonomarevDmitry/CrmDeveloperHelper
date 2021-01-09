@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageRequestField.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
             };
 
             return _service.RetrieveMultipleAll<SdkMessageRequestField>(query);
@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageRequestField.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageRequestField.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -121,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageRequestField.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -160,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageRequestField.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {

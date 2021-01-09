@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 EntityName = PluginType.EntityLogicalName,
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 NoLock = true,
 
@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 NoLock = true,
 
                 EntityName = PluginType.EntityLogicalName,
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -126,7 +126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = PluginType.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -156,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = PluginType.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = PluginType.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = PluginType.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -249,7 +249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = PluginType.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -351,7 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = PluginType.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {

@@ -133,7 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 var repository = new DisplayStringRepository(_service);
 
-                var entity = repository.GetByKeyAndLanguage(key, langCode, new ColumnSet(false));
+                var entity = repository.GetByKeyAndLanguage(key, langCode, ColumnSetInstances.None);
 
                 if (entity != null)
                 {

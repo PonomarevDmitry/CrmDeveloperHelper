@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var repositorySiteMap = new SiteMapRepository(service);
 
-            var siteMap = await repositorySiteMap.FindByExactNameAsync(siteMapNameUnique ?? string.Empty, new ColumnSet(true));
+            var siteMap = await repositorySiteMap.FindByExactNameAsync(siteMapNameUnique ?? string.Empty, ColumnSetInstances.AllColumns);
 
             if (siteMap == null)
             {

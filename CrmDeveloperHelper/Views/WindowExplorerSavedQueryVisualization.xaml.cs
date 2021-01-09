@@ -201,12 +201,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repository = new SavedQueryVisualizationRepository(service);
 
-                    list = await repository.GetListAsync(filterEntity
-                        , new ColumnSet(
-                            SavedQueryVisualization.Schema.Attributes.savedqueryvisualizationid
-                            , SavedQueryVisualization.Schema.Attributes.primaryentitytypecode
-                            , SavedQueryVisualization.Schema.Attributes.name
-                            , SavedQueryVisualization.Schema.Attributes.iscustomizable
+                    list = await repository.GetListAsync(filterEntity, new ColumnSet(
+                        SavedQueryVisualization.Schema.Attributes.savedqueryvisualizationid
+                        , SavedQueryVisualization.Schema.Attributes.primaryentitytypecode
+                        , SavedQueryVisualization.Schema.Attributes.name
+                        , SavedQueryVisualization.Schema.Attributes.iscustomizable
                     ));
                 }
             }
@@ -670,7 +669,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new SavedQueryVisualizationRepository(service);
 
-                var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, new ColumnSet(true));
+                var savedQueryVisualization = await repository.GetByIdAsync(idSavedQueryVisualization, ColumnSetInstances.AllColumns);
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQueryVisualization, service.ConnectionData);
 

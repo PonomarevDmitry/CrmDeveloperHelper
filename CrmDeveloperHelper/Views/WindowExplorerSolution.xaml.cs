@@ -2080,9 +2080,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
 
-                var componentsSource = await repository.GetSolutionComponentsAsync(solutionSource.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                var columnSet = new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior);
 
-                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                var componentsSource = await repository.GetSolutionComponentsAsync(solutionSource.Id, columnSet);
+
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, columnSet);
 
                 var componentesOnlyInSource = SolutionDescriptor.GetComponentsInFirstNotSecond(componentsSource, componentsTarget);
 
@@ -2196,10 +2198,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 List<SolutionComponent> componentsSource = new List<SolutionComponent>();
 
+                var columnSet = new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior);
+
                 {
                     var hash = new HashSet<Tuple<int, Guid>>();
 
-                    var temp = await repository.GetSolutionComponentsForCollectionAsync(solutionSourceCollection.Select(e => e.Id), new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                    var temp = await repository.GetSolutionComponentsForCollectionAsync(solutionSourceCollection.Select(e => e.Id), columnSet);
 
                     foreach (var item in temp)
                     {
@@ -2210,7 +2214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, columnSet);
 
                 var componentesOnlyInSource = SolutionDescriptor.GetComponentsInFirstNotSecond(componentsSource, componentsTarget);
 
@@ -2327,13 +2331,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(service);
+                var repository = new SolutionComponentRepository(service);
 
-                var componentsSource = await repository.GetSolutionComponentsAsync(solutionSource.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                var columnSet = new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior);
 
-                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                var componentsSource = await repository.GetSolutionComponentsAsync(solutionSource.Id, columnSet);
+
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, columnSet);
 
                 var commonComponents = SolutionDescriptor.GetCommonComponents(componentsSource, componentsTarget);
 
@@ -2441,16 +2447,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(service);
+                var repository = new SolutionComponentRepository(service);
 
-                List<SolutionComponent> componentsSource = new List<SolutionComponent>();
+                var componentsSource = new List<SolutionComponent>();
+
+                var columnSet = new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior);
 
                 {
                     var hash = new HashSet<Tuple<int, Guid>>();
 
-                    var temp = await repository.GetSolutionComponentsForCollectionAsync(solutionSourceCollection.Select(e => e.Id), new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                    var temp = await repository.GetSolutionComponentsForCollectionAsync(solutionSourceCollection.Select(e => e.Id), columnSet);
 
                     foreach (var item in temp)
                     {
@@ -2461,7 +2469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
+                var componentsTarget = await repository.GetSolutionComponentsAsync(solutionTarget.Id, columnSet);
 
                 var componentesOnlyInSource = SolutionDescriptor.GetComponentsInFirstNotSecond(componentsSource, componentsTarget);
 

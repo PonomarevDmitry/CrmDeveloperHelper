@@ -167,6 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SiteMapRepository(service);
+
                     list = await repository.GetListAsync(new ColumnSet(SiteMap.EntityPrimaryIdAttribute, SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique));
                 }
             }
@@ -605,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new SiteMapRepository(service);
 
-                var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
+                var sitemap = await repository.GetByIdAsync(idSiteMap, ColumnSetInstances.AllColumns);
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, sitemap, service.ConnectionData);
 

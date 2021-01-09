@@ -767,11 +767,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repository = new SystemUserRepository(_service);
 
             Func<string, Task<IEnumerable<SystemUser>>> getter = (string filter) => repository.GetUsersAsync(filter, new ColumnSet(
-                               SystemUser.Schema.Attributes.domainname
-                               , SystemUser.Schema.Attributes.fullname
-                               , SystemUser.Schema.Attributes.businessunitid
-                               , SystemUser.Schema.Attributes.isdisabled
-                               ));
+                SystemUser.Schema.Attributes.domainname
+                , SystemUser.Schema.Attributes.fullname
+                , SystemUser.Schema.Attributes.businessunitid
+                , SystemUser.Schema.Attributes.isdisabled
+            ));
 
             IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
 

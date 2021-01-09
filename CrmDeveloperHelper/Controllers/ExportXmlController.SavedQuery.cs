@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var repositorySavedQuery = new SavedQueryRepository(service);
 
-            var savedQuery = await repositorySavedQuery.GetByIdAsync(Guid.Parse(savedQueryId), new ColumnSet(true));
+            var savedQuery = await repositorySavedQuery.GetByIdAsync(Guid.Parse(savedQueryId), ColumnSetInstances.AllColumns);
 
             if (savedQuery == null)
             {

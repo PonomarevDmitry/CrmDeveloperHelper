@@ -146,19 +146,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new ImportJobRepository(service);
-                    list = await repository.GetListAsync(textName
-                        , new ColumnSet(
-                            ImportJob.Schema.Attributes.importjobid
-                            , ImportJob.Schema.Attributes.name
-                            , ImportJob.Schema.Attributes.solutionname
-                            , ImportJob.Schema.Attributes.startedon
-                            , ImportJob.Schema.Attributes.progress
-                            , ImportJob.Schema.Attributes.completedon
-                            , ImportJob.Schema.Attributes.createdon
-                            , ImportJob.Schema.Attributes.createdby
-                            , ImportJob.Schema.Attributes.importcontext
-                            , ImportJob.Schema.Attributes.operationcontext
-                        ));
+
+                    list = await repository.GetListAsync(textName, new ColumnSet(
+                        ImportJob.Schema.Attributes.importjobid
+                        , ImportJob.Schema.Attributes.name
+                        , ImportJob.Schema.Attributes.solutionname
+                        , ImportJob.Schema.Attributes.startedon
+                        , ImportJob.Schema.Attributes.progress
+                        , ImportJob.Schema.Attributes.completedon
+                        , ImportJob.Schema.Attributes.createdon
+                        , ImportJob.Schema.Attributes.createdby
+                        , ImportJob.Schema.Attributes.importcontext
+                        , ImportJob.Schema.Attributes.operationcontext
+                    ));
 
                     SwitchEntityDatesToLocalTime(list);
                 }
@@ -565,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new ImportJobRepository(service);
 
-                var importJob = await repository.GetByIdAsync(idImportJob, new ColumnSet(true));
+                var importJob = await repository.GetByIdAsync(idImportJob, ColumnSetInstances.AllColumns);
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, importJob, service.ConnectionData);
 

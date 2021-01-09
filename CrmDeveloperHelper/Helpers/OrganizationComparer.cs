@@ -962,8 +962,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
-            var task1 = _comparerSource.GetOrganization1Async(new ColumnSet(true));
-            var task2 = _comparerSource.GetOrganization2Async(new ColumnSet(true));
+            var task1 = _comparerSource.GetOrganization1Async(ColumnSetInstances.AllColumns);
+            var task2 = _comparerSource.GetOrganization2Async(ColumnSetInstances.AllColumns);
 
             Organization organization1 = await task1;
             Organization organization2 = await task2;
@@ -1526,8 +1526,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
-            var task1 = _comparerSource.GetWorkflow1Async(new ColumnSet(true));
-            var task2 = _comparerSource.GetWorkflow2Async(new ColumnSet(true));
+            var task1 = _comparerSource.GetWorkflow1Async(ColumnSetInstances.AllColumns);
+            var task2 = _comparerSource.GetWorkflow2Async(ColumnSetInstances.AllColumns);
 
             List<Workflow> list1 = (await task1).ToList();
 

@@ -109,7 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static async Task<Translation> GetFieldTranslation(SdkMessageRequestRepository sdkMessageRequestRepository, TranslationRepository translationRepository)
         {
-            var request = await sdkMessageRequestRepository.FindByRequestNameAsync(SdkMessageRequest.Instances.ExportFieldTranslationRequest, new ColumnSet(false));
+            var request = await sdkMessageRequestRepository.FindByRequestNameAsync(SdkMessageRequest.Instances.ExportFieldTranslationRequest, ColumnSetInstances.None);
 
             if (request == null)
             {

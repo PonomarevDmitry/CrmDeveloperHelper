@@ -625,7 +625,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var repositorySystemForm = new SystemFormRepository(service);
 
-                var formList = await repositorySystemForm.GetListAsync(null, null, null, new ColumnSet(true));
+                var formList = await repositorySystemForm.GetListAsync(null, null, null, ColumnSetInstances.AllColumns);
 
                 foreach (var systemForm in formList
                     .OrderBy(f => f.ObjectTypeCode)
@@ -752,9 +752,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 var repositorySystemForm = new SystemFormRepository(service);
                 var repositoryTeamTemplate = new TeamTemplateRepository(service);
 
-                var templatesDict = (await repositoryTeamTemplate.GetListAsync(new ColumnSet(true))).ToDictionary(e => e.Id);
+                var templatesDict = (await repositoryTeamTemplate.GetListAsync(ColumnSetInstances.AllColumns)).ToDictionary(e => e.Id);
 
-                var formList = await repositorySystemForm.GetListAsync(null, null, null, new ColumnSet(true));
+                var formList = await repositorySystemForm.GetListAsync(null, null, null, ColumnSetInstances.AllColumns);
 
                 var tableTeamTemplatesNotExists = new FormatTextTableHandler("TeamTemplateId", "Grid Id", "Grid Location", "Form Entity", "FormType", "Form Name", "State", "Form Url");
 
@@ -875,12 +875,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 var repositorySystemForm = new SystemFormRepository(service);
                 var repositoryTeamTemplate = new TeamTemplateRepository(service);
 
-                var listTeamTemplates = await repositoryTeamTemplate.GetListAsync(new ColumnSet(true));
+                var listTeamTemplates = await repositoryTeamTemplate.GetListAsync(ColumnSetInstances.AllColumns);
 
                 var unusedTeamTemplates = listTeamTemplates.ToDictionary(e => e.Id);
                 var templatesDict = listTeamTemplates.ToDictionary(e => e.Id);
 
-                var formList = await repositorySystemForm.GetListAsync(null, null, null, new ColumnSet(true));
+                var formList = await repositorySystemForm.GetListAsync(null, null, null, ColumnSetInstances.AllColumns);
 
                 var tableTeamTemplates = new FormatTextTableHandler("TeamTemplateId", "TeamTemplateName", "TeamTemplate EntityName", "ObjectTypeCode", "DefaultAccessRightsMask", "Grid Id", "Grid Location", "Form Entity", "FormType", "Form Name", "State", "TeamTemplate Url", "Form Url");
                 var tableTeamTemplatesNotExists = new FormatTextTableHandler("TeamTemplateId", "Grid Id", "Grid Location", "Form Entity", "FormType", "Form Name", "State", "Form Url");

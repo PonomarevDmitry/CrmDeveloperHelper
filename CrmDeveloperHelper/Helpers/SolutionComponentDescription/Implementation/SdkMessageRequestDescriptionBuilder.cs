@@ -66,8 +66,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                         EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
-                        Columns = new ColumnSet(),
-
                         LinkEntities =
                         {
                             new LinkEntity()

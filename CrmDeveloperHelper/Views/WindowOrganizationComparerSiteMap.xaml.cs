@@ -609,8 +609,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SiteMapRepository(service1);
                     var repository2 = new SiteMapRepository(service2);
 
-                    var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     string xml1 = sitemap1.GetAttributeValue<string>(fieldName);
                     string xml2 = sitemap2.GetAttributeValue<string>(fieldName);
@@ -672,7 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SiteMapRepository(service);
 
-                var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
+                var sitemap = await repository.GetByIdAsync(idSiteMap, ColumnSetInstances.AllColumns);
 
                 string xmlContent = sitemap.GetAttributeValue<string>(fieldName);
 
@@ -716,8 +716,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SiteMapRepository(service1);
                     var repository2 = new SiteMapRepository(service2);
 
-                    var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap1);
                     var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap2);
@@ -777,7 +777,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SiteMapRepository(service);
 
-                var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
+                var sitemap = await repository.GetByIdAsync(idSiteMap, ColumnSetInstances.AllColumns);
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap, service.ConnectionData);
 

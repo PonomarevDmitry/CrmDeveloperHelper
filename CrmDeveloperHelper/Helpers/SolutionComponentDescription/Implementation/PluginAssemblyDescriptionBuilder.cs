@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var repository = new PluginAssemblyRepository(_service);
 
-                    var entity = repository.FindAssemblyByFullName(name, versionString, cultureString, publicKeyTokenString, new ColumnSet(false));
+                    var entity = repository.FindAssemblyByFullName(name, versionString, cultureString, publicKeyTokenString, ColumnSetInstances.None);
 
                     if (entity != null)
                     {

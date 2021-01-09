@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new SavedQueryRepository(_service);
 
-            var viewsList = await repository.GetListSearchQueriesAsync(entityName, new ColumnSet(true));
+            var viewsList = await repository.GetListSearchQueriesAsync(entityName, ColumnSetInstances.AllColumns);
 
             foreach (var savedQuery in viewsList)
             {

@@ -6,8 +6,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription.Implementation
@@ -138,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             var repository = new SiteMapRepository(_service);
 
-            var entity = repository.FindByExactName(sitemapName, new ColumnSet(false));
+            var entity = repository.FindByExactName(sitemapName, ColumnSetInstances.None);
 
             if (entity != null)
             {

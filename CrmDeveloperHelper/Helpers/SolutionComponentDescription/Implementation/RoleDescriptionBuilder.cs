@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 var repository = new RoleRepository(_service);
 
-                var entity = repository.FindRoleByTemplate(roleTemplateId, new ColumnSet(false));
+                var entity = repository.FindRoleByTemplate(roleTemplateId, ColumnSetInstances.None);
 
                 if (entity != null)
                 {

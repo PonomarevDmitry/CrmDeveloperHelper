@@ -800,7 +800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (webId.HasValue)
                         {
-                            webresource = await webResourceRepository.GetByIdAsync(webId.Value, new ColumnSet(true));
+                            webresource = await webResourceRepository.GetByIdAsync(webId.Value, ColumnSetInstances.AllColumns);
 
                             if (webresource != null)
                             {
@@ -957,13 +957,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var names = gr.Select(sel => sel.FriendlyFilePath).ToArray();
 
-                var dict = webResourceRepository.FindMultiple(gr.Key, names
-                    , new ColumnSet(
-                        WebResource.Schema.EntityPrimaryIdAttribute
-                        , WebResource.Schema.Attributes.name
-                        , WebResource.Schema.Attributes.webresourcetype
-                        , WebResource.Schema.Attributes.content
-                    ));
+                var dict = webResourceRepository.FindMultiple(gr.Key, names, new ColumnSet(
+                    WebResource.Schema.EntityPrimaryIdAttribute
+                    , WebResource.Schema.Attributes.name
+                    , WebResource.Schema.Attributes.webresourcetype
+                    , WebResource.Schema.Attributes.content
+                ));
 
                 foreach (var selectedFile in gr)
                 {

@@ -1115,14 +1115,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository = new SdkMessageRequestFieldRepository(service);
 
-                        listRequestFields = await repository.GetListByRequestIdAsync(selectedNode.SdkMessageRequestId.Value, new ColumnSet(true));
+                        listRequestFields = await repository.GetListByRequestIdAsync(selectedNode.SdkMessageRequestId.Value, ColumnSetInstances.AllColumns);
                     }
 
                     if (selectedNode.SdkMessageResponseId.HasValue)
                     {
                         var repository = new SdkMessageResponseFieldRepository(service);
 
-                        listResponseFields = await repository.GetListByResponseIdAsync(selectedNode.SdkMessageResponseId.Value, new ColumnSet(true));
+                        listResponseFields = await repository.GetListByResponseIdAsync(selectedNode.SdkMessageResponseId.Value, ColumnSetInstances.AllColumns);
                     }
                 }
             }
@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (node.SdkMessageRequestId.HasValue)
             {
                 var repository = new SdkMessageRequestRepository(service);
-                var request = await repository.GetByIdAsync(node.SdkMessageRequestId.Value, new ColumnSet(true));
+                var request = await repository.GetByIdAsync(node.SdkMessageRequestId.Value, ColumnSetInstances.AllColumns);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1321,7 +1321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repFields = new SdkMessageRequestFieldRepository(service);
 
-                    var queryFields = await repFields.GetListByRequestIdAsync(request.Id, new ColumnSet(true));
+                    var queryFields = await repFields.GetListByRequestIdAsync(request.Id, ColumnSetInstances.AllColumns);
 
                     foreach (var field in queryFields.OrderBy(f => f.Position).ThenBy(f => f.Name))
                     {
@@ -1340,7 +1340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (node.SdkMessageResponseId.HasValue)
             {
                 var repository = new SdkMessageResponseRepository(service);
-                var Response = await repository.GetByIdAsync(node.SdkMessageResponseId.Value, new ColumnSet(true));
+                var Response = await repository.GetByIdAsync(node.SdkMessageResponseId.Value, ColumnSetInstances.AllColumns);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1364,7 +1364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repFields = new SdkMessageResponseFieldRepository(service);
 
-                    var queryFields = await repFields.GetListByResponseIdAsync(Response.Id, new ColumnSet(true));
+                    var queryFields = await repFields.GetListByResponseIdAsync(Response.Id, ColumnSetInstances.AllColumns);
 
                     foreach (var field in queryFields.OrderBy(f => f.Position).ThenBy(f => f.Name))
                     {
@@ -1934,17 +1934,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            var sdkMessagePair = await new SdkMessagePairRepository(service).GetByIdAsync(nodeItem.SdkMessagePairId.Value, new ColumnSet(true));
+            var sdkMessagePair = await new SdkMessagePairRepository(service).GetByIdAsync(nodeItem.SdkMessagePairId.Value, ColumnSetInstances.AllColumns);
 
-            var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(sdkMessagePair.SdkMessageId.Id, new ColumnSet(true));
+            var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(sdkMessagePair.SdkMessageId.Id, ColumnSetInstances.AllColumns);
 
-            var sdkFilters = await new SdkMessageFilterRepository(service).GetListByMessageAsync(sdkMessage.Id, new ColumnSet(true));
+            var sdkFilters = await new SdkMessageFilterRepository(service).GetListByMessageAsync(sdkMessage.Id, ColumnSetInstances.AllColumns);
 
-            var sdkRequests = await new SdkMessageRequestRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
-            var sdkRequestFields = await new SdkMessageRequestFieldRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
+            var sdkRequests = await new SdkMessageRequestRepository(service).GetListByPairAsync(sdkMessagePair.Id, ColumnSetInstances.AllColumns);
+            var sdkRequestFields = await new SdkMessageRequestFieldRepository(service).GetListByPairAsync(sdkMessagePair.Id, ColumnSetInstances.AllColumns);
 
-            var sdkResponses = await new SdkMessageResponseRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
-            var sdkResponseFields = await new SdkMessageResponseFieldRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
+            var sdkResponses = await new SdkMessageResponseRepository(service).GetListByPairAsync(sdkMessagePair.Id, ColumnSetInstances.AllColumns);
+            var sdkResponseFields = await new SdkMessageResponseFieldRepository(service).GetListByPairAsync(sdkMessagePair.Id, ColumnSetInstances.AllColumns);
 
             var codeMessage = new CodeGenerationSdkMessage(sdkMessage.Id, sdkMessage.Name, sdkMessage.IsPrivate.GetValueOrDefault(), sdkMessage.CustomizationLevel.GetValueOrDefault());
             codeMessage.Fill(sdkFilters, new[] { sdkMessagePair }, sdkRequests, sdkRequestFields, sdkResponses, sdkResponseFields);
@@ -2209,17 +2209,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             Guid idMessage = nodeItem.MessageIdsList.First();
 
-            var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(idMessage, new ColumnSet(true));
+            var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(idMessage, ColumnSetInstances.AllColumns);
 
-            var sdkFilters = await new SdkMessageFilterRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+            var sdkFilters = await new SdkMessageFilterRepository(service).GetListByMessageAsync(idMessage, ColumnSetInstances.AllColumns);
 
-            var sdkMessagePairs = await new SdkMessagePairRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+            var sdkMessagePairs = await new SdkMessagePairRepository(service).GetListByMessageAsync(idMessage, ColumnSetInstances.AllColumns);
 
-            var sdkRequests = await new SdkMessageRequestRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
-            var sdkRequestFields = await new SdkMessageRequestFieldRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+            var sdkRequests = await new SdkMessageRequestRepository(service).GetListByMessageAsync(idMessage, ColumnSetInstances.AllColumns);
+            var sdkRequestFields = await new SdkMessageRequestFieldRepository(service).GetListByMessageAsync(idMessage, ColumnSetInstances.AllColumns);
 
-            var sdkResponses = await new SdkMessageResponseRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
-            var sdkResponseFields = await new SdkMessageResponseFieldRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+            var sdkResponses = await new SdkMessageResponseRepository(service).GetListByMessageAsync(idMessage, ColumnSetInstances.AllColumns);
+            var sdkResponseFields = await new SdkMessageResponseFieldRepository(service).GetListByMessageAsync(idMessage, ColumnSetInstances.AllColumns);
 
             var codeMessage = new CodeGenerationSdkMessage(sdkMessage.Id, sdkMessage.Name, sdkMessage.IsPrivate.GetValueOrDefault(), sdkMessage.CustomizationLevel.GetValueOrDefault());
             codeMessage.Fill(sdkFilters, sdkMessagePairs, sdkRequests, sdkRequestFields, sdkResponses, sdkResponseFields);

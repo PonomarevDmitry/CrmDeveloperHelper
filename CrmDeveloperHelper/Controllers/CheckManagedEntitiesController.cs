@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -1393,7 +1394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     EntityName = entityName,
 
-                    ColumnSet = new ColumnSet(true),
+                    ColumnSet = ColumnSetInstances.AllColumns,
 
                     Criteria =
                     {
@@ -1468,7 +1469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     EntityName = entityName,
 
-                    ColumnSet = new ColumnSet(true),
+                    ColumnSet = ColumnSetInstances.AllColumns,
 
                     Criteria =
                     {

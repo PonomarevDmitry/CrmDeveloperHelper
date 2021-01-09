@@ -438,7 +438,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var repositoryGeneric = new GenericRepository(_service, entityMetadata);
 
-                        var entity = await repositoryGeneric.GetEntityByIdAsync(item.Id, new ColumnSet(true));
+                        var entity = await repositoryGeneric.GetEntityByIdAsync(item.Id, ColumnSetInstances.AllColumns);
 
                         if (entity != null)
                         {
@@ -603,7 +603,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             var repositoryGeneric = new GenericRepository(_service, entityMetadata);
 
-                            var entity = await repositoryGeneric.GetEntityByIdAsync(itemRef.Id, new ColumnSet(true));
+                            var entity = await repositoryGeneric.GetEntityByIdAsync(itemRef.Id, ColumnSetInstances.AllColumns);
 
                             if (entity != null)
                             {
@@ -750,7 +750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var repository = new WorkflowRepository(_service);
 
-                var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+                var workflow = await repository.GetByIdAsync(idWorkflow, ColumnSetInstances.AllColumns);
 
                 string xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
 
@@ -786,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var repository = new WorkflowRepository(_service);
 
-                var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+                var workflow = await repository.GetByIdAsync(idWorkflow, ColumnSetInstances.AllColumns);
 
                 string xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
 
@@ -822,7 +822,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var repository = new WorkflowRepository(_service);
 
-                var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+                var workflow = await repository.GetByIdAsync(idWorkflow, ColumnSetInstances.AllColumns);
 
                 string xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
 

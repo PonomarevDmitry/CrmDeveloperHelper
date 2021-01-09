@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 TopCount = 2,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 EntityName = SdkMessage.EntityLogicalName,
 
@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessage.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(false),
+                ColumnSet = columnSet ?? ColumnSetInstances.None,
 
                 EntityName = SdkMessage.EntityLogicalName,
 

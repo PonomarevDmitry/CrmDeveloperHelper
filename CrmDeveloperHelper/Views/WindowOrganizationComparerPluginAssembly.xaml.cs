@@ -498,8 +498,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new PluginAssemblyRepository(service1);
                     var repository2 = new PluginAssemblyRepository(service2);
 
-                    var assembly1 = await repository1.GetAssemblyByIdRetrieveRequestAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var assembly2 = await repository2.GetAssemblyByIdRetrieveRequestAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var assembly1 = await repository1.GetAssemblyByIdRetrieveRequestAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var assembly2 = await repository2.GetAssemblyByIdRetrieveRequestAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly1);
                     var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly2);
@@ -697,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new PluginAssemblyRepository(service);
 
-                var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(pluginAssemblyId, new ColumnSet(true));
+                var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(pluginAssemblyId, ColumnSetInstances.AllColumns);
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly, service.ConnectionData);
 

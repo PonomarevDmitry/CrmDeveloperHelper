@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
             };
 
             return _service.RetrieveMultipleAll<SdkMessageFilter>(query);
@@ -103,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -139,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
-                        Columns = new ColumnSet(true),
+                        Columns = ColumnSetInstances.AllColumns,
                     },
                 },
             };
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageFilter.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(false),
+                ColumnSet = columnSet ?? ColumnSetInstances.None,
 
                 LinkEntities =
                 {

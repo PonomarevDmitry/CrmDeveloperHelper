@@ -314,7 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 entity.Id = entityId;
 
-                var exists = await RetrieveByQueryAsync<Entity>(entity.LogicalName, entityId, new ColumnSet(false));
+                var exists = await RetrieveByQueryAsync<Entity>(entity.LogicalName, entityId, ColumnSetInstances.None);
 
                 if (exists != null)
                 {
@@ -548,7 +548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             var repository = new SdkMessageRequestRepository(this);
 
-            var request = repository.FindByRequestName(requestName, new ColumnSet(false));
+            var request = repository.FindByRequestName(requestName, ColumnSetInstances.None);
 
             bool isRequestExists = request != null;
 
@@ -807,7 +807,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return columnSet;
             }
 
-            ColumnSet result = new ColumnSet();
+            var result = new ColumnSet();
+
             result.Columns.AddRange(columnSet.Columns);
 
             HashSet<string> attributes = GetEntityAttributes(entityName);

@@ -410,11 +410,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 entity.Id = entityId;
 
-                var exists = await GetByIdAsync(entityId, new ColumnSet(false));
+                var exists = await GetByIdAsync(entityId, ColumnSetInstances.None);
 
                 if (exists != null)
                 {
-                    var updateAssembly = await GetAssemblyByIdRetrieveRequestAsync(entityId, new ColumnSet(true));
+                    var updateAssembly = await GetAssemblyByIdRetrieveRequestAsync(entityId, ColumnSetInstances.AllColumns);
 
                     foreach (var attribute in entity.Attributes)
                     {

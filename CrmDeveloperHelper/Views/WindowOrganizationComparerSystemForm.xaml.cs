@@ -713,8 +713,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SystemFormRepository(service1);
                     var repository2 = new SystemFormRepository(service2);
 
-                    var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm1);
                     var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm2);
@@ -790,8 +790,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new SystemFormRepository(service1);
                 var repository2 = new SystemFormRepository(service2);
 
-                var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                 string formDescritpion1 = await handler1.GetFormDescriptionAsync(XElement.Parse(systemForm1.FormXml), systemForm1.ObjectTypeCode, systemForm1.Id, systemForm1.Name, systemForm1.FormattedValues[SystemForm.Schema.Attributes.type]);
                 string formDescritpion2 = await handler2.GetFormDescriptionAsync(XElement.Parse(systemForm2.FormXml), systemForm2.ObjectTypeCode, systemForm2.Id, systemForm2.Name, systemForm2.FormattedValues[SystemForm.Schema.Attributes.type]);
@@ -877,8 +877,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SystemFormRepository(service1);
                     var repository2 = new SystemFormRepository(service2);
 
-                    var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(fieldName));
-                    var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(fieldName));
+                    var columnSet = new ColumnSet(fieldName);
+
+                    var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, columnSet);
+                    var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, columnSet);
 
                     string xml1 = systemForm1.GetAttributeValue<string>(fieldName);
                     string xml2 = systemForm2.GetAttributeValue<string>(fieldName);
@@ -956,8 +958,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new SystemFormRepository(service1);
                 var repository2 = new SystemFormRepository(service2);
 
-                var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(SystemForm.Schema.Attributes.formxml));
-                var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(SystemForm.Schema.Attributes.formxml));
+                var columnSet = new ColumnSet(SystemForm.Schema.Attributes.formxml);
+
+                var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, columnSet);
+                var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, columnSet);
 
                 string formXml1 = systemForm1.FormXml ?? string.Empty;
                 string formXml2 = systemForm2.FormXml ?? string.Empty;
@@ -1088,7 +1092,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SystemFormRepository(service);
 
-                var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+                var systemForm = await repository.GetByIdAsync(idSystemForm, ColumnSetInstances.AllColumns);
 
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
@@ -1133,7 +1137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SystemFormRepository(service);
 
-                var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+                var systemForm = await repository.GetByIdAsync(idSystemForm, ColumnSetInstances.AllColumns);
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm, service.ConnectionData);
 
@@ -1209,7 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SystemFormRepository(service);
 
-                var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+                var systemForm = await repository.GetByIdAsync(idSystemForm, ColumnSetInstances.AllColumns);
 
                 string formXml = systemForm.FormXml;
 
@@ -1344,7 +1348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SystemFormRepository(service);
 
-                var systemForm = await repository.GetByIdAsync(systemFormId, new ColumnSet(true));
+                var systemForm = await repository.GetByIdAsync(systemFormId, ColumnSetInstances.AllColumns);
 
                 string formXml = systemForm.FormXml;
 

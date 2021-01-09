@@ -609,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new CustomControlRepository(service);
 
-                var customControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(true));
+                var customControl = await repository.GetByIdAsync(idCustomControl, ColumnSetInstances.AllColumns);
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, customControl, service.ConnectionData);
 

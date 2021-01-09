@@ -745,6 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 var repository = new ReportRepository(service);
+
                 Report reportWithBodyBinary = await repository.GetByIdAsync(idReport, new ColumnSet(fieldName));
 
                 string extension = Path.GetExtension(filename);

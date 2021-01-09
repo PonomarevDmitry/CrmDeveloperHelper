@@ -215,12 +215,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     if (item.Attribute("languagecode") == null 
                         || string.IsNullOrEmpty((string)item.Attribute("languagecode"))
                         || !int.TryParse((string)item.Attribute("languagecode"), out var langCode)
-                        )
+                    )
                     {
                         continue;
                     }
 
-                    var entity = repository.GetByKeyAndLanguage(key, langCode, new ColumnSet(false));
+                    var entity = repository.GetByKeyAndLanguage(key, langCode, ColumnSetInstances.None);
 
                     if (entity != null)
                     {
@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     continue;
                 }
 
-                var entity = repository.GetById(idChart, new ColumnSet(false));
+                var entity = repository.GetById(idChart, ColumnSetInstances.None);
 
                 if (entity != null)
                 {
@@ -283,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     continue;
                 }
 
-                var entity = repository.GetById(idSavedQuery, new ColumnSet(false));
+                var entity = repository.GetById(idSavedQuery, ColumnSetInstances.None);
 
                 if (entity != null)
                 {

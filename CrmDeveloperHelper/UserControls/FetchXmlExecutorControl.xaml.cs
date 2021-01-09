@@ -870,7 +870,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     return;
                 }
 
-                var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
+                var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, ColumnSetInstances.AllColumns);
 
                 var commonConfig = CommonConfiguration.Get();
 
@@ -1032,7 +1032,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     return;
                 }
 
-                var entityFull = service.RetrieveByQuery<Entity>(entityReferenceView.LogicalName, entityReferenceView.Id, new ColumnSet(true));
+                var entityFull = service.RetrieveByQuery<Entity>(entityReferenceView.LogicalName, entityReferenceView.Id, ColumnSetInstances.AllColumns);
 
                 var commonConfig = CommonConfiguration.Get();
 

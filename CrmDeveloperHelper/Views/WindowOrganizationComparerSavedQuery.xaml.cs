@@ -760,8 +760,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SavedQueryRepository(service1);
                     var repository2 = new SavedQueryRepository(service2);
 
-                    var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     string xml1 = savedQuery1.GetAttributeValue<string>(fieldName);
                     string xml2 = savedQuery2.GetAttributeValue<string>(fieldName);
@@ -960,7 +960,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SavedQueryRepository(service);
 
-                var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
+                var savedQuery = await repository.GetByIdAsync(idSavedQuery, ColumnSetInstances.AllColumns);
 
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
@@ -1009,8 +1009,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SavedQueryRepository(service1);
                     var repository2 = new SavedQueryRepository(service2);
 
-                    var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery1);
                     var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery2);
@@ -1070,7 +1070,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SavedQueryRepository(service);
 
-                var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
+                var savedQuery = await repository.GetByIdAsync(idSavedQuery, ColumnSetInstances.AllColumns);
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery, service.ConnectionData);
 

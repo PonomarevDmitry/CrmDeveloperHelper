@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var repositoryGeneric = new GenericRepository(_service, this._entityMetadata);
 
-                        entity = await repositoryGeneric.GetEntityByIdAsync(_entityId, new ColumnSet(true));
+                        entity = await repositoryGeneric.GetEntityByIdAsync(_entityId, ColumnSetInstances.AllColumns);
 
                         ToggleControls(true, Properties.OutputStrings.GettingEntityCompletedFormat1, _entityId);
 

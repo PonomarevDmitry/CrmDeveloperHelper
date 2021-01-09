@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var repositoryWorkflow = new WorkflowRepository(service);
 
-            var workflow = await repositoryWorkflow.GetByIdAsync(Guid.Parse(workflowId), new ColumnSet(true));
+            var workflow = await repositoryWorkflow.GetByIdAsync(Guid.Parse(workflowId), ColumnSetInstances.AllColumns);
 
             if (workflow == null)
             {

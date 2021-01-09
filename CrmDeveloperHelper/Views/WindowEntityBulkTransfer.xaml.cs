@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             var repositoryGeneric = new GenericRepository(_service, targetEntityMetadata);
 
-                            ColumnSet columnSet = new ColumnSet(false);
+                            ColumnSet columnSet = ColumnSetInstances.None;
 
                             if (!string.IsNullOrEmpty(targetEntityMetadata.PrimaryNameAttribute))
                             {

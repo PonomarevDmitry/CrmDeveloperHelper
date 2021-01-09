@@ -430,7 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new SdkMessageRepository(service);
 
-            var message = await repository.GetByIdAsync(idSdkMessage, new ColumnSet(true));
+            var message = await repository.GetByIdAsync(idSdkMessage, ColumnSetInstances.AllColumns);
 
             string fileName = EntityFileNameFormatter.GetMessageFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));

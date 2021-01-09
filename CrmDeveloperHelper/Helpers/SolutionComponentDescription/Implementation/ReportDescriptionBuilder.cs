@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var repository = new ReportRepository(_service);
 
-                    var entity = repository.FindReportBySignature(lcid, signatureId, new ColumnSet(false));
+                    var entity = repository.FindReportBySignature(lcid, signatureId, ColumnSetInstances.None);
 
                     if (entity != null)
                     {

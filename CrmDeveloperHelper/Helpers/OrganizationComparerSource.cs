@@ -353,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)
         {
-            return new SavedQueryRepository(service).GetListAsync(null, null, new ColumnSet(true));
+            return new SavedQueryRepository(service).GetListAsync(null, null, ColumnSetInstances.AllColumns);
         }
 
         public Task<List<SavedQueryVisualization>> GetSavedQueryVisualization1Async()
@@ -443,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<IEnumerable<Role>> GetRoleAsync(IOrganizationServiceExtented service)
         {
-            return new RoleRepository(service).GetListAsync(null, new ColumnSet(true));
+            return new RoleRepository(service).GetListAsync(null, ColumnSetInstances.AllColumns);
         }
 
         public Task<List<FieldSecurityProfile>> GetFieldSecurityProfile1Async()

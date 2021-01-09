@@ -536,8 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         RoleRepository repositoryRole = new RoleRepository(service);
 
-                        var roles = await repositoryRole.GetListAsync(textName,
-                        new ColumnSet(
+                        var roles = await repositoryRole.GetListAsync(textName, new ColumnSet(
                             Role.Schema.Attributes.name
                             , Role.Schema.Attributes.businessunitid
                             , Role.Schema.Attributes.ismanaged

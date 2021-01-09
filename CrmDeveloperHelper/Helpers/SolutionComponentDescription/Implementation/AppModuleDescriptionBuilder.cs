@@ -150,7 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             var repository = new AppModuleRepository(_service);
 
-            var entity = repository.FindByExactName(AppModuleName, new ColumnSet(false));
+            var entity = repository.FindByExactName(AppModuleName, ColumnSetInstances.None);
 
             if (entity != null)
             {

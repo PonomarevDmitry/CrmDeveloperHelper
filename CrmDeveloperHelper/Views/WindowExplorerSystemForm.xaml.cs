@@ -922,7 +922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new SystemFormRepository(service);
 
-                var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+                var systemForm = await repository.GetByIdAsync(idSystemForm, ColumnSetInstances.AllColumns);
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, service.ConnectionData);
 
@@ -1323,7 +1323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new SystemFormRepository(service);
 
-            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+            var systemForm = await repository.GetByIdAsync(idSystemForm, ColumnSetInstances.AllColumns);
 
             SystemFormRepository.GetTypeName(systemForm.TypeEnum, out var formTypeName, out var formTypeConstructorName);
 
@@ -1920,7 +1920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new SystemFormRepository(service);
 
-            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+            var systemForm = await repository.GetByIdAsync(idSystemForm, ColumnSetInstances.AllColumns);
 
             string formXml = systemForm.FormXml;
 

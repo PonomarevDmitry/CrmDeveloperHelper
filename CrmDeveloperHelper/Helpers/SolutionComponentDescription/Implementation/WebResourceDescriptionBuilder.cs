@@ -139,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             var repository = new WebResourceRepository(_service);
 
-            var entity = repository.FindByExactName(webResourceName, new ColumnSet(false));
+            var entity = repository.FindByExactName(webResourceName, ColumnSetInstances.None);
 
             if (entity != null)
             {

@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.IO;
 using System.IO.Packaging;
@@ -31,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private string Export(ExportSolutionConfig config, ExportSolutionOverrideInformation solutionInfo)
         {
-            var solution = _service.Retrieve(Solution.EntityLogicalName, config.IdSolution, new ColumnSet(true)).ToEntity<Solution>();
+            var solution = _service.Retrieve(Solution.EntityLogicalName, config.IdSolution, ColumnSetInstances.AllColumns).ToEntity<Solution>();
 
             string solutionName = solution.UniqueName;
             string solutionVersion = solution.Version;

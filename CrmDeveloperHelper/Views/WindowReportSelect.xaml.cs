@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                list = await repository.GetListAsync(textName, new ColumnSet(true));
+                list = await repository.GetListAsync(textName, ColumnSetInstances.AllColumns);
             }
             catch (Exception ex)
             {

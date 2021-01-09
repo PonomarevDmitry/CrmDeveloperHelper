@@ -1472,7 +1472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         var generalRepository = new GenericRepository(service, item);
 
-                        Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(true));
+                        Entity entity = await generalRepository.GetEntityByIdAsync(entityId, ColumnSetInstances.AllColumns);
 
                         if (entity != null)
                         {
@@ -1575,7 +1575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         var generalRepository = new GenericRepository(service, item);
 
-                        var entityList = await generalRepository.GetEntitiesByFieldAsync(field.LogicalName, entityId, new ColumnSet(true));
+                        var entityList = await generalRepository.GetEntitiesByFieldAsync(field.LogicalName, entityId, ColumnSetInstances.AllColumns);
 
                         if (entityList != null)
                         {
@@ -1671,7 +1671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         var generalRepository = new GenericRepository(service, item);
 
-                        Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(false));
+                        Entity entity = await generalRepository.GetEntityByIdAsync(entityId, ColumnSetInstances.None);
 
                         if (entity != null)
                         {

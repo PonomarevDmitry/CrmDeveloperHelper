@@ -792,8 +792,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new WorkflowRepository(service1);
                     var repository2 = new WorkflowRepository(service2);
 
-                    var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     string xml1 = workflow1.GetAttributeValue<string>(fieldName);
                     string xml2 = workflow2.GetAttributeValue<string>(fieldName);
@@ -898,8 +898,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new WorkflowRepository(service1);
                 var repository2 = new WorkflowRepository(service2);
 
-                var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                 string xml1 = workflow1.GetAttributeValue<string>(fieldName);
                 string xml2 = workflow2.GetAttributeValue<string>(fieldName);
@@ -1123,7 +1123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new WorkflowRepository(service);
 
-                var workflow = await repository.GetByIdAsync(idWorflow, new ColumnSet(true));
+                var workflow = await repository.GetByIdAsync(idWorflow, ColumnSetInstances.AllColumns);
 
                 string entityName = workflow.PrimaryEntity;
                 string name = workflow.Name;
@@ -1178,7 +1178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new WorkflowRepository(service);
 
-                var workflow = await repository.GetByIdAsync(idWorflow, new ColumnSet(true));
+                var workflow = await repository.GetByIdAsync(idWorflow, ColumnSetInstances.AllColumns);
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
@@ -1233,8 +1233,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new WorkflowRepository(service1);
                 var repository2 = new WorkflowRepository(service2);
 
-                var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                 var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow1);
                 var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow2);
@@ -1296,7 +1296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new WorkflowRepository(service);
 
-                var workflow = await repository.GetByIdAsync(idWorflow, new ColumnSet(true));
+                var workflow = await repository.GetByIdAsync(idWorflow, ColumnSetInstances.AllColumns);
 
                 string entityName = workflow.PrimaryEntity;
                 string name = workflow.Name;

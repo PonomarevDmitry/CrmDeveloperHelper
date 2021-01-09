@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
 
-                var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
+                var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, ColumnSetInstances.AllColumns);
 
                 var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
 
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
 
-                var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
+                var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, ColumnSetInstances.AllColumns);
 
                 var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
 

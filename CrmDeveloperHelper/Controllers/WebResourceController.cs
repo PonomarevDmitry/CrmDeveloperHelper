@@ -1018,7 +1018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         continue;
                     }
 
-                    var systemForm = await systemFormRepository.GetByIdAsync(formId, new ColumnSet(true));
+                    var systemForm = await systemFormRepository.GetByIdAsync(formId, ColumnSetInstances.AllColumns);
 
                     if (systemForm == null)
                     {

@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(false),
+                ColumnSet = columnSet ?? ColumnSetInstances.None,
 
                 LinkEntities =
                 {
@@ -135,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -224,7 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -303,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 NoLock = true,
 
@@ -381,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -403,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkToEntityName = SdkMessageProcessingStep.EntityLogicalName,
                         LinkToAttributeName = SdkMessageProcessingStep.EntityPrimaryIdAttribute,
 
-                        Columns = new ColumnSet(true),
+                        Columns = ColumnSetInstances.AllColumns,
 
                         EntityAlias = SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid,
 
@@ -422,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
                             },
 
                             new LinkEntity()
@@ -439,7 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
 
                                 LinkEntities =
                                 {
@@ -458,7 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                         JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                        Columns = new ColumnSet(true),
+                                        Columns = ColumnSetInstances.AllColumns,
                                     },
                                 },
                             },
@@ -482,7 +482,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -504,7 +504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkToEntityName = SdkMessageProcessingStep.EntityLogicalName,
                         LinkToAttributeName = SdkMessageProcessingStep.EntityPrimaryIdAttribute,
 
-                        Columns = new ColumnSet(true),
+                        Columns = ColumnSetInstances.AllColumns,
 
                         EntityAlias = SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid,
 
@@ -523,7 +523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
                             },
 
                             new LinkEntity()
@@ -541,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
 
                                 LinkEntities =
                                 {
@@ -580,7 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
                             },
                         },
                     },
@@ -602,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -624,7 +624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkToEntityName = SdkMessageProcessingStep.EntityLogicalName,
                         LinkToAttributeName = SdkMessageProcessingStep.EntityPrimaryIdAttribute,
 
-                        Columns = new ColumnSet(true),
+                        Columns = ColumnSetInstances.AllColumns,
 
                         EntityAlias = SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid,
 
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
                             },
 
                             new LinkEntity()
@@ -661,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                 JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                Columns = new ColumnSet(true),
+                                Columns = ColumnSetInstances.AllColumns,
 
                                 LinkEntities =
                                 {
@@ -680,7 +680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                                         JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                                        Columns = new ColumnSet(true),
+                                        Columns = ColumnSetInstances.AllColumns,
                                     },
                                 },
                             },

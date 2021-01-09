@@ -598,8 +598,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new WebResourceRepository(service1);
                 var repository2 = new WebResourceRepository(service2);
 
-                var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                 var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(webResource1);
                 var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(webResource2);
@@ -652,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, ColumnSetInstances.AllColumns);
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(webresource, service.ConnectionData);
 
@@ -727,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, ColumnSetInstances.AllColumns);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Starting downloading {0}", webresource.Name);
 
@@ -796,8 +796,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new WebResourceRepository(service1);
                 var repository2 = new WebResourceRepository(service2);
 
-                var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                 if (showAllways || webResource1.Content != webResource2.Content)
                 {
@@ -863,8 +863,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new WebResourceRepository(service1);
                     var repository2 = new WebResourceRepository(service2);
 
-                    var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     string xml1 = webResource1.GetAttributeValue<string>(fieldName);
                     string xml2 = webResource2.GetAttributeValue<string>(fieldName);
@@ -1173,7 +1173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new WebResourceRepository(service);
 
-                var webResource = await repository.GetByIdAsync(idWebResource, new ColumnSet(true));
+                var webResource = await repository.GetByIdAsync(idWebResource, ColumnSetInstances.AllColumns);
 
                 string xmlContent = webResource.GetAttributeValue<string>(fieldName);
 

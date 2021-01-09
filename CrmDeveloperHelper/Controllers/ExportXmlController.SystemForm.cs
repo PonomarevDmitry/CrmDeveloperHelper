@@ -168,7 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
-            var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
+            var systemForm = await repositorySystemForm.GetByIdAsync(formId, ColumnSetInstances.AllColumns);
 
             if (actionOnComponent == ActionOnComponent.SingleXmlField)
             {
@@ -261,7 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
-            var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
+            var systemForm = await repositorySystemForm.GetByIdAsync(formId, ColumnSetInstances.AllColumns);
 
             string formXml = systemForm.FormXml;
 
@@ -336,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
-            var systemForm = await repositorySystemForm.GetByIdAsync(Guid.Parse(systemFormId), new ColumnSet(true));
+            var systemForm = await repositorySystemForm.GetByIdAsync(Guid.Parse(systemFormId), ColumnSetInstances.AllColumns);
 
             if (systemForm == null)
             {

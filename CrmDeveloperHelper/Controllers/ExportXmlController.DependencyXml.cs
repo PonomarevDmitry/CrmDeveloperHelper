@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var repositoryWebResource = new WebResourceRepository(service);
 
-            var webResource = await repositoryWebResource.FindByExactNameAsync(webResourceName, new ColumnSet(true));
+            var webResource = await repositoryWebResource.FindByExactNameAsync(webResourceName, ColumnSetInstances.AllColumns);
 
             if (webResource == null)
             {

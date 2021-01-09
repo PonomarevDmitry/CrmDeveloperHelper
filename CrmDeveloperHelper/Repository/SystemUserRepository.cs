@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 TopCount = 2,
 
-                ColumnSet = new ColumnSet(false),
+                ColumnSet = ColumnSetInstances.None,
 
                 EntityName = SystemUser.EntityLogicalName,
 
@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SystemUser.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Orders =
                 {
@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SystemUser.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -170,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SystemUser.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -247,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SystemUser.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 LinkEntities =
                 {
@@ -299,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var result = _service.RetrieveMultipleAll<SystemUser>(query);
 
             {
-                var users = GetUsersByRole(idRole, null, new ColumnSet(false));
+                var users = GetUsersByRole(idRole, null, ColumnSetInstances.None);
 
                 var hashSetUsersWithRole = new HashSet<Guid>(users.Select(t => t.Id));
 
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SystemUser.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {
@@ -472,7 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SystemUser.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Orders =
                 {
@@ -517,7 +517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SystemUser.EntityLogicalName,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
 
                 Criteria =
                 {

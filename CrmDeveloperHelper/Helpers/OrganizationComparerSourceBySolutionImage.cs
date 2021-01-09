@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<Role>();
             }
 
-            return await new RoleRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new RoleRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override async Task<IEnumerable<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
@@ -130,7 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<WebResource>();
             }
 
-            return await new WebResourceRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new WebResourceRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<ConnectionRole>> GetConnectionRoleAsync(IOrganizationServiceExtented service)
@@ -156,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<ConnectionRole>();
             }
 
-            return await new ConnectionRoleRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new ConnectionRoleRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<ContractTemplate>> GetContractTemplateAsync(IOrganizationServiceExtented service)
@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<ContractTemplate>();
             }
 
-            return await new ContractTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new ContractTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<KbArticleTemplate>> GetKbArticleTemplateAsync(IOrganizationServiceExtented service)
@@ -208,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<KbArticleTemplate>();
             }
 
-            return await new KbArticleTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new KbArticleTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<MailMergeTemplate>> GetMailMergeTemplateAsync(IOrganizationServiceExtented service)
@@ -234,7 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<MailMergeTemplate>();
             }
 
-            return await new MailMergeTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new MailMergeTemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<Template>> GetTemplateAsync(IOrganizationServiceExtented service)
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<Template>();
             }
 
-            return await new TemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new TemplateRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override async Task<List<DisplayString>> GetDisplayStringAsync(IOrganizationServiceExtented service)
@@ -278,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (solutionComponents.Any())
                 {
-                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
 
                     result.AddRange(tempList);
                 }
@@ -304,7 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (entities.Any())
                     {
-                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+                        var tempList = await repository.GetListForEntitiesAsync(entities, ColumnSetInstances.AllColumns);
 
                         foreach (var item in tempList)
                         {
@@ -343,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<FieldSecurityProfile>();
             }
 
-            return await new FieldSecurityProfileRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new FieldSecurityProfileRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override async Task<List<EntityMap>> GetEntityMapAsync(IOrganizationServiceExtented service)
@@ -361,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (solutionComponents.Any())
                 {
-                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
 
                     result.AddRange(tempList);
                 }
@@ -387,7 +387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (entities.Any())
                     {
-                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+                        var tempList = await repository.GetListForEntitiesAsync(entities, ColumnSetInstances.AllColumns);
 
                         foreach (var item in tempList)
                         {
@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<PluginType>();
             }
 
-            return await new PluginTypeRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new PluginTypeRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<Report>> GetReportAsync(IOrganizationServiceExtented service)
@@ -478,7 +478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<Report>();
             }
 
-            return await new ReportRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new ReportRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStepAsync(IOrganizationServiceExtented service)
@@ -504,7 +504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<SdkMessageProcessingStep>();
             }
 
-            return await new SdkMessageProcessingStepRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new SdkMessageProcessingStepRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override Task<List<SiteMap>> GetSiteMapAsync(IOrganizationServiceExtented service, ColumnSet columnSet = null)
@@ -530,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<SiteMap>();
             }
 
-            return await new SiteMapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new SiteMapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
         }
 
         protected override async Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)
@@ -548,7 +548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (solutionComponents.Any())
                 {
-                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
 
                     result.AddRange(tempList);
                 }
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (entities.Any())
                     {
-                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+                        var tempList = await repository.GetListForEntitiesAsync(entities, ColumnSetInstances.AllColumns);
 
                         foreach (var item in tempList)
                         {
@@ -605,7 +605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (solutionComponents.Any())
                 {
-                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
 
                     result.AddRange(tempList);
                 }
@@ -631,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (entities.Any())
                     {
-                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+                        var tempList = await repository.GetListForEntitiesAsync(entities, ColumnSetInstances.AllColumns);
 
                         foreach (var item in tempList)
                         {
@@ -662,7 +662,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (solutionComponents.Any())
                 {
-                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+                    var tempList = await repository.GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), ColumnSetInstances.AllColumns);
 
                     result.AddRange(tempList);
                 }
@@ -688,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (entities.Any())
                     {
-                        var tempList = await repository.GetListForEntitiesAsync(entities, new ColumnSet(true));
+                        var tempList = await repository.GetListForEntitiesAsync(entities, ColumnSetInstances.AllColumns);
 
                         foreach (var item in tempList)
                         {

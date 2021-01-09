@@ -658,8 +658,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SavedQueryVisualizationRepository(service1);
                     var repository2 = new SavedQueryVisualizationRepository(service2);
 
-                    var chart1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var chart2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var chart1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var chart2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     string xml1 = chart1.GetAttributeValue<string>(fieldName);
                     string xml2 = chart2.GetAttributeValue<string>(fieldName);
@@ -779,7 +779,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SavedQueryVisualizationRepository(service);
 
-                var chart = await repository.GetByIdAsync(idChart, new ColumnSet(true));
+                var chart = await repository.GetByIdAsync(idChart, ColumnSetInstances.AllColumns);
 
                 string xmlContent = chart.GetAttributeValue<string>(fieldName);
 
@@ -828,8 +828,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new SavedQueryVisualizationRepository(service1);
                     var repository2 = new SavedQueryVisualizationRepository(service2);
 
-                    var chart1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var chart2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var chart1 = await repository1.GetByIdAsync(linked.Entity1.Id, ColumnSetInstances.AllColumns);
+                    var chart2 = await repository2.GetByIdAsync(linked.Entity2.Id, ColumnSetInstances.AllColumns);
 
                     var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart1);
                     var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart2);
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new SavedQueryVisualizationRepository(service);
 
-                var chart = await repository.GetByIdAsync(idChart, new ColumnSet(true));
+                var chart = await repository.GetByIdAsync(idChart, ColumnSetInstances.AllColumns);
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart, service.ConnectionData);
 

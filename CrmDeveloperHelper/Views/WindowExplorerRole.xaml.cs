@@ -317,15 +317,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null && role != null)
                 {
-                    SystemUserRepository repository = new SystemUserRepository(service);
+                    var repository = new SystemUserRepository(service);
 
-                    list = await repository.GetUsersByRoleAsync(role.Id, textName
-                        , new ColumnSet(
-                            SystemUser.Schema.Attributes.fullname
-                            , SystemUser.Schema.Attributes.domainname
-                            , SystemUser.Schema.Attributes.businessunitid
-                            , SystemUser.Schema.Attributes.isdisabled
-                            ));
+                    list = await repository.GetUsersByRoleAsync(role.Id, textName, new ColumnSet(
+                        SystemUser.Schema.Attributes.fullname
+                        , SystemUser.Schema.Attributes.domainname
+                        , SystemUser.Schema.Attributes.businessunitid
+                        , SystemUser.Schema.Attributes.isdisabled
+                    ));
                 }
             }
             catch (Exception ex)
@@ -443,17 +442,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null && role != null)
                 {
-                    TeamRepository repository = new TeamRepository(service);
+                    var repository = new TeamRepository(service);
 
-                    list = await repository.GetTeamsByRoleAsync(role.Id, filterTeam
-                        , new ColumnSet(
-                                Team.Schema.Attributes.name
-                                , Team.Schema.Attributes.businessunitid
-                                , Team.Schema.Attributes.teamtype
-                                , Team.Schema.Attributes.regardingobjectid
-                                , Team.Schema.Attributes.teamtemplateid
-                                , Team.Schema.Attributes.isdefault
-                                ));
+                    list = await repository.GetTeamsByRoleAsync(role.Id, filterTeam, new ColumnSet(
+                        Team.Schema.Attributes.name
+                        , Team.Schema.Attributes.businessunitid
+                        , Team.Schema.Attributes.teamtype
+                        , Team.Schema.Attributes.regardingobjectid
+                        , Team.Schema.Attributes.teamtemplateid
+                        , Team.Schema.Attributes.isdefault
+                    ));
                 }
             }
             catch (Exception ex)
@@ -1342,7 +1340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
+            var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, ColumnSetInstances.AllColumns);
 
             string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1533,25 +1531,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             Func<string, Task<IEnumerable<SystemUser>>> getter = null;
 
+            var columnSet = new ColumnSet(
+                SystemUser.Schema.Attributes.domainname
+                , SystemUser.Schema.Attributes.fullname
+                , SystemUser.Schema.Attributes.businessunitid
+                , SystemUser.Schema.Attributes.isdisabled
+            );
+
             if (roleList.Count == 1)
             {
                 var role = roleList.First();
 
-                getter = (string filter) => repository.GetAvailableUsersForRoleAsync(filter, role.Id, new ColumnSet(
-                                SystemUser.Schema.Attributes.domainname
-                                , SystemUser.Schema.Attributes.fullname
-                                , SystemUser.Schema.Attributes.businessunitid
-                                , SystemUser.Schema.Attributes.isdisabled
-                                ));
+                getter = (string filter) => repository.GetAvailableUsersForRoleAsync(filter, role.Id, columnSet);
             }
             else
             {
-                getter = (string filter) => repository.GetUsersAsync(filter, new ColumnSet(
-                                SystemUser.Schema.Attributes.domainname
-                                , SystemUser.Schema.Attributes.fullname
-                                , SystemUser.Schema.Attributes.businessunitid
-                                , SystemUser.Schema.Attributes.isdisabled
-                                ));
+                getter = (string filter) => repository.GetUsersAsync(filter, columnSet);
             }
 
             IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
@@ -1664,23 +1659,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             Func<string, Task<IEnumerable<Team>>> getter = null;
 
+            var columnSet = new ColumnSet(
+                Team.Schema.Attributes.name
+                , Team.Schema.Attributes.businessunitid
+                , Team.Schema.Attributes.isdefault
+            );
+
             if (roleList.Count == 1)
             {
                 var role = roleList.First();
 
-                getter = (string filter) => repository.GetAvailableTeamsForRoleAsync(filter, role.Id, new ColumnSet(
-                                Team.Schema.Attributes.name
-                                , Team.Schema.Attributes.businessunitid
-                                , Team.Schema.Attributes.isdefault
-                                ));
+                getter = (string filter) => repository.GetAvailableTeamsForRoleAsync(filter, role.Id, columnSet);
             }
             else
             {
-                getter = (string filter) => repository.GetOwnerTeamsAsync(filter, new ColumnSet(
-                                Team.Schema.Attributes.name
-                                , Team.Schema.Attributes.businessunitid
-                                , Team.Schema.Attributes.isdefault
-                                ));
+                getter = (string filter) => repository.GetOwnerTeamsAsync(filter, columnSet);
             }
 
             IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
@@ -2993,10 +2986,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repositoryUser = new SystemUserRepository(service);
 
             Func<string, Task<IEnumerable<SystemUser>>> getter = (string filter) => repositoryUser.GetUsersAsync(filter, new ColumnSet(
-                                SystemUser.Schema.Attributes.domainname
-                                , SystemUser.Schema.Attributes.fullname
-                                , SystemUser.Schema.Attributes.businessunitid
-                                , SystemUser.Schema.Attributes.isdisabled
+                SystemUser.Schema.Attributes.domainname
+                , SystemUser.Schema.Attributes.fullname
+                , SystemUser.Schema.Attributes.businessunitid
+                , SystemUser.Schema.Attributes.isdisabled
             ));
 
             IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
@@ -3084,10 +3077,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repositoryTeam = new TeamRepository(service);
 
             Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repositoryTeam.GetOwnerTeamsAsync(filter, new ColumnSet(
-                                Team.Schema.Attributes.name
-                                , Team.Schema.Attributes.businessunitid
-                                , Team.Schema.Attributes.isdefault
-                                ));
+                Team.Schema.Attributes.name
+                , Team.Schema.Attributes.businessunitid
+                , Team.Schema.Attributes.isdefault
+            ));
 
             IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
 

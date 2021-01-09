@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 var repository = new SdkMessageFilterRepository(_service);
 
-                var messageFilter = repository.FindByEntityAndMessage(this.EntityLogicalName, SdkMessage.Schema.Instances.RetrieveMultiple, new ColumnSet(false));
+                var messageFilter = repository.FindByEntityAndMessage(this.EntityLogicalName, SdkMessage.Schema.Instances.RetrieveMultiple, ColumnSetInstances.None);
 
                 if (messageFilter == null)
                 {
@@ -179,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         protected virtual ColumnSet GetColumnSet()
         {
-            return new ColumnSet(true);
+            return ColumnSetInstances.AllColumns;
         }
 
         private List<Entity> GetCachedEntities(List<Guid> idsNotCached)

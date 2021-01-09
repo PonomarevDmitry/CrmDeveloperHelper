@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                             {
                                 var workflowRepository = new WorkflowRepository(_service);
 
-                                var linkedWorkflow = workflowRepository.FindLinkedWorkflow(systemform.Id, new ColumnSet(false));
+                                var linkedWorkflow = workflowRepository.FindLinkedWorkflow(systemform.Id, ColumnSetInstances.None);
 
                                 if (linkedWorkflow != null)
                                 {

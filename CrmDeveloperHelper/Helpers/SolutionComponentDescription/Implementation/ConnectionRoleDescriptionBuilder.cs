@@ -28,12 +28,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         protected override ColumnSet GetColumnSet()
         {
-            return new ColumnSet
-                (
-                    ConnectionRole.Schema.Attributes.name
-                    , ConnectionRole.Schema.Attributes.ismanaged
-                    , ConnectionRole.Schema.Attributes.iscustomizable
-                );
+            return new ColumnSet(
+                ConnectionRole.Schema.Attributes.name
+                , ConnectionRole.Schema.Attributes.ismanaged
+                , ConnectionRole.Schema.Attributes.iscustomizable
+            );
         }
 
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)

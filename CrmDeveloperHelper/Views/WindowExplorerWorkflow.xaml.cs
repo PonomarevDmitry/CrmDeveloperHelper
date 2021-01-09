@@ -725,7 +725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new WorkflowRepository(service);
 
-                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, ColumnSetInstances.AllColumns);
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
@@ -1289,7 +1289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 WorkflowRepository repository = new WorkflowRepository(service);
 
-                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, ColumnSetInstances.AllColumns);
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, workflow, service.ConnectionData);
 

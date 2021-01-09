@@ -26,7 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         protected override ColumnSet GetColumnSet()
         {
-            return new ColumnSet(Privilege.Schema.Attributes.privilegeid
+            return new ColumnSet(
+                Privilege.Schema.Attributes.privilegeid
                 , Privilege.Schema.Attributes.name
                 , Privilege.Schema.Attributes.accessright
             );

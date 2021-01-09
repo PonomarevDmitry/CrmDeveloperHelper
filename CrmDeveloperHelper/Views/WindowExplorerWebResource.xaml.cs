@@ -555,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, ColumnSetInstances.AllColumns);
 
                 string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -731,7 +731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, ColumnSetInstances.AllColumns);
 
                 string xmlContent = webresource.GetAttributeValue<string>(fieldName);
 
@@ -782,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, ColumnSetInstances.AllColumns);
 
                 string xmlContent = webresource.GetAttributeValue<string>(fieldName);
 
@@ -899,7 +899,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, ColumnSetInstances.AllColumns);
 
                 var allExtensions = WebResourceRepository.GetTypeAllExtensions(webresource.WebResourceType.Value);
 
