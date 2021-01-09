@@ -33,6 +33,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string DisplayName { get; private set; }
 
+        public bool IsIntersect => EntityMetadata.IsIntersect.GetValueOrDefault();
+
+        public int ObjectTypeCode => EntityMetadata.ObjectTypeCode.GetValueOrDefault();
+
         private bool? _initialIsAuditEnabled;
 
         public EntityMetadataAuditViewItem(EntityMetadata entityMetadata)

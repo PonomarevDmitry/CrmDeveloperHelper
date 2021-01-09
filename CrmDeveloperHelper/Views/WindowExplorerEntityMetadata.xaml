@@ -33,9 +33,10 @@
 
                     <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardEntityCopyName_Click" />
                     <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardEntityCopyDisplayName_Click" />
+                    <MenuItem Header="Copy to Clipboard Object Type Code" Click="mIClipboardEntityCopyObjectTypeCode_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy to Clipboard Entity Metadata Id" Click="mIClipboardEntityCopyEntityId_Click" />
+                    <MenuItem Header="Copy to Clipboard Entity Metadata Id" Click="mIClipboardEntityCopyEntityMetadataId_Click" />
 
                 </MenuItem>
 
@@ -299,6 +300,12 @@
                 <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName}" />
 
                 <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
+
+                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" CanUserResize="False">
+                    <DataGridTextColumn.Header>
+                        <Label Content="OBT" Margin="0" Padding="0" ToolTip="Object Type Code" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
                 <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
                     <DataGridTemplateColumn.Header>

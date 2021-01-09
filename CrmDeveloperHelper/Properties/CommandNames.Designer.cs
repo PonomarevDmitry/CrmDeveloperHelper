@@ -709,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity Attribute Explorer.
+        ///   Looks up a localized string similar to Entity Attribute.
         /// </summary>
         internal static string CommonEntityAttributeExplorerCommand {
             get {
@@ -718,7 +718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity Key Explorer.
+        ///   Looks up a localized string similar to Entity Key.
         /// </summary>
         internal static string CommonEntityKeyExplorerCommand {
             get {
@@ -736,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity Metadata.
+        ///   Looks up a localized string similar to Entity Metadata Explorer.
         /// </summary>
         internal static string CommonEntityMetadataExplorerCommand {
             get {
@@ -745,7 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity Privileges Explorer.
+        ///   Looks up a localized string similar to Entity Privileges.
         /// </summary>
         internal static string CommonEntityPrivilegesExplorerCommand {
             get {
@@ -754,7 +754,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity Relationship Many-To-Many Explorer.
+        ///   Looks up a localized string similar to Entity Relationship Many-To-Many.
         /// </summary>
         internal static string CommonEntityRelationshipManyToManyExplorerCommand {
             get {
@@ -763,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity Relationship One-To-Many Explorer.
+        ///   Looks up a localized string similar to Entity Relationship One-To-Many.
         /// </summary>
         internal static string CommonEntityRelationshipOneToManyExplorerCommand {
             get {

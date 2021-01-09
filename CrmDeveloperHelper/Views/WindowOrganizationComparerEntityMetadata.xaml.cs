@@ -333,42 +333,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent => ent.EntityMetadata1?.ObjectTypeCode == tempInt || ent.EntityMetadata2?.ObjectTypeCode == tempInt);
                 }
+                else if (Guid.TryParse(textName, out Guid tempGuid))
+                {
+                    list = list.Where(ent =>
+                        ent.EntityMetadata1?.MetadataId == tempGuid
+                        || ent.EntityMetadata2?.MetadataId == tempGuid
+                    );
+                }
                 else
                 {
-                    if (Guid.TryParse(textName, out Guid tempGuid))
-                    {
-                        list = list.Where(ent =>
-                            ent.EntityMetadata1?.MetadataId == tempGuid
-                            || ent.EntityMetadata2?.MetadataId == tempGuid
-                        );
-                    }
-                    else
-                    {
-                        list = list
-                        .Where(ent =>
-                            ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                    list = list.Where(ent =>
+                        ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
 
-                            ||
-                            (
-                                ent.EntityMetadata1 != null
-                                && ent.EntityMetadata1.DisplayName != null
-                                && ent.EntityMetadata1.DisplayName.LocalizedLabels != null
-                                && ent.EntityMetadata1.DisplayName.LocalizedLabels
-                                    .Where(l => !string.IsNullOrEmpty(l.Label))
-                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
-                            )
+                        ||
+                        (
+                            ent.EntityMetadata1 != null
+                            && ent.EntityMetadata1.DisplayName != null
+                            && ent.EntityMetadata1.DisplayName.LocalizedLabels != null
+                            && ent.EntityMetadata1.DisplayName.LocalizedLabels
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        )
 
-                            ||
-                            (
-                                ent.EntityMetadata2 != null
-                                && ent.EntityMetadata2.DisplayName != null
-                                && ent.EntityMetadata2.DisplayName.LocalizedLabels != null
-                                && ent.EntityMetadata2.DisplayName.LocalizedLabels
-                                    .Where(l => !string.IsNullOrEmpty(l.Label))
-                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
-                            )
-                        );
-                    }
+                        ||
+                        (
+                            ent.EntityMetadata2 != null
+                            && ent.EntityMetadata2.DisplayName != null
+                            && ent.EntityMetadata2.DisplayName.LocalizedLabels != null
+                            && ent.EntityMetadata2.DisplayName.LocalizedLabels
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        )
+                    );
                 }
             }
 
@@ -769,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 using (var streamWriter1 = new StreamWriter(memoryStream1, new UTF8Encoding(false)))
                 {
-                    
+
 
                     try
                     {

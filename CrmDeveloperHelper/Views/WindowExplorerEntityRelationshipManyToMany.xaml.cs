@@ -301,34 +301,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent => ent.EntityMetadata.ObjectTypeCode == tempInt);
                 }
+                else if (Guid.TryParse(textName, out Guid tempGuid))
+                {
+                    list = list.Where(ent => ent.EntityMetadata.MetadataId == tempGuid);
+                }
                 else
                 {
-                    if (Guid.TryParse(textName, out Guid tempGuid))
-                    {
-                        list = list.Where(ent => ent.EntityMetadata.MetadataId == tempGuid);
-                    }
-                    else
-                    {
-                        list = list
-                        .Where(ent =>
-                            ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                            ||
-                            (
-                                ent.DisplayName != null
-                                && ent.EntityMetadata.DisplayName.LocalizedLabels
-                                    .Where(l => !string.IsNullOrEmpty(l.Label))
-                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
-                            )
+                    list = list.Where(ent =>
+                        ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                        ||
+                        (
+                            ent.DisplayName != null
+                            && ent.EntityMetadata.DisplayName.LocalizedLabels
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        )
 
-                        //|| (ent.Description != null && ent.Description.LocalizedLabels
-                        //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                        //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                    //|| (ent.Description != null && ent.Description.LocalizedLabels
+                    //    .Where(l => !string.IsNullOrEmpty(l.Label))
+                    //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
 
-                        //|| (ent.DisplayCollectionName != null && ent.DisplayCollectionName.LocalizedLabels
-                        //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                        //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
-                        );
-                    }
+                    //|| (ent.DisplayCollectionName != null && ent.DisplayCollectionName.LocalizedLabels
+                    //    .Where(l => !string.IsNullOrEmpty(l.Label))
+                    //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                    );
                 }
             }
 
@@ -1139,7 +1135,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.DisplayName);
         }
 
-        private void mIClipboardEntityCopyEntityId_Click(object sender, RoutedEventArgs e)
+        private void mIClipboardEntityCopyObjectTypeCode_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.ObjectTypeCode.ToString());
+        }
+
+        private void mIClipboardEntityCopyEntityMetadataId_Click(object sender, RoutedEventArgs e)
         {
             GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
         }

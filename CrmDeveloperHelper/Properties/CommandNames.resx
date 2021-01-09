@@ -357,22 +357,22 @@
     <value>Current Connection</value>
   </data>
   <data name="CommonEntityAttributeExplorerCommand" xml:space="preserve">
-    <value>Entity Attribute Explorer</value>
+    <value>Entity Attribute</value>
   </data>
   <data name="CommonEntityKeyExplorerCommand" xml:space="preserve">
-    <value>Entity Key Explorer</value>
+    <value>Entity Key</value>
   </data>
   <data name="CommonEntityRelationshipManyToManyExplorerCommand" xml:space="preserve">
-    <value>Entity Relationship Many-To-Many Explorer</value>
+    <value>Entity Relationship Many-To-Many</value>
   </data>
   <data name="CommonEntityRelationshipOneToManyExplorerCommand" xml:space="preserve">
-    <value>Entity Relationship One-To-Many Explorer</value>
+    <value>Entity Relationship One-To-Many</value>
   </data>
   <data name="CommonEntityPrivilegesExplorerCommand" xml:space="preserve">
-    <value>Entity Privileges Explorer</value>
+    <value>Entity Privileges</value>
   </data>
   <data name="CommonEntityMetadataExplorerCommand" xml:space="preserve">
-    <value>Entity Metadata</value>
+    <value>Entity Metadata Explorer</value>
   </data>
   <data name="CommonEntityMetadataDocumentExplorerCommand" xml:space="preserve">
     <value>Entity Metadata Document</value>

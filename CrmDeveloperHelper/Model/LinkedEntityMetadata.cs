@@ -15,6 +15,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string DisplayName2 { get; private set; }
 
+        public int ObjectTypeCode1 => EntityMetadata1.ObjectTypeCode.GetValueOrDefault();
+
+        public int ObjectTypeCode2 => EntityMetadata2.ObjectTypeCode.GetValueOrDefault();
+
         public LinkedEntityMetadata(string logicalName, EntityMetadata entityMetadata1, EntityMetadata entityMetadata2)
         {
             this.LogicalName = logicalName;

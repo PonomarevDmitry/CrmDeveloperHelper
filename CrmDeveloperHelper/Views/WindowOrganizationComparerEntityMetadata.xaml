@@ -184,6 +184,18 @@
 
                 <DataGridTextColumn Header="Display Name 2" Width="260" Binding="{Binding DisplayName2}" />
 
+                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode1}" CanUserResize="False">
+                    <DataGridTextColumn.Header>
+                        <Label Content="OBT1" Margin="0" Padding="0" ToolTip="Object Type Code 1" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode2}" CanUserResize="False">
+                    <DataGridTextColumn.Header>
+                        <Label Content="OBT2" Margin="0" Padding="0" ToolTip="Object Type Code 2" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
             </DataGrid.Columns>
         </DataGrid>
 

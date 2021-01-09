@@ -657,26 +657,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent => ent.ObjectTypeCode == tempInt);
                 }
+                else if (Guid.TryParse(textName, out Guid tempGuid))
+                {
+                    list = list.Where(ent => ent.MetadataId == tempGuid);
+                }
                 else
                 {
-                    if (Guid.TryParse(textName, out Guid tempGuid))
-                    {
-                        list = list.Where(ent => ent.MetadataId == tempGuid);
-                    }
-                    else
-                    {
-                        list = list
-                        .Where(ent =>
-                            ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                            ||
-                            (
-                                ent.DisplayName != null
-                                && ent.DisplayName.LocalizedLabels
-                                    .Where(l => !string.IsNullOrEmpty(l.Label))
-                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
-                            )
-                        );
-                    }
+                    list = list
+                    .Where(ent =>
+                        ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                        ||
+                        (
+                            ent.DisplayName != null
+                            && ent.DisplayName.LocalizedLabels
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        )
+                    );
                 }
             }
 
@@ -3527,7 +3524,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.DisplayName);
         }
 
-        private void mIClipboardEntityCopyEntityId_Click(object sender, RoutedEventArgs e)
+        private void mIClipboardEntityCopyObjectTypeCode_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.ObjectTypeCode.ToString());
+        }
+
+        private void mIClipboardEntityCopyEntityMetadataId_Click(object sender, RoutedEventArgs e)
         {
             GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
         }
