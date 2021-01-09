@@ -107,6 +107,7 @@
     <Compile Include="Commands\AbstractOutputWindowCommand.cs" />
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckSystemFormsWithNonExistentTeamTemplateCommand.cs" />
+    <Compile Include="Commands\Checks\CommonCheckTeamTemplatesCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypesCommand.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityInstanceByIdCommand.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckSystemFormsWithNonExistentTeamTemplateCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Checks\OutputCheckTeamTemplatesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />

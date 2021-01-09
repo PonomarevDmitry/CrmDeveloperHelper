@@ -781,7 +781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 tableTeamTemplatesNotExists.AddLine(
                                     grid.TeamTemplateId.ToString()
-                                    , grid.Id
+                                    , grid.Name
                                     , grid.Location
                                     , systemForm.ObjectTypeCode
                                     , systemForm.FormattedValues[SystemForm.Schema.Attributes.type]
@@ -792,11 +792,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                         }
                     }
-                }
-
-                if (true)
-                {
-
                 }
 
                 if (tableTeamTemplatesNotExists.Count == 0)
@@ -837,5 +832,214 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Checking SystemForms with Non Existent TeamTemplate
+
+        #region Checking TeamTemplates
+
+        public async Task ExecuteCheckingTeamTemplates(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.CheckingSystemFormsWithNonExistentTeamTemplateFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckingTeamTemplates(connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CheckingTeamTemplates(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            using (service.Lock())
+            {
+                var content = new StringBuilder();
+
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var repositorySystemForm = new SystemFormRepository(service);
+                var repositoryTeamTemplate = new TeamTemplateRepository(service);
+
+                var listTeamTemplates = await repositoryTeamTemplate.GetListAsync(new ColumnSet(true));
+
+                var unusedTeamTemplates = listTeamTemplates.ToDictionary(e => e.Id);
+                var templatesDict = listTeamTemplates.ToDictionary(e => e.Id);
+
+                var formList = await repositorySystemForm.GetListAsync(null, null, null, new ColumnSet(true));
+
+                var tableTeamTemplates = new FormatTextTableHandler("TeamTemplateId", "TeamTemplateName", "TeamTemplate EntityName", "ObjectTypeCode", "DefaultAccessRightsMask", "Grid Id", "Grid Location", "Form Entity", "FormType", "Form Name", "State", "TeamTemplate Url", "Form Url");
+                var tableTeamTemplatesNotExists = new FormatTextTableHandler("TeamTemplateId", "Grid Id", "Grid Location", "Form Entity", "FormType", "Form Name", "State", "Form Url");
+
+                var descriptor = new SolutionComponentDescriptor(service);
+                var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+                foreach (var systemForm in formList
+                    .OrderBy(f => f.ObjectTypeCode)
+                    .ThenBy(f => f.Type?.Value)
+                    .ThenBy(f => f.Name)
+                )
+                {
+                    string formXml = systemForm.FormXml;
+
+                    if (!string.IsNullOrEmpty(formXml))
+                    {
+                        XElement doc = XElement.Parse(formXml);
+
+                        var grids = handler.FormGridsTeamTemplate(doc);
+
+                        foreach (var grid in grids)
+                        {
+                            if (templatesDict.ContainsKey(grid.TeamTemplateId))
+                            {
+                                unusedTeamTemplates.Remove(grid.TeamTemplateId);
+
+                                var teamTemplate = templatesDict[grid.TeamTemplateId];
+
+                                var entityInfo = service.ConnectionData.EntitiesIntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode == teamTemplate.ObjectTypeCode);
+
+                                tableTeamTemplates.AddLine(
+                                    teamTemplate.TeamTemplateId.ToString()
+                                    , teamTemplate.TeamTemplateName
+                                    , entityInfo?.EntityLogicalName
+                                    , teamTemplate.ObjectTypeCode.ToString()
+                                    , teamTemplate.DefaultAccessRightsMask.ToString()
+                                    , grid.Name
+                                    , grid.Location
+                                    , systemForm.ObjectTypeCode
+                                    , systemForm.FormattedValues[SystemForm.Schema.Attributes.type]
+                                    , systemForm.Name
+                                    , systemForm.FormattedValues[SystemForm.Schema.Attributes.formactivationstate]
+                                    , service.ConnectionData.GetEntityInstanceUrl(TeamTemplate.EntityLogicalName, grid.TeamTemplateId)
+                                    , service.UrlGenerator.GetSolutionComponentUrl(ComponentType.SystemForm, systemForm.Id)
+                                );
+                            }
+                            else
+                            {
+                                tableTeamTemplatesNotExists.AddLine(
+                                    grid.TeamTemplateId.ToString()
+                                    , grid.Name
+                                    , grid.Location
+                                    , systemForm.ObjectTypeCode
+                                    , systemForm.FormattedValues[SystemForm.Schema.Attributes.type]
+                                    , systemForm.Name
+                                    , systemForm.FormattedValues[SystemForm.Schema.Attributes.formactivationstate]
+                                    , service.UrlGenerator.GetSolutionComponentUrl(ComponentType.SystemForm, systemForm.Id)
+                                );
+                            }
+                        }
+                    }
+                }
+
+                if (tableTeamTemplates.Count == 0
+                    && unusedTeamTemplates.Count == 0
+                    && tableTeamTemplatesNotExists.Count == 0
+                )
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "No TeamTemplates were founded.");
+                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                    return;
+                }
+
+                if (tableTeamTemplates.Count > 0)
+                {
+                    content.AppendLine().AppendLine();
+
+                    content
+                        .AppendFormat("TeamTemplates in SystemForms: {0}", tableTeamTemplates.Count)
+                        .AppendLine()
+                        .AppendLine()
+                        ;
+
+                    foreach (var str in tableTeamTemplates.GetFormatedLines(false))
+                    {
+                        content.AppendLine(_tabSpacer + str);
+                    }
+                }
+
+                if (unusedTeamTemplates.Any())
+                {
+                    var table = new FormatTextTableHandler("TeamTemplateId", "TeamTemplateName", "TeamTemplate EntityName", "ObjectTypeCode", "DefaultAccessRightsMask", "TeamTemplate Url");
+
+                    foreach (var teamTemplate in unusedTeamTemplates.Values
+                        .OrderBy(t => t.ObjectTypeCode)
+                        .ThenBy(t => t.TeamTemplateName)
+                        .ThenBy(t => t.TeamTemplateId)
+                    )
+                    {
+                        var entityInfo = service.ConnectionData.EntitiesIntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode == teamTemplate.ObjectTypeCode);
+
+                        table.AddLine(
+                            teamTemplate.TeamTemplateId.ToString()
+                            , teamTemplate.TeamTemplateName
+                            , entityInfo?.EntityLogicalName
+                            , teamTemplate.ObjectTypeCode.ToString()
+                            , teamTemplate.DefaultAccessRightsMask.ToString()
+                            , service.ConnectionData.GetEntityInstanceUrl(TeamTemplate.EntityLogicalName, teamTemplate.TeamTemplateId.Value)
+                        );
+                    }
+
+                    content.AppendLine().AppendLine();
+
+                    content
+                        .AppendFormat("Unused TeamTemplates in SystemForms: {0}", table.Count)
+                        .AppendLine()
+                        .AppendLine()
+                        ;
+
+                    foreach (var str in table.GetFormatedLines(false))
+                    {
+                        content.AppendLine(_tabSpacer + str);
+                    }
+                }
+
+                if (tableTeamTemplatesNotExists.Count > 0)
+                {
+                    content.AppendLine().AppendLine();
+
+                    content
+                        .AppendFormat("TeamTemplates Not Exists in SystemForms: {0}", tableTeamTemplatesNotExists.Count)
+                        .AppendLine()
+                        .AppendLine()
+                        ;
+
+                    foreach (var str in tableTeamTemplatesNotExists.GetFormatedLines(false))
+                    {
+                        content.AppendLine(_tabSpacer + str);
+                    }
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking TeamTemplates at {1}.txt"
+                    , connectionData.Name
+                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "TeamTemplates Information were exported to {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+        }
+
+        #endregion Checking TeamTemplates
     }
 }

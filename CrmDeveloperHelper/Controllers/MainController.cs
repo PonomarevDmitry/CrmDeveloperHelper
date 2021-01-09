@@ -1046,6 +1046,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartCheckSystemFormsWithNonExistentTeamTemplate(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingSystemFormsWithNonExistentTeamTemplate, commonConfig);
 
+        public void StartCheckTeamTemplates(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingTeamTemplates, commonConfig);
+
         public void StartCreateAllDependencyNodesDescription(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCreatingAllDependencyNodesDescription, commonConfig);
 
