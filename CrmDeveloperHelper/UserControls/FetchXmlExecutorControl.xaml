@@ -27,6 +27,9 @@
                 <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
+
+                <Separator/>
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
 
                 <Separator/>
@@ -81,6 +84,9 @@
                 <MenuItem Header="Open EntityReference Explorer" Click="mIOpenEntityReferenceExplorer_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Create EntityReference New Instance" Click="miCreateNewEntityReferenceInstance_Click"/>
+
+                <Separator/>
                 <MenuItem Header="Clipboard EntityReference">
                     <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
                     <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
@@ -113,6 +119,9 @@
 
                 <Separator/>
                 <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>

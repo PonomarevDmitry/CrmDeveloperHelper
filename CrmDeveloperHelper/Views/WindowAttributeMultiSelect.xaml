@@ -129,11 +129,16 @@
 
             <DataGrid.Columns>
 
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
+                <DataGridTemplateColumn Width="Auto" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
                         <Label Content="Ch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="IsChecked" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Attribute Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True" />
 

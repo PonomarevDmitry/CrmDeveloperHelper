@@ -38,8 +38,10 @@
             </Menu>
 
             <Separator />
-
             <Button x:Name="btnAddNewAttribute" Content="Add New Attribute" Click="btnAddNewAttribute_Click" />
+
+            <Separator />
+            <Button x:Name="btnAddMultipleNewAttribute" Content="Add Multiple New Attribute" Click="btnAddMultipleNewAttribute_Click" />
 
         </ToolBar>
 

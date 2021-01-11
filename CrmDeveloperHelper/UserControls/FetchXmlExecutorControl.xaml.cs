@@ -817,6 +817,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
+        private async void miCreateNewEntityInstance_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (this.ConnectionData != null)
+            {
+                var service = await GetServiceAsync(this.ConnectionData);
+
+                if (service == null)
+                {
+                    return;
+                }
+
+                var commonConfig = CommonConfiguration.Get();
+
+                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, Guid.Empty);
+            }
+        }
+
         private void mICopyEntityId_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityFromDataRowView(e, out var entity))
@@ -968,6 +990,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 var commonConfig = CommonConfiguration.Get();
 
                 Views.WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName);
+            }
+        }
+
+        private async void miCreateNewEntityReferenceInstance_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            {
+                return;
+            }
+
+            if (this.ConnectionData != null)
+            {
+                var service = await GetServiceAsync(this.ConnectionData);
+
+                if (service == null)
+                {
+                    return;
+                }
+
+                var commonConfig = CommonConfiguration.Get();
+
+                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName, Guid.Empty);
             }
         }
 

@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowAttributeMultiSelect : WindowWithSingleConnection
     {
-        private readonly EntityMetadata _entityMetadata;
+        private readonly Guid _entityMetadataId;
 
         private readonly List<AttributeSelectItem> _source = new List<AttributeSelectItem>();
 
@@ -27,7 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public WindowAttributeMultiSelect(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
-            , EntityMetadata entityMetadata
+            , Guid entityMetadataId
+            , IEnumerable<AttributeMetadata> attributeList
             , string selectedAttributes
         ) : base(iWriteToOutput, service)
         {
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwAttributes.ItemsSource = _sourceDataGrid;
 
-            this._entityMetadata = entityMetadata;
+            this._entityMetadataId = entityMetadataId;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            foreach (var attr in _entityMetadata.Attributes.Where(a => string.IsNullOrEmpty(a.AttributeOf)).OrderBy(a => a.LogicalName))
+            foreach (var attr in attributeList.Where(a => string.IsNullOrEmpty(a.AttributeOf)).OrderBy(a => a.LogicalName))
             {
                 var item = new AttributeSelectItem(attr)
                 {
@@ -266,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _service.ConnectionData.OpenAttributeMetadataInWeb(_entityMetadata.MetadataId.Value, attribute.AttributeMetadata.MetadataId.Value);
+            _service.ConnectionData.OpenAttributeMetadataInWeb(_entityMetadataId, attribute.AttributeMetadata.MetadataId.Value);
         }
 
         private async void AddAttributeToCrmSolution_Click(object sender, RoutedEventArgs e)
@@ -370,6 +370,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return string.Join(",", this._source.Where(a => a.IsChecked).OrderBy(a => a.LogicalName).Select(a => a.LogicalName));
+        }
+
+        public List<AttributeMetadata> GetAttributeMetadatas()
+        {
+            var result = new List<AttributeMetadata>();
+
+            foreach (var item in this._source.Where(a => a.IsChecked).OrderBy(a => a.LogicalName))
+            {
+                result.Add(item.AttributeMetadata);
+            }
+
+            return result;
         }
 
         private void SelectAllAttributesInDataGrid(IEnumerable<AttributeSelectItem> items, bool isSelected)

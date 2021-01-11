@@ -297,7 +297,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var form = new WindowAttributeMultiSelect(_iWriteToOutput
                 , _service
-                , _entityMetadata
+                , _entityMetadata.MetadataId.Value
+                , _entityMetadata.Attributes
                 , txtBAttributes.Text.Trim()
             );
 

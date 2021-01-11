@@ -349,6 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControl(tSProgressBar
                 , btnSaveEntity
                 , btnAddNewAttribute
+                , btnAddMultipleNewAttribute
                 , lstVwAttributes
                 , mIEntityInformation
             );
@@ -564,7 +565,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                control = _controlFactory.CreateControlForAttribute(this._iWriteToOutput, _service, false, this._entityMetadata, attributeMetadata, null, null);
+                control = _controlFactory.CreateControlForAttribute(this._iWriteToOutput, _service, true, this._entityMetadata, attributeMetadata, null, null);
+
+                if (control != null && control is IAttributeMetadataControl<AttributeMetadata> attributeControl)
+                {
+                    attributeControl.RemoveControlClicked += AttributeControl_RemoveControlClicked;
+                }
             });
 
             if (control != null)
@@ -573,6 +579,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             FilterEntityAttributes(control);
+        }
+
+        private void btnAddMultipleNewAttribute_Click(object sender, RoutedEventArgs e)
+        {
+            if (_entityMetadata == null
+                || _entityMetadata.Attributes == null
+            )
+            {
+                return;
+            }
+
+            var currentAttributes = new HashSet<string>(_listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>().Select(c => c.AttributeMetadata.LogicalName), StringComparer.InvariantCultureIgnoreCase);
+
+            var availableAttributes = _entityMetadata.Attributes.Where(a => string.IsNullOrEmpty(a.AttributeOf) && _attributeChecker(a) && !currentAttributes.Contains(a.LogicalName)).ToList();
+
+            if (!availableAttributes.Any())
+            {
+                return;
+            }
+
+            var form = new WindowAttributeMultiSelect(_iWriteToOutput, _service, _entityMetadata.MetadataId.Value, availableAttributes, string.Empty);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            var selectedAttributes = form.GetAttributeMetadatas();
+
+            if (!selectedAttributes.Any(a => string.IsNullOrEmpty(a.AttributeOf) && _attributeChecker(a)))
+            {
+                return;
+            }
+
+            foreach (var attributeMetadata in selectedAttributes.Where(a => string.IsNullOrEmpty(a.AttributeOf) && _attributeChecker(a)))
+            {
+                UserControl control = null;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    control = _controlFactory.CreateControlForAttribute(this._iWriteToOutput, _service, true, this._entityMetadata, attributeMetadata, null, null);
+
+                    if (control != null && control is IAttributeMetadataControl<AttributeMetadata> attributeControl)
+                    {
+                        attributeControl.RemoveControlClicked += AttributeControl_RemoveControlClicked;
+                    }
+                });
+
+                if (control != null)
+                {
+                    _listAttributeControls.Add(control);
+                }
+            }
+
+            FilterEntityAttributes(null);
+        }
+
+        private void AttributeControl_RemoveControlClicked(object sender, EventArgs e)
+        {
+            if (sender is IAttributeMetadataControl<AttributeMetadata> attributeControl)
+            {
+                attributeControl.RemoveControlClicked -= AttributeControl_RemoveControlClicked;
+                attributeControl.RemoveControlClicked -= AttributeControl_RemoveControlClicked;
+            }
+
+            if (sender is UserControl control
+                && _listAttributeControls.Contains(control)
+            )
+            {
+                _listAttributeControls.Remove(control);
+            }
+
+            FilterEntityAttributes(null);
         }
     }
 }
