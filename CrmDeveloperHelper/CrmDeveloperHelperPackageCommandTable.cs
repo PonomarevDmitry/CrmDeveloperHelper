@@ -2227,13 +2227,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn_Group = 0x1393;
 
-            public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuSystemFormsWithNonExistentTeamTemplateDyn = 0x15D1;
-
-            public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuSystemFormsWithNonExistentTeamTemplateDyn_Group = 0x15D2;
-
             public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuTeamTemplatesDyn = 0x15D7;
 
             public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuTeamTemplatesDyn_Group = 0x15D8;
+
+            public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateMissingTeamTemplatesDyn = 0x15D1;
+
+            public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateMissingTeamTemplatesDyn_Group = 0x15D2;
 
             public const int commonMenu_GroupCheck_MenuCheck_GroupManagedEntities = 0x10D8;
 
@@ -2846,7 +2846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonCheckUnknownFormControlTypesCommandId = 0x29FE;
 
-            public const int CommonCheckSystemFormsWithNonExistentTeamTemplateCommandId = 0x4DEE;
+            public const int CommonCheckCreateMissingTeamTemplatesInSystemFormsCommandId = 0x4DEE;
 
             public const int CommonCheckTeamTemplatesCommandId = 0x4E84;
 
@@ -4289,7 +4289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int OutputCheckUnknownFormControlTypesCommandId = 0x220E;
 
-            public const int OutputCheckSystemFormsWithNonExistentTeamTemplateCommandId = 0x2287;
+            public const int OutputCheckCreateMissingTeamTemplatesInSystemFormsCommandId = 0x2287;
 
             public const int OutputCheckTeamTemplatesCommandId = 0x228A;
 

@@ -710,17 +710,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Checking Unknown Form Control Types
 
-        #region Checking SystemForms with Non Existent TeamTemplate
+        #region Creating Missing TeamTemplates in SystemForms
 
-        public async Task ExecuteCheckingSystemFormsWithNonExistentTeamTemplate(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCreatingMissingTeamTemplatesInSystemForms(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.CheckingSystemFormsWithNonExistentTeamTemplateFormat1, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.CreatingMissingTeamTemplatesInSystemFormsFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await CheckingSystemFormsWithNonExistentTeamTemplate(connectionData, commonConfig);
+                await CreatingMissingTeamTemplatesInSystemForms(connectionData, commonConfig);
             }
             catch (Exception ex)
             {
@@ -732,7 +732,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CheckingSystemFormsWithNonExistentTeamTemplate(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task CreatingMissingTeamTemplatesInSystemForms(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -760,6 +760,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var descriptor = new SolutionComponentDescriptor(service);
                 var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+                var createdTemplates = new Dictionary<Guid, TeamTemplate>();
+
+                var entityMetadataRepository = new EntityMetadataRepository(service);
 
                 foreach (var systemForm in formList
                     .OrderBy(f => f.ObjectTypeCode)
@@ -789,6 +793,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                     , systemForm.FormattedValues[SystemForm.Schema.Attributes.formactivationstate]
                                     , service.UrlGenerator.GetSolutionComponentUrl(ComponentType.SystemForm, systemForm.Id)
                                 );
+
+                                if (!createdTemplates.ContainsKey(grid.TeamTemplateId))
+                                {
+                                    var entityMetadata = await entityMetadataRepository.GetEntityMetadataAsync(systemForm.ObjectTypeCode);
+
+                                    var newTemplate = new TeamTemplate()
+                                    {
+                                        Id = grid.TeamTemplateId,
+                                        TeamTemplateId = grid.TeamTemplateId,
+
+                                        TeamTemplateName = "Missing for grid " + grid.Name,
+
+                                        ObjectTypeCode = entityMetadata.ObjectTypeCode,
+                                        DefaultAccessRightsMask = 1,
+                                    };
+
+                                    try
+                                    {
+                                        await service.CreateAsync(newTemplate);
+
+                                        createdTemplates.Add(grid.TeamTemplateId, newTemplate);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                                    }
+                                }
                             }
                         }
                     }
@@ -796,7 +827,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (tableTeamTemplatesNotExists.Count == 0)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "No SystemForms with Non Existent TeamTemplates were founded.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "No SystemForms with Missing TeamTemplates were founded.");
                     this._iWriteToOutput.ActivateOutputWindow(connectionData);
                     return;
                 }
@@ -804,7 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine().AppendLine();
 
                 content
-                    .AppendFormat("TeamTemplates Not Exists in SystemForms: {0}", tableTeamTemplatesNotExists.Count)
+                    .AppendFormat("Missing TeamTemplates in SystemForms: {0}", tableTeamTemplatesNotExists.Count)
                     .AppendLine()
                     .AppendLine()
                     ;
@@ -814,9 +845,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     content.AppendLine(_tabSpacer + str);
                 }
 
+                if (createdTemplates.Any())
+                {
+                    var table = new FormatTextTableHandler("TeamTemplateId", "TeamTemplateName", "TeamTemplate EntityName", "ObjectTypeCode", "DefaultAccessRightsMask", "TeamTemplate Url");
+
+                    var list = new TupleList<TeamTemplate, string>();
+
+                    foreach (var teamTemplate in createdTemplates.Values)
+                    {
+                        var entityInfo = service.ConnectionData.EntitiesIntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode == teamTemplate.ObjectTypeCode);
+
+                        list.Add(teamTemplate, entityInfo?.EntityLogicalName);
+                    }
+
+                    foreach (var teamTemplate in list
+                        .OrderBy(t => t.Item2)
+                        .OrderBy(t => t.Item1.ObjectTypeCode)
+                        .ThenBy(t => t.Item1.TeamTemplateName)
+                        .ThenBy(t => t.Item1.TeamTemplateId)
+                    )
+                    {
+                        table.AddLine(
+                            teamTemplate.Item1.TeamTemplateId.ToString()
+                            , teamTemplate.Item1.TeamTemplateName
+                            , teamTemplate.Item2
+                            , teamTemplate.Item1.ObjectTypeCode.ToString()
+                            , teamTemplate.Item1.DefaultAccessRightsMask.ToString()
+                            , service.ConnectionData.GetEntityInstanceUrl(TeamTemplate.EntityLogicalName, teamTemplate.Item1.TeamTemplateId.Value)
+                        );
+                    }
+
+                    content.AppendLine().AppendLine();
+
+                    content
+                        .AppendFormat("New Created TeamTemplates: {0}", table.Count)
+                        .AppendLine()
+                        .AppendLine()
+                        ;
+
+                    foreach (var str in table.GetFormatedLines(false))
+                    {
+                        content.AppendLine(_tabSpacer + str);
+                    }
+                }
+
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                string fileName = string.Format("{0}.Checking SystemForms with Non Existent TeamTemplate at {1}.txt"
+                string fileName = string.Format("{0}.Creating Missing TeamTemplates in SystemForms at {1}.txt"
                     , connectionData.Name
                     , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
                 );
@@ -825,19 +900,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(connectionData, "SystemForms with Non Existent TeamTemplates were exported to {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Creating Missing TeamTemplates in SystemForms were exported to {0}", filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
         }
 
-        #endregion Checking SystemForms with Non Existent TeamTemplate
+        #endregion Creating Missing TeamTemplates in SystemForms
 
         #region Checking TeamTemplates
 
         public async Task ExecuteCheckingTeamTemplates(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.CheckingSystemFormsWithNonExistentTeamTemplateFormat1, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.CheckingTeamTemplatesFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -975,21 +1050,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var table = new FormatTextTableHandler("TeamTemplateId", "TeamTemplateName", "TeamTemplate EntityName", "ObjectTypeCode", "DefaultAccessRightsMask", "TeamTemplate Url");
 
-                    foreach (var teamTemplate in unusedTeamTemplates.Values
-                        .OrderBy(t => t.ObjectTypeCode)
-                        .ThenBy(t => t.TeamTemplateName)
-                        .ThenBy(t => t.TeamTemplateId)
-                    )
+                    var list = new TupleList<TeamTemplate, string>();
+
+                    foreach (var teamTemplate in unusedTeamTemplates.Values)
                     {
                         var entityInfo = service.ConnectionData.EntitiesIntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode == teamTemplate.ObjectTypeCode);
 
+                        list.Add(teamTemplate, entityInfo?.EntityLogicalName);
+                    }
+
+                    foreach (var teamTemplate in list
+                        .OrderBy(t => t.Item2)
+                        .OrderBy(t => t.Item1.ObjectTypeCode)
+                        .ThenBy(t => t.Item1.TeamTemplateName)
+                        .ThenBy(t => t.Item1.TeamTemplateId)
+                    )
+                    {
                         table.AddLine(
-                            teamTemplate.TeamTemplateId.ToString()
-                            , teamTemplate.TeamTemplateName
-                            , entityInfo?.EntityLogicalName
-                            , teamTemplate.ObjectTypeCode.ToString()
-                            , teamTemplate.DefaultAccessRightsMask.ToString()
-                            , service.ConnectionData.GetEntityInstanceUrl(TeamTemplate.EntityLogicalName, teamTemplate.TeamTemplateId.Value)
+                            teamTemplate.Item1.TeamTemplateId.ToString()
+                            , teamTemplate.Item1.TeamTemplateName
+                            , teamTemplate.Item2
+                            , teamTemplate.Item1.ObjectTypeCode.ToString()
+                            , teamTemplate.Item1.DefaultAccessRightsMask.ToString()
+                            , service.ConnectionData.GetEntityInstanceUrl(TeamTemplate.EntityLogicalName, teamTemplate.Item1.TeamTemplateId.Value)
                         );
                     }
 
@@ -1012,7 +1095,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     content.AppendLine().AppendLine();
 
                     content
-                        .AppendFormat("TeamTemplates Not Exists in SystemForms: {0}", tableTeamTemplatesNotExists.Count)
+                        .AppendFormat("Missing TeamTemplates in SystemForms: {0}", tableTeamTemplatesNotExists.Count)
                         .AppendLine()
                         .AppendLine()
                         ;

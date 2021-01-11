@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCheckCreateAllDependencyNodeDescriptionCommand.Initialize,
 
             CommonCheckUnknownFormControlTypesCommand.Initialize,
-            CommonCheckSystemFormsWithNonExistentTeamTemplateCommand.Initialize,
+            CommonCheckCreateMissingTeamTemplatesInSystemFormsCommand.Initialize,
             CommonCheckTeamTemplatesCommand.Initialize,
 
             #endregion Common Check
@@ -829,7 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize,
 
             OutputCheckUnknownFormControlTypesCommand.Initialize,
-            OutputCheckSystemFormsWithNonExistentTeamTemplateCommand.Initialize,
+            OutputCheckCreateMissingTeamTemplatesInSystemFormsCommand.Initialize,
             OutputCheckTeamTemplatesCommand.Initialize,
 
             OutputCustomControlExplorerCommand.Initialize,

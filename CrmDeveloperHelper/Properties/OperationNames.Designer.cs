@@ -691,20 +691,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Checking SystemForms with Non Existent TeamTemplates.
-        /// </summary>
-        internal static string CheckingSystemFormsWithNonExistentTeamTemplateFormat1 {
-            get {
-                return ResourceManager.GetString("CheckingSystemFormsWithNonExistentTeamTemplateFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CheckingSystem SavedQueries in {0} and {1}.
         /// </summary>
         internal static string CheckingSystemSavedQueriesFormat2 {
             get {
                 return ResourceManager.GetString("CheckingSystemSavedQueriesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Checking TeamTemplates.
+        /// </summary>
+        internal static string CheckingTeamTemplatesFormat1 {
+            get {
+                return ResourceManager.GetString("CheckingTeamTemplatesFormat1", resourceCulture);
             }
         }
         
@@ -1002,6 +1002,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CreatingLastLinkForWebResourcesFormat1 {
             get {
                 return ResourceManager.GetString("CreatingLastLinkForWebResourcesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Creating Missing TeamTemplates in SystemForms.
+        /// </summary>
+        internal static string CreatingMissingTeamTemplatesInSystemFormsFormat1 {
+            get {
+                return ResourceManager.GetString("CreatingMissingTeamTemplatesInSystemFormsFormat1", resourceCulture);
             }
         }
         
