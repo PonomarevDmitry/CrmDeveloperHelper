@@ -145,23 +145,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuShowDifferenceReferencesAndDependencyXmlInConnectionDyn_Group = 0x15D4;
 
-            public const int codeMenuWebResource_GroupEntityMetadata = 0x12F7;
+            public const int codeMenuWebResource_GroupMetadataUpdate = 0x15D9;
 
-            public const int codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn = 0x12F8;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu = 0x15DA;
 
-            public const int codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group = 0x12F9;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x12F7;
 
-            public const int codeMenuWebResource_GroupGlobalOptionSetSingle = 0x131E;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuConnectionDyn = 0x12F8;
 
-            public const int codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn = 0x131F;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuConnectionDyn_Group = 0x12F9;
 
-            public const int codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group = 0x1320;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x131E;
 
-            public const int codeMenuWebResource_GroupGlobalOptionSetAll = 0x1321;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuConnectionDyn = 0x131F;
 
-            public const int codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn = 0x1322;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group = 0x1320;
 
-            public const int codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group = 0x1323;
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll = 0x1321;
+
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll_MenuConnectionDyn = 0x1322;
+
+            public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll_MenuConnectionDyn_Group = 0x1323;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm = 0x1405;
 
@@ -949,17 +953,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x1506;
 
-            public const int documentsMenuWebResource_GroupEntityMetadata = 0x12FA;
+            public const int documentsMenuWebResource_GroupMetadataUpdate = 0x15DB;
 
-            public const int documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn = 0x12FB;
+            public const int documentsMenuWebResource_GroupMetadataUpdate_Menu = 0x15DC;
 
-            public const int documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group = 0x12FC;
+            public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x12FA;
 
-            public const int documentsMenuWebResource_GroupGlobalOptionSetSingle = 0x131C;
+            public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuSchemaDyn = 0x12FB;
 
-            public const int documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn = 0x12FD;
+            public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuSchemaDyn_Group = 0x12FC;
 
-            public const int documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn_Group = 0x12FE;
+            public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x131C;
+
+            public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuSchemaDyn = 0x12FD;
+
+            public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuSchemaDyn_Group = 0x12FE;
 
             public const int documentsMenuWebResource_GroupEncoding = 0x117B;
 
@@ -1325,23 +1333,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150A;
 
-            public const int fileMenuWebResource_GroupEntityMetadata = 0x12FF;
+            public const int fileMenuWebResource_GroupMetadataUpdate = 0x15DD;
 
-            public const int fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn = 0x1300;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu = 0x15DE;
 
-            public const int fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group = 0x1301;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x12FF;
 
-            public const int fileMenuWebResource_GroupGlobalOptionSetSingle = 0x1319;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuConnectionDyn = 0x1300;
 
-            public const int fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn = 0x131A;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuConnectionDyn_Group = 0x1301;
 
-            public const int fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group = 0x131B;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x1319;
 
-            public const int fileMenuWebResource_GroupGlobalOptionSetAll = 0x1302;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuConnectionDyn = 0x131A;
 
-            public const int fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn = 0x1303;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group = 0x131B;
 
-            public const int fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group = 0x1304;
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll = 0x1302;
+
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll_MenuConnectionDyn = 0x1303;
+
+            public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll_MenuConnectionDyn_Group = 0x1304;
 
             public const int fileMenuWebResource_GroupEncoding = 0x1025;
 
@@ -1751,17 +1763,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150E;
 
-            public const int folderMenuWebResource_GroupEntityMetadata = 0x1305;
+            public const int folderMenuWebResource_GroupMetadataUpdate = 0x15DF;
 
-            public const int folderMenuWebResource_GroupEntityMetadata_MenuDyn = 0x1306;
+            public const int folderMenuWebResource_GroupMetadataUpdate_Menu = 0x15E0;
 
-            public const int folderMenuWebResource_GroupEntityMetadata_MenuDyn_Group = 0x1307;
+            public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x1305;
 
-            public const int folderMenuWebResource_GroupGlobalOptionSetSingle = 0x131D;
+            public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuDyn = 0x1306;
 
-            public const int folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn = 0x1308;
+            public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata_MenuDyn_Group = 0x1307;
 
-            public const int folderMenuWebResource_GroupGlobalOptionSetSingle_MenuDyn_Group = 0x1309;
+            public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x131D;
+
+            public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuDyn = 0x1308;
+
+            public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle_MenuDyn_Group = 0x1309;
 
             public const int folderMenuWebResource_GroupEncoding = 0x1076;
 
