@@ -1614,12 +1614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
 
-                if (!withSelect)
-                {
-                    webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
-                }
-
-                if (webResource == null)
+                if (withSelect)
                 {
                     Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
@@ -1629,6 +1624,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
                     }
+                }
+                else
+                {
+                    webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
                 }
             }
 
