@@ -339,4 +339,25 @@
     <value>Get WebResources Content {0} files on
 {1}?</value>
   </data>
+
+  <data name="ConfirmPublishEntity" xml:space="preserve">
+    <value>Confirm Publish Entity</value>
+  </data>
+
+  <data name="ConfirmPublishRibbonDiffXml" xml:space="preserve">
+    <value>Confirm Publish RibbonDiffXml</value>
+  </data>
+
+  <data name="ConfirmPublishWebResources" xml:space="preserve">
+    <value>Confirm Publish WebResources</value>
+  </data>
+
+  <data name="ConfirmPublishSystemForm" xml:space="preserve">
+    <value>Confirm Publish SystemForm</value>
+  </data>
+
+  <data name="ConfirmGettingWebResourcesContent" xml:space="preserve">
+    <value>Confirm Getting WebResources Content</value>
+  </data>
+  
 </root>

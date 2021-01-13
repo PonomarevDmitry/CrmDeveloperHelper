@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string message = string.Format(Properties.MessageBoxStrings.PublishEntityFormat2, entityName, connectionData.GetDescription());
 
-                var dialog = new WindowConfirmPublish(message, false);
+                var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishEntity, false);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {

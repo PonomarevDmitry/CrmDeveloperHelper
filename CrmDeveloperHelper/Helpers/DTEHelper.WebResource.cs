@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
-                    var dialog = new WindowConfirmPublish(message);
+                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
                     {
@@ -109,7 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesEqualByTextFormat2, selectedFiles.Count, connectionData.GetDescription());
 
-                    var dialog = new WindowConfirmPublish(message);
+                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
                     {
@@ -173,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string message = string.Format(Properties.MessageBoxStrings.IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
-                    var dialog = new WindowConfirmPublish(message);
+                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
                     {
@@ -237,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string message = string.Format(Properties.MessageBoxStrings.UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
-                    var dialog = new WindowConfirmPublish(message);
+                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
                     {
@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string message = string.Format(Properties.MessageBoxStrings.UpdateEqualByTextContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
-                    var dialog = new WindowConfirmPublish(message);
+                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
                     {
@@ -365,7 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string message = string.Format(Properties.MessageBoxStrings.IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
-                    var dialog = new WindowConfirmPublish(message);
+                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishSystemForm, false);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
                     {
@@ -875,7 +875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string message = string.Format(Properties.MessageBoxStrings.GetWebResourcesContentFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
 
-                    var dialog = new WindowConfirmPublish(message);
+                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmGettingWebResourcesContent, false);
 
                     if (dialog.ShowDialog().GetValueOrDefault())
                     {

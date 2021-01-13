@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string message = string.Format(Properties.MessageBoxStrings.PublishRibbonDiffXmlFormat2, selectedFile.FileName, connectionData.GetDescription());
 
-                var dialog = new WindowConfirmPublish(message, false);
+                var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishRibbonDiffXml, false);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string message = string.Format(Properties.MessageBoxStrings.PublishRibbonDiffXmlFormat2, Path.GetFileName(filePath), connectionData.GetDescription());
 
-                var dialog = new WindowConfirmPublish(message, false);
+                var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishRibbonDiffXml, false);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {

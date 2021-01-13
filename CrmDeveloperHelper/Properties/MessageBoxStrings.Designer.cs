@@ -160,6 +160,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Getting WebResources Content.
+        /// </summary>
+        internal static string ConfirmGettingWebResourcesContent {
+            get {
+                return ResourceManager.GetString("ConfirmGettingWebResourcesContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish Entity.
+        /// </summary>
+        internal static string ConfirmPublishEntity {
+            get {
+                return ResourceManager.GetString("ConfirmPublishEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish RibbonDiffXml.
+        /// </summary>
+        internal static string ConfirmPublishRibbonDiffXml {
+            get {
+                return ResourceManager.GetString("ConfirmPublishRibbonDiffXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish SystemForm.
+        /// </summary>
+        internal static string ConfirmPublishSystemForm {
+            get {
+                return ResourceManager.GetString("ConfirmPublishSystemForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish WebResources.
+        /// </summary>
+        internal static string ConfirmPublishWebResources {
+            get {
+                return ResourceManager.GetString("ConfirmPublishWebResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue Operation?.
         /// </summary>
         internal static string ContinueOperation {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d"
-        Title="Confirm Publish"
+        Title="Confirm Action"
         Height="Auto"
         Width="Auto"
         SizeToContent="WidthAndHeight"
@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" x:Name="lblText" Content="Confirm Publish" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Grid.Row="0" x:Name="lblText" Content="Confirm Action" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         
         <Grid Grid.Row="1">
 
@@ -44,7 +44,7 @@
 
             </Grid.ColumnDefinitions>
 
-            <CheckBox Grid.Column="0" x:Name="chBDoNotPromtPublishMessage" Content="Do not promt Publish Message" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <CheckBox Grid.Column="0" x:Name="chBDoNotPromtPublishMessage" Content="Do not promt Confirm Message" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
             <Button Grid.Column="2" x:Name="btnConfirm" Content="Confirm" Margin="10" Click="btnConfirm_Click" Height="25" Width="75" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Button Grid.Column="4" x:Name="btnCancel" Content="Cancel" Margin="10" Click="btnCancel_Click" Height="25" Width="75" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
