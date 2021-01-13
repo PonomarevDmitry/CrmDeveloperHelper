@@ -651,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var repositoryAssembly = new PluginAssemblyRepository(service);
             var repositoryType = new PluginTypeRepository(service);
 
-            foreach (var project in projectList)
+            foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
             {
                 string operation = string.Format(registerPlugins ? Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat2 : Properties.OperationNames.BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2
                     , connectionData?.Name

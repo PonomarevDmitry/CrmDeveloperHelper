@@ -195,6 +195,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        private void GetConnectionConfigConfirmActionAndExecute(ConnectionData connectionData, Func<ConnectionData, string> getMessage, string title, Action<ConnectionData, CommonConfiguration> action)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                bool canMakeAction = false;
+
+                if (commonConfig.DoNotPromtPublishMessage)
+                {
+                    canMakeAction = true;
+                }
+                else
+                {
+                    string message = getMessage(connectionData);
+                    var dialog = new WindowConfirmPublish(message, title, false);
+
+                    if (dialog.ShowDialog().GetValueOrDefault())
+                    {
+                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
+
+                        commonConfig.Save();
+
+                        canMakeAction = true;
+                    }
+                }
+
+                if (canMakeAction)
+                {
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
+                    try
+                    {
+                        action(connectionData, commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+            }
+        }
+
         private void GetConnectionConfigOpenOptionsAndExecute(ConnectionData connectionData, Action<ConnectionData, CommonConfiguration, bool> action)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

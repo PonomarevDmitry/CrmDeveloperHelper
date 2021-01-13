@@ -37,49 +37,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishRibbonDiffXmlFormat2, selectedFile.FileName, conn.GetDescription());
+            string title = Properties.MessageBoxStrings.ConfirmPublishRibbonDiffXml;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                if (connectionData.IsReadOnly)
-                {
-                    this.WriteToOutput(null, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
-                    return;
-                }
-
-                string message = string.Format(Properties.MessageBoxStrings.PublishRibbonDiffXmlFormat2, selectedFile.FileName, connectionData.GetDescription());
-
-                var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishRibbonDiffXml, false);
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartRibbonDiffXmlUpdate(connectionData, commonConfig, selectedFile);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartRibbonDiffXmlUpdate(conn, commonConfig, selectedFile));
         }
 
         public void HandleRibbonDiffXmlUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
@@ -89,49 +50,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishRibbonDiffXmlFormat2, Path.GetFileName(filePath), conn.GetDescription());
+            string title = Properties.MessageBoxStrings.ConfirmPublishRibbonDiffXml;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                if (connectionData.IsReadOnly)
-                {
-                    this.WriteToOutput(null, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
-                    return;
-                }
-
-                string message = string.Format(Properties.MessageBoxStrings.PublishRibbonDiffXmlFormat2, Path.GetFileName(filePath), connectionData.GetDescription());
-
-                var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishRibbonDiffXml, false);
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartRibbonDiffXmlUpdate(connectionData, commonConfig, doc, filePath);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartRibbonDiffXmlUpdate(conn, commonConfig, doc, filePath));
         }
 
         public void HandleRibbonDiffXmlGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)

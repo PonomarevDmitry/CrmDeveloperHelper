@@ -115,6 +115,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build Projects and Update PluginAssemblies
+        ///{0}
+        ///on
+        ///{1}?.
+        /// </summary>
+        internal static string BuildProjectsAndUpdatePluginAssembliesFormat2 {
+            get {
+                return ResourceManager.GetString("BuildProjectsAndUpdatePluginAssembliesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot parse ConnectionPool Cache TimeSpan Value. Use format 00:00:00 hours:minutes:seconds..
         /// </summary>
         internal static string CannotParseConnectionPoolCacheTimeSpan {
@@ -160,7 +172,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm Getting WebResources Content.
+        ///   Looks up a localized string similar to Confirm Build and Update.
+        /// </summary>
+        internal static string ConfirmBuildAndUpdate {
+            get {
+                return ResourceManager.GetString("ConfirmBuildAndUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Getting Content.
         /// </summary>
         internal static string ConfirmGettingWebResourcesContent {
             get {

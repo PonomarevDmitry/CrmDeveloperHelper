@@ -449,43 +449,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            string title = Properties.MessageBoxStrings.ConfirmPublishEntity;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishEntityFormat2, entityName, conn.GetDescription());
 
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                string message = string.Format(Properties.MessageBoxStrings.PublishEntityFormat2, entityName, connectionData.GetDescription());
-
-                var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishEntity, false);
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartPublishEntityMetadata(connectionData, commonConfig, entityName, null);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData,  message, title, (conn, commonConfig) => Controller.StartPublishEntityMetadata(conn, commonConfig, entityName, null));
         }
 
         public void HandleAddingEntityToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)

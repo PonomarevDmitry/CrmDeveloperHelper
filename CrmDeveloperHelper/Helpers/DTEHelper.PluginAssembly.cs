@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -54,7 +55,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyBuildProjectUpdate(conn, commonConfig, projectList, registerPlugins));
+            var projectsString = string.Join(Environment.NewLine, projectList.Select(p => p.Name));
+
+            string title = Properties.MessageBoxStrings.ConfirmBuildAndUpdate;
+
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.BuildProjectsAndUpdatePluginAssembliesFormat2, projectsString, conn.GetDescriptionColumn());
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartPluginAssemblyBuildProjectUpdate(conn, commonConfig, projectList, registerPlugins));
         }
 
         public void HandleActionOnProjectPluginAssemblyCommand(ConnectionData connectionData, IEnumerable<Project> projectList, ActionOnComponent actionOnComponent)

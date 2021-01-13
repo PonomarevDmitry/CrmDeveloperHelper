@@ -19,61 +19,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishWebResourcesFormat2, selectedFiles.Count, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWebResources;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPromtPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
-
-                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartUpdateContentAndPublish(connectionData, selectedFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartUpdateContentAndPublish(conn, selectedFiles));
         }
 
         public void HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
@@ -83,61 +32,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishWebResourcesEqualByTextFormat2, selectedFiles.Count, conn.GetDescription());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWebResources;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPromtPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format(Properties.MessageBoxStrings.PublishWebResourcesEqualByTextFormat2, selectedFiles.Count, connectionData.GetDescription());
-
-                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartUpdateContentAndPublishEqualByText(connectionData, selectedFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartUpdateContentAndPublishEqualByText(conn, selectedFiles));
         }
 
         public void HandleIncludeReferencesToDependencyXmlCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
@@ -147,61 +45,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWebResources;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPromtPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format(Properties.MessageBoxStrings.IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
-
-                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartIncludeReferencesToDependencyXml(connectionData, commonConfig, selectedFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartIncludeReferencesToDependencyXml(conn, commonConfig, selectedFiles));
         }
 
         public void HandleUpdateContentIncludeReferencesToDependencyXmlCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
@@ -211,61 +58,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWebResources;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPromtPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format(Properties.MessageBoxStrings.UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
-
-                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartUpdateContentIncludeReferencesToDependencyXml(connectionData, commonConfig, selectedFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartUpdateContentIncludeReferencesToDependencyXml(conn, commonConfig, selectedFiles));
         }
 
         public void HandleUpdateEqualByTextContentIncludeReferencesToDependencyXmlCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
@@ -275,61 +71,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.UpdateEqualByTextContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWebResources;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPromtPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format(Properties.MessageBoxStrings.UpdateEqualByTextContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
-
-                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishWebResources, false);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartUpdateEqualByTextContentContentIncludeReferencesToDependencyXml(connectionData, commonConfig, selectedFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartUpdateEqualByTextContentContentIncludeReferencesToDependencyXml(conn, commonConfig, selectedFiles));
         }
 
         public void HandleIncludeReferencesToLinkedSystemFormsLibrariesCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
@@ -339,61 +84,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2, selectedFiles.Count, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishSystemForm;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPromtPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format(Properties.MessageBoxStrings.IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
-
-                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmPublishSystemForm, false);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartIncludeReferencesToLinkedSystemFormsLibraries(connectionData, commonConfig, selectedFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartIncludeReferencesToLinkedSystemFormsLibraries(conn, commonConfig, selectedFiles));
         }
 
         public void HandleWebResourceAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, List<SelectedFile> selectedFiles)
@@ -849,61 +543,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.GetWebResourcesContentFormat2, selectedFiles.Count, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmGettingWebResourcesContent;
 
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                bool canPublish = false;
-
-                if (commonConfig.DoNotPromtPublishMessage)
-                {
-                    canPublish = true;
-                }
-                else
-                {
-                    string message = string.Format(Properties.MessageBoxStrings.GetWebResourcesContentFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
-
-                    var dialog = new WindowConfirmPublish(message, Properties.MessageBoxStrings.ConfirmGettingWebResourcesContent, false);
-
-                    if (dialog.ShowDialog().GetValueOrDefault())
-                    {
-                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
-
-                        commonConfig.Save();
-
-                        canPublish = true;
-                    }
-                }
-
-                if (canPublish)
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartWebResourcesGetContent(connectionData, commonConfig, selectedFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartWebResourcesGetContent(conn, commonConfig, selectedFiles));
         }
 
         public void HandleWebResourceCopyToClipboardRibbonObjectsCommand(ConnectionData connectionData, SelectedFile selectedFile, RibbonPlacement ribbonPlacement)

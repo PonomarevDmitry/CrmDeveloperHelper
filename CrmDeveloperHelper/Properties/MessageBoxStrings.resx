@@ -357,7 +357,18 @@
   </data>
 
   <data name="ConfirmGettingWebResourcesContent" xml:space="preserve">
-    <value>Confirm Getting WebResources Content</value>
+    <value>Confirm Getting Content</value>
   </data>
-  
+
+  <data name="ConfirmBuildAndUpdate" xml:space="preserve">
+    <value>Confirm Build and Update</value>
+  </data>
+
+  <data name="BuildProjectsAndUpdatePluginAssembliesFormat2" xml:space="preserve">
+    <value>Build Projects and Update PluginAssemblies
+{0}
+on
+{1}?</value>
+  </data>
+
 </root>
