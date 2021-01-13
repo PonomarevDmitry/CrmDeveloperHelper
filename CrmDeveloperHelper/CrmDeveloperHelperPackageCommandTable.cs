@@ -83,33 +83,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupPublish = 0x1001;
 
-            public const int CodeWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11FD;
-
-            public const int CodeWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11FE;
-
-            public const int CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14E7;
-
-            public const int CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14E8;
-
             public const int codeMenuWebResource_GroupGetCurrent = 0x158B;
 
-            public const int CodeWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x158C;
-
-            public const int CodeWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x158D;
-
-            public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x13C5;
-
-            public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x13C6;
-
-            public const int CodeWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x13C3;
-
-            public const int CodeWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x13C4;
-
             public const int codeMenuWebResource_GroupShowDifference = 0x1002;
-
-            public const int CodeWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1130;
-
-            public const int CodeWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1131;
 
             public const int codeMenuWebResource_GroupShowDifferenceMultiple = 0x1193;
 
@@ -117,33 +93,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupShowDifferenceMultiple_Menu_Group = 0x13F2;
 
-            public const int CodeWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn = 0x116C;
-
-            public const int CodeWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group = 0x116D;
-
-            public const int CodeWebResourceShowDifferenceOneByOneCommandId_MenuDyn = 0x118D;
-
-            public const int CodeWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group = 0x118E;
-
-            public const int CodeWebResourceShowDifferenceThreeWayCommandId_MenuDyn = 0x1162;
-
-            public const int CodeWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group = 0x1163;
-
             public const int codeMenuWebResource_GroupCompareFile = 0x1004;
 
-            public const int CodeWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x122C;
-
-            public const int CodeWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x122D;
-
             public const int codeMenuWebResource_GroupWebResourceDependencyXml = 0x14CC;
-
-            public const int CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14CD;
-
-            public const int CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14CE;
-
-            public const int CodeJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x15D3;
-
-            public const int CodeJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x15D4;
 
             public const int codeMenuWebResource_GroupMetadataUpdate = 0x15D9;
 
@@ -151,71 +103,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x12F7;
 
-            public const int CodeJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x12F8;
-
-            public const int CodeJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x12F9;
-
             public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x131E;
-
-            public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x131F;
-
-            public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x1320;
 
             public const int codeMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll = 0x1321;
 
-            public const int CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn = 0x1322;
-
-            public const int CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn_Group = 0x1323;
-
             public const int codeMenuWebResource_GroupLinkedSystemForm = 0x1405;
-
-            public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14D8;
-
-            public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14D9;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x1406;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer = 0x1407;
 
-            public const int CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId_MenuDyn = 0x1408;
-
-            public const int CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1409;
-
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections = 0x1424;
-
-            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionTypeConstructorCommandId_MenuDyn = 0x1425;
-
-            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionTypeConstructorCommandId_MenuDyn_Group = 0x1426;
-
-            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionJsonObjectCommandId_MenuDyn = 0x1427;
-
-            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionJsonObjectCommandId_MenuDyn_Group = 0x1428;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute = 0x1423;
 
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId_MenuDyn = 0x140A;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId_MenuDyn_Group = 0x140B;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId_MenuDyn = 0x1412;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId_MenuDyn_Group = 0x1413;
-
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentDescription = 0x1422;
 
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentEntityDescriptionInConnectionCommandId_MenuDyn = 0x141D;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x141E;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId_MenuDyn = 0x141F;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId_MenuDyn_Group = 0x1420;
-
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupChange = 0x1421;
-
-            public const int CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommandId_MenuDyn = 0x141B;
-
-            public const int CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommandId_MenuDyn_Group = 0x141C;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution = 0x1415;
 
@@ -231,35 +135,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent = 0x1414;
 
-            public const int CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId_MenuDyn = 0x140C;
-
-            public const int CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x140D;
-
-            public const int CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x140E;
-
-            public const int CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x140F;
-
-            public const int CodeJavaScriptLinkedSystemFormOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1410;
-
-            public const int CodeJavaScriptLinkedSystemFormOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1411;
-
             public const int codeMenuWebResource_GroupLinkedEntity = 0x142D;
 
             public const int codeMenuWebResource_GroupLinkedEntity_Menu = 0x142E;
 
             public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1 = 0x142F;
-
-            public const int CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId_MenuDyn = 0x1430;
-
-            public const int CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1431;
-
-            public const int CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId_MenuDyn = 0x1432;
-
-            public const int CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId_MenuDyn_Group = 0x1433;
-
-            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn = 0x1434;
-
-            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn_Group = 0x1435;
 
             public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution = 0x1436;
 
@@ -295,25 +175,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2 = 0x1446;
 
-            public const int CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1447;
-
-            public const int CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1448;
-
-            public const int CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1449;
-
-            public const int CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x144A;
-
-            public const int CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x144B;
-
-            public const int CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x144C;
-
             public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
 
             public const int codeMenuWebResource_GroupExplorer = 0x1006;
-
-            public const int CodeWebResourceOrganizationComparerCommandId_MenuDyn = 0x1597;
-
-            public const int CodeWebResourceOrganizationComparerCommandId_MenuDyn_Group = 0x1598;
 
             public const int codeMenuWebResource_GroupActionOnComponent = 0x107D;
 
@@ -321,45 +185,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb = 0x13BE;
 
-            public const int CodeWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x113C;
-
-            public const int CodeWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x113D;
-
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group1 = 0x1402;
 
-            public const int CodeWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x13BF;
-
-            public const int CodeWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x13C0;
-
-            public const int CodeWebResourceChangeInEditorInConnectionCommandId_MenuDyn = 0x13C1;
-
-            public const int CodeWebResourceChangeInEditorInConnectionCommandId_MenuDyn_Group = 0x13C2;
-
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard = 0x15C7;
-
-            public const int CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn = 0x15C8;
-
-            public const int CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn_Group = 0x15C9;
-
-            public const int CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn = 0x15CA;
-
-            public const int CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn_Group = 0x15CB;
 
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x1401;
 
             public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x13FA;
-
-            public const int CodeWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x113E;
-
-            public const int CodeWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x113F;
-
-            public const int CodeWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1140;
-
-            public const int CodeWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1141;
-
-            public const int CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1142;
-
-            public const int CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1143;
 
             public const int codeMenuWebResource_GroupAddToSolution = 0x10F3;
 
@@ -379,10 +211,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupExecuteFetch = 0x1215;
 
-            public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId_MenuDyn = 0x1216;
-
-            public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId_MenuDyn_Group = 0x1217;
-
             public const int codeMenuXml_GroupCopy = 0x1218;
 
             public const int codeMenuXml_GroupXsdSchema = 0x121F;
@@ -391,215 +219,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder = 0x1225;
 
-            public const int CodeXmlCommonXsdSchemaSetCommandId_Group = 0x1221;
-
             public const int codeMenuXml_GroupIntellisenseContext = 0x1226;
 
             public const int codeMenuXml_GroupSiteMapCurrent = 0x13DB;
 
-            public const int CodeXmlSiteMapOpenInWebInConnectionCommandId_MenuDyn = 0x1336;
-
-            public const int CodeXmlSiteMapOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1337;
-
-            public const int CodeXmlSiteMapOrganizationComparerCommandId_MenuDyn = 0x159F;
-
-            public const int CodeXmlSiteMapOrganizationComparerCommandId_MenuDyn_Group = 0x15A0;
-
-            public const int CodeXmlSiteMapGetCurrentInConnectionCommandId_MenuDyn = 0x13DC;
-
-            public const int CodeXmlSiteMapGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13DD;
-
             public const int codeMenuXml_GroupSiteMapShowDifference = 0x1222;
 
-            public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1247;
-
-            public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1248;
-
-            public const int CodeXmlSiteMapShowDifferenceDefaultCommandId_MenuDyn = 0x1223;
-
-            public const int CodeXmlSiteMapShowDifferenceDefaultCommandId_MenuDyn_Group = 0x1224;
-
             public const int codeMenuXml_GroupSiteMapUpdate = 0x124D;
-
-            public const int CodeXmlSiteMapUpdateInConnectionGroupCommandId_MenuDyn = 0x124E;
-
-            public const int CodeXmlSiteMapUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x124F;
 
             public const int codeMenuXml_GroupRibbonOpenEntity = 0x13E7;
 
             public const int codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn = 0x133C;
 
-            public const int CodeXmlRibbonOpenInWebInConnectionCommandId_MenuDyn = 0x133D;
-
-            public const int CodeXmlRibbonOrganizationComparerCommandId_MenuDyn = 0x15A5;
-
-            public const int CodeXmlRibbonOrganizationComparerCommandId_MenuDyn_Group = 0x15A6;
-
             public const int codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent = 0x1557;
-
-            public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn = 0x1558;
-
-            public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn_Group = 0x1559;
 
             public const int codeMenuXml_GroupRibbonGetCurrent = 0x13E8;
 
-            public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId_MenuDyn = 0x13E9;
-
-            public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId_MenuDyn_Group = 0x13EA;
-
             public const int codeMenuXml_GroupRibbonShowDifference = 0x123E;
-
-            public const int CodeXmlRibbonShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x123F;
-
-            public const int CodeXmlRibbonShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1240;
 
             public const int codeMenuXml_GroupRibbonDiffXmlGetCurrent = 0x13EB;
 
-            public const int CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn = 0x13EC;
-
-            public const int CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn_Group = 0x13ED;
-
             public const int codeMenuXml_GroupRibbonDiffXmlShowDifference = 0x1241;
-
-            public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1242;
-
-            public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1243;
 
             public const int codeMenuXml_GroupRibbonDiffXmlUpdate = 0x1244;
 
-            public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId_MenuDyn = 0x1245;
-
-            public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x1246;
-
             public const int codeMenuXml_GroupSystemFormCurrent = 0x13DE;
-
-            public const int CodeXmlSystemFormOpenInWebInConnectionCommandId_MenuDyn = 0x1338;
-
-            public const int CodeXmlSystemFormOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1339;
-
-            public const int CodeXmlSystemFormOrganizationComparerCommandId_MenuDyn = 0x159D;
-
-            public const int CodeXmlSystemFormOrganizationComparerCommandId_MenuDyn_Group = 0x159E;
-
-            public const int CodeXmlSystemFormGetCurrentInConnectionCommandId_MenuDyn = 0x13DF;
-
-            public const int CodeXmlSystemFormGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13E0;
 
             public const int codeMenuXml_GroupSystemFormShowDifference = 0x1250;
 
-            public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1251;
-
-            public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1252;
-
             public const int codeMenuXml_GroupSystemFormUpdate = 0x1253;
-
-            public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId_MenuDyn = 0x1254;
-
-            public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x1255;
 
             public const int codeMenuXml_GroupSavedQueryCurrent = 0x13E1;
 
-            public const int CodeXmlSavedQueryOpenInWebInConnectionCommandId_MenuDyn = 0x133A;
-
-            public const int CodeXmlSavedQueryOpenInWebInConnectionCommandId_MenuDyn_Group = 0x133B;
-
-            public const int CodeXmlSavedQueryOrganizationComparerCommandId_MenuDyn = 0x15A3;
-
-            public const int CodeXmlSavedQueryOrganizationComparerCommandId_MenuDyn_Group = 0x15A4;
-
-            public const int CodeXmlSavedQueryGetCurrentInConnectionCommandId_MenuDyn = 0x13E2;
-
-            public const int CodeXmlSavedQueryGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13E3;
-
             public const int codeMenuXml_GroupSavedQueryShowDifference = 0x1256;
-
-            public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1257;
-
-            public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1258;
 
             public const int codeMenuXml_GroupSavedQueryUpdate = 0x1259;
 
-            public const int CodeXmlSavedQueryUpdateInConnectionGroupCommandId_MenuDyn = 0x125A;
-
-            public const int CodeXmlSavedQueryUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x125B;
-
             public const int codeMenuXml_GroupWorkflowCurrent = 0x13E4;
-
-            public const int CodeXmlWorkflowOpenInWebInConnectionCommandId_MenuDyn = 0x1384;
-
-            public const int CodeXmlWorkflowOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1385;
-
-            public const int CodeXmlWorkflowOrganizationComparerCommandId_MenuDyn = 0x159B;
-
-            public const int CodeXmlWorkflowOrganizationComparerCommandId_MenuDyn_Group = 0x159C;
-
-            public const int CodeXmlWorkflowGetCurrentInConnectionCommandId_MenuDyn = 0x13E5;
-
-            public const int CodeXmlWorkflowGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13E6;
 
             public const int codeMenuXml_GroupWorkflowShowDifference = 0x1383;
 
-            public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1386;
-
-            public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1387;
-
             public const int codeMenuXml_GroupWorkflowUpdate = 0x1388;
-
-            public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId_MenuDyn = 0x1389;
-
-            public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x138A;
 
             public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent = 0x13D8;
 
-            public const int CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId_MenuDyn = 0x13D1;
-
-            public const int CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId_MenuDyn_Group = 0x13D2;
-
-            public const int CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId_MenuDyn = 0x15A1;
-
-            public const int CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId_MenuDyn_Group = 0x15A2;
-
-            public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId_MenuDyn = 0x13D9;
-
-            public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13DA;
-
             public const int codeMenuXml_GroupWebResourceDependencyXmlShowDifference = 0x13D0;
-
-            public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId_MenuDyn = 0x13D3;
-
-            public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId_MenuDyn_Group = 0x13D4;
 
             public const int codeMenuXml_GroupWebResourceDependencyXmlUpdate = 0x13D5;
 
-            public const int CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId_MenuDyn = 0x13D6;
-
-            public const int CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId_MenuDyn_Group = 0x13D7;
-
             public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoCurrent = 0x1549;
 
-            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId_MenuDyn = 0x154A;
-
-            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId_MenuDyn_Group = 0x154B;
-
             public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoShowDifference = 0x154C;
-
-            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId_MenuDyn = 0x154D;
-
-            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId_MenuDyn_Group = 0x154E;
 
             public const int codeMenuReport = 0x100B;
 
             public const int codeMenuReport_GroupUpdate = 0x10FE;
 
-            public const int CodeReportUpdateCommandId_MenuDyn = 0x132C;
-
-            public const int CodeReportUpdateCommandId_MenuDyn_Group = 0x132D;
-
             public const int codeMenuReport_GroupShowDifferenceOriginalBodyText = 0x100C;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId_MenuDyn = 0x1132;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId_MenuDyn_Group = 0x1133;
 
             public const int codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple = 0x1194;
 
@@ -607,23 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_Menu_Group = 0x13F8;
 
-            public const int CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId_MenuDyn = 0x116A;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId_MenuDyn_Group = 0x116B;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId_MenuDyn = 0x118F;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId_MenuDyn_Group = 0x1190;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId_MenuDyn = 0x1166;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId_MenuDyn_Group = 0x1167;
-
             public const int codeMenuReport_GroupShowDifferenceBodyText = 0x1209;
-
-            public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId_MenuDyn = 0x120A;
-
-            public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId_MenuDyn_Group = 0x120B;
 
             public const int codeMenuReport_GroupShowDifferenceBodyTextMultiple = 0x120C;
 
@@ -631,23 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuReport_GroupShowDifferenceBodyTextMultiple_Menu_Group = 0x13F6;
 
-            public const int CodeReportShowDifferenceBodyTextTwoConnectionsCommandId_MenuDyn = 0x120D;
-
-            public const int CodeReportShowDifferenceBodyTextTwoConnectionsCommandId_MenuDyn_Group = 0x120E;
-
-            public const int CodeReportShowDifferenceBodyTextOneByOneCommandId_MenuDyn = 0x120F;
-
-            public const int CodeReportShowDifferenceBodyTextOneByOneCommandId_MenuDyn_Group = 0x1210;
-
-            public const int CodeReportShowDifferenceBodyTextThreeWayCommandId_MenuDyn = 0x1211;
-
-            public const int CodeReportShowDifferenceBodyTextThreeWayCommandId_MenuDyn_Group = 0x1212;
-
             public const int codeMenuReport_GroupCreate = 0x1330;
-
-            public const int CodeReportCreateCommandId_MenuDyn = 0x1331;
-
-            public const int CodeReportCreateCommandId_MenuDyn_Group = 0x1332;
 
             public const int codeMenuReport_GroupLastLink = 0x100D;
 
@@ -658,22 +302,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int codeMenuReport_GroupActionOnComponent_Menu = 0x13FB;
 
             public const int codeMenuReport_GroupActionOnComponent_Menu_Group = 0x13FC;
-
-            public const int CodeReportOpenInWebInConnectionCommandId_MenuDyn = 0x1144;
-
-            public const int CodeReportOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1145;
-
-            public const int CodeReportOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1146;
-
-            public const int CodeReportOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1147;
-
-            public const int CodeReportOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1148;
-
-            public const int CodeReportOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1149;
-
-            public const int CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x114A;
-
-            public const int CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x114B;
 
             public const int codeMenuReport_GroupAddToSolution = 0x10F4;
 
@@ -693,29 +321,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuCSharp_GroupPluginTypeAddPluginStep = 0x1274;
 
-            public const int CodeCSharpAddPluginStepInConnectionCommandId_MenuDyn = 0x1275;
-
-            public const int CodeCSharpAddPluginStepInConnectionCommandId_MenuDyn_Group = 0x1276;
-
             public const int codeMenuCSharp_GroupEntityMetadata = 0x130A;
 
-            public const int CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x138B;
-
-            public const int CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x138C;
-
-            public const int CodeCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x130B;
-
-            public const int CodeCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x130C;
-
-            public const int CodeCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x1277;
-
-            public const int CodeCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1278;
-
             public const int codeMenuCSharp_GroupGlobalOptionSets = 0x100A;
-
-            public const int CodeCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x1279;
-
-            public const int CodeCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x127A;
 
             public const int codeMenuCSharp_GroupActionOnPluginAssembly = 0x148B;
 
@@ -723,53 +331,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate = 0x13B2;
 
-            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x13B3;
-
-            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x13B4;
-
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister = 0x13B5;
-
-            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x13B6;
-
-            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x13B7;
 
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate = 0x1287;
 
-            public const int CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1288;
-
-            public const int CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1289;
-
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x111A;
-
-            public const int CodeCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x1136;
-
-            public const int CodeCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1137;
 
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x148D;
 
-            public const int CodeCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x148E;
-
-            public const int CodeCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x148F;
-
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription = 0x1490;
 
-            public const int CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x1491;
-
-            public const int CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x1492;
-
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther = 0x1493;
-
-            public const int CodeCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1494;
-
-            public const int CodeCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1495;
-
-            public const int CodeCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1496;
-
-            public const int CodeCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1497;
-
-            public const int CodeCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1498;
-
-            public const int CodeCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1499;
 
             public const int codeMenuCSharp_GroupAddToSolution = 0x111B;
 
@@ -809,93 +381,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription = 0x1482;
 
-            public const int CodeCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x1483;
-
-            public const int CodeCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x1484;
-
             public const int codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription = 0x1488;
-
-            public const int CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x1489;
-
-            public const int CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x148A;
 
             public const int codeMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x1485;
 
-            public const int CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x1486;
-
-            public const int CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x1487;
-
             public const int codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1460;
-
-            public const int CodeCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1461;
-
-            public const int CodeCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1462;
-
-            public const int CodeCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1463;
-
-            public const int CodeCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1464;
-
-            public const int CodeCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1465;
-
-            public const int CodeCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1466;
 
             public const int documentsMenuWebResource = 0x116E;
 
             public const int documentsMenuWebResource_GroupPublish = 0x116F;
 
-            public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11F0;
-
-            public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11F1;
-
-            public const int DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14E9;
-
-            public const int DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14EA;
-
-            public const int DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11F2;
-
-            public const int DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11F3;
-
-            public const int DocumentsJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14EF;
-
-            public const int DocumentsJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F0;
-
             public const int documentsMenuWebResource_GroupGetCurrent = 0x1591;
-
-            public const int DocumentsWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x1592;
-
-            public const int DocumentsWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x1593;
-
-            public const int DocumentsWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x15A7;
-
-            public const int DocumentsWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x15A8;
-
-            public const int DocumentsWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x15A9;
-
-            public const int DocumentsWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x15AA;
 
             public const int documentsMenuWebResource_GroupShowDependentComponents = 0x1170;
 
             public const int documentsMenuWebResource_GroupCompareFile = 0x1171;
 
-            public const int DocumentsWebResourceCompareInConnectionGroupCommandId_MenuDyn = 0x122E;
-
-            public const int DocumentsWebResourceCompareInConnectionGroupCommandId_MenuDyn_Group = 0x122F;
-
-            public const int DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x1230;
-
-            public const int DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x1231;
-
             public const int documentsMenuWebResource_GroupIncludeReferencesToDependencyXml = 0x14D2;
 
-            public const int DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14D3;
-
-            public const int DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14D4;
-
             public const int documentsMenuWebResource_GroupLinkedSystemForm = 0x14DD;
-
-            public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14DE;
-
-            public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14DF;
 
             public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x156F;
 
@@ -919,39 +423,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x14FF;
 
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x1500;
-
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x1501;
-
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x1502;
-
             public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x1562;
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x1173;
-
-            public const int DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x1174;
-
-            public const int DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId_Group = 0x1175;
-
-            public const int DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId_Group = 0x1176;
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList = 0x1563;
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList = 0x1177;
 
-            public const int DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group = 0x1178;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group = 0x1179;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group = 0x117A;
-
             public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList = 0x1503;
-
-            public const int DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group = 0x1504;
-
-            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group = 0x1505;
-
-            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group = 0x1506;
 
             public const int documentsMenuWebResource_GroupMetadataUpdate = 0x15DB;
 
@@ -959,15 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x12FA;
 
-            public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x12FB;
-
-            public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x12FC;
-
             public const int documentsMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x131C;
-
-            public const int DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x12FD;
-
-            public const int DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x12FE;
 
             public const int documentsMenuWebResource_GroupEncoding = 0x117B;
 
@@ -993,23 +465,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb = 0x15B1;
 
-            public const int DocumentsWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x15B2;
-
-            public const int DocumentsWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x15B3;
-
             public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group1 = 0x15B4;
-
-            public const int DocumentsWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x15B5;
-
-            public const int DocumentsWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x15B6;
 
             public const int documentsMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x15B7;
 
             public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x15B8;
-
-            public const int DocumentsWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x15B9;
-
-            public const int DocumentsWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x15BA;
 
             public const int documentsMenuWebResource_GroupLastLink = 0x1180;
 
@@ -1047,73 +507,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate = 0x1511;
 
-            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1512;
-
-            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1513;
-
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister = 0x1514;
-
-            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x1515;
-
-            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x1516;
 
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate = 0x1517;
 
-            public const int DocumentsCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1518;
-
-            public const int DocumentsCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1519;
-
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x151A;
-
-            public const int DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x151B;
-
-            public const int DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x151C;
 
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x151D;
 
-            public const int DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x151E;
-
-            public const int DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x151F;
-
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription = 0x1520;
-
-            public const int DocumentsCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x1521;
-
-            public const int DocumentsCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x1522;
 
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther = 0x1523;
 
-            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1524;
-
-            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1525;
-
-            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1526;
-
-            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1527;
-
-            public const int DocumentsCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1528;
-
-            public const int DocumentsCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1529;
-
             public const int documentsMenuCSharp_GroupEntityMetadata = 0x1187;
 
-            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x1390;
-
-            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x1391;
-
-            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x130F;
-
-            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x1310;
-
-            public const int DocumentsCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x127F;
-
-            public const int DocumentsCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1280;
-
             public const int documentsMenuCSharp_GroupGlobalOptionSets = 0x13A0;
-
-            public const int DocumentsCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x1281;
-
-            public const int DocumentsCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x1282;
 
             public const int documentsMenuCSharp_GroupAddToSolution = 0x12A6;
 
@@ -1153,75 +561,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription = 0x14A9;
 
-            public const int DocumentsCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14AA;
-
-            public const int DocumentsCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14AB;
-
             public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription = 0x14AF;
-
-            public const int DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x14B0;
-
-            public const int DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14B1;
 
             public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14AC;
 
-            public const int DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x14AD;
-
-            public const int DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x14AE;
-
             public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1469;
-
-            public const int DocumentsCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x146A;
-
-            public const int DocumentsCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x146B;
-
-            public const int DocumentsCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x146C;
-
-            public const int DocumentsCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x146D;
-
-            public const int DocumentsCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x146E;
-
-            public const int DocumentsCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x146F;
 
             public const int fileMenuWebResource = 0x100F;
 
             public const int fileMenuWebResource_GroupPublish = 0x1010;
 
-            public const int FileWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11DC;
-
-            public const int FileWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11DD;
-
-            public const int FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14EB;
-
-            public const int FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14EC;
-
-            public const int FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11DE;
-
-            public const int FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11DF;
-
-            public const int FileJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F1;
-
-            public const int FileJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F2;
-
             public const int fileMenuWebResource_GroupGetCurrent = 0x158E;
 
-            public const int FileWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x158F;
-
-            public const int FileWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x1590;
-
-            public const int FileWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x13CC;
-
-            public const int FileWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x13CD;
-
-            public const int FileWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x13CE;
-
-            public const int FileWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x13CF;
-
             public const int fileMenuWebResource_GroupShowDifference = 0x1011;
-
-            public const int FileWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1134;
-
-            public const int FileWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1135;
 
             public const int fileMenuWebResource_GroupShowDifferenceMultiple = 0x1195;
 
@@ -1229,45 +581,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupShowDifferenceMultiple_Menu_Group = 0x13F4;
 
-            public const int FileWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn = 0x1168;
-
-            public const int FileWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group = 0x1169;
-
-            public const int FileWebResourceShowDifferenceOneByOneCommandId_MenuDyn = 0x1191;
-
-            public const int FileWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group = 0x1192;
-
-            public const int FileWebResourceShowDifferenceThreeWayCommandId_MenuDyn = 0x1164;
-
-            public const int FileWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group = 0x1165;
-
             public const int fileMenuWebResource_GroupShowDependentComponents = 0x1012;
 
             public const int fileMenuWebResource_GroupCompareFile = 0x1013;
 
-            public const int FileWebResourceCompareInConnectionGroupCommandId_MenuDyn = 0x1232;
-
-            public const int FileWebResourceCompareInConnectionGroupCommandId_MenuDyn_Group = 0x1233;
-
-            public const int FileWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x1234;
-
-            public const int FileWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x1235;
-
             public const int fileMenuWebResource_GroupWebResourceDependencyXml = 0x14CF;
 
-            public const int FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14D0;
-
-            public const int FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14D1;
-
-            public const int FileJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x15D5;
-
-            public const int FileJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x15D6;
-
             public const int fileMenuWebResource_GroupLinkedSystemForm = 0x14DA;
-
-            public const int FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14DB;
-
-            public const int FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14DC;
 
             public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x1576;
 
@@ -1291,47 +611,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen = 0x1015;
 
-            public const int FileWebResourceOpenFilesByTypeOrdinalCommandId_Group = 0x1016;
-
-            public const int FileWebResourceOpenFilesByTypeWithChangesCommandId_Group = 0x1017;
-
-            public const int FileWebResourceOpenFilesByTypeWithMirrorCommandId_Group = 0x1018;
-
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x1019;
-
-            public const int FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x101A;
-
-            public const int FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x101B;
-
-            public const int FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x101C;
 
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x1566;
 
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x101D;
 
-            public const int FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x101E;
-
-            public const int FileWebResourceMultiDifferenceFilesWithChangesCommandId_Group = 0x101F;
-
-            public const int FileWebResourceMultiDifferenceFilesWithMirrorCommandId_Group = 0x1020;
-
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList = 0x1567;
 
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList = 0x1021;
 
-            public const int FileWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group = 0x1022;
-
-            public const int FileWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group = 0x1023;
-
-            public const int FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group = 0x1024;
-
             public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList = 0x1507;
-
-            public const int FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group = 0x1508;
-
-            public const int FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group = 0x1509;
-
-            public const int FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group = 0x150A;
 
             public const int fileMenuWebResource_GroupMetadataUpdate = 0x15DD;
 
@@ -1339,21 +629,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x12FF;
 
-            public const int FileJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x1300;
-
-            public const int FileJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x1301;
-
             public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x1319;
 
-            public const int FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x131A;
-
-            public const int FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x131B;
-
             public const int fileMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetAll = 0x1302;
-
-            public const int FileJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn = 0x1303;
-
-            public const int FileJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn_Group = 0x1304;
 
             public const int fileMenuWebResource_GroupEncoding = 0x1025;
 
@@ -1363,55 +641,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupExplorer = 0x1026;
 
-            public const int FileWebResourceOrganizationComparerCommandId_MenuDyn = 0x1599;
-
-            public const int FileWebResourceOrganizationComparerCommandId_MenuDyn_Group = 0x159A;
-
             public const int fileMenuWebResource_GroupActionOnComponent = 0x107E;
 
             public const int fileMenuWebResource_GroupActionOnComponent_Menu = 0x13FD;
 
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb = 0x13FE;
 
-            public const int FileWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x114C;
-
-            public const int FileWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x114D;
-
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group1 = 0x1404;
 
-            public const int FileWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x13C8;
-
-            public const int FileWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x13C9;
-
-            public const int FileWebResourceChangeInEditorInConnectionCommandId_MenuDyn = 0x13CA;
-
-            public const int FileWebResourceChangeInEditorInConnectionCommandId_MenuDyn_Group = 0x13CB;
-
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupCopyToClipboard = 0x15CC;
-
-            public const int FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn = 0x15CD;
-
-            public const int FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn_Group = 0x15CE;
-
-            public const int FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn = 0x15CF;
-
-            public const int FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn_Group = 0x15D0;
 
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x13C7;
 
             public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x1403;
-
-            public const int FileWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x114E;
-
-            public const int FileWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x114F;
-
-            public const int FileWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1150;
-
-            public const int FileWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1151;
-
-            public const int FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1152;
-
-            public const int FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1153;
 
             public const int fileMenuWebResource_GroupAddToSolution = 0x10F5;
 
@@ -1441,37 +683,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuReport_GroupUpdate = 0x1028;
 
-            public const int FileReportUpdateCommandId_MenuDyn = 0x132E;
-
-            public const int FileReportUpdateCommandId_MenuDyn_Group = 0x132F;
-
             public const int fileMenuReport_GroupActionOnComponent = 0x107F;
 
             public const int fileMenuReport_GroupActionOnComponent_Menu = 0x13FF;
 
             public const int fileMenuReport_GroupActionOnComponent_Menu_Group = 0x1400;
 
-            public const int FileReportOpenInWebInConnectionCommandId_MenuDyn = 0x1154;
-
-            public const int FileReportOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1155;
-
-            public const int FileReportOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1156;
-
-            public const int FileReportOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1157;
-
-            public const int FileReportOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1158;
-
-            public const int FileReportOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1159;
-
-            public const int FileReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x115A;
-
-            public const int FileReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x115B;
-
             public const int fileMenuReport_GroupCreate = 0x1333;
-
-            public const int FileReportCreateCommandId_MenuDyn = 0x1334;
-
-            public const int FileReportCreateCommandId_MenuDyn_Group = 0x1335;
 
             public const int fileMenuReport_GroupExplorer = 0x10FD;
 
@@ -1497,79 +715,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate = 0x13B8;
 
-            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x13B9;
-
-            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x13BA;
-
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister = 0x13BB;
-
-            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x13BC;
-
-            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x13BD;
 
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate = 0x128A;
 
-            public const int FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x128B;
-
-            public const int FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x128C;
-
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x1126;
-
-            public const int FileCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x1138;
-
-            public const int FileCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1139;
 
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x14BD;
 
-            public const int FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14BE;
-
-            public const int FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14BF;
-
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription = 0x14C0;
-
-            public const int FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x14C1;
-
-            public const int FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14C2;
 
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther = 0x14C3;
 
-            public const int FileCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x14C4;
-
-            public const int FileCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x14C5;
-
-            public const int FileCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x14C6;
-
-            public const int FileCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x14C7;
-
-            public const int FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x14C8;
-
-            public const int FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x14C9;
-
             public const int fileMenuCSharp_GroupAddPluginStep = 0x1271;
-
-            public const int FileCSharpAddPluginStepInConnectionCommandId_MenuDyn = 0x1272;
-
-            public const int FileCSharpAddPluginStepInConnectionCommandId_MenuDyn_Group = 0x1273;
 
             public const int fileMenuCSharp_GroupEntityMetadata = 0x102C;
 
-            public const int FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x1311;
-
-            public const int FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x138D;
-
-            public const int FileCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x127B;
-
-            public const int FileCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x127C;
-
-            public const int FileCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x1312;
-
-            public const int FileCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1313;
-
             public const int fileMenuCSharp_GroupGlobalOptionSets = 0x102D;
-
-            public const int FileCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x127D;
-
-            public const int FileCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x127E;
 
             public const int fileMenuCSharp_GroupPluginExplorers = 0x1100;
 
@@ -1611,93 +773,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription = 0x14A0;
 
-            public const int FileCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14A1;
-
-            public const int FileCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14A2;
-
             public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription = 0x14A6;
-
-            public const int FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x14A7;
-
-            public const int FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14A8;
 
             public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14A3;
 
-            public const int FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x14A4;
-
-            public const int FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x14A5;
-
             public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1472;
-
-            public const int FileCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1473;
-
-            public const int FileCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1474;
-
-            public const int FileCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1475;
-
-            public const int FileCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1476;
-
-            public const int FileCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1477;
-
-            public const int FileCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1478;
 
             public const int folderMenuWebResource = 0x1061;
 
             public const int folderMenuWebResource_GroupPublish = 0x1062;
 
-            public const int FolderWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11F5;
-
-            public const int FolderWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11F6;
-
-            public const int FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14ED;
-
-            public const int FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14EE;
-
-            public const int FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11F7;
-
-            public const int FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11F8;
-
-            public const int FolderJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F3;
-
-            public const int FolderJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F4;
-
             public const int folderMenuWebResource_GroupGetCurrent = 0x1594;
-
-            public const int FolderWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x1595;
-
-            public const int FolderWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x1596;
-
-            public const int FolderWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x15AB;
-
-            public const int FolderWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x15AC;
-
-            public const int FolderWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x15AD;
-
-            public const int FolderWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x15AE;
 
             public const int folderMenuWebResource_GroupShowDependentComponents = 0x1063;
 
             public const int folderMenuWebResource_GroupCompareFile = 0x1064;
 
-            public const int FolderWebResourceCompareInConnectionGroupCommandId_MenuDyn = 0x1236;
-
-            public const int FolderWebResourceCompareInConnectionGroupCommandId_MenuDyn_Group = 0x1237;
-
-            public const int FolderWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x1238;
-
-            public const int FolderWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x1239;
-
             public const int folderMenuWebResource_GroupIncludeReferencesToDependencyXml = 0x14D5;
 
-            public const int FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14D6;
-
-            public const int FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14D7;
-
             public const int folderMenuWebResource_GroupLinkedSystemForm = 0x14E0;
-
-            public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14E1;
-
-            public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14E2;
 
             public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x157D;
 
@@ -1721,47 +815,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen = 0x1066;
 
-            public const int FolderWebResourceOpenFilesByTypeOrdinalCommandId_Group = 0x1067;
-
-            public const int FolderWebResourceOpenFilesByTypeWithChangesCommandId_Group = 0x1068;
-
-            public const int FolderWebResourceOpenFilesByTypeWithMirrorCommandId_Group = 0x1069;
-
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x106A;
-
-            public const int FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x106B;
-
-            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x106C;
-
-            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x106D;
 
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x156A;
 
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x106E;
 
-            public const int FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x106F;
-
-            public const int FolderWebResourceMultiDifferenceFilesWithChangesCommandId_Group = 0x1070;
-
-            public const int FolderWebResourceMultiDifferenceFilesWithMirrorCommandId_Group = 0x1071;
-
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList = 0x156B;
 
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList = 0x1072;
 
-            public const int FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group = 0x1073;
-
-            public const int FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group = 0x1074;
-
-            public const int FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group = 0x1075;
-
             public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList = 0x150B;
-
-            public const int FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group = 0x150C;
-
-            public const int FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group = 0x150D;
-
-            public const int FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group = 0x150E;
 
             public const int folderMenuWebResource_GroupMetadataUpdate = 0x15DF;
 
@@ -1769,15 +833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupEntityMetadata = 0x1305;
 
-            public const int FolderJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x1306;
-
-            public const int FolderJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x1307;
-
             public const int folderMenuWebResource_GroupMetadataUpdate_Menu_GroupGlobalOptionSetSingle = 0x131D;
-
-            public const int FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x1308;
-
-            public const int FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x1309;
 
             public const int folderMenuWebResource_GroupEncoding = 0x1076;
 
@@ -1803,23 +859,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupActionOnComponent_Menu_GroupOpenInWeb = 0x15BD;
 
-            public const int FolderWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x15BE;
-
-            public const int FolderWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x15BF;
-
             public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group1 = 0x15C0;
-
-            public const int FolderWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x15C1;
-
-            public const int FolderWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x15C2;
 
             public const int folderMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x15C3;
 
             public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x15C4;
-
-            public const int FolderWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x15C5;
-
-            public const int FolderWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x15C6;
 
             public const int folderMenuWebResource_GroupLastLink = 0x1078;
 
@@ -1841,73 +885,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate = 0x152C;
 
-            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x152D;
-
-            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x152E;
-
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister = 0x152F;
-
-            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x1530;
-
-            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x1531;
 
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate = 0x1532;
 
-            public const int FolderCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1533;
-
-            public const int FolderCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1534;
-
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x1535;
-
-            public const int FolderCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x1536;
-
-            public const int FolderCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1537;
 
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x1538;
 
-            public const int FolderCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x1539;
-
-            public const int FolderCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x153A;
-
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription = 0x153B;
-
-            public const int FolderCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x153C;
-
-            public const int FolderCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x153D;
 
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther = 0x153E;
 
-            public const int FolderCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x153F;
-
-            public const int FolderCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1540;
-
-            public const int FolderCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1541;
-
-            public const int FolderCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1542;
-
-            public const int FolderCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1543;
-
-            public const int FolderCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1544;
-
             public const int folderMenuCSharp_GroupEntityMetadata = 0x107A;
 
-            public const int FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x138E;
-
-            public const int FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x138F;
-
-            public const int FolderCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x130D;
-
-            public const int FolderCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x130E;
-
-            public const int FolderCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x1283;
-
-            public const int FolderCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1284;
-
             public const int folderMenuCSharp_GroupGlobalOptionSets = 0x13A1;
-
-            public const int FolderCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x1285;
-
-            public const int FolderCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x1286;
 
             public const int folderMenuCSharp_GroupAddToSolution = 0x12D0;
 
@@ -1947,35 +939,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription = 0x14B2;
 
-            public const int FolderCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14B3;
-
-            public const int FolderCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14B4;
-
             public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription = 0x14B8;
-
-            public const int FolderCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x14B9;
-
-            public const int FolderCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14BA;
 
             public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14B5;
 
-            public const int FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x14B6;
-
-            public const int FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x14B7;
-
             public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x147B;
-
-            public const int FolderCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x147C;
-
-            public const int FolderCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x147D;
-
-            public const int FolderCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x147E;
-
-            public const int FolderCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x147F;
-
-            public const int FolderCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1480;
-
-            public const int FolderCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1481;
 
             public const int folderMenuFolder = 0x107B;
 
@@ -1985,51 +953,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuFolder_GroupMetadata_MenuEntityDyn = 0x12F5;
 
-            public const int FolderAddEntityMetadataFileInConnectionCommandId_Group = 0x12F6;
-
             public const int folderMenuFolder_GroupMetadata_MenuSystemFormDyn = 0x132A;
-
-            public const int FolderAddSystemFormJavaScriptFileInConnectionCommandId_Group = 0x132B;
 
             public const int folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn = 0x1314;
 
-            public const int FolderAddGlobalOptionSetFileInConnectionCommandId_Group = 0x1315;
-
             public const int folderMenuFolder_GroupMetadata_MenuSdkMessageRequestDyn = 0x1328;
-
-            public const int FolderAddSdkMessageRequestFileInConnectionCommandId_Group = 0x1329;
 
             public const int folderMenuProject = 0x10F9;
 
             public const int folderMenuProject_GroupBuildUpdate = 0x13AC;
 
-            public const int ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x13AD;
-
-            public const int ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x13AE;
-
             public const int folderMenuProject_GroupBuildUpdateRegister = 0x13AF;
-
-            public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x13B0;
-
-            public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x13B1;
 
             public const int folderMenuProject_GroupUpdate = 0x128D;
 
-            public const int ProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x128E;
-
-            public const int ProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x128F;
-
             public const int folderMenuProject_GroupCompareTypes = 0x10FB;
 
-            public const int ProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x113A;
-
-            public const int ProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x113B;
-
             public const int folderMenuProject_GroupRegister = 0x12E2;
-
-            public const int ProjectRegisterPluginAssemblyInConnectionCommandId_MenuDyn = 0x12E3;
-
-            public const int ProjectRegisterPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x12E4;
 
             public const int folderMenuProject_GroupAddToSolution = 0x10FA;
 
@@ -2057,29 +997,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuProject_GroupPluginAssemblyActionOnComponent = 0x1451;
 
-            public const int ProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1452;
-
-            public const int ProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1453;
-
-            public const int ProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1454;
-
-            public const int ProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1455;
-
-            public const int ProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1456;
-
-            public const int ProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1457;
-
             public const int folderMenuProject_GroupPluginAssemblyEntityDescription = 0x1458;
 
-            public const int ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x1459;
-
-            public const int ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x145A;
-
             public const int folderMenuProject_GroupPluginAssemblyDescription = 0x145B;
-
-            public const int ProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x145C;
-
-            public const int ProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x145D;
 
             public const int AddGroupFolder = 0x13A2;
 
@@ -2097,25 +1017,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int listForPublishMenu_GroupCompareFile = 0x10A2;
 
-            public const int ListForPublishCompareInConnectionGroupCommandId_MenuDyn = 0x123A;
-
-            public const int ListForPublishCompareInConnectionGroupCommandId_MenuDyn_Group = 0x123B;
-
-            public const int ListForPublishCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x123C;
-
-            public const int ListForPublishCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x123D;
-
             public const int listForPublishMenu_GroupIncludeReferences = 0x14F9;
 
-            public const int ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14FA;
-
-            public const int ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14FB;
-
             public const int listForPublishMenu_GroupLinkedSystemForm = 0x14FC;
-
-            public const int ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14FD;
-
-            public const int ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14FE;
 
             public const int listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm = 0x1584;
 
@@ -2139,29 +1043,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen = 0x10A4;
 
-            public const int ListForPublishOpenFilesByTypeOrdinalCommandId_Group = 0x10A5;
-
-            public const int ListForPublishOpenFilesByTypeWithChangesCommandId_Group = 0x10A6;
-
-            public const int ListForPublishOpenFilesByTypeWithMirrorCommandId_Group = 0x10A7;
-
             public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x10A8;
-
-            public const int ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x10A9;
-
-            public const int ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x10AA;
-
-            public const int ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x10AB;
 
             public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x156E;
 
             public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x10AC;
-
-            public const int ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x10AD;
-
-            public const int ListForPublishMultiDifferenceFilesWithChangesCommandId_Group = 0x10AE;
-
-            public const int ListForPublishMultiDifferenceFilesWithMirrorCommandId_Group = 0x10AF;
 
             public const int listForPublishMenu_GroupShowList = 0x10B0;
 
@@ -2183,25 +1069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int listForPublishMenu_GroupPerformPublishList = 0x10B3;
 
-            public const int ListForPublishPerformPublishInConnectionGroupCommandId_MenuDyn = 0x11F9;
-
-            public const int ListForPublishPerformPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11FA;
-
-            public const int ListForPublishPerformUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F5;
-
-            public const int ListForPublishPerformUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F6;
-
-            public const int ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11FB;
-
-            public const int ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11FC;
-
-            public const int ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F7;
-
-            public const int ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F8;
-
             public const int openCrmSiteMenu = 0x218A;
-
-            public const int CommonOpenCrmWebSiteCommandId_Group = 0x218B;
 
             public const int commonMenu = 0x10D1;
 
@@ -2213,61 +1081,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership = 0x10D6;
 
-            public const int CommonCheckEntitiesOwnerShipsCommandId_MenuDyn = 0x125F;
-
-            public const int CommonCheckEntitiesOwnerShipsCommandId_MenuDyn_Group = 0x1260;
-
             public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet = 0x10D7;
-
-            public const int CommonCheckGlobalOptionSetDuplicateCommandId_MenuDyn = 0x1261;
-
-            public const int CommonCheckGlobalOptionSetDuplicateCommandId_MenuDyn_Group = 0x1262;
-
-            public const int CommonCheckComponentTypeEnumCommandId_MenuDyn = 0x1263;
-
-            public const int CommonCheckComponentTypeEnumCommandId_MenuDyn_Group = 0x1264;
-
-            public const int CommonCheckCreateAllDependencyNodeDescriptionCommandId_MenuDyn = 0x1265;
-
-            public const int CommonCheckCreateAllDependencyNodeDescriptionCommandId_MenuDyn_Group = 0x1266;
-
-            public const int CommonCheckUnknownFormControlTypesCommandId_MenuDyn = 0x1392;
-
-            public const int CommonCheckUnknownFormControlTypesCommandId_MenuDyn_Group = 0x1393;
-
-            public const int CommonCheckTeamTemplatesCommandId_MenuDyn = 0x15D7;
-
-            public const int CommonCheckTeamTemplatesCommandId_MenuDyn_Group = 0x15D8;
-
-            public const int CommonCheckCreateMissingTeamTemplatesInSystemFormsCommandId_MenuDyn = 0x15D1;
-
-            public const int CommonCheckCreateMissingTeamTemplatesInSystemFormsCommandId_MenuDyn_Group = 0x15D2;
 
             public const int commonMenu_GroupCheck_MenuCheck_GroupManagedEntities = 0x10D8;
 
-            public const int CommonCheckManagedElementsCommandId_MenuDyn = 0x1267;
-
-            public const int CommonCheckManagedElementsCommandId_MenuDyn_Group = 0x1268;
-
             public const int commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates = 0x10D9;
 
-            public const int CommonCheckPluginStepsCommandId_MenuDyn = 0x1269;
-
-            public const int CommonCheckPluginStepsCommandId_MenuDyn_Group = 0x126A;
-
-            public const int CommonCheckPluginImagesCommandId_MenuDyn = 0x126B;
-
-            public const int CommonCheckPluginImagesCommandId_MenuDyn_Group = 0x126C;
-
             public const int commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents = 0x10DA;
-
-            public const int CommonCheckPluginStepsRequiredComponentsCommandId_MenuDyn = 0x126D;
-
-            public const int CommonCheckPluginStepsRequiredComponentsCommandId_MenuDyn_Group = 0x126E;
-
-            public const int CommonCheckPluginImagesRequiredComponentsCommandId_MenuDyn = 0x126F;
-
-            public const int CommonCheckPluginImagesRequiredComponentsCommandId_MenuDyn_Group = 0x1270;
 
             public const int commonMenu_GroupFind = 0x10D5;
 
@@ -2335,10 +1155,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupExplorers_MenuExplorers_GroupOther2 = 0x10EE;
 
-            public const int CommonExportDefaultSiteMapsCommandId_MenuDyn = 0x121B;
-
-            public const int CommonExportDefaultSiteMapsCommandId_MenuDyn_Group = 0x121C;
-
             public const int commonMenu_GroupExplorers_MenuExportXsdSchemas = 0x121D;
 
             public const int commonMenu_GroupExplorers_MenuExportXsdSchemas_GroupOpenFolder = 0x1227;
@@ -2347,27 +1163,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupSolutions = 0x1199;
 
-            public const int CommonSolutionExplorerInConnectionCommandId_MenuDyn = 0x125C;
-
-            public const int CommonSolutionExplorerInConnectionCommandId_MenuDyn_Group = 0x125D;
-
             public const int commonMenu_GroupSolutions_MenuSolutions = 0x119A;
 
             public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands = 0x119B;
 
-            public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn = 0x1118;
-
-            public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn_Group = 0x1119;
-
-            public const int CommonImportJobExplorerInConnectionCommandId_MenuDyn = 0x12E0;
-
-            public const int CommonImportJobExplorerInConnectionCommandId_MenuDyn_Group = 0x12E1;
-
             public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb = 0x10EF;
-
-            public const int CommonExportOpenLastSelectedSolutionInWebCommandId_MenuDyn = 0x1116;
-
-            public const int CommonExportOpenLastSelectedSolutionInWebCommandId_MenuDyn_Group = 0x1117;
 
             public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuSolutionListDyn = 0x1290;
 
@@ -2387,10 +1187,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupPublish = 0x1196;
 
-            public const int CommonCrmConnectionPublishAllCommandId_MenuDyn = 0x1197;
-
-            public const int CommonCrmConnectionPublishAllCommandId_MenuDyn_Group = 0x1198;
-
             public const int commonMenu_GroupFileGenerationOptions = 0x13EE;
 
             public const int commonMenu_GroupFileGenerationOptions_Menu = 0x13EF;
@@ -2407,71 +1203,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite_MenuWebApplicationDyn = 0x119C;
 
-            public const int CommonOpenAdvancedFindCommandId_MenuDyn = 0x115E;
-
-            public const int CommonOpenAdvancedFindCommandId_MenuDyn_Group = 0x115F;
-
-            public const int CommonOpenDashboardsCommandId_MenuDyn = 0x1394;
-
-            public const int CommonOpenDashboardsCommandId_MenuDyn_Group = 0x1395;
-
-            public const int CommonOpenActivitiesCommandId_MenuDyn = 0x1396;
-
-            public const int CommonOpenActivitiesCommandId_MenuDyn_Group = 0x1397;
-
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization = 0x11AE;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuSolutionsDyn = 0x119E;
 
-            public const int CommonOpenSolutionsCommandId_Group = 0x119F;
-
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuOpenDefaultSolutionDyn = 0x1297;
-
-            public const int CommonOpenDefaultSolutionInWebCommandId_Group = 0x1298;
-
-            public const int CommonOpenWorkflowsCommandId_MenuDyn = 0x11AA;
-
-            public const int CommonOpenWorkflowsCommandId_MenuDyn_Group = 0x11AB;
-
-            public const int CommonOpenSystemJobsCommandId_MenuDyn = 0x11AF;
-
-            public const int CommonOpenSystemJobsCommandId_MenuDyn_Group = 0x11B0;
-
-            public const int CommonOpenTraceWallCommandId_MenuDyn = 0x1398;
-
-            public const int CommonOpenTraceWallCommandId_MenuDyn_Group = 0x1399;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupCustomization_MenuCustomizationDyn = 0x11A0;
 
-            public const int CommonOpenCustomizationCommandId_Group = 0x11A1;
-
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupSecurity = 0x11B3;
 
-            public const int CommonOpenSystemUsersCommandId_MenuDyn = 0x11A2;
-
-            public const int CommonOpenSystemUsersCommandId_MenuDyn_Group = 0x11A3;
-
-            public const int CommonOpenTeamsCommandId_MenuDyn = 0x11A4;
-
-            public const int CommonOpenTeamsCommandId_MenuDyn_Group = 0x11A5;
-
-            public const int CommonOpenRolesCommandId_MenuDyn = 0x11A6;
-
-            public const int CommonOpenRolesCommandId_MenuDyn_Group = 0x11A7;
-
-            public const int CommonOpenSecurityCommandId_MenuDyn = 0x11A8;
-
-            public const int CommonOpenSecurityCommandId_MenuDyn_Group = 0x11A9;
-
-            public const int CommonOpenAdministrationCommandId_MenuDyn = 0x11B1;
-
-            public const int CommonOpenAdministrationCommandId_MenuDyn_Group = 0x11B2;
-
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupEngagementHub = 0x11D4;
-
-            public const int CommonOpenEngagementHubCommandId_MenuDyn = 0x11D5;
-
-            public const int CommonOpenEngagementHubCommandId_MenuDyn_GroupConnections = 0x11D6;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group1 = 0x11B4;
 
@@ -2479,113 +1221,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group1_Menu1_Group1 = 0x11D3;
 
-            public const int CommonOpenBusinessCommandId_MenuDyn = 0x11AC;
-
-            public const int CommonOpenBusinessCommandId_MenuDyn_Group = 0x11AD;
-
-            public const int CommonOpenTemplatesCommandId_MenuDyn = 0x11B5;
-
-            public const int CommonOpenTemplatesCommandId_MenuDyn_Group = 0x11B6;
-
-            public const int CommonOpenProductCatalogCommandId_MenuDyn = 0x11B7;
-
-            public const int CommonOpenProductCatalogCommandId_MenuDyn_Group = 0x11B8;
-
-            public const int CommonOpenServiceManagementCommandId_MenuDyn = 0x11B9;
-
-            public const int CommonOpenServiceManagementCommandId_MenuDyn_Group = 0x11BA;
-
-            public const int CommonOpenDataManagementCommandId_MenuDyn = 0x11BB;
-
-            public const int CommonOpenDataManagementCommandId_MenuDyn_Group = 0x11BC;
-
-            public const int CommonOpenDocumentManagementCommandId_MenuDyn = 0x139A;
-
-            public const int CommonOpenDocumentManagementCommandId_MenuDyn_Group = 0x139B;
-
-            public const int CommonOpenDuplicateDetectionJobsCommandId_MenuDyn = 0x139C;
-
-            public const int CommonOpenDuplicateDetectionJobsCommandId_MenuDyn_Group = 0x139D;
-
-            public const int CommonOpenSocialCommandId_MenuDyn = 0x11BD;
-
-            public const int CommonOpenSocialCommandId_MenuDyn_Group = 0x11BE;
-
-            public const int CommonOpenAuditCommandId_MenuDyn = 0x11C1;
-
-            public const int CommonOpenAuditCommandId_MenuDyn_Group = 0x11C2;
-
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2 = 0x11D7;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2 = 0x11D8;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2 = 0x11C3;
 
-            public const int CommonOpenMobileOfflineCommandId_MenuDyn = 0x11C4;
-
-            public const int CommonOpenMobileOfflineCommandId_MenuDyn_Group = 0x11C5;
-
-            public const int CommonOpenExternAppManagementCommandId_MenuDyn = 0x11C6;
-
-            public const int CommonOpenExternAppManagementCommandId_MenuDyn_Group = 0x11C7;
-
-            public const int CommonOpenAppsForCrmCommandId_MenuDyn = 0x11C8;
-
-            public const int CommonOpenAppsForCrmCommandId_MenuDyn_Group = 0x11C9;
-
-            public const int CommonOpenRelationshipIntelligenceCommandId_MenuDyn = 0x11CA;
-
-            public const int CommonOpenRelationshipIntelligenceCommandId_MenuDyn_Group = 0x11CB;
-
-            public const int CommonOpenMicrosoftFlowCommandId_MenuDyn = 0x11CC;
-
-            public const int CommonOpenMicrosoftFlowCommandId_MenuDyn_Group = 0x11CD;
-
-            public const int CommonOpenAppModuleCommandId_MenuDyn = 0x11CE;
-
-            public const int CommonOpenAppModuleCommandId_MenuDyn_Group = 0x11CF;
-
-            public const int CommonOpenNewsCommandId_MenuDyn = 0x139E;
-
-            public const int CommonOpenNewsCommandId_MenuDyn_Group = 0x139F;
-
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity = 0x1429;
 
             public const int commonMenu_GroupConfiguration_MenuConnectionAction = 0x1551;
 
             public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group = 0x1552;
-
-            public const int CommonCrmConnectionEditCommandId_MenuDyn = 0x1381;
-
-            public const int CommonCrmConnectionEditCommandId_MenuDyn_Group = 0x1382;
-
-            public const int CommonCrmConnectionPoolShowStateCommandId_MenuDyn = 0x155C;
-
-            public const int CommonCrmConnectionPoolShowStateCommandId_MenuDyn_Group = 0x155D;
-
-            public const int CommonCrmConnectionPoolClearCommandId_MenuDyn = 0x155A;
-
-            public const int CommonCrmConnectionPoolClearCommandId_MenuDyn_Group = 0x155B;
-
-            public const int CommonCrmConnectionSelectFileCommandId_MenuDyn = 0x137F;
-
-            public const int CommonCrmConnectionSelectFileCommandId_MenuDyn_Group = 0x1380;
-
-            public const int CommonCrmConnectionOpenFetchXmlFolderCommandId_MenuDyn = 0x149B;
-
-            public const int CommonCrmConnectionOpenFetchXmlFolderCommandId_MenuDyn_Group = 0x149C;
-
-            public const int CommonCrmConnectionOpenInfoFolderCommandId_MenuDyn = 0x1553;
-
-            public const int CommonCrmConnectionOpenInfoFolderCommandId_MenuDyn_Group = 0x1554;
-
-            public const int CommonCrmConnectionSelectCommandId_MenuDyn = 0x1101;
-
-            public const int CommonCrmConnectionSelectCommandId_MenuDyn_Group = 0x1103;
-
-            public const int CommonCrmConnectionTestCommandId_MenuDyn = 0x1228;
-
-            public const int CommonCrmConnectionTestCommandId_MenuDyn_Group = 0x1229;
 
             public const int outputMenu = 0x133E;
 
@@ -2673,15 +1319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands = 0x1365;
 
-            public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn = 0x137B;
-
-            public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn_Group = 0x137C;
-
             public const int outputMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb = 0x1366;
-
-            public const int OutputExportOpenLastSelectedSolutionInWebCommandId_MenuDyn = 0x137D;
-
-            public const int OutputExportOpenLastSelectedSolutionInWebCommandId_MenuDyn_Group = 0x137E;
 
             public const int outputMenu_GroupTraceReader = 0x1367;
 
@@ -2726,6 +1364,1368 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int outputMenu_GroupConfiguration_MenuConnectionAction = 0x154F;
 
             public const int outputMenu_GroupConfiguration_MenuConnectionAction_Group = 0x1550;
+
+            public const int CodeWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11FD;
+
+            public const int CodeWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11FE;
+
+            public const int CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14E7;
+
+            public const int CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14E8;
+
+            public const int CodeWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x158C;
+
+            public const int CodeWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x158D;
+
+            public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x13C5;
+
+            public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x13C6;
+
+            public const int CodeWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x13C3;
+
+            public const int CodeWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x13C4;
+
+            public const int CodeWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1130;
+
+            public const int CodeWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1131;
+
+            public const int CodeWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn = 0x116C;
+
+            public const int CodeWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group = 0x116D;
+
+            public const int CodeWebResourceShowDifferenceOneByOneCommandId_MenuDyn = 0x118D;
+
+            public const int CodeWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group = 0x118E;
+
+            public const int CodeWebResourceShowDifferenceThreeWayCommandId_MenuDyn = 0x1162;
+
+            public const int CodeWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group = 0x1163;
+
+            public const int CodeWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x122C;
+
+            public const int CodeWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x122D;
+
+            public const int CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14CD;
+
+            public const int CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14CE;
+
+            public const int CodeJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x15D3;
+
+            public const int CodeJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x15D4;
+
+            public const int CodeJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x12F8;
+
+            public const int CodeJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x12F9;
+
+            public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x131F;
+
+            public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x1320;
+
+            public const int CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn = 0x1322;
+
+            public const int CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn_Group = 0x1323;
+
+            public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14D8;
+
+            public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14D9;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId_MenuDyn = 0x1408;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1409;
+
+            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionTypeConstructorCommandId_MenuDyn = 0x1425;
+
+            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionTypeConstructorCommandId_MenuDyn_Group = 0x1426;
+
+            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionJsonObjectCommandId_MenuDyn = 0x1427;
+
+            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionJsonObjectCommandId_MenuDyn_Group = 0x1428;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId_MenuDyn = 0x140A;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId_MenuDyn_Group = 0x140B;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId_MenuDyn = 0x1412;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId_MenuDyn_Group = 0x1413;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentEntityDescriptionInConnectionCommandId_MenuDyn = 0x141D;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x141E;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId_MenuDyn = 0x141F;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId_MenuDyn_Group = 0x1420;
+
+            public const int CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommandId_MenuDyn = 0x141B;
+
+            public const int CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommandId_MenuDyn_Group = 0x141C;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId_MenuDyn = 0x140C;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x140D;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x140E;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x140F;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1410;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1411;
+
+            public const int CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId_MenuDyn = 0x1430;
+
+            public const int CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1431;
+
+            public const int CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId_MenuDyn = 0x1432;
+
+            public const int CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId_MenuDyn_Group = 0x1433;
+
+            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn = 0x1434;
+
+            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn_Group = 0x1435;
+
+            public const int CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1447;
+
+            public const int CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1448;
+
+            public const int CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1449;
+
+            public const int CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x144A;
+
+            public const int CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x144B;
+
+            public const int CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x144C;
+
+            public const int CodeWebResourceOrganizationComparerCommandId_MenuDyn = 0x1597;
+
+            public const int CodeWebResourceOrganizationComparerCommandId_MenuDyn_Group = 0x1598;
+
+            public const int CodeWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x113C;
+
+            public const int CodeWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x113D;
+
+            public const int CodeWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x13BF;
+
+            public const int CodeWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x13C0;
+
+            public const int CodeWebResourceChangeInEditorInConnectionCommandId_MenuDyn = 0x13C1;
+
+            public const int CodeWebResourceChangeInEditorInConnectionCommandId_MenuDyn_Group = 0x13C2;
+
+            public const int CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn = 0x15C8;
+
+            public const int CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn_Group = 0x15C9;
+
+            public const int CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn = 0x15CA;
+
+            public const int CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn_Group = 0x15CB;
+
+            public const int CodeWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x113E;
+
+            public const int CodeWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x113F;
+
+            public const int CodeWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1140;
+
+            public const int CodeWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1141;
+
+            public const int CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1142;
+
+            public const int CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1143;
+
+            public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId_MenuDyn = 0x1216;
+
+            public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId_MenuDyn_Group = 0x1217;
+
+            public const int CodeXmlCommonXsdSchemaSetCommandId_Group = 0x1221;
+
+            public const int CodeXmlSiteMapOpenInWebInConnectionCommandId_MenuDyn = 0x1336;
+
+            public const int CodeXmlSiteMapOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1337;
+
+            public const int CodeXmlSiteMapOrganizationComparerCommandId_MenuDyn = 0x159F;
+
+            public const int CodeXmlSiteMapOrganizationComparerCommandId_MenuDyn_Group = 0x15A0;
+
+            public const int CodeXmlSiteMapGetCurrentInConnectionCommandId_MenuDyn = 0x13DC;
+
+            public const int CodeXmlSiteMapGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13DD;
+
+            public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1247;
+
+            public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1248;
+
+            public const int CodeXmlSiteMapShowDifferenceDefaultCommandId_MenuDyn = 0x1223;
+
+            public const int CodeXmlSiteMapShowDifferenceDefaultCommandId_MenuDyn_Group = 0x1224;
+
+            public const int CodeXmlSiteMapUpdateInConnectionGroupCommandId_MenuDyn = 0x124E;
+
+            public const int CodeXmlSiteMapUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x124F;
+
+            public const int CodeXmlRibbonOpenInWebInConnectionCommandId_MenuDyn = 0x133D;
+
+            public const int CodeXmlRibbonOrganizationComparerCommandId_MenuDyn = 0x15A5;
+
+            public const int CodeXmlRibbonOrganizationComparerCommandId_MenuDyn_Group = 0x15A6;
+
+            public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn = 0x1558;
+
+            public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn_Group = 0x1559;
+
+            public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId_MenuDyn = 0x13E9;
+
+            public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId_MenuDyn_Group = 0x13EA;
+
+            public const int CodeXmlRibbonShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x123F;
+
+            public const int CodeXmlRibbonShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1240;
+
+            public const int CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn = 0x13EC;
+
+            public const int CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId_MenuDyn_Group = 0x13ED;
+
+            public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1242;
+
+            public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1243;
+
+            public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId_MenuDyn = 0x1245;
+
+            public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x1246;
+
+            public const int CodeXmlSystemFormOpenInWebInConnectionCommandId_MenuDyn = 0x1338;
+
+            public const int CodeXmlSystemFormOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1339;
+
+            public const int CodeXmlSystemFormOrganizationComparerCommandId_MenuDyn = 0x159D;
+
+            public const int CodeXmlSystemFormOrganizationComparerCommandId_MenuDyn_Group = 0x159E;
+
+            public const int CodeXmlSystemFormGetCurrentInConnectionCommandId_MenuDyn = 0x13DF;
+
+            public const int CodeXmlSystemFormGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13E0;
+
+            public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1251;
+
+            public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1252;
+
+            public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId_MenuDyn = 0x1254;
+
+            public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x1255;
+
+            public const int CodeXmlSavedQueryOpenInWebInConnectionCommandId_MenuDyn = 0x133A;
+
+            public const int CodeXmlSavedQueryOpenInWebInConnectionCommandId_MenuDyn_Group = 0x133B;
+
+            public const int CodeXmlSavedQueryOrganizationComparerCommandId_MenuDyn = 0x15A3;
+
+            public const int CodeXmlSavedQueryOrganizationComparerCommandId_MenuDyn_Group = 0x15A4;
+
+            public const int CodeXmlSavedQueryGetCurrentInConnectionCommandId_MenuDyn = 0x13E2;
+
+            public const int CodeXmlSavedQueryGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13E3;
+
+            public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1257;
+
+            public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1258;
+
+            public const int CodeXmlSavedQueryUpdateInConnectionGroupCommandId_MenuDyn = 0x125A;
+
+            public const int CodeXmlSavedQueryUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x125B;
+
+            public const int CodeXmlWorkflowOpenInWebInConnectionCommandId_MenuDyn = 0x1384;
+
+            public const int CodeXmlWorkflowOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1385;
+
+            public const int CodeXmlWorkflowOrganizationComparerCommandId_MenuDyn = 0x159B;
+
+            public const int CodeXmlWorkflowOrganizationComparerCommandId_MenuDyn_Group = 0x159C;
+
+            public const int CodeXmlWorkflowGetCurrentInConnectionCommandId_MenuDyn = 0x13E5;
+
+            public const int CodeXmlWorkflowGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13E6;
+
+            public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1386;
+
+            public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1387;
+
+            public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId_MenuDyn = 0x1389;
+
+            public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId_MenuDyn_Group = 0x138A;
+
+            public const int CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId_MenuDyn = 0x13D1;
+
+            public const int CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId_MenuDyn_Group = 0x13D2;
+
+            public const int CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId_MenuDyn = 0x15A1;
+
+            public const int CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId_MenuDyn_Group = 0x15A2;
+
+            public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId_MenuDyn = 0x13D9;
+
+            public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId_MenuDyn_Group = 0x13DA;
+
+            public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId_MenuDyn = 0x13D3;
+
+            public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId_MenuDyn_Group = 0x13D4;
+
+            public const int CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId_MenuDyn = 0x13D6;
+
+            public const int CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId_MenuDyn_Group = 0x13D7;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId_MenuDyn = 0x154A;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId_MenuDyn_Group = 0x154B;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId_MenuDyn = 0x154D;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId_MenuDyn_Group = 0x154E;
+
+            public const int CodeReportUpdateCommandId_MenuDyn = 0x132C;
+
+            public const int CodeReportUpdateCommandId_MenuDyn_Group = 0x132D;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId_MenuDyn = 0x1132;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId_MenuDyn_Group = 0x1133;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId_MenuDyn = 0x116A;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId_MenuDyn_Group = 0x116B;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId_MenuDyn = 0x118F;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId_MenuDyn_Group = 0x1190;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId_MenuDyn = 0x1166;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId_MenuDyn_Group = 0x1167;
+
+            public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId_MenuDyn = 0x120A;
+
+            public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId_MenuDyn_Group = 0x120B;
+
+            public const int CodeReportShowDifferenceBodyTextTwoConnectionsCommandId_MenuDyn = 0x120D;
+
+            public const int CodeReportShowDifferenceBodyTextTwoConnectionsCommandId_MenuDyn_Group = 0x120E;
+
+            public const int CodeReportShowDifferenceBodyTextOneByOneCommandId_MenuDyn = 0x120F;
+
+            public const int CodeReportShowDifferenceBodyTextOneByOneCommandId_MenuDyn_Group = 0x1210;
+
+            public const int CodeReportShowDifferenceBodyTextThreeWayCommandId_MenuDyn = 0x1211;
+
+            public const int CodeReportShowDifferenceBodyTextThreeWayCommandId_MenuDyn_Group = 0x1212;
+
+            public const int CodeReportCreateCommandId_MenuDyn = 0x1331;
+
+            public const int CodeReportCreateCommandId_MenuDyn_Group = 0x1332;
+
+            public const int CodeReportOpenInWebInConnectionCommandId_MenuDyn = 0x1144;
+
+            public const int CodeReportOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1145;
+
+            public const int CodeReportOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1146;
+
+            public const int CodeReportOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1147;
+
+            public const int CodeReportOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1148;
+
+            public const int CodeReportOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1149;
+
+            public const int CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x114A;
+
+            public const int CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x114B;
+
+            public const int CodeCSharpAddPluginStepInConnectionCommandId_MenuDyn = 0x1275;
+
+            public const int CodeCSharpAddPluginStepInConnectionCommandId_MenuDyn_Group = 0x1276;
+
+            public const int CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x138B;
+
+            public const int CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x138C;
+
+            public const int CodeCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x130B;
+
+            public const int CodeCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x130C;
+
+            public const int CodeCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x1277;
+
+            public const int CodeCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1278;
+
+            public const int CodeCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x1279;
+
+            public const int CodeCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x127A;
+
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x13B3;
+
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x13B4;
+
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x13B6;
+
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x13B7;
+
+            public const int CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1288;
+
+            public const int CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1289;
+
+            public const int CodeCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x1136;
+
+            public const int CodeCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1137;
+
+            public const int CodeCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x148E;
+
+            public const int CodeCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x148F;
+
+            public const int CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x1491;
+
+            public const int CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x1492;
+
+            public const int CodeCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1494;
+
+            public const int CodeCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1495;
+
+            public const int CodeCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1496;
+
+            public const int CodeCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1497;
+
+            public const int CodeCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1498;
+
+            public const int CodeCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1499;
+
+            public const int CodeCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x1483;
+
+            public const int CodeCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x1484;
+
+            public const int CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x1489;
+
+            public const int CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x148A;
+
+            public const int CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x1486;
+
+            public const int CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x1487;
+
+            public const int CodeCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1461;
+
+            public const int CodeCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1462;
+
+            public const int CodeCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1463;
+
+            public const int CodeCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1464;
+
+            public const int CodeCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1465;
+
+            public const int CodeCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1466;
+
+            public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11F0;
+
+            public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11F1;
+
+            public const int DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14E9;
+
+            public const int DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14EA;
+
+            public const int DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11F2;
+
+            public const int DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11F3;
+
+            public const int DocumentsJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14EF;
+
+            public const int DocumentsJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F0;
+
+            public const int DocumentsWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x1592;
+
+            public const int DocumentsWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x1593;
+
+            public const int DocumentsWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x15A7;
+
+            public const int DocumentsWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x15A8;
+
+            public const int DocumentsWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x15A9;
+
+            public const int DocumentsWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x15AA;
+
+            public const int DocumentsWebResourceCompareInConnectionGroupCommandId_MenuDyn = 0x122E;
+
+            public const int DocumentsWebResourceCompareInConnectionGroupCommandId_MenuDyn_Group = 0x122F;
+
+            public const int DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x1230;
+
+            public const int DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x1231;
+
+            public const int DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14D3;
+
+            public const int DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14D4;
+
+            public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14DE;
+
+            public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14DF;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x1500;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x1501;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x1502;
+
+            public const int DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x1174;
+
+            public const int DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId_Group = 0x1175;
+
+            public const int DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId_Group = 0x1176;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group = 0x1178;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group = 0x1179;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group = 0x117A;
+
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group = 0x1504;
+
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group = 0x1505;
+
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group = 0x1506;
+
+            public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x12FB;
+
+            public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x12FC;
+
+            public const int DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x12FD;
+
+            public const int DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x12FE;
+
+            public const int DocumentsWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x15B2;
+
+            public const int DocumentsWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x15B3;
+
+            public const int DocumentsWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x15B5;
+
+            public const int DocumentsWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x15B6;
+
+            public const int DocumentsWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x15B9;
+
+            public const int DocumentsWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x15BA;
+
+            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1512;
+
+            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1513;
+
+            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x1515;
+
+            public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x1516;
+
+            public const int DocumentsCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1518;
+
+            public const int DocumentsCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1519;
+
+            public const int DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x151B;
+
+            public const int DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x151C;
+
+            public const int DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x151E;
+
+            public const int DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x151F;
+
+            public const int DocumentsCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x1521;
+
+            public const int DocumentsCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x1522;
+
+            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1524;
+
+            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1525;
+
+            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1526;
+
+            public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1527;
+
+            public const int DocumentsCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1528;
+
+            public const int DocumentsCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1529;
+
+            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x1390;
+
+            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x1391;
+
+            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x130F;
+
+            public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x1310;
+
+            public const int DocumentsCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x127F;
+
+            public const int DocumentsCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1280;
+
+            public const int DocumentsCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x1281;
+
+            public const int DocumentsCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x1282;
+
+            public const int DocumentsCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14AA;
+
+            public const int DocumentsCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14AB;
+
+            public const int DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x14B0;
+
+            public const int DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14B1;
+
+            public const int DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x14AD;
+
+            public const int DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x14AE;
+
+            public const int DocumentsCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x146A;
+
+            public const int DocumentsCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x146B;
+
+            public const int DocumentsCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x146C;
+
+            public const int DocumentsCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x146D;
+
+            public const int DocumentsCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x146E;
+
+            public const int DocumentsCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x146F;
+
+            public const int FileWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11DC;
+
+            public const int FileWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11DD;
+
+            public const int FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14EB;
+
+            public const int FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14EC;
+
+            public const int FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11DE;
+
+            public const int FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11DF;
+
+            public const int FileJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F1;
+
+            public const int FileJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F2;
+
+            public const int FileWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x158F;
+
+            public const int FileWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x1590;
+
+            public const int FileWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x13CC;
+
+            public const int FileWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x13CD;
+
+            public const int FileWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x13CE;
+
+            public const int FileWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x13CF;
+
+            public const int FileWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn = 0x1134;
+
+            public const int FileWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn_Group = 0x1135;
+
+            public const int FileWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn = 0x1168;
+
+            public const int FileWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group = 0x1169;
+
+            public const int FileWebResourceShowDifferenceOneByOneCommandId_MenuDyn = 0x1191;
+
+            public const int FileWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group = 0x1192;
+
+            public const int FileWebResourceShowDifferenceThreeWayCommandId_MenuDyn = 0x1164;
+
+            public const int FileWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group = 0x1165;
+
+            public const int FileWebResourceCompareInConnectionGroupCommandId_MenuDyn = 0x1232;
+
+            public const int FileWebResourceCompareInConnectionGroupCommandId_MenuDyn_Group = 0x1233;
+
+            public const int FileWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x1234;
+
+            public const int FileWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x1235;
+
+            public const int FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14D0;
+
+            public const int FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14D1;
+
+            public const int FileJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x15D5;
+
+            public const int FileJavaScriptShowDifferenceReferencesAndDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x15D6;
+
+            public const int FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14DB;
+
+            public const int FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14DC;
+
+            public const int FileWebResourceOpenFilesByTypeOrdinalCommandId_Group = 0x1016;
+
+            public const int FileWebResourceOpenFilesByTypeWithChangesCommandId_Group = 0x1017;
+
+            public const int FileWebResourceOpenFilesByTypeWithMirrorCommandId_Group = 0x1018;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x101A;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x101B;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x101C;
+
+            public const int FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x101E;
+
+            public const int FileWebResourceMultiDifferenceFilesWithChangesCommandId_Group = 0x101F;
+
+            public const int FileWebResourceMultiDifferenceFilesWithMirrorCommandId_Group = 0x1020;
+
+            public const int FileWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group = 0x1022;
+
+            public const int FileWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group = 0x1023;
+
+            public const int FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group = 0x1024;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group = 0x1508;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group = 0x1509;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group = 0x150A;
+
+            public const int FileJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x1300;
+
+            public const int FileJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x1301;
+
+            public const int FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x131A;
+
+            public const int FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x131B;
+
+            public const int FileJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn = 0x1303;
+
+            public const int FileJavaScriptUpdateGlobalOptionSetAllFileCommandId_MenuDyn_Group = 0x1304;
+
+            public const int FileWebResourceOrganizationComparerCommandId_MenuDyn = 0x1599;
+
+            public const int FileWebResourceOrganizationComparerCommandId_MenuDyn_Group = 0x159A;
+
+            public const int FileWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x114C;
+
+            public const int FileWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x114D;
+
+            public const int FileWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x13C8;
+
+            public const int FileWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x13C9;
+
+            public const int FileWebResourceChangeInEditorInConnectionCommandId_MenuDyn = 0x13CA;
+
+            public const int FileWebResourceChangeInEditorInConnectionCommandId_MenuDyn_Group = 0x13CB;
+
+            public const int FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn = 0x15CD;
+
+            public const int FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId_MenuDyn_Group = 0x15CE;
+
+            public const int FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn = 0x15CF;
+
+            public const int FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId_MenuDyn_Group = 0x15D0;
+
+            public const int FileWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x114E;
+
+            public const int FileWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x114F;
+
+            public const int FileWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1150;
+
+            public const int FileWebResourceOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1151;
+
+            public const int FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1152;
+
+            public const int FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1153;
+
+            public const int FileReportUpdateCommandId_MenuDyn = 0x132E;
+
+            public const int FileReportUpdateCommandId_MenuDyn_Group = 0x132F;
+
+            public const int FileReportOpenInWebInConnectionCommandId_MenuDyn = 0x1154;
+
+            public const int FileReportOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1155;
+
+            public const int FileReportOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1156;
+
+            public const int FileReportOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1157;
+
+            public const int FileReportOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1158;
+
+            public const int FileReportOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1159;
+
+            public const int FileReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x115A;
+
+            public const int FileReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x115B;
+
+            public const int FileReportCreateCommandId_MenuDyn = 0x1334;
+
+            public const int FileReportCreateCommandId_MenuDyn_Group = 0x1335;
+
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x13B9;
+
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x13BA;
+
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x13BC;
+
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x13BD;
+
+            public const int FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x128B;
+
+            public const int FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x128C;
+
+            public const int FileCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x1138;
+
+            public const int FileCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1139;
+
+            public const int FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14BE;
+
+            public const int FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14BF;
+
+            public const int FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x14C1;
+
+            public const int FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14C2;
+
+            public const int FileCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x14C4;
+
+            public const int FileCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x14C5;
+
+            public const int FileCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x14C6;
+
+            public const int FileCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x14C7;
+
+            public const int FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x14C8;
+
+            public const int FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x14C9;
+
+            public const int FileCSharpAddPluginStepInConnectionCommandId_MenuDyn = 0x1272;
+
+            public const int FileCSharpAddPluginStepInConnectionCommandId_MenuDyn_Group = 0x1273;
+
+            public const int FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x1311;
+
+            public const int FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x138D;
+
+            public const int FileCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x127B;
+
+            public const int FileCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x127C;
+
+            public const int FileCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x1312;
+
+            public const int FileCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1313;
+
+            public const int FileCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x127D;
+
+            public const int FileCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x127E;
+
+            public const int FileCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14A1;
+
+            public const int FileCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14A2;
+
+            public const int FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x14A7;
+
+            public const int FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14A8;
+
+            public const int FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x14A4;
+
+            public const int FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x14A5;
+
+            public const int FileCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1473;
+
+            public const int FileCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1474;
+
+            public const int FileCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1475;
+
+            public const int FileCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1476;
+
+            public const int FileCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1477;
+
+            public const int FileCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1478;
+
+            public const int FolderWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11F5;
+
+            public const int FolderWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11F6;
+
+            public const int FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14ED;
+
+            public const int FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14EE;
+
+            public const int FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11F7;
+
+            public const int FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11F8;
+
+            public const int FolderJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F3;
+
+            public const int FolderJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F4;
+
+            public const int FolderWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn = 0x1595;
+
+            public const int FolderWebResourceGetCurrentContentInConnectionGroupCommandId_MenuDyn_Group = 0x1596;
+
+            public const int FolderWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn = 0x15AB;
+
+            public const int FolderWebResourceGetAttributeDependencyXmlInConnectionCommandId_MenuDyn_Group = 0x15AC;
+
+            public const int FolderWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn = 0x15AD;
+
+            public const int FolderWebResourceGetAttributeContentJsonInConnectionCommandId_MenuDyn_Group = 0x15AE;
+
+            public const int FolderWebResourceCompareInConnectionGroupCommandId_MenuDyn = 0x1236;
+
+            public const int FolderWebResourceCompareInConnectionGroupCommandId_MenuDyn_Group = 0x1237;
+
+            public const int FolderWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x1238;
+
+            public const int FolderWebResourceCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x1239;
+
+            public const int FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14D6;
+
+            public const int FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14D7;
+
+            public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14E1;
+
+            public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14E2;
+
+            public const int FolderWebResourceOpenFilesByTypeOrdinalCommandId_Group = 0x1067;
+
+            public const int FolderWebResourceOpenFilesByTypeWithChangesCommandId_Group = 0x1068;
+
+            public const int FolderWebResourceOpenFilesByTypeWithMirrorCommandId_Group = 0x1069;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x106B;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x106C;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x106D;
+
+            public const int FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x106F;
+
+            public const int FolderWebResourceMultiDifferenceFilesWithChangesCommandId_Group = 0x1070;
+
+            public const int FolderWebResourceMultiDifferenceFilesWithMirrorCommandId_Group = 0x1071;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group = 0x1073;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group = 0x1074;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group = 0x1075;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group = 0x150C;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group = 0x150D;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group = 0x150E;
+
+            public const int FolderJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn = 0x1306;
+
+            public const int FolderJavaScriptUpdateEntityMetadataFileCommandId_MenuDyn_Group = 0x1307;
+
+            public const int FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn = 0x1308;
+
+            public const int FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId_MenuDyn_Group = 0x1309;
+
+            public const int FolderWebResourceOpenInWebInConnectionCommandId_MenuDyn = 0x15BE;
+
+            public const int FolderWebResourceOpenInWebInConnectionCommandId_MenuDyn_Group = 0x15BF;
+
+            public const int FolderWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x15C1;
+
+            public const int FolderWebResourceCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x15C2;
+
+            public const int FolderWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x15C5;
+
+            public const int FolderWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x15C6;
+
+            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x152D;
+
+            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x152E;
+
+            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x1530;
+
+            public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x1531;
+
+            public const int FolderCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1533;
+
+            public const int FolderCSharpProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1534;
+
+            public const int FolderCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x1536;
+
+            public const int FolderCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1537;
+
+            public const int FolderCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x1539;
+
+            public const int FolderCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x153A;
+
+            public const int FolderCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x153C;
+
+            public const int FolderCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x153D;
+
+            public const int FolderCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x153F;
+
+            public const int FolderCSharpProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1540;
+
+            public const int FolderCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1541;
+
+            public const int FolderCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1542;
+
+            public const int FolderCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1543;
+
+            public const int FolderCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1544;
+
+            public const int FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn = 0x138E;
+
+            public const int FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId_MenuDyn_Group = 0x138F;
+
+            public const int FolderCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn = 0x130D;
+
+            public const int FolderCSharpUpdateEntityMetadataFileProxyClassCommandId_MenuDyn_Group = 0x130E;
+
+            public const int FolderCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn = 0x1283;
+
+            public const int FolderCSharpUpdateEntityMetadataFileSchemaCommandId_MenuDyn_Group = 0x1284;
+
+            public const int FolderCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn = 0x1285;
+
+            public const int FolderCSharpUpdateGlobalOptionSetsFileCommandId_MenuDyn_Group = 0x1286;
+
+            public const int FolderCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x14B3;
+
+            public const int FolderCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x14B4;
+
+            public const int FolderCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn = 0x14B9;
+
+            public const int FolderCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x14BA;
+
+            public const int FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn = 0x14B6;
+
+            public const int FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId_MenuDyn_Group = 0x14B7;
+
+            public const int FolderCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn = 0x147C;
+
+            public const int FolderCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x147D;
+
+            public const int FolderCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x147E;
+
+            public const int FolderCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x147F;
+
+            public const int FolderCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1480;
+
+            public const int FolderCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1481;
+
+            public const int FolderAddEntityMetadataFileInConnectionCommandId_Group = 0x12F6;
+
+            public const int FolderAddSystemFormJavaScriptFileInConnectionCommandId_Group = 0x132B;
+
+            public const int FolderAddGlobalOptionSetFileInConnectionCommandId_Group = 0x1315;
+
+            public const int FolderAddSdkMessageRequestFileInConnectionCommandId_Group = 0x1329;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x13AD;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x13AE;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn = 0x13B0;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId_MenuDyn_Group = 0x13B1;
+
+            public const int ProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x128E;
+
+            public const int ProjectUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x128F;
+
+            public const int ProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn = 0x113A;
+
+            public const int ProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x113B;
+
+            public const int ProjectRegisterPluginAssemblyInConnectionCommandId_MenuDyn = 0x12E3;
+
+            public const int ProjectRegisterPluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x12E4;
+
+            public const int ProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1452;
+
+            public const int ProjectPluginAssemblyOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1453;
+
+            public const int ProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x1454;
+
+            public const int ProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1455;
+
+            public const int ProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x1456;
+
+            public const int ProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1457;
+
+            public const int ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn = 0x1459;
+
+            public const int ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId_MenuDyn_Group = 0x145A;
+
+            public const int ProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn = 0x145C;
+
+            public const int ProjectPluginAssemblyCreateDescriptionInConnectionCommandId_MenuDyn_Group = 0x145D;
+
+            public const int ListForPublishCompareInConnectionGroupCommandId_MenuDyn = 0x123A;
+
+            public const int ListForPublishCompareInConnectionGroupCommandId_MenuDyn_Group = 0x123B;
+
+            public const int ListForPublishCompareWithDetailsInConnectionGroupCommandId_MenuDyn = 0x123C;
+
+            public const int ListForPublishCompareWithDetailsInConnectionGroupCommandId_MenuDyn_Group = 0x123D;
+
+            public const int ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn = 0x14FA;
+
+            public const int ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId_MenuDyn_Group = 0x14FB;
+
+            public const int ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn = 0x14FD;
+
+            public const int ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId_MenuDyn_Group = 0x14FE;
+
+            public const int ListForPublishOpenFilesByTypeOrdinalCommandId_Group = 0x10A5;
+
+            public const int ListForPublishOpenFilesByTypeWithChangesCommandId_Group = 0x10A6;
+
+            public const int ListForPublishOpenFilesByTypeWithMirrorCommandId_Group = 0x10A7;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId_Group = 0x10A9;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId_Group = 0x10AA;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId_Group = 0x10AB;
+
+            public const int ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId_Group = 0x10AD;
+
+            public const int ListForPublishMultiDifferenceFilesWithChangesCommandId_Group = 0x10AE;
+
+            public const int ListForPublishMultiDifferenceFilesWithMirrorCommandId_Group = 0x10AF;
+
+            public const int ListForPublishPerformPublishInConnectionGroupCommandId_MenuDyn = 0x11F9;
+
+            public const int ListForPublishPerformPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11FA;
+
+            public const int ListForPublishPerformUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F5;
+
+            public const int ListForPublishPerformUpdateContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F6;
+
+            public const int ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId_MenuDyn = 0x11FB;
+
+            public const int ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId_MenuDyn_Group = 0x11FC;
+
+            public const int ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn = 0x14F7;
+
+            public const int ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId_MenuDyn_Group = 0x14F8;
+
+            public const int CommonCheckEntitiesOwnerShipsCommandId_MenuDyn = 0x125F;
+
+            public const int CommonCheckEntitiesOwnerShipsCommandId_MenuDyn_Group = 0x1260;
+
+            public const int CommonCheckGlobalOptionSetDuplicateCommandId_MenuDyn = 0x1261;
+
+            public const int CommonCheckGlobalOptionSetDuplicateCommandId_MenuDyn_Group = 0x1262;
+
+            public const int CommonCheckComponentTypeEnumCommandId_MenuDyn = 0x1263;
+
+            public const int CommonCheckComponentTypeEnumCommandId_MenuDyn_Group = 0x1264;
+
+            public const int CommonCheckCreateAllDependencyNodeDescriptionCommandId_MenuDyn = 0x1265;
+
+            public const int CommonCheckCreateAllDependencyNodeDescriptionCommandId_MenuDyn_Group = 0x1266;
+
+            public const int CommonCheckUnknownFormControlTypesCommandId_MenuDyn = 0x1392;
+
+            public const int CommonCheckUnknownFormControlTypesCommandId_MenuDyn_Group = 0x1393;
+
+            public const int CommonCheckTeamTemplatesCommandId_MenuDyn = 0x15D7;
+
+            public const int CommonCheckTeamTemplatesCommandId_MenuDyn_Group = 0x15D8;
+
+            public const int CommonCheckCreateMissingTeamTemplatesInSystemFormsCommandId_MenuDyn = 0x15D1;
+
+            public const int CommonCheckCreateMissingTeamTemplatesInSystemFormsCommandId_MenuDyn_Group = 0x15D2;
+
+            public const int CommonCheckManagedElementsCommandId_MenuDyn = 0x1267;
+
+            public const int CommonCheckManagedElementsCommandId_MenuDyn_Group = 0x1268;
+
+            public const int CommonCheckPluginStepsCommandId_MenuDyn = 0x1269;
+
+            public const int CommonCheckPluginStepsCommandId_MenuDyn_Group = 0x126A;
+
+            public const int CommonCheckPluginImagesCommandId_MenuDyn = 0x126B;
+
+            public const int CommonCheckPluginImagesCommandId_MenuDyn_Group = 0x126C;
+
+            public const int CommonCheckPluginStepsRequiredComponentsCommandId_MenuDyn = 0x126D;
+
+            public const int CommonCheckPluginStepsRequiredComponentsCommandId_MenuDyn_Group = 0x126E;
+
+            public const int CommonCheckPluginImagesRequiredComponentsCommandId_MenuDyn = 0x126F;
+
+            public const int CommonCheckPluginImagesRequiredComponentsCommandId_MenuDyn_Group = 0x1270;
+
+            public const int CommonExportDefaultSiteMapsCommandId_MenuDyn = 0x121B;
+
+            public const int CommonExportDefaultSiteMapsCommandId_MenuDyn_Group = 0x121C;
+
+            public const int CommonSolutionExplorerInConnectionCommandId_MenuDyn = 0x125C;
+
+            public const int CommonSolutionExplorerInConnectionCommandId_MenuDyn_Group = 0x125D;
+
+            public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn = 0x1118;
+
+            public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn_Group = 0x1119;
+
+            public const int CommonImportJobExplorerInConnectionCommandId_MenuDyn = 0x12E0;
+
+            public const int CommonImportJobExplorerInConnectionCommandId_MenuDyn_Group = 0x12E1;
+
+            public const int CommonExportOpenLastSelectedSolutionInWebCommandId_MenuDyn = 0x1116;
+
+            public const int CommonExportOpenLastSelectedSolutionInWebCommandId_MenuDyn_Group = 0x1117;
+
+            public const int CommonCrmConnectionPublishAllCommandId_MenuDyn = 0x1197;
+
+            public const int CommonCrmConnectionPublishAllCommandId_MenuDyn_Group = 0x1198;
+
+            public const int CommonOpenCrmWebSiteCommandId_Group = 0x218B;
+
+            public const int CommonOpenAdvancedFindCommandId_MenuDyn = 0x115E;
+
+            public const int CommonOpenAdvancedFindCommandId_MenuDyn_Group = 0x115F;
+
+            public const int CommonOpenDashboardsCommandId_MenuDyn = 0x1394;
+
+            public const int CommonOpenDashboardsCommandId_MenuDyn_Group = 0x1395;
+
+            public const int CommonOpenActivitiesCommandId_MenuDyn = 0x1396;
+
+            public const int CommonOpenActivitiesCommandId_MenuDyn_Group = 0x1397;
+
+            public const int CommonOpenSolutionsCommandId_Group = 0x119F;
+
+            public const int CommonOpenDefaultSolutionInWebCommandId_Group = 0x1298;
+
+            public const int CommonOpenWorkflowsCommandId_MenuDyn = 0x11AA;
+
+            public const int CommonOpenWorkflowsCommandId_MenuDyn_Group = 0x11AB;
+
+            public const int CommonOpenSystemJobsCommandId_MenuDyn = 0x11AF;
+
+            public const int CommonOpenSystemJobsCommandId_MenuDyn_Group = 0x11B0;
+
+            public const int CommonOpenTraceWallCommandId_MenuDyn = 0x1398;
+
+            public const int CommonOpenTraceWallCommandId_MenuDyn_Group = 0x1399;
+
+            public const int CommonOpenCustomizationCommandId_Group = 0x11A1;
+
+            public const int CommonOpenSystemUsersCommandId_MenuDyn = 0x11A2;
+
+            public const int CommonOpenSystemUsersCommandId_MenuDyn_Group = 0x11A3;
+
+            public const int CommonOpenTeamsCommandId_MenuDyn = 0x11A4;
+
+            public const int CommonOpenTeamsCommandId_MenuDyn_Group = 0x11A5;
+
+            public const int CommonOpenRolesCommandId_MenuDyn = 0x11A6;
+
+            public const int CommonOpenRolesCommandId_MenuDyn_Group = 0x11A7;
+
+            public const int CommonOpenSecurityCommandId_MenuDyn = 0x11A8;
+
+            public const int CommonOpenSecurityCommandId_MenuDyn_Group = 0x11A9;
+
+            public const int CommonOpenAdministrationCommandId_MenuDyn = 0x11B1;
+
+            public const int CommonOpenAdministrationCommandId_MenuDyn_Group = 0x11B2;
+
+            public const int CommonOpenEngagementHubCommandId_MenuDyn = 0x11D5;
+
+            public const int CommonOpenEngagementHubCommandId_MenuDyn_GroupConnections = 0x11D6;
+
+            public const int CommonOpenBusinessCommandId_MenuDyn = 0x11AC;
+
+            public const int CommonOpenBusinessCommandId_MenuDyn_Group = 0x11AD;
+
+            public const int CommonOpenTemplatesCommandId_MenuDyn = 0x11B5;
+
+            public const int CommonOpenTemplatesCommandId_MenuDyn_Group = 0x11B6;
+
+            public const int CommonOpenProductCatalogCommandId_MenuDyn = 0x11B7;
+
+            public const int CommonOpenProductCatalogCommandId_MenuDyn_Group = 0x11B8;
+
+            public const int CommonOpenServiceManagementCommandId_MenuDyn = 0x11B9;
+
+            public const int CommonOpenServiceManagementCommandId_MenuDyn_Group = 0x11BA;
+
+            public const int CommonOpenDataManagementCommandId_MenuDyn = 0x11BB;
+
+            public const int CommonOpenDataManagementCommandId_MenuDyn_Group = 0x11BC;
+
+            public const int CommonOpenDocumentManagementCommandId_MenuDyn = 0x139A;
+
+            public const int CommonOpenDocumentManagementCommandId_MenuDyn_Group = 0x139B;
+
+            public const int CommonOpenDuplicateDetectionJobsCommandId_MenuDyn = 0x139C;
+
+            public const int CommonOpenDuplicateDetectionJobsCommandId_MenuDyn_Group = 0x139D;
+
+            public const int CommonOpenSocialCommandId_MenuDyn = 0x11BD;
+
+            public const int CommonOpenSocialCommandId_MenuDyn_Group = 0x11BE;
+
+            public const int CommonOpenAuditCommandId_MenuDyn = 0x11C1;
+
+            public const int CommonOpenAuditCommandId_MenuDyn_Group = 0x11C2;
+
+            public const int CommonOpenMobileOfflineCommandId_MenuDyn = 0x11C4;
+
+            public const int CommonOpenMobileOfflineCommandId_MenuDyn_Group = 0x11C5;
+
+            public const int CommonOpenExternAppManagementCommandId_MenuDyn = 0x11C6;
+
+            public const int CommonOpenExternAppManagementCommandId_MenuDyn_Group = 0x11C7;
+
+            public const int CommonOpenAppsForCrmCommandId_MenuDyn = 0x11C8;
+
+            public const int CommonOpenAppsForCrmCommandId_MenuDyn_Group = 0x11C9;
+
+            public const int CommonOpenRelationshipIntelligenceCommandId_MenuDyn = 0x11CA;
+
+            public const int CommonOpenRelationshipIntelligenceCommandId_MenuDyn_Group = 0x11CB;
+
+            public const int CommonOpenMicrosoftFlowCommandId_MenuDyn = 0x11CC;
+
+            public const int CommonOpenMicrosoftFlowCommandId_MenuDyn_Group = 0x11CD;
+
+            public const int CommonOpenAppModuleCommandId_MenuDyn = 0x11CE;
+
+            public const int CommonOpenAppModuleCommandId_MenuDyn_Group = 0x11CF;
+
+            public const int CommonOpenNewsCommandId_MenuDyn = 0x139E;
+
+            public const int CommonOpenNewsCommandId_MenuDyn_Group = 0x139F;
+
+            public const int CommonCrmConnectionEditCommandId_MenuDyn = 0x1381;
+
+            public const int CommonCrmConnectionEditCommandId_MenuDyn_Group = 0x1382;
+
+            public const int CommonCrmConnectionPoolShowStateCommandId_MenuDyn = 0x155C;
+
+            public const int CommonCrmConnectionPoolShowStateCommandId_MenuDyn_Group = 0x155D;
+
+            public const int CommonCrmConnectionPoolClearCommandId_MenuDyn = 0x155A;
+
+            public const int CommonCrmConnectionPoolClearCommandId_MenuDyn_Group = 0x155B;
+
+            public const int CommonCrmConnectionSelectFileCommandId_MenuDyn = 0x137F;
+
+            public const int CommonCrmConnectionSelectFileCommandId_MenuDyn_Group = 0x1380;
+
+            public const int CommonCrmConnectionOpenFetchXmlFolderCommandId_MenuDyn = 0x149B;
+
+            public const int CommonCrmConnectionOpenFetchXmlFolderCommandId_MenuDyn_Group = 0x149C;
+
+            public const int CommonCrmConnectionOpenInfoFolderCommandId_MenuDyn = 0x1553;
+
+            public const int CommonCrmConnectionOpenInfoFolderCommandId_MenuDyn_Group = 0x1554;
+
+            public const int CommonCrmConnectionSelectCommandId_MenuDyn = 0x1101;
+
+            public const int CommonCrmConnectionSelectCommandId_MenuDyn_Group = 0x1103;
+
+            public const int CommonCrmConnectionTestCommandId_MenuDyn = 0x1228;
+
+            public const int CommonCrmConnectionTestCommandId_MenuDyn_Group = 0x1229;
+
+            public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn = 0x137B;
+
+            public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn_Group = 0x137C;
+
+            public const int OutputExportOpenLastSelectedSolutionInWebCommandId_MenuDyn = 0x137D;
+
+            public const int OutputExportOpenLastSelectedSolutionInWebCommandId_MenuDyn_Group = 0x137E;
         }
 
         internal static partial class guidDynamicCommandSet
