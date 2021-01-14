@@ -242,7 +242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             List<string> summary = new List<string>();
 
-            CreateFileHandler.FillLabelEntity(summary, _config.AllDescriptions, _entityMetadata.DisplayName, _entityMetadata.DisplayCollectionName, _entityMetadata.Description, _tabSpacer);
+            FillLabelEntity(summary, _config.AllDescriptions, _entityMetadata.DisplayName, _entityMetadata.DisplayCollectionName, _entityMetadata.Description, _tabSpacer);
 
             List<string> footers = GetEntityMetadataDescription();
 
@@ -529,11 +529,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (_config.AddDescriptionAttribute)
                 {
-                    string description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.DisplayName);
+                    string description = GetLocalizedLabel(attributeMetadata.DisplayName);
 
                     if (string.IsNullOrEmpty(description))
                     {
-                        description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.Description);
+                        description = GetLocalizedLabel(attributeMetadata.Description);
                     }
 
                     if (!string.IsNullOrEmpty(description))
@@ -752,11 +752,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (_config.AddDescriptionAttribute)
             {
-                string description = CreateFileHandler.GetLocalizedLabel(stateAttr.DisplayName);
+                string description = GetLocalizedLabel(stateAttr.DisplayName);
 
                 if (string.IsNullOrEmpty(description))
                 {
-                    description = CreateFileHandler.GetLocalizedLabel(stateAttr.Description);
+                    description = GetLocalizedLabel(stateAttr.Description);
                 }
 
                 if (!string.IsNullOrEmpty(description))
@@ -780,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             WriteLine("{");
 
-            var options = CreateFileHandler.GetStateOptionItems(statusAttr, stateAttr, await this._listStringMap);
+            var options = GetStateOptionItems(statusAttr, stateAttr, await this._listStringMap);
 
             bool first = true;
 
@@ -805,11 +805,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (_config.AddDescriptionAttribute)
                 {
-                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+                    string description = GetLocalizedLabel(item.Label);
 
                     if (string.IsNullOrEmpty(description))
                     {
-                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                        description = GetLocalizedLabel(item.Description);
                     }
 
                     if (!string.IsNullOrEmpty(description))
@@ -857,11 +857,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (_config.AddDescriptionAttribute)
             {
-                string description = CreateFileHandler.GetLocalizedLabel(statusAttr.DisplayName);
+                string description = GetLocalizedLabel(statusAttr.DisplayName);
 
                 if (string.IsNullOrEmpty(description))
                 {
-                    description = CreateFileHandler.GetLocalizedLabel(statusAttr.Description);
+                    description = GetLocalizedLabel(statusAttr.Description);
                 }
 
                 if (!string.IsNullOrEmpty(description))
@@ -885,7 +885,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             WriteLine("{");
 
-            var options = CreateFileHandler.GetStatusOptionItems(statusAttr, stateAttr, await this._listStringMap);
+            var options = GetStatusOptionItems(statusAttr, stateAttr, await this._listStringMap);
 
             bool first = true;
 
@@ -910,11 +910,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (_config.AddDescriptionAttribute)
                 {
-                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+                    string description = GetLocalizedLabel(item.Label);
 
                     if (string.IsNullOrEmpty(description))
                     {
-                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                        description = GetLocalizedLabel(item.Description);
                     }
 
                     if (!string.IsNullOrEmpty(description))
@@ -980,11 +980,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (optionSet.IsGlobal.GetValueOrDefault())
             {
-                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, optionSet.DisplayName, optionSet.Description, _config.TabSpacer);
+                FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, optionSet.DisplayName, optionSet.Description, _config.TabSpacer);
             }
             else
             {
-                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attributeList.First().DisplayName, attributeList.First().Description, _config.TabSpacer);
+                FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attributeList.First().DisplayName, attributeList.First().Description, _config.TabSpacer);
             }
 
             lines.Add(string.Empty);
@@ -1009,12 +1009,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
                 {
-                    CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attr.DisplayName, attr.Description, _config.TabSpacer);
+                    FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, attr.DisplayName, attr.Description, _config.TabSpacer);
                 }
             }
             else
             {
-                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, optionSet.DisplayName, optionSet.Description, _config.TabSpacer);
+                FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, optionSet.DisplayName, optionSet.Description, _config.TabSpacer);
             }
 
             if (optionSet.IsGlobal.GetValueOrDefault() && this._config.WithDependentComponents)
@@ -1054,11 +1054,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (_config.AddDescriptionAttribute)
                     {
-                        string description = CreateFileHandler.GetLocalizedLabel(optionSet.DisplayName);
+                        string description = GetLocalizedLabel(optionSet.DisplayName);
 
                         if (string.IsNullOrEmpty(description))
                         {
-                            description = CreateFileHandler.GetLocalizedLabel(optionSet.Description);
+                            description = GetLocalizedLabel(optionSet.Description);
                         }
 
                         if (!string.IsNullOrEmpty(description))
@@ -1113,7 +1113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             bool first = true;
 
             // Формируем значения
-            foreach (var item in options)
+            foreach (var item in options.OrderBy(o => o.Value))
             {
                 if (first) { first = false; } else { WriteLine(); }
 
@@ -1133,11 +1133,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (_config.AddDescriptionAttribute)
                 {
-                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+                    string description = GetLocalizedLabel(item.Label);
 
                     if (string.IsNullOrEmpty(description))
                     {
-                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                        description = GetLocalizedLabel(item.Description);
                     }
 
                     if (!string.IsNullOrEmpty(description))
@@ -1227,7 +1227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         List<string> lineEntityDescription = new List<string>();
 
-                        CreateFileHandler.FillLabelEntity(lineEntityDescription, _config.AllDescriptions, entityMetadata.DisplayName, entityMetadata.DisplayCollectionName, entityMetadata.Description, _tabSpacer);
+                        FillLabelEntity(lineEntityDescription, _config.AllDescriptions, entityMetadata.DisplayName, entityMetadata.DisplayCollectionName, entityMetadata.Description, _tabSpacer);
 
                         if (lineEntityDescription.Any())
                         {
@@ -1467,7 +1467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         List<string> lineEntityDescription = new List<string>();
 
-                        CreateFileHandler.FillLabelEntity(lineEntityDescription, _config.AllDescriptions, entityMetadata.DisplayName, entityMetadata.DisplayCollectionName, entityMetadata.Description, _tabSpacer);
+                        FillLabelEntity(lineEntityDescription, _config.AllDescriptions, entityMetadata.DisplayName, entityMetadata.DisplayCollectionName, entityMetadata.Description, _tabSpacer);
 
                         if (lineEntityDescription.Any())
                         {
@@ -1685,7 +1685,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 List<string> lines = new List<string>();
 
-                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, key.DisplayName, new Label(), _config.TabSpacer);
+                FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, key.DisplayName, new Label(), _config.TabSpacer);
 
                 // ^([^\r\n]*)
                 // table.AddEntityMetadataString("$1", _entityMetadata.$1);
@@ -1708,7 +1708,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (_config.AddDescriptionAttribute)
                 {
-                    string description = CreateFileHandler.GetLocalizedLabel(key.DisplayName);
+                    string description = GetLocalizedLabel(key.DisplayName);
 
                     if (!string.IsNullOrEmpty(description))
                     {
@@ -1990,13 +1990,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (boolAttrib.OptionSet.FalseOption.Label != null || boolAttrib.OptionSet.FalseOption.Description != null)
                 {
-                    CreateFileHandler.FillLabelDisplayNameAndDescription(result, allDescription, boolAttrib.OptionSet.FalseOption.Label, boolAttrib.OptionSet.FalseOption.Description, tabSpacer);
+                    FillLabelDisplayNameAndDescription(result, allDescription, boolAttrib.OptionSet.FalseOption.Label, boolAttrib.OptionSet.FalseOption.Description, tabSpacer);
                     result.Add(string.Format("FalseOption = {0}", boolAttrib.OptionSet.FalseOption.Value.HasValue ? boolAttrib.OptionSet.FalseOption.Value.Value.ToString() : "Null"));
                 }
 
                 if (boolAttrib.OptionSet.TrueOption.Label != null || boolAttrib.OptionSet.TrueOption.Description != null)
                 {
-                    CreateFileHandler.FillLabelDisplayNameAndDescription(result, allDescription, boolAttrib.OptionSet.TrueOption.Label, boolAttrib.OptionSet.TrueOption.Description, tabSpacer);
+                    FillLabelDisplayNameAndDescription(result, allDescription, boolAttrib.OptionSet.TrueOption.Label, boolAttrib.OptionSet.TrueOption.Description, tabSpacer);
                     result.Add(string.Format("TrueOption = {0}", boolAttrib.OptionSet.TrueOption.Value.HasValue ? boolAttrib.OptionSet.TrueOption.Value.Value.ToString() : "Null"));
                 }
 

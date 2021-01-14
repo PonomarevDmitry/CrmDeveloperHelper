@@ -139,20 +139,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteSummary(optionSet.DisplayName, optionSet.Description, null, headers);
 
-            var options = CreateFileHandler.GetOptionItems(entityname, attributename, optionSet, listStringmap);
+            var options = GetOptionItems(entityname, attributename, optionSet, listStringmap);
 
             {
-                bool ignore = CreateFileHandler.IgnoreGlobalOptionSet(optionSet.Name) || !options.Any();
+                bool ignore = IgnoreGlobalOptionSet(optionSet.Name) || !options.Any();
 
                 if (!ignore)
                 {
                     if (this._config.AddDescriptionAttribute)
                     {
-                        string description = CreateFileHandler.GetLocalizedLabel(optionSet.DisplayName);
+                        string description = GetLocalizedLabel(optionSet.DisplayName);
 
                         if (string.IsNullOrEmpty(description))
                         {
-                            description = CreateFileHandler.GetLocalizedLabel(optionSet.Description);
+                            description = GetLocalizedLabel(optionSet.Description);
                         }
 
                         if (!string.IsNullOrEmpty(description))
@@ -196,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             bool first = true;
 
             // Формируем значения
-            foreach (var item in options)
+            foreach (var item in options.OrderBy(o => o.Value))
             {
                 if (first) { first = false; } else { WriteLine(); }
 
@@ -211,11 +211,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (this._config.AddDescriptionAttribute)
                 {
-                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+                    string description = GetLocalizedLabel(item.Label);
 
                     if (string.IsNullOrEmpty(description))
                     {
-                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                        description = GetLocalizedLabel(item.Description);
                     }
 
                     if (!string.IsNullOrEmpty(description))

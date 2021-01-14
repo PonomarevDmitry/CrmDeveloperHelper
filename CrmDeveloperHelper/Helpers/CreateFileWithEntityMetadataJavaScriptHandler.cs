@@ -328,7 +328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("'StatusCodes': {");
 
-            var options = CreateFileHandler.GetStatusOptionItems(statusAttr, stateAttr, this._listStringMap);
+            var options = GetStatusOptionItems(statusAttr, stateAttr, this._listStringMap);
 
             WriteLine();
 
@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("'StateCodes': {");
 
-            var options = CreateFileHandler.GetStateOptionItems(statusAttr, stateAttr, this._listStringMap);
+            var options = GetStateOptionItems(statusAttr, stateAttr, this._listStringMap);
 
             WriteLine();
 
@@ -387,7 +387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task GenerateOptionSetEnums(IEnumerable<AttributeMetadata> attributeList, OptionSetMetadata optionSet)
         {
-            var options = CreateFileHandler.GetOptionItems(attributeList.First().EntityLogicalName, attributeList.First().LogicalName, optionSet, this._listStringMap);
+            var options = GetOptionItems(attributeList.First().EntityLogicalName, attributeList.First().LogicalName, optionSet, this._listStringMap);
 
             if (!options.Any())
             {
@@ -446,7 +446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             bool first = true;
 
             // Формируем значения
-            foreach (var item in options)
+            foreach (var item in options.OrderBy(o => o.Value))
             {
                 if (first)
                 {

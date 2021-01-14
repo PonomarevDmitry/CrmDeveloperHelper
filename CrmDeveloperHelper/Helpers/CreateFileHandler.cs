@@ -208,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 listStrings.AddRange(headers);
             }
 
-            CreateFileHandler.FillLabelDisplayNameAndDescription(listStrings, allDescriptions, displayName, description, tabSpacer);
+            FillLabelDisplayNameAndDescription(listStrings, allDescriptions, displayName, description, tabSpacer);
 
             if (!footersIsNull)
             {
@@ -889,9 +889,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     continue;
                 }
 
-                string optionSetLabel = CreateFileHandler.GetLocalizedLabel(optionValue.Label);
+                string optionSetLabel = GetLocalizedLabel(optionValue.Label);
 
-                var optionSetValueName = CreateFileHandler.GetOptionSetValueName(optionSetLabel, optionValue.Value.Value);
+                var optionSetValueName = GetOptionSetValueName(optionSetLabel, optionValue.Value.Value);
 
                 if (!string.IsNullOrEmpty(optionSetValueName))
                 {
@@ -959,9 +959,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (statusOptionValue != null)
                     {
-                        string statusLabel = CreateFileHandler.GetLocalizedLabel(statusOptionValue.Label);
+                        string statusLabel = GetLocalizedLabel(statusOptionValue.Label);
 
-                        defaultStatusCodeName = CreateFileHandler.GetOptionSetValueName(statusLabel, statusOptionValue.Value.Value);
+                        defaultStatusCodeName = GetOptionSetValueName(statusLabel, statusOptionValue.Value.Value);
                     }
                     else
                     {
@@ -1022,10 +1022,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (string.IsNullOrEmpty(stateLabel))
             {
-                stateLabel = CreateFileHandler.GetLocalizedLabel(optionValue.Label);
+                stateLabel = GetLocalizedLabel(optionValue.Label);
             }
 
-            var stateName = CreateFileHandler.GetOptionSetValueName(stateLabel, optionValue.Value.Value);
+            var stateName = GetOptionSetValueName(stateLabel, optionValue.Value.Value);
 
             return stateName;
         }
@@ -1057,9 +1057,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                string statusLabel = CreateFileHandler.GetLocalizedLabel(optionValue.Label);
+                string statusLabel = GetLocalizedLabel(optionValue.Label);
 
-                var statusName = CreateFileHandler.GetOptionSetValueName(statusLabel, optionValue.Value.Value);
+                var statusName = GetOptionSetValueName(statusLabel, optionValue.Value.Value);
 
                 statusName = string.Format("{0}_{1}", stateCodeName, statusName);
 

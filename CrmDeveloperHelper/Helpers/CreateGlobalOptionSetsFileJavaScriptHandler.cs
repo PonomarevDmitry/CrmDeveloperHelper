@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            var options = CreateFileHandler.GetOptionItems(entityname, attributename, optionSet, listStringmap);
+            var options = GetOptionItems(entityname, attributename, optionSet, listStringmap);
 
             if (!options.Any())
             {
@@ -171,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string objectName = string.Format("{0}{1}Enum", tempNamespace, optionSet.Name);
 
-            if (CreateFileHandler.IgnoreGlobalOptionSet(optionSet.Name))
+            if (IgnoreGlobalOptionSet(optionSet.Name))
             {
                 WriteLine("// {0}", objectName);
                 return;
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             bool first = true;
 
             // Формируем значения
-            foreach (var item in options)
+            foreach (var item in options.OrderBy(o => o.Value))
             {
                 if (first)
                 {
