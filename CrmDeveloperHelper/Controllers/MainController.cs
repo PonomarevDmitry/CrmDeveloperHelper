@@ -765,6 +765,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartPublishEntityMetadata(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecutePublishEntity, commonConfig, entityName, entityTypeCode);
 
+        public void StartGlobalOptionSetMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string optionSetName, ActionOnComponent actionOnComponent)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteGlobalOptionSetMetadataOpenInWeb, commonConfig, optionSetName, actionOnComponent);
+
+        public void StartPublishGlobalOptionSetMetadata(ConnectionData connectionData, CommonConfiguration commonConfig, string optionSetName)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecutePublishGlobalOptionSet, commonConfig, optionSetName);
+
         #region WebResource
 
         public void StartUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
@@ -893,6 +899,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void StartAddingEntityToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingEntityToSolution, commonConfig, solutionUniqueName, withSelect, entityName, rootComponentBehavior);
+
+        public void StartAddingGlobalOptionSetToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string optionSetName)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingGlobalOptionSetToSolution, commonConfig, solutionUniqueName, withSelect, optionSetName);
 
         public void StartAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingWebResourcesToSolution, commonConfig, solutionUniqueName, selectedFiles, withSelect);

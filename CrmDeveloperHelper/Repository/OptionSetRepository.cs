@@ -1,5 +1,4 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Messages;
+﻿using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
@@ -25,11 +24,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<OptionSetMetadata> GetOptionSets()
         {
-            RetrieveAllOptionSetsRequest request = new RetrieveAllOptionSetsRequest();
+            var request = new RetrieveAllOptionSetsRequest();
 
-            RetrieveAllOptionSetsResponse retrieve = (RetrieveAllOptionSetsResponse)_service.Execute(request);
+            var response = (RetrieveAllOptionSetsResponse)_service.Execute(request);
 
-            return retrieve
+            return response
                 .OptionSetMetadata
                 .OfType<OptionSetMetadata>()
                 .Where(e => e.Options.Any(o => o.Value.HasValue))
@@ -44,18 +43,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<OptionSetMetadata> GetListByIdList(IEnumerable<Guid> ids)
         {
-            RetrieveAllOptionSetsRequest request = new RetrieveAllOptionSetsRequest();
+            var request = new RetrieveAllOptionSetsRequest();
 
-            RetrieveAllOptionSetsResponse retrieve = (RetrieveAllOptionSetsResponse)_service.Execute(request);
+            var response = (RetrieveAllOptionSetsResponse)_service.Execute(request);
 
             var hash = new HashSet<Guid>(ids);
 
-            return retrieve
+            return response
                 .OptionSetMetadata
                 .OfType<OptionSetMetadata>()
                 .Where(e => e.Options.Any(o => o.Value.HasValue) && hash.Contains(e.MetadataId.Value))
                 .OrderBy(e => e.Name)
                 .ToList();
+        }
+
+        public Task<OptionSetMetadata> GetOptionSetByNameAsync(string optionSetName)
+        {
+            return Task.Run(() => GetOptionSetByName(optionSetName));
+        }
+
+        private OptionSetMetadata GetOptionSetByName(string optionSetName)
+        {
+            var request = new RetrieveOptionSetRequest()
+            {
+                Name = optionSetName,
+            };
+
+            try
+            {
+                var response = (RetrieveOptionSetResponse)_service.Execute(request);
+
+                if (response.OptionSetMetadata != null && response.OptionSetMetadata is OptionSetMetadata result)
+                {
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return null;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -286,12 +285,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportGlobalOptionSets()
         {
-            HandleExportGlobalOptionSets(null, null);
+            string selection = GetSelectedText();
+
+            HandleExportGlobalOptionSets(null, selection, null);
+        }
+
+        public void HandleExportGlobalOptionSets(string selection)
+        {
+            HandleExportGlobalOptionSets(null, selection, null);
         }
 
         public void HandleExportGlobalOptionSets(ConnectionData connectionData)
         {
-            HandleExportGlobalOptionSets(connectionData, null);
+            string selection = GetSelectedText();
+
+            HandleExportGlobalOptionSets(connectionData, selection, null);
         }
 
         public void HandleExportGlobalOptionSets(ConnectionData connectionData, EnvDTE.SelectedItem selectedItem)
@@ -303,6 +311,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 selection = GetSelectedText();
             }
 
+            HandleExportGlobalOptionSets(connectionData, selection, null);
+        }
+
+        public void HandleExportGlobalOptionSets(ConnectionData connectionData, string selection, EnvDTE.SelectedItem selectedItem)
+        {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCreatingFileWithGlobalOptionSets(conn, commonConfig, selection, selectedItem));
         }
 
@@ -453,12 +466,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishEntityFormat2, entityName, conn.GetDescription());
 
-            GetConnectionConfigConfirmActionAndExecute(connectionData,  message, title, (conn, commonConfig) => Controller.StartPublishEntityMetadata(conn, commonConfig, entityName, null));
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartPublishEntityMetadata(conn, commonConfig, entityName, null));
         }
 
         public void HandleAddingEntityToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingEntityToSolution(conn, commonConfig, solutionUniqueName, withSelect, entityName, rootComponentBehavior));
+        }
+
+        public void OpenGlobalOptionSetMetadataCommand(ConnectionData connectionData, string optionSetName, ActionOnComponent actionOnComponent)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                //var idOptionSetMetadata = connectionData.GetEntityMetadataId(optionSetName);
+
+                //if (idOptionSetMetadata.HasValue)
+                //{
+                //    switch (actionOnComponent)
+                //    {
+                //        case ActionOnComponent.OpenInWeb:
+                //            connectionData.OpenEntityMetadataInWeb(idOptionSetMetadata.Value);
+                //            return;
+
+                //        case ActionOnComponent.OpenDependentComponentsInWeb:
+                //            connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.Entity, idOptionSetMetadata.Value);
+                //            return;
+                //    }
+                //}
+
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                try
+                {
+                    Controller.StartGlobalOptionSetMetadataOpenInWeb(connectionData, commonConfig, optionSetName, actionOnComponent);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandlePublishGlobalOptionSetCommand(ConnectionData connectionData, string optionSetName)
+        {
+            if (string.IsNullOrEmpty(optionSetName))
+            {
+                return;
+            }
+
+            string title = Properties.MessageBoxStrings.ConfirmPublishGlobalOptionSet;
+
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishGlobalOptionSetFormat2, optionSetName, conn.GetDescription());
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartPublishGlobalOptionSetMetadata(conn, commonConfig, optionSetName));
+        }
+
+        public void HandleAddingGlobalOptionSetToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string optionSetName)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingGlobalOptionSetToSolution(conn, commonConfig, solutionUniqueName, withSelect, optionSetName));
         }
     }
 }

@@ -2581,6 +2581,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Global OptionSet {0} NOT EXISTS in {1}.
+        /// </summary>
+        internal static string GlobalOptionSetNotExistsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("GlobalOptionSetNotExistsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global OptionSets to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string GlobalOptionSetsToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("GlobalOptionSetsToAddToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open File in TextEditor.
         /// </summary>
         internal static string HeaderOpenFileInTextEditor {
@@ -3099,6 +3117,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string InConnectionNoEntitiesToAddInSolutionFormat2 {
             get {
                 return ResourceManager.GetString("InConnectionNoEntitiesToAddInSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. No Global OptionSets to add. All Global OptionSets already in Solution {1}..
+        /// </summary>
+        internal static string InConnectionNoGlobalOptionSetsToAddInSolutionAllAllreadyInSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("InConnectionNoGlobalOptionSetsToAddInSolutionAllAllreadyInSolutionFormat2", resourceCulture);
             }
         }
         

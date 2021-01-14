@@ -1420,6 +1420,127 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Adding Entity to Solution
 
+        #region Adding GlobalOptionSet to Solution
+
+        public async Task ExecuteAddingGlobalOptionSetToSolution(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , string solutionUniqueName
+            , bool withSelect
+            , string optionSetName
+        )
+        {
+            string operation = string.Format(Properties.OperationNames.AddingGlobalOptionSetToSolutionFormat2, connectionData?.Name, solutionUniqueName);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await AddingGlobalOptionSetToSolution(connectionData, commonConfig, solutionUniqueName, withSelect, optionSetName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task AddingGlobalOptionSetToSolution(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , string solutionUniqueName
+            , bool withSelect
+            , string optionSetName
+        )
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new OptionSetRepository(service);
+
+            OptionSetMetadata optionSetMetadata = await repository.GetOptionSetByNameAsync(optionSetName);
+
+            if (optionSetMetadata == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.GlobalOptionSetNotExistsInConnectionFormat2, optionSetName, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenGlobalOptionSetsExplorer(_iWriteToOutput, service, commonConfig, optionSetName);
+
+                return;
+            }
+
+            using (service.Lock())
+            {
+                var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
+
+                if (solution == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SolutionNotSelected);
+                    return;
+                }
+
+                connectionData.AddLastSelectedSolution(solution?.UniqueName);
+                connectionData.Save();
+
+                var dictForAdding = new HashSet<Guid>() { optionSetMetadata.MetadataId.Value };
+
+                var solutionRep = new SolutionComponentRepository(service);
+
+                {
+                    var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.OptionSet, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                    foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                    {
+                        if (dictForAdding.Contains(item))
+                        {
+                            dictForAdding.Remove(item);
+                        }
+                    }
+                }
+
+                if (!dictForAdding.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoGlobalOptionSetsToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                    return;
+                }
+
+                var componentsToAdd = dictForAdding.Select(e => new SolutionComponent()
+                {
+                    ObjectId = e,
+                    ComponentType = new OptionSetValue((int)ComponentType.OptionSet),
+                    RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
+                }).ToList();
+
+                var solutionDesciptor = new SolutionComponentDescriptor(service)
+                {
+                    WithManagedInfo = true,
+                    WithSolutionsInfo = true,
+                    WithUrls = true,
+                };
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GlobalOptionSetsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
+
+                var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, desc);
+                }
+
+                await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+            }
+        }
+
+        #endregion Adding GlobalOptionSet to Solution
+
         #region Opening Solution in Browser or Explorer
 
         public async Task ExecuteOpeningSolutionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent actionOnComponent)

@@ -269,6 +269,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptLinkedEntityPublishInConnectionCommand.Initialize,
             CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand.Initialize,
 
+            CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand.Initialize,
+            CodeJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommand.Initialize,
+
+            CodeJavaScriptLinkedGlobalOptionSetExplorerCommand.Initialize,
+            CodeJavaScriptLinkedGlobalOptionSetPublishInConnectionCommand.Initialize,
+            CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand.Initialize,
+
             #endregion CodeJavaScript
 
             

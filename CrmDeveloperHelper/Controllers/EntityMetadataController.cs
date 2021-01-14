@@ -1823,5 +1823,114 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Publishing Entity
+
+        #region Publishing Global OptionSet
+
+        public async Task ExecutePublishGlobalOptionSet(ConnectionData connectionData, CommonConfiguration commonConfig, string optionSetName)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.PublishingGlobalOptionSetsFormat2
+                , (service) => PublishGlobalOptionSetAsync(service, commonConfig, optionSetName)
+                , optionSetName
+            );
+        }
+
+        private async Task PublishGlobalOptionSetAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string optionSetName)
+        {
+            var repository = new OptionSetRepository(service);
+
+            OptionSetMetadata optionSetMetadata = await repository.GetOptionSetByNameAsync(optionSetName);
+
+            if (optionSetMetadata == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.GlobalOptionSetNotExistsInConnectionFormat2, optionSetName, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenGlobalOptionSetsExplorer(_iWriteToOutput, service, commonConfig, optionSetName);
+
+                return;
+            }
+
+            var publishRepository = new PublishActionsRepository(service);
+
+            await publishRepository.PublishOptionSetsAsync(new[] { optionSetMetadata.Name });
+
+            service.TryDispose();
+        }
+
+        #endregion Publishing Global OptionSet
+
+        #region Open Global OptionSet in Browser
+
+        public async Task ExecuteGlobalOptionSetMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string optionSetName, ActionOnComponent actionOnComponent)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.OpeningGlobalOptionSetMetadataExplorerFormat1
+                , (service) => OpenGlobalOptionSetMetadataInWeb(service, commonConfig, optionSetName, actionOnComponent)
+            );
+        }
+
+        private async Task OpenGlobalOptionSetMetadataInWeb(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string optionSetName, ActionOnComponent actionOnComponent)
+        {
+            var repository = new OptionSetRepository(service);
+
+            OptionSetMetadata optionSetMetadata = await repository.GetOptionSetByNameAsync(optionSetName);
+
+            if (optionSetMetadata == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.GlobalOptionSetNotExistsInConnectionFormat2, optionSetName, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenGlobalOptionSetsExplorer(_iWriteToOutput, service, commonConfig, optionSetName);
+
+                return;
+            }
+
+            switch (actionOnComponent)
+            {
+                case ActionOnComponent.OpenInWeb:
+                    service.ConnectionData.OpenGlobalOptionSetInWeb(optionSetMetadata.MetadataId.Value);
+                    service.TryDispose();
+                    break;
+
+                case ActionOnComponent.OpenInExplorer:
+                    WindowHelper.OpenGlobalOptionSetsExplorer(_iWriteToOutput, service, commonConfig, optionSetName);
+                    break;
+
+                case ActionOnComponent.OpenDependentComponentsInWeb:
+                    service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.OptionSet, optionSetMetadata.MetadataId.Value);
+                    service.TryDispose();
+                    break;
+
+                case ActionOnComponent.OpenDependentComponentsInExplorer:
+                    WindowHelper.OpenSolutionComponentDependenciesExplorer(
+                        _iWriteToOutput
+                        , service
+                        , null
+                        , commonConfig
+                        , (int)ComponentType.OptionSet
+                        , optionSetMetadata.MetadataId.Value
+                        , null
+                    );
+                    break;
+
+                case ActionOnComponent.OpenSolutionsListWithComponentInExplorer:
+                    WindowHelper.OpenExplorerSolutionExplorer(
+                        _iWriteToOutput
+                        , service
+                        , commonConfig
+                        , (int)ComponentType.OptionSet
+                        , optionSetMetadata.MetadataId.Value
+                        , null
+                    );
+                    break;
+
+                case ActionOnComponent.None:
+                default:
+                    break;
+            }
+        }
+
+        #endregion Open Global OptionSet in Browser
     }
 }

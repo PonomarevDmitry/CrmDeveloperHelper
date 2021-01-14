@@ -293,6 +293,10 @@
     <value>Publish Entity {0} on
 {1}?</value>
   </data>
+  <data name="PublishGlobalOptionSetFormat2" xml:space="preserve">
+    <value>Publish Global OptionSet {0} on
+{1}?</value>
+  </data>
   <data name="DeleteFileActionFormat1" xml:space="preserve">
     <value>Delete FileAction for {0}</value>
   </data>
@@ -342,6 +346,10 @@
 
   <data name="ConfirmPublishEntity" xml:space="preserve">
     <value>Confirm Publish Entity</value>
+  </data>
+
+  <data name="ConfirmPublishGlobalOptionSet" xml:space="preserve">
+    <value>Confirm Publish Global OptionSet</value>
   </data>
 
   <data name="ConfirmPublishRibbonDiffXml" xml:space="preserve">

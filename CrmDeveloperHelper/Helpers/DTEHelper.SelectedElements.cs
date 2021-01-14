@@ -184,6 +184,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
+        public bool TryGetLinkedGlobalOptionSetName(out string optionSetName)
+        {
+            optionSetName = string.Empty;
+
+            var document = this.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
+
+            if (document == null)
+            {
+                return false;
+            }
+
+            var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
+            if (objTextDoc != null
+                && objTextDoc is EnvDTE.TextDocument textDocument
+            )
+            {
+                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                if (CommonHandlers.GetLinkedGlobalOptionSetName(fileText, out optionSetName))
+                {
+                    return true;
+                }
+            }
+
+            optionSetName = string.Empty;
+
+            return false;
+        }
+
         public IEnumerable<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction)
         {
             return GetOpenedDocuments(checkerFunction, true);

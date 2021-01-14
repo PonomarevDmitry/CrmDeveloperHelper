@@ -205,6 +205,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Global OptionSet Explorer.
+        /// </summary>
+        internal static string CodeJavaScriptLinkedGlobalOptionSetExplorerCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptLinkedGlobalOptionSetExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open SystemForm Explorer.
         /// </summary>
         internal static string CodeJavaScriptLinkedSystemFormExplorerCommand {

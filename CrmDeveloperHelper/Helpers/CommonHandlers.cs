@@ -1792,6 +1792,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static Regex _regexCrmDeveloperContent = new Regex(@"^\/\/\/[\s]+<crmdeveloperhelper[\s]+(?<content>.+)[\s]*\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         private static Regex _regexAttributeEntityName = new Regex(@"entityname=\""(?<entityname>[\w]+)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        private static Regex _regexAttributeGlobalOptionSetName = new Regex(@"globaloptionsetname=\""(?<globaloptionsetname>[\w]+)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         private static Regex _regexAttributeFormType = new Regex(@"systemformtype=\""(?<systemformtype>[0-9]+)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         private static Regex _regexAttributeFormId = new Regex(@"systemformid=\""(?<systemformid>\{?[0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12}\}?)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
@@ -1870,6 +1871,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             entityName = string.Empty;
+
+            return false;
+        }
+
+        public static bool GetLinkedGlobalOptionSetName(string text, out string optionSetName)
+        {
+            var matches = _regexCrmDeveloperContent.Matches(text);
+
+            foreach (var matchCrmDeveloperContent in matches.OfType<Match>())
+            {
+                if (matchCrmDeveloperContent.Success
+                    && matchCrmDeveloperContent.Groups["content"] != null
+                )
+                {
+                    string content = matchCrmDeveloperContent.Groups["content"].Value;
+
+                    var matchOptionSetNameName = _regexAttributeGlobalOptionSetName.Match(content);
+
+                    if (matchOptionSetNameName.Success
+                        && matchOptionSetNameName.Groups["globaloptionsetname"] != null
+                    )
+                    {
+                        optionSetName = matchOptionSetNameName.Groups["globaloptionsetname"].Value;
+
+                        if (!string.IsNullOrEmpty(optionSetName))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            optionSetName = string.Empty;
 
             return false;
         }
@@ -1965,6 +1999,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
                             if (GetLinkedEntityName(text, out _))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            }
+
+            return false;
+        }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetName), applicationObject, ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetNameInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetNameInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+            )
+            {
+                try
+                {
+                    var document = applicationObject.ActiveWindow.Document;
+
+                    string filePath = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsJavaScriptType(filePath))
+                    {
+                        var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
+                        if (objTextDoc != null
+                            && objTextDoc is EnvDTE.TextDocument textDocument
+                        )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (GetLinkedGlobalOptionSetName(text, out _))
                             {
                                 return true;
                             }

@@ -322,6 +322,10 @@
     <value>Open EntityMetadata Explorer</value>
   </data>
 
+  <data name="CodeJavaScriptLinkedGlobalOptionSetExplorerCommand" xml:space="preserve">
+    <value>Open Global OptionSet Explorer</value>
+  </data>
+
   <data name="CodeXmlWorkflowShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference Workflow</value>
   </data>

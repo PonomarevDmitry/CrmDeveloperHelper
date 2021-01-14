@@ -109,31 +109,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm = 0x1405;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x1406;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu = 0x1406;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer = 0x1407;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupOpenInWebOrExplorer = 0x1407;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections = 0x1424;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupCopyToClipboardTabsAndSections = 0x1424;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute = 0x1423;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute = 0x1423;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentDescription = 0x1422;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription = 0x1422;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupChange = 0x1421;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupChange = 0x1421;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution = 0x1415;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution = 0x1415;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu = 0x1416;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu = 0x1416;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution = 0x1417;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1417;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1418;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1418;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1419;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1419;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn = 0x141A;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x141A;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent = 0x1414;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent = 0x1414;
 
             public const int codeMenuWebResource_GroupLinkedEntity = 0x142D;
 
@@ -174,6 +174,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupConnectionDyn = 0x1445;
 
             public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2 = 0x1446;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet = 0x15EB;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu = 0x15EC;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_Group1 = 0x15ED;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution = 0x15EE;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu = 0x15EF;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x15F0;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x15F1;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x15F2;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x15F3;
+
+            public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_Group2 = 0x15F4;
 
             public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
 
@@ -1481,10 +1501,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId_MenuDyn_Group = 0x1433;
 
-            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn = 0x1434;
-
-            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn_Group = 0x1435;
-
             public const int CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1447;
 
             public const int CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x1448;
@@ -1496,6 +1512,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x144B;
 
             public const int CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x144C;
+
+            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn = 0x1434;
+
+            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId_MenuDyn_Group = 0x1435;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenInWebInConnectionCommandId_MenuDyn = 0x15E1;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenInWebInConnectionCommandId_MenuDyn_Group = 0x15E2;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenDependentInWebInConnectionCommandId_MenuDyn = 0x15E3;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x15E4;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x15E5;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x15E6;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x15E7;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x15E8;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetPublishInConnectionCommandId_MenuDyn = 0x15E9;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetPublishInConnectionCommandId_MenuDyn_Group = 0x15EA;
 
             public const int CodeWebResourceOrganizationComparerCommandId_MenuDyn = 0x1597;
 
@@ -2950,6 +2990,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId = 0x34EE;
 
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenInWebInConnectionCommandId = 0x4EB6;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenDependentInWebInConnectionCommandId = 0x4EE8;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenDependentInExplorerInConnectionCommandId = 0x4F1A;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x4F4C;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x4F7E;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x4FB0;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetPublishInConnectionCommandId = 0x4FE2;
+
             public const int CodeJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId = 0x4D26;
 
             public const int CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId = 0x4D58;
@@ -3640,6 +3694,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptLinkedSystemFormExplorerCommandId = 0x223C;
 
             public const int CodeJavaScriptLinkedEntityExplorerCommandId = 0x2245;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetExplorerCommandId = 0x228B;
 
             public const int CodeXmlCommonUpdateCommandId = 0x2225;
 

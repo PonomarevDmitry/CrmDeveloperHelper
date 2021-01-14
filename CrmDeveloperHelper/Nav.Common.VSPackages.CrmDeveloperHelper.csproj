@@ -177,6 +177,11 @@
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedEntityExplorerCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedEntityPublishInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedGlobalOptionSetExplorerCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedGlobalOptionSetPublishInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.cs" />

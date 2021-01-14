@@ -60,11 +60,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                .Where(e => e.Options.Any(o => o.Value.HasValue))
                .OrderBy(e => e.Name);
 
+            if (optionSets.Count() == 1)
+            {
+                WriteCrmDeveloperAttribute(optionSets.First().Name);
+            }
+
             WriteNamespace();
 
             string tempNamespace = !string.IsNullOrEmpty(this._namespaceGlobalOptionSetsJavaScript) ? this._namespaceGlobalOptionSetsJavaScript + "." : string.Empty;
 
             await WriteRegularOptionSets(tempNamespace, optionSets);
+        }
+
+        public void WriteCrmDeveloperAttribute(string optionSetName)
+        {
+            StringBuilder systemInfo = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(optionSetName))
+            {
+                systemInfo.AppendFormat(@" globaloptionsetname=""{0}""", optionSetName);
+            }
+
+            if (systemInfo.Length > 0)
+            {
+                WriteLine($@"/// <crmdeveloperhelper{systemInfo.ToString()} />");
+                WriteLine();
+            }
         }
 
         private void WriteNamespace()

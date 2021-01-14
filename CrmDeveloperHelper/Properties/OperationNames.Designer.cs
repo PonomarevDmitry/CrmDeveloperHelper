@@ -97,6 +97,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding Global OptionSet to Solution {1}.
+        /// </summary>
+        internal static string AddingGlobalOptionSetToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("AddingGlobalOptionSetToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding into Publish List Files {1}.
         /// </summary>
         internal static string AddingIntoPublishListFilesFormat2 {
@@ -1771,6 +1780,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Global OptionSet Metadata Explorer.
+        /// </summary>
+        internal static string OpeningGlobalOptionSetMetadataExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningGlobalOptionSetMetadataExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Global OptionSets Metadata Explorer.
         /// </summary>
         internal static string OpeningGlobalOptionSetsExplorerFormat1 {
@@ -1911,6 +1929,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishingEntitiesFormat2 {
             get {
                 return ResourceManager.GetString("PublishingEntitiesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Publishing Global OptionSets {1}.
+        /// </summary>
+        internal static string PublishingGlobalOptionSetsFormat2 {
+            get {
+                return ResourceManager.GetString("PublishingGlobalOptionSetsFormat2", resourceCulture);
             }
         }
         

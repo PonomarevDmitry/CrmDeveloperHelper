@@ -252,6 +252,9 @@
   <data name="InConnectionNoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
     <value>{0}. No Entities to add. All Entities already in Solution {1}.</value>
   </data>
+  <data name="InConnectionNoGlobalOptionSetsToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
+    <value>{0}. No Global OptionSets to add. All Global OptionSets already in Solution {1}.</value>
+  </data>
   <data name="InConnectionNoEntitiesToAddInSolutionFormat2" xml:space="preserve">
     <value>{0}. No Entities to add in solution {1}.</value>
   </data>
@@ -353,6 +356,9 @@
   </data>
   <data name="EntityNotExistsInConnectionFormat2" xml:space="preserve">
     <value>Entity {0} NOT EXISTS in {1}</value>
+  </data>
+  <data name="GlobalOptionSetNotExistsInConnectionFormat2" xml:space="preserve">
+    <value>Global OptionSet {0} NOT EXISTS in {1}</value>
   </data>
   <data name="EntityAttributeNotExistsInConnectionFormat3" xml:space="preserve">
     <value>Entity Attribute {0}.{1} NOT EXISTS in {2}</value>
@@ -512,6 +518,10 @@
 
   <data name="EntitiesToAddToSolutionFormat2" xml:space="preserve">
     <value>Entities to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="GlobalOptionSetsToAddToSolutionFormat2" xml:space="preserve">
+    <value>Global OptionSets to add to Solution {0}: {1}</value>
   </data>
 
   <data name="NoObjectsToRemoveFromSolutionFormat1" xml:space="preserve">

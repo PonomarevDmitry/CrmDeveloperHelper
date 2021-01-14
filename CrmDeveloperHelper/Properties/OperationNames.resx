@@ -144,6 +144,9 @@
   <data name="AddingEntityToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding Entity to Solution {1}</value>
   </data>
+  <data name="AddingGlobalOptionSetToSolutionFormat2" xml:space="preserve">
+    <value>{0} - Adding Global OptionSet to Solution {1}</value>
+  </data>
   <data name="CheckingComponentTypeEnumFormat1" xml:space="preserve">
     <value>{0} - Checking ComponentType Enum</value>
   </data>
@@ -228,9 +231,13 @@
   <data name="CreatingFileWithGlobalOptionSetsFormat1" xml:space="preserve">
     <value>{0} - Creating File with Global OptionSets Metadata</value>
   </data>
-  
+
   <data name="OpeningEntityMetadataExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening Entity Metadata Explorer</value>
+  </data>
+
+  <data name="OpeningGlobalOptionSetMetadataExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Global OptionSet Metadata Explorer</value>
   </data>
 
   <data name="OpeningEntityMetadataFileGenerationOptions" xml:space="preserve">
@@ -240,7 +247,7 @@
   <data name="OpeningJavaScriptFileGenerationOptions" xml:space="preserve">
     <value>Opening JavaScript File Generation Options</value>
   </data>
-  
+
   <data name="OpeningGlobalOptionSetsFileGenerationOptions" xml:space="preserve">
     <value>Opening Global OptionSets Metadata File Generation Options</value>
   </data>
@@ -252,13 +259,13 @@
   <data name="OpeningFileGenerationConfiguration" xml:space="preserve">
     <value>Opening File Generation Configuration</value>
   </data>
-  
+
   <data name="OpeningGlobalOptionSetsExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening Global OptionSets Metadata Explorer</value>
   </data>
-  
-  
-  
+
+
+
   <data name="CreatingLastLinkForReportFormat1" xml:space="preserve">
     <value>{0} - Creating Last Link for Report</value>
   </data>
@@ -344,7 +351,7 @@
   <data name="FindingCRMObjectscontainsNameInExplorerFormat2" xml:space="preserve">
     <value>{0} - Finding CRM Objects names contains '{1}' in Explorer</value>
   </data>
-  
+
   <data name="FindingCRMObjectsByNameFormat2" xml:space="preserve">
     <value>{0} - Finding CRM Objects by name for '{1}'</value>
   </data>
@@ -352,7 +359,7 @@
   <data name="FindingCRMObjectsByNameInExplorerFormat2" xml:space="preserve">
     <value>{0} - Finding CRM Objects by name for '{1}' and showing in Explorer</value>
   </data>
-  
+
   <data name="MultiDifferenceFormat2" xml:space="preserve">
     <value>{0} - Multi Difference {1}</value>
   </data>
@@ -506,6 +513,9 @@
   <data name="PublishingEntitiesFormat2" xml:space="preserve">
     <value>{0} - Publishing Entities {1}</value>
   </data>
+  <data name="PublishingGlobalOptionSetsFormat2" xml:space="preserve">
+    <value>{0} - Publishing Global OptionSets {1}</value>
+  </data>
   <data name="AnalyzingSolutionWorkflowsFormat2" xml:space="preserve">
     <value>{0} - Analyzing Solution {1} Workflows</value>
   </data>
@@ -654,7 +664,7 @@
   <data name="CheckingEntityRibbonsWithDetailsFormat2" xml:space="preserve">
     <value>Checking Entity Ribbons with details in {0} and {1}</value>
   </data>
-  
+
   <data name="CheckingApplicationRibbonsFormat2" xml:space="preserve">
     <value>Checking Application Ribbons in {0} and {1}</value>
   </data>
@@ -828,7 +838,7 @@
   <data name="SettingEntitiesStateFormat7" xml:space="preserve">
     <value>{0} - Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}</value>
   </data>
-  
+
   <data name="AssigningEntitiesToUserFormat4" xml:space="preserve">
     <value>{0} - Assigning Entities {1} count {2} to User {3}</value>
   </data>
@@ -898,13 +908,13 @@
   <data name="GettingPluginTypeCurrentCustomWorkflowActivityInfoFormat1" xml:space="preserve">
     <value>{0} - Getting PluginType Current CustomWorkflowActivityInfo</value>
   </data>
-  
+
   <data name="CopingToClipboardSystemFormCurrentTabsAndSections" xml:space="preserve">
     <value>{0} - Coping to Clipboard SystemForm Current Tabs and Sections</value>
   </data>
   <data name="CopingToClipboardRibbonObjects" xml:space="preserve">
     <value>{0} - Coping to Clipboard Ribbon Load WebResource Objects</value>
   </data>
-  
-  
+
+
 </root>

@@ -199,6 +199,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish Global OptionSet.
+        /// </summary>
+        internal static string ConfirmPublishGlobalOptionSet {
+            get {
+                return ResourceManager.GetString("ConfirmPublishGlobalOptionSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Publish RibbonDiffXml.
         /// </summary>
         internal static string ConfirmPublishRibbonDiffXml {
@@ -577,6 +586,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishEntityFormat2 {
             get {
                 return ResourceManager.GetString("PublishEntityFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish Global OptionSet {0} on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishGlobalOptionSetFormat2 {
+            get {
+                return ResourceManager.GetString("PublishGlobalOptionSetFormat2", resourceCulture);
             }
         }
         
