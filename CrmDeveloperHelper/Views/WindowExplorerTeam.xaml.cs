@@ -83,8 +83,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBTeamType.ItemsSource = new EnumBindingSourceExtension(typeof(Team.Schema.OptionSets.teamtype?)).ProvideValue(null) as IEnumerable;
 
             FillRoleEditorLayoutTabs();
-            FillIsDefaultComboBox(cmBIsDefault);
-            FillIsDefaultComboBox(cmBIsTeamTemplate);
+            FillComboBoxTrueFalse(cmBIsDefault);
+            FillComboBoxTrueFalse(cmBIsTeamTemplate);
+            cmBIsDefault.SelectedItem = false;
+            cmBIsTeamTemplate.SelectedItem = false;
 
             LoadFromConfig();
 
@@ -235,16 +237,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             cmBRoleEditorLayoutTabsPrivileges.SelectedIndex = 0;
-        }
-
-        private void FillIsDefaultComboBox(ComboBox comboBox)
-        {
-            comboBox.Items.Clear();
-            comboBox.Items.Add(string.Empty);
-            comboBox.Items.Add(false);
-            comboBox.Items.Add(true);
-
-            comboBox.SelectedItem = false;
         }
 
         protected override void LoadConfigurationInternal(WindowSettings winConfig)

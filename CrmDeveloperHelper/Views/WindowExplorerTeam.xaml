@@ -185,8 +185,17 @@
         </ContextMenu>
 
     </src:WindowWithSolutionComponentDescriptor.Resources>
-    <DockPanel LastChildFill="True">
-        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+            
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" Grid.Row="0">
             <Button x:Name="btnRefreshTeams" HorizontalAlignment="Left" Click="btnRefreshTeams_Click">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -197,14 +206,8 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
             <Button Content="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" />
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        </StatusBar>
-        <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
+
+        <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="columnSystemUser" Width="600"/>
                 <ColumnDefinition Width="Auto"/>
@@ -634,5 +637,13 @@
 
             </TabControl>
         </Grid>
-    </DockPanel>
+
+        <StatusBar VerticalAlignment="Bottom" Grid.Row="2">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+    </Grid>
 </src:WindowWithSolutionComponentDescriptor>

@@ -885,5 +885,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ClipboardHelper.SetText(value);
         }
+
+        protected static void FillComboBoxTrueFalse(ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+            comboBox.Items.Add(string.Empty);
+            comboBox.Items.Add(false);
+            comboBox.Items.Add(true);
+            comboBox.SelectedIndex = 0;
+        }
     }
 }

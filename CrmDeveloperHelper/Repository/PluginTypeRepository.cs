@@ -64,12 +64,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return _service.RetrieveMultipleAll<PluginType>(query);
         }
 
-        public Task<List<PluginType>> GetPluginTypesAsync(string name, ColumnSet columnSet = null)
+        public Task<List<PluginType>> GetPluginTypesAsync(string name, bool? isWorkflowActivity, ColumnSet columnSet = null)
         {
-            return Task.Run(() => GetPluginTypes(name, columnSet));
+            return Task.Run(() => GetPluginTypes(name, isWorkflowActivity, columnSet));
         }
 
-        private List<PluginType> GetPluginTypes(string name, ColumnSet columnSet)
+        private List<PluginType> GetPluginTypes(string name, bool? isWorkflowActivity, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -108,6 +108,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (!string.IsNullOrEmpty(name))
             {
                 query.Criteria.Conditions.Add(new ConditionExpression(PluginType.Schema.Attributes.typename, ConditionOperator.Like, "%" + name + "%"));
+            }
+
+            if (isWorkflowActivity.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(PluginType.Schema.Attributes.isworkflowactivity, ConditionOperator.Equal, isWorkflowActivity.Value));
             }
 
             return _service.RetrieveMultipleAll<PluginType>(query);

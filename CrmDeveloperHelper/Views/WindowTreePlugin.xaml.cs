@@ -1133,7 +1133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(service.ConnectionData, Properties.OutputStrings.LoadingPluginTypes);
 
-            var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
+            var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null, null);
 
             IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
@@ -1293,7 +1293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(service.ConnectionData, Properties.OutputStrings.LoadingPluginTypes);
 
-            var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
+            var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null, null);
 
             IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 

@@ -43,6 +43,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             SetInputLanguageEnglish();
 
+            FillComboBoxTrueFalse(cmBIsWorkflowActivity);
+
             LoadFromConfig();
 
             if (!string.IsNullOrEmpty(selection))
@@ -190,10 +192,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._itemsSource.Clear();
 
             string textName = string.Empty;
+            bool? isWorkflowActivity = null;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilter.Text.Trim().ToLower();
+
+                if (cmBIsWorkflowActivity.SelectedItem is bool valueIsWorkflowActivity)
+                {
+                    isWorkflowActivity = valueIsWorkflowActivity;
+                }
             });
 
             IEnumerable<PluginType> list = Enumerable.Empty<PluginType>();
@@ -203,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new PluginTypeRepository(service);
-                    list = await repository.GetPluginTypesAsync(textName
+                    list = await repository.GetPluginTypesAsync(textName, isWorkflowActivity
                         , new ColumnSet
                         (
                             PluginType.Schema.Attributes.typename
@@ -333,6 +341,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowExistingPluginTypes();
             }
+        }
+
+        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await ShowExistingPluginTypes();
         }
 
         private PluginType GetSelectedEntity()

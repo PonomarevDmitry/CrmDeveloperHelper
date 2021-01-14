@@ -398,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<List<PluginType>> GetPluginTypeAsync(IOrganizationServiceExtented service)
         {
-            return new PluginTypeRepository(service).GetPluginTypesAsync(null, null);
+            return new PluginTypeRepository(service).GetPluginTypesAsync(null, null, null);
         }
 
         public Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep1Async()
