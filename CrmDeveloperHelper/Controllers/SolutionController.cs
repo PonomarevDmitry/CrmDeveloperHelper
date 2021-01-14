@@ -23,10 +23,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
         }
 
-        #region Окна с образами.
-
-        #endregion Окна с образами.
-
         private static async Task<Solution> FindOrSelectSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, string solutionUniqueName, bool withSelect)
         {
             Solution solution = null;
@@ -1594,6 +1590,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 return;
             }
+
+            _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
 
             if (actionOnComponent == ActionOnComponent.OpenInWeb)
             {
