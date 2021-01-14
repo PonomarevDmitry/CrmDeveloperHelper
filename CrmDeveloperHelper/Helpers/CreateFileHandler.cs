@@ -1117,5 +1117,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
         }
+
+        protected void WriteCrmDeveloperAttributeForGlobalOptionSet(string optionSetName)
+        {
+            string attributeValue = $@"/// <crmdeveloperhelper globaloptionsetname=""{optionSetName}"" />";
+
+            WriteLine(attributeValue);
+        }
     }
 }

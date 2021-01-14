@@ -68,6 +68,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .Where(e => e.Options.Any(o => o.Value.HasValue))
                 .OrderBy(e => e.Name);
 
+            if (optionSets.Count() == 1)
+            {
+                WriteCrmDeveloperAttributeForGlobalOptionSet(optionSets.First().Name);
+            }
+
             WriteLine();
 
             WriteLine("namespace {0}", _config.NamespaceGlobalOptionSets);

@@ -62,7 +62,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (optionSets.Count() == 1)
             {
-                WriteCrmDeveloperAttribute(optionSets.First().Name);
+                WriteCrmDeveloperAttributeForGlobalOptionSet(optionSets.First().Name);
+                WriteLine();
             }
 
             WriteNamespace();
@@ -70,22 +71,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string tempNamespace = !string.IsNullOrEmpty(this._namespaceGlobalOptionSetsJavaScript) ? this._namespaceGlobalOptionSetsJavaScript + "." : string.Empty;
 
             await WriteRegularOptionSets(tempNamespace, optionSets);
-        }
-
-        public void WriteCrmDeveloperAttribute(string optionSetName)
-        {
-            StringBuilder systemInfo = new StringBuilder();
-
-            if (!string.IsNullOrEmpty(optionSetName))
-            {
-                systemInfo.AppendFormat(@" globaloptionsetname=""{0}""", optionSetName);
-            }
-
-            if (systemInfo.Length > 0)
-            {
-                WriteLine($@"/// <crmdeveloperhelper{systemInfo.ToString()} />");
-                WriteLine();
-            }
         }
 
         private void WriteNamespace()
@@ -157,17 +142,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine();
 
+            List<string> headers = new List<string>();
+
+            string temp = string.Format("OptionSet Name: {0}      IsCustomOptionSet: {1}", optionSet.Name, optionSet.IsCustomOptionSet);
+            headers.Add(temp);
+
             if (this._withDependentComponents)
             {
                 var desc = await _descriptorHandler.GetDescriptionDependentAsync(dependent);
 
                 var split = desc.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (var item in split)
+                if (split.Any())
                 {
-                    WriteLine("// {0}", item);
+                    headers.Add(string.Empty);
+
+                    foreach (var item in split)
+                    {
+                        headers.Add(item);
+                    }
                 }
             }
+
+            WriteSummary(optionSet.DisplayName, optionSet.Description, null, headers);
 
             string objectName = string.Format("{0}{1}Enum", tempNamespace, optionSet.Name);
 
@@ -201,6 +198,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
             Write("};");
+        }
+
+        protected override void WriteSummaryStrings(IEnumerable<string> lines)
+        {
+            if (lines.Any())
+            {
+                foreach (var item in lines)
+                {
+                    WriteLine("// {0}", item);
+                }
+            }
         }
     }
 }
