@@ -8,7 +8,7 @@
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSolutionComponents"
     Title="Solution Components Explorer"
     Height="540"
-    Width="755"
+    Width="786"
     WindowStartupLocation="Manual"
     >
     <src:WindowWithSingleConnection.Resources>
@@ -143,6 +143,9 @@
 
             <Separator x:Name="sepSolutionDescription" Visibility="Collapsed"/>
             <Button x:Name="miSolutionDescription" Content="Solution Description" Visibility="Collapsed" Click="miSolutionDescription_Click" />
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Button Content="Clear Cache and Refresh" Click="mIClearCache_Click" />
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">

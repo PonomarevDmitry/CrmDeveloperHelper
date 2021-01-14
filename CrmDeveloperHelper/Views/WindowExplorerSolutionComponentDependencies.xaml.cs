@@ -297,11 +297,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.ObjectId)
             )
             {
-                string name = _descriptor.GetName(entity);
-                string displayName = _descriptor.GetDisplayName(entity);
-                string managed = _descriptor.GetManagedName(entity);
-                string customizable = _descriptor.GetCustomizableName(entity);
-                string behavior = _descriptor.GetRootComponentBehaviorName(entity);
+                var descriptor = GetDescriptor();
+
+                string name = descriptor.GetName(entity);
+                string displayName = descriptor.GetDisplayName(entity);
+                string managed = descriptor.GetManagedName(entity);
+                string customizable = descriptor.GetCustomizableName(entity);
+                string behavior = descriptor.GetRootComponentBehaviorName(entity);
 
                 var item = new SolutionComponentViewItem(entity, name, displayName, entity.ComponentTypeName, managed, customizable, behavior);
 
@@ -1414,5 +1416,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard
+
+        private async void mIClearCache_Click(object sender, RoutedEventArgs e)
+        {
+            var descriptor = GetDescriptor();
+
+            descriptor.ClearCache();
+
+            await ShowExistingSolutionComponents();
+        }
     }
 }

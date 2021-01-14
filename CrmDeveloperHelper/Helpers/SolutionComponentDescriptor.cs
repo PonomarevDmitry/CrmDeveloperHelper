@@ -369,5 +369,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return descriptionBuilder.GetLinkedComponents(solutionComponent);
         }
+
+        internal void ClearCache()
+        {
+            foreach (var builder in _cacheBuilders.Values.ToArray())
+            {
+                builder.ClearCache();
+            }
+        }
     }
 }

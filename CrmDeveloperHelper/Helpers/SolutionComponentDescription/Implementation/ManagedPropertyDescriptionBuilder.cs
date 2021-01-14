@@ -333,5 +333,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return Enumerable.Empty<SolutionComponent>();
         }
+
+        public void ClearCache()
+        {
+            lock (_syncObjectManagedPropertyMetadata)
+            {
+                _allManagedProperties = null;
+            }
+        }
     }
 }

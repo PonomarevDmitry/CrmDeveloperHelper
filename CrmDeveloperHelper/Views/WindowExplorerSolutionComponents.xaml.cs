@@ -2138,5 +2138,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard
+
+        private async void mIClearCache_Click(object sender, RoutedEventArgs e)
+        {
+            _descriptor.ClearCache();
+
+            await ShowExistingSolutionComponents();
+        }
     }
 }

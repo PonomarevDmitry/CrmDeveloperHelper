@@ -119,6 +119,9 @@
                     <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
                 </MenuItem>
             </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Button Content="Clear Cache and Refresh" Click="mIClearCache_Click" />
         </ToolBar>
 
         <GroupBox Grid.Row="1" Margin="0" Header="Solution Component Description">

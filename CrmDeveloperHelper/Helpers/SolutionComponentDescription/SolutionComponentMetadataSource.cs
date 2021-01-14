@@ -195,7 +195,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 _dictEntity.TryAdd(metaEntity.MetadataId.Value, metaEntity);
             }
 
-
             if (metaEntity.Attributes != null)
             {
                 foreach (var metaAttribute in metaEntity.Attributes)
@@ -360,6 +359,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             return result;
         }
+
+        #region Clear Cache
+
+        public void ClearCacheOptionSetMetadata()
+        {
+            lock (_syncObjectOptionSets)
+            {
+                this._allOptionSetMetadata = null;
+            }
+        }
+
+        public void ClearCacheEntityMetadata()
+        {
+            this._dictEntity.Clear();
+        }
+
+        public void ClearCacheAttributeMetadata()
+        {
+            this._dictAttribute.Clear();
+        }
+
+        public void ClearCacheEntityKeyMetadata()
+        {
+            this._dictKey.Clear();
+        }
+
+        public void ClearCacheRelashionshipMetadata()
+        {
+            this._dictRelashionship.Clear();
+        }
+
+        #endregion Clear Cache
 
         public EntityMetadata GetEntityMetadata(string entityName)
         {

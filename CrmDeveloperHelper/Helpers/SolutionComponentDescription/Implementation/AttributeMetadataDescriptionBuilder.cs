@@ -359,5 +359,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>();
         }
+
+        public void ClearCache()
+        {
+            this._source.ClearCacheAttributeMetadata();
+        }
     }
 }

@@ -500,6 +500,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         public TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>();
-        }        
+        }
+
+        public void ClearCache()
+        {
+            this._source.ClearCacheRelashionshipMetadata();
+        }
     }
 }

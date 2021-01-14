@@ -48,5 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         string GetFileName(string connectionName, Guid objectId, string fieldTitle, FileExtension extension);
 
         TupleList<string, string> GetComponentColumns();
+
+        void ClearCache();
     }
 }

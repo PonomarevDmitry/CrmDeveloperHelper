@@ -345,5 +345,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return Enumerable.Empty<SolutionComponent>();
         }
+
+        public void ClearCache()
+        {
+            this._source.ClearCacheOptionSetMetadata();
+        }
     }
 }
