@@ -2590,6 +2590,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Global OptionSets not found by name {0}..
+        /// </summary>
+        internal static string GlobalOptionSetsNotFoundedByNameFormat1 {
+            get {
+                return ResourceManager.GetString("GlobalOptionSetsNotFoundedByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Global OptionSets to add to Solution {0}: {1}.
         /// </summary>
         internal static string GlobalOptionSetsToAddToSolutionFormat2 {
@@ -4917,6 +4926,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string NoFilesToOpen {
             get {
                 return ResourceManager.GetString("NoFilesToOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Global OptionSets Names..
+        /// </summary>
+        internal static string NoGlobalOptionSetNames {
+            get {
+                return ResourceManager.GetString("NoGlobalOptionSetNames", resourceCulture);
             }
         }
         

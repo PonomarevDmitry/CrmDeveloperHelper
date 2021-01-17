@@ -93,6 +93,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
+        private async Task OpenWindowForUnknownGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownGlobalOptionSets)
+        {
+            if (!unknownGlobalOptionSets.Any())
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GlobalOptionSetsNotFoundedByNameFormat1, unknownGlobalOptionSets.Count);
+
+            foreach (var projectName in unknownGlobalOptionSets)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, projectName);
+            }
+
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            WindowHelper.OpenGlobalOptionSetsExplorer(
+                this._iWriteToOutput
+                , service
+                , commonConfig
+                , unknownGlobalOptionSets.FirstOrDefault()
+            );
+        }
+
         #region Adding WebResources to Solution
 
         public async Task ExecuteAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
@@ -834,55 +858,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     if (solution == null)
                     {
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SolutionNotSelected);
-                        return;
                     }
-
-                    connectionData.AddLastSelectedSolution(solution?.UniqueName);
-                    connectionData.Save();
-
-                    var solutionRep = new SolutionComponentRepository(service);
-
+                    else
                     {
-                        var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.PluginAssembly, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+                        connectionData.AddLastSelectedSolution(solution?.UniqueName);
+                        connectionData.Save();
 
-                        foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                        var solutionRep = new SolutionComponentRepository(service);
+
                         {
-                            if (knownAssemblies.ContainsKey(item))
+                            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.PluginAssembly, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                            foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
                             {
-                                knownAssemblies.Remove(item);
+                                if (knownAssemblies.ContainsKey(item))
+                                {
+                                    knownAssemblies.Remove(item);
+                                }
                             }
                         }
+
+                        if (knownAssemblies.Any())
+                        {
+                            var componentsToAdd = knownAssemblies.Select(e => new SolutionComponent()
+                            {
+                                ObjectId = e.Key,
+                                ComponentType = new OptionSetValue((int)ComponentType.PluginAssembly),
+                                //RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                            }).ToList();
+
+                            var solutionDesciptor = new SolutionComponentDescriptor(service);
+                            solutionDesciptor.SetSettings(commonConfig);
+
+                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssembliesToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
+
+                            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+
+                            if (!string.IsNullOrEmpty(desc))
+                            {
+                                _iWriteToOutput.WriteToOutput(connectionData, desc);
+                            }
+
+                            await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginAssembliesToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
+                        }
                     }
-
-                    if (!knownAssemblies.Any())
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginAssembliesToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
-
-                        await OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
-
-                        return;
-                    }
-
-                    var componentsToAdd = knownAssemblies.Select(e => new SolutionComponent()
-                    {
-                        ObjectId = e.Key,
-                        ComponentType = new OptionSetValue((int)ComponentType.PluginAssembly),
-                        //RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-                    }).ToList();
-
-                    var solutionDesciptor = new SolutionComponentDescriptor(service);
-                    solutionDesciptor.SetSettings(commonConfig);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssembliesToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
-
-                    var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
-
-                    if (!string.IsNullOrEmpty(desc))
-                    {
-                        _iWriteToOutput.WriteToOutput(connectionData, desc);
-                    }
-
-                    await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
                 }
 
                 await OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
@@ -1423,7 +1446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , CommonConfiguration commonConfig
             , string solutionUniqueName
             , bool withSelect
-            , string optionSetName
+            , IEnumerable<string> optionSetNames
         )
         {
             string operation = string.Format(Properties.OperationNames.AddingGlobalOptionSetToSolutionFormat2, connectionData?.Name, solutionUniqueName);
@@ -1432,7 +1455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await AddingGlobalOptionSetToSolution(connectionData, commonConfig, solutionUniqueName, withSelect, optionSetName);
+                await AddingGlobalOptionSetToSolution(connectionData, commonConfig, solutionUniqueName, withSelect, optionSetNames);
             }
             catch (Exception ex)
             {
@@ -1449,9 +1472,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , CommonConfiguration commonConfig
             , string solutionUniqueName
             , bool withSelect
-            , string optionSetName
+            , IEnumerable<string> optionSetNamesList
         )
         {
+            if (optionSetNamesList == null || !optionSetNamesList.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoGlobalOptionSetNames);
+                return;
+            }
+
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
@@ -1459,79 +1488,98 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var repository = new OptionSetRepository(service);
-
-            OptionSetMetadata optionSetMetadata = await repository.GetOptionSetByNameAsync(optionSetName);
-
-            if (optionSetMetadata == null)
-            {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.GlobalOptionSetNotExistsInConnectionFormat2, optionSetName, service.ConnectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-
-                WindowHelper.OpenGlobalOptionSetsExplorer(_iWriteToOutput, service, commonConfig, optionSetName);
-
-                return;
-            }
-
             using (service.Lock())
             {
-                var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
+                var repository = new OptionSetRepository(service);
 
-                if (solution == null)
+                var knownGlobalOptionSets = new HashSet<Guid>();
+
+                var unknownGlobalOptionSets = new List<string>();
+
+                foreach (var optionSetName in optionSetNamesList)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SolutionNotSelected);
-                    return;
-                }
+                    OptionSetMetadata optionSetMetadata = await repository.GetOptionSetByNameAsync(optionSetName);
 
-                connectionData.AddLastSelectedSolution(solution?.UniqueName);
-                connectionData.Save();
-
-                var dictForAdding = new HashSet<Guid>() { optionSetMetadata.MetadataId.Value };
-
-                var solutionRep = new SolutionComponentRepository(service);
-
-                {
-                    var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.OptionSet, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
-
-                    foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                    if (optionSetMetadata != null)
                     {
-                        if (dictForAdding.Contains(item))
+                        if (!knownGlobalOptionSets.Contains(optionSetMetadata.MetadataId.Value))
                         {
-                            dictForAdding.Remove(item);
+                            knownGlobalOptionSets.Add(optionSetMetadata.MetadataId.Value);
                         }
+                    }
+                    else
+                    {
+                        unknownGlobalOptionSets.Add(optionSetName);
                     }
                 }
 
-                if (!dictForAdding.Any())
+                if (!knownGlobalOptionSets.Any() && !unknownGlobalOptionSets.Any())
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoGlobalOptionSetsToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginAssembliesToAddToSolution);
                     return;
                 }
 
-                var componentsToAdd = dictForAdding.Select(e => new SolutionComponent()
+                if (knownGlobalOptionSets.Any())
                 {
-                    ObjectId = e,
-                    ComponentType = new OptionSetValue((int)ComponentType.OptionSet),
-                    RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
-                }).ToList();
+                    var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
-                var solutionDesciptor = new SolutionComponentDescriptor(service)
-                {
-                    WithManagedInfo = true,
-                    WithSolutionsInfo = true,
-                    WithUrls = true,
-                };
+                    if (solution == null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SolutionNotSelected);
+                        return;
+                    }
 
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GlobalOptionSetsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
+                    connectionData.AddLastSelectedSolution(solution?.UniqueName);
+                    connectionData.Save();
 
-                var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+                    var solutionRep = new SolutionComponentRepository(service);
 
-                if (!string.IsNullOrEmpty(desc))
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, desc);
+                    {
+                        var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.OptionSet, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                        foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                        {
+                            if (knownGlobalOptionSets.Contains(item))
+                            {
+                                knownGlobalOptionSets.Remove(item);
+                            }
+                        }
+                    }
+
+                    if (knownGlobalOptionSets.Any())
+                    {
+                        var componentsToAdd = knownGlobalOptionSets.Select(e => new SolutionComponent()
+                        {
+                            ObjectId = e,
+                            ComponentType = new OptionSetValue((int)ComponentType.OptionSet),
+                            RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
+                        }).ToList();
+
+                        var solutionDesciptor = new SolutionComponentDescriptor(service)
+                        {
+                            WithManagedInfo = true,
+                            WithSolutionsInfo = true,
+                            WithUrls = true,
+                        };
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GlobalOptionSetsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
+
+                        var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+
+                        if (!string.IsNullOrEmpty(desc))
+                        {
+                            _iWriteToOutput.WriteToOutput(connectionData, desc);
+                        }
+
+                        await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoGlobalOptionSetsToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                    }
                 }
 
-                await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+                await OpenWindowForUnknownGlobalOptionSets(connectionData, commonConfig, unknownGlobalOptionSets);
             }
         }
 

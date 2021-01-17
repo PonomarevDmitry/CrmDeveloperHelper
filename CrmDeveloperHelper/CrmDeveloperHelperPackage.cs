@@ -221,9 +221,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             JavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
-            JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
-            JavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
-
             JavaScriptUpdateEntityMetadataFileCommand.Initialize,
             JavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize,
 
@@ -262,6 +259,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand.Initialize,
 
+            JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
+            JavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
+
+
+
+
+
             CodeJavaScriptLinkedEntityAddToSolutionLastCommand.Initialize,
             CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand.Initialize,
 
@@ -269,12 +273,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptLinkedEntityPublishInConnectionCommand.Initialize,
             CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand.Initialize,
 
+
+
+
+
             CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand.Initialize,
             CodeJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommand.Initialize,
 
             CodeJavaScriptLinkedGlobalOptionSetExplorerCommand.Initialize,
             CodeJavaScriptLinkedGlobalOptionSetPublishInConnectionCommand.Initialize,
             CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand.Initialize,
+
+            JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand.Initialize,
+            JavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommand.Initialize,
 
             #endregion CodeJavaScript
 

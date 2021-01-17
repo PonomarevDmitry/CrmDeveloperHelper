@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
         {
             if (helper.TryGetLinkedGlobalOptionSetName(out string optionSetName))
             {
-                helper.HandleAddingGlobalOptionSetToSolutionCommand(null, solutionUniqueName, false, optionSetName);
+                helper.HandleAddingGlobalOptionSetToSolutionCommand(null, solutionUniqueName, false, new[] { optionSetName });
             }
         }
 

@@ -194,6 +194,8 @@
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptShowDifferenceReferencesAndDependencyXmlCommand.cs" />

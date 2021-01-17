@@ -1,6 +1,7 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -536,9 +537,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartPublishGlobalOptionSetMetadata(conn, commonConfig, optionSetName));
         }
 
-        public void HandleAddingGlobalOptionSetToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string optionSetName)
+        public void HandleAddingGlobalOptionSetToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, IEnumerable<string> optionSetNames)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingGlobalOptionSetToSolution(conn, commonConfig, solutionUniqueName, withSelect, optionSetName));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingGlobalOptionSetToSolution(conn, commonConfig, solutionUniqueName, withSelect, optionSetNames));
         }
     }
 }

@@ -540,6 +540,10 @@
     <value>No PluginType Names.</value>
   </data>
 
+  <data name="NoGlobalOptionSetNames" xml:space="preserve">
+    <value>No Global OptionSets Names.</value>
+  </data>
+
   <data name="NoPluginAssembliesToAddToSolution" xml:space="preserve">
     <value>No PluginAssemblies to add to Solution.</value>
   </data>
@@ -576,8 +580,8 @@
     <value>PluginAssemblies not found by name {0}.</value>
   </data>
 
-  <data name="PluginAssembliesNotFoundedByNameFormat1" xml:space="preserve">
-    <value>PluginAssemblies not found by name {0}.</value>
+  <data name="GlobalOptionSetsNotFoundedByNameFormat1" xml:space="preserve">
+    <value>Global OptionSets not found by name {0}.</value>
   </data>
 
   <data name="TryingToFindWebResourceByNameFormat1" xml:space="preserve">

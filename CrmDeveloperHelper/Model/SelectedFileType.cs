@@ -12,6 +12,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         WebResourceJavaScriptHasLinkedSystemForm,
 
+        WebResourceJavaScriptHasLinkedGlobalOptionSet,
+
         Report,
 
         CSharp,
@@ -33,6 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 case SelectedFileType.WebResourceJavaScript:
                 case SelectedFileType.WebResourceJavaScriptHasLinkedSystemForm:
+                case SelectedFileType.WebResourceJavaScriptHasLinkedGlobalOptionSet:
                     return Helpers.FileOperations.SupportsJavaScriptType;
 
                 case SelectedFileType.Report:

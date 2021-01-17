@@ -53,6 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
 
                 case SelectedFileType.WebResourceJavaScript:
                 case SelectedFileType.WebResourceJavaScriptHasLinkedSystemForm:
+                case SelectedFileType.WebResourceJavaScriptHasLinkedGlobalOptionSet:
                     CommonHandlers.ActionBeforeQueryStatusSolutionExplorerJavaScriptRecursive(applicationObject, menuCommand);
                     break;
 

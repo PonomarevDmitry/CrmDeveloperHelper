@@ -419,21 +419,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupIncludeReferencesToDependencyXml = 0x14D2;
 
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet = 0x15F5;
+
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet_Menu = 0x15F6;
+
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution = 0x15F7;
+
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu = 0x15F8;
+
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x15F9;
+
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x15FA;
+
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x15FB;
+
+            public const int documentsMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x15FC;
+
             public const int documentsMenuWebResource_GroupLinkedSystemForm = 0x14DD;
 
-            public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x156F;
+            public const int documentsMenuWebResource_GroupLinkedSystemForm_Menu = 0x156F;
 
-            public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution = 0x1570;
+            public const int documentsMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution = 0x1570;
 
-            public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu = 0x1571;
+            public const int documentsMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu = 0x1571;
 
-            public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution = 0x1572;
+            public const int documentsMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1572;
 
-            public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1573;
+            public const int documentsMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1573;
 
-            public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1574;
+            public const int documentsMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1574;
 
-            public const int documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn = 0x1575;
+            public const int documentsMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x1575;
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd = 0x1172;
 
@@ -607,21 +623,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupWebResourceDependencyXml = 0x14CF;
 
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet = 0x15FD;
+
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet_Menu = 0x15FE;
+
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution = 0x15FF;
+
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu = 0x1600;
+
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1601;
+
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1602;
+
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1603;
+
+            public const int fileMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x1604;
+
             public const int fileMenuWebResource_GroupLinkedSystemForm = 0x14DA;
 
-            public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x1576;
+            public const int fileMenuWebResource_GroupLinkedSystemForm_Menu = 0x1576;
 
-            public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution = 0x1577;
+            public const int fileMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution = 0x1577;
 
-            public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu = 0x1578;
+            public const int fileMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu = 0x1578;
 
-            public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution = 0x1579;
+            public const int fileMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1579;
 
-            public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x157A;
+            public const int fileMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x157A;
 
-            public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x157B;
+            public const int fileMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x157B;
 
-            public const int fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn = 0x157C;
+            public const int fileMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x157C;
 
             public const int fileMenuWebResource_GroupOpenMultiAdd = 0x1014;
 
@@ -811,21 +843,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupIncludeReferencesToDependencyXml = 0x14D5;
 
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet = 0x1605;
+
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet_Menu = 0x1606;
+
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution = 0x1607;
+
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu = 0x1608;
+
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1609;
+
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x160A;
+
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x160B;
+
+            public const int folderMenuWebResource_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x160C;
+
             public const int folderMenuWebResource_GroupLinkedSystemForm = 0x14E0;
 
-            public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x157D;
+            public const int folderMenuWebResource_GroupLinkedSystemForm_Menu = 0x157D;
 
-            public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution = 0x157E;
+            public const int folderMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution = 0x157E;
 
-            public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu = 0x157F;
+            public const int folderMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu = 0x157F;
 
-            public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution = 0x1580;
+            public const int folderMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1580;
 
-            public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1581;
+            public const int folderMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1581;
 
-            public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1582;
+            public const int folderMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1582;
 
-            public const int folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn = 0x1583;
+            public const int folderMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x1583;
 
             public const int folderMenuWebResource_GroupOpenMultiAdd = 0x1065;
 
@@ -3232,6 +3280,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x474A;
 
+            public const int DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x5014;
+
+            public const int DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x5046;
+
             public const int DocumentsXmlCommonXsdSchemaSetCommandId = 0x2260;
 
             public const int DocumentsReportAddToSolutionLastCommandId = 0x0104;
@@ -3382,6 +3434,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x47AE;
 
+            public const int FileJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x5078;
+
+            public const int FileJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x50AA;
+
             public const int FileXmlCommonXsdSchemaSetCommandId = 0x2279;
 
             public const int FileReportAddToSolutionLastCommandId = 0x012C;
@@ -3521,6 +3577,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x47E0;
 
             public const int FolderJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x4812;
+
+            public const int FolderJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x50DC;
+
+            public const int FolderJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x510E;
 
             public const int FolderXmlCommonXsdSchemaSetCommandId = 0x2292;
 

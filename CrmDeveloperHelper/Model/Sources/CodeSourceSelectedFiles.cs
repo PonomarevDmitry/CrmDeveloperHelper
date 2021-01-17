@@ -59,6 +59,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm(applicationObject, menuCommand);
                     break;
 
+                case SelectedFileType.WebResourceJavaScriptHasLinkedGlobalOptionSet:
+                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetName(applicationObject, menuCommand);
+                    break;
+
                 case SelectedFileType.Report:
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(applicationObject, menuCommand);
                     break;
