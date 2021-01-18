@@ -322,7 +322,7 @@
     <value>Open EntityMetadata Explorer</value>
   </data>
 
-  <data name="CodeJavaScriptLinkedGlobalOptionSetExplorerCommand" xml:space="preserve">
+  <data name="CodeLinkedGlobalOptionSetExplorerCommand" xml:space="preserve">
     <value>Open Global OptionSet Explorer</value>
   </data>
 

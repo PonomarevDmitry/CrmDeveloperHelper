@@ -71,6 +71,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
                     break;
 
+                case SelectedFileType.CSharpHasLinkedGlobalOptionSet:
+                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharpHasLinkedGlobalOptionSetName(applicationObject, menuCommand);
+                    break;
+
                 case SelectedFileType.Xml:
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml(applicationObject, menuCommand);
                     break;

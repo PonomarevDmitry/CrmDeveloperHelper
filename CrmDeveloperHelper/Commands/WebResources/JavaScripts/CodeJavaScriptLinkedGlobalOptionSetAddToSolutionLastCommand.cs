@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.Shell;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
-    internal sealed class CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand : CodeLinkedGlobalOptionSetAddToSolutionLastCommand
     {
         private CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId, SelectedFileType.WebResourceJavaScriptHasLinkedGlobalOptionSet)
         {
         }
 
@@ -15,19 +15,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
         public static void Initialize(OleMenuCommandService commandService)
         {
             Instance = new CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand(commandService);
-        }
-
-        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
-        {
-            if (helper.TryGetLinkedGlobalOptionSetName(out string optionSetName))
-            {
-                helper.HandleAddingGlobalOptionSetToSolutionCommand(null, solutionUniqueName, false, new[] { optionSetName });
-            }
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetName(applicationObject, menuCommand);
         }
     }
 }

@@ -109,6 +109,11 @@
     <Compile Include="Commands\Checks\CommonCheckCreateMissingTeamTemplatesInSystemFormsCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckTeamTemplatesCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypesCommand.cs" />
+    <Compile Include="Commands\CodeLinkedGlobalOptionSetActionOnComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeLinkedGlobalOptionSetAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeLinkedGlobalOptionSetAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeLinkedGlobalOptionSetExplorerCommand.cs" />
+    <Compile Include="Commands\CodeLinkedGlobalOptionSetPublishInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityInstanceByIdCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionPoolClearCommand.cs" />
@@ -122,6 +127,11 @@
     <Compile Include="Commands\Connections\CommonCrmConnectionPoolShowStateCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectAndPublishEntityCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpLinkedGlobalOptionSetActionOnComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpLinkedGlobalOptionSetAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpLinkedGlobalOptionSetAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpLinkedGlobalOptionSetExplorerCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpLinkedGlobalOptionSetPublishInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />

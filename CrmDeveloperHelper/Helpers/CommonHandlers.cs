@@ -2031,6 +2031,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static bool ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetNameInternal(EnvDTE80.DTE2 applicationObject)
         {
+            return ActionBeforeQueryStatusActiveDocumentHasLinkedGlobalOptionSetName(applicationObject, FileOperations.SupportsJavaScriptType);
+        }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentCSharpHasLinkedGlobalOptionSetName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentCSharpHasLinkedGlobalOptionSetName), applicationObject, ActionBeforeQueryStatusActiveDocumentCSharpHasLinkedGlobalOptionSetNameInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusActiveDocumentCSharpHasLinkedGlobalOptionSetNameInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            return ActionBeforeQueryStatusActiveDocumentHasLinkedGlobalOptionSetName(applicationObject, FileOperations.SupportsCSharpType);
+        }
+
+        private static bool ActionBeforeQueryStatusActiveDocumentHasLinkedGlobalOptionSetName(EnvDTE80.DTE2 applicationObject, Func<string, bool> checkerFunction)
+        {
             if (applicationObject.ActiveWindow != null
                 && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
                 && applicationObject.ActiveWindow.Document != null
@@ -2042,7 +2067,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     string filePath = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
 
-                    if (FileOperations.SupportsJavaScriptType(filePath))
+                    if (checkerFunction(filePath))
                     {
                         var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
                         if (objTextDoc != null

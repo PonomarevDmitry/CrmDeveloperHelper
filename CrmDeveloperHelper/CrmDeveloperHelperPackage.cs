@@ -474,6 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #endregion CodeReport
 
+            #region CSharp
 
             CSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize,
             CSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize,
@@ -529,6 +530,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CSharpProjectPluginAssemblyActionOnComponentCommand.Initialize,
             CSharpProjectPluginAssemblyActionOnComponentInConnectionWithoutCurrentCommand.Initialize,
             CSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
+
+            #endregion CSharp
+
+            #region CodeCSharp
+
+            CodeCSharpLinkedGlobalOptionSetAddToSolutionLastCommand.Initialize,
+            CodeCSharpLinkedGlobalOptionSetAddToSolutionInConnectionCommand.Initialize,
+
+            CodeCSharpLinkedGlobalOptionSetExplorerCommand.Initialize,
+            CodeCSharpLinkedGlobalOptionSetPublishInConnectionCommand.Initialize,
+            CodeCSharpLinkedGlobalOptionSetActionOnComponentInConnectionCommand.Initialize,
+
+            #endregion CodeCSharp
 
             #region Project
 

@@ -1,17 +1,13 @@
 ﻿using Microsoft.VisualStudio.Shell;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
-    internal sealed class CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand : CodeLinkedGlobalOptionSetActionOnComponentInConnectionCommand
     {
-        private readonly ActionOnComponent _actionOnComponent;
-
         private CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
-            : base(commandService, baseIdStart)
+            : base(commandService, baseIdStart, actionOnComponent, SelectedFileType.WebResourceJavaScriptHasLinkedGlobalOptionSet)
         {
-            this._actionOnComponent = actionOnComponent;
         }
 
         public static CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
@@ -47,19 +43,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenSolutionsListWithComponentInExplorer
             );
-        }
-
-        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
-        {
-            if (helper.TryGetLinkedGlobalOptionSetName(out string optionSetName))
-            {
-                helper.OpenGlobalOptionSetMetadataCommand(connectionData, optionSetName, this._actionOnComponent);
-            }
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedGlobalOptionSetName(applicationObject, menuCommand);
         }
     }
 }

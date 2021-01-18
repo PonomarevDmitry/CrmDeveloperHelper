@@ -184,11 +184,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
-        public bool TryGetLinkedGlobalOptionSetName(out string optionSetName)
+        public bool TryGetLinkedGlobalOptionSetName(Func<string, bool> checkerFunction, out string optionSetName)
         {
             optionSetName = string.Empty;
 
-            var document = this.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
+            var document = this.GetOpenedDocumentInCodeWindow(checkerFunction);
 
             if (document == null)
             {

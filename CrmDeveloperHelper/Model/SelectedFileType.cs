@@ -18,6 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         CSharp,
 
+        CSharpHasLinkedGlobalOptionSet,
+
         Xml
     }
 
@@ -42,6 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     return Helpers.FileOperations.SupportsReportType;
 
                 case SelectedFileType.CSharp:
+                case SelectedFileType.CSharpHasLinkedGlobalOptionSet:
                     return Helpers.FileOperations.SupportsCSharpType;
 
                 case SelectedFileType.Xml:

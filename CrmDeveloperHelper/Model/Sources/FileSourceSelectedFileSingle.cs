@@ -67,6 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
                     break;
 
                 case SelectedFileType.CSharp:
+                case SelectedFileType.CSharpHasLinkedGlobalOptionSet:
                     CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
                     break;
 

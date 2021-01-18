@@ -363,6 +363,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther = 0x1493;
 
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet = 0x160D;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu = 0x160E;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_Group1 = 0x160F;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution = 0x1610;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu = 0x1611;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1612;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1613;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1614;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x1615;
+
+            public const int codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_Group2 = 0x1616;
+
             public const int codeMenuCSharp_GroupAddToSolution = 0x111B;
 
             public const int codeMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution = 0x12C0;
@@ -1905,6 +1925,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1466;
 
+            public const int CodeCSharpLinkedGlobalOptionSetOpenInWebInConnectionCommandId_MenuDyn = 0x1617;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenInWebInConnectionCommandId_MenuDyn_Group = 0x1618;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenDependentInWebInConnectionCommandId_MenuDyn = 0x1619;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x161A;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenDependentInExplorerInConnectionCommandId_MenuDyn = 0x161B;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenDependentInExplorerInConnectionCommandId_MenuDyn_Group = 0x161C;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn = 0x161D;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x161E;
+
+            public const int CodeCSharpLinkedGlobalOptionSetPublishInConnectionCommandId_MenuDyn = 0x161F;
+
+            public const int CodeCSharpLinkedGlobalOptionSetPublishInConnectionCommandId_MenuDyn_Group = 0x1620;
+
             public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn = 0x11F0;
 
             public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId_MenuDyn_Group = 0x11F1;
@@ -3216,6 +3256,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x3A02;
 
+            public const int CodeCSharpLinkedGlobalOptionSetOpenInWebInConnectionCommandId = 0x5140;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenDependentInWebInConnectionCommandId = 0x5172;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenDependentInExplorerInConnectionCommandId = 0x51A4;
+
+            public const int CodeCSharpLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x51D6;
+
+            public const int CodeCSharpLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x5208;
+
+            public const int CodeCSharpLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x523A;
+
+            public const int CodeCSharpLinkedGlobalOptionSetPublishInConnectionCommandId = 0x526C;
+
             public const int DocumentsWebResourceAddToSolutionLastCommandId = 0x00F0;
 
             public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0E74;
@@ -3892,6 +3946,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId = 0x224E;
 
             public const int CodeCSharpProjectPluginAssemblyCreateDescriptionCommandId = 0x224F;
+
+            public const int CodeCSharpLinkedGlobalOptionSetExplorerCommandId = 0x228C;
 
             public const int CodePublishListAddCommandId = 0x2070;
 
