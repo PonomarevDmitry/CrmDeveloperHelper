@@ -8,12 +8,10 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataCon
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -323,9 +321,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.OutputStrings.SavingEntitiesFormat1, _entityMetadata.LogicalName);
+            ToggleControls(false, Properties.OutputStrings.SavingEntitiesFormat2, _entityMetadata.LogicalName, _entityCollection.Count);
 
             bool hasError = false;
+
+            int number = 1;
 
             foreach (var entity in _entityCollection)
             {
@@ -353,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SavingEntityInstanceFormat2, _entityMetadata.LogicalName, entity.Id);
+                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SavingEntityInstanceFormat4, number, _entityCollection.Count, _entityMetadata.LogicalName, entity.Id);
 
                     _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, updateEntity);
 
@@ -365,9 +365,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.OutputStrings.SavingEntityInstanceFailedFormat2, _entityMetadata.LogicalName, entity.Id);
                 }
+
+                number++;
             }
 
-            ToggleControls(true, Properties.OutputStrings.SavingEntitiesCompletedFormat1, _entityMetadata.LogicalName);
+            ToggleControls(true, Properties.OutputStrings.SavingEntitiesCompletedFormat2, _entityMetadata.LogicalName, _entityCollection.Count);
 
             if (!hasError)
             {

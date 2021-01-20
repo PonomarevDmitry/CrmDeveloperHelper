@@ -5560,20 +5560,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving Entities {0} completed..
+        ///   Looks up a localized string similar to Saving Entities {0} {1} completed..
         /// </summary>
-        internal static string SavingEntitiesCompletedFormat1 {
+        internal static string SavingEntitiesCompletedFormat2 {
             get {
-                return ResourceManager.GetString("SavingEntitiesCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("SavingEntitiesCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving Entities {0}....
+        ///   Looks up a localized string similar to Saving Entities {0} {1}....
         /// </summary>
-        internal static string SavingEntitiesFormat1 {
+        internal static string SavingEntitiesFormat2 {
             get {
-                return ResourceManager.GetString("SavingEntitiesFormat1", resourceCulture);
+                return ResourceManager.GetString("SavingEntitiesFormat2", resourceCulture);
             }
         }
         
@@ -5616,9 +5616,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Saving Entity Instance {0} - {1}....
         /// </summary>
-        internal static string SavingEntityInstanceFormat2 {
+        internal static string SavingEntityInstanceFormat4 {
             get {
-                return ResourceManager.GetString("SavingEntityInstanceFormat2", resourceCulture);
+                return ResourceManager.GetString("SavingEntityInstanceFormat4", resourceCulture);
             }
         }
         

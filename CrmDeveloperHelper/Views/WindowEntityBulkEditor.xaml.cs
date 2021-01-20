@@ -288,11 +288,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(false, Properties.OutputStrings.SavingEntitiesFormat1, _entityName);
+            ToggleControls(false, Properties.OutputStrings.SavingEntitiesFormat2, _entityName, _entityIds.Count);
 
             bool hasError = false;
 
             var saver = new EntitySaverFactory().GetEntitySaver(_entityName, _service);
+
+            int number = 1;
 
             foreach (var id in _entityIds)
             {
@@ -308,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SavingEntityInstanceFormat2, _entityName, id);
+                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SavingEntityInstanceFormat4, number, _entityIds.Count, _entityName, id);
 
                     _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, updateEntity);
 
@@ -320,9 +322,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.OutputStrings.SavingEntityInstanceFailedFormat2, _entityName, id);
                 }
+
+                number++;
             }
 
-            ToggleControls(true, Properties.OutputStrings.SavingEntitiesCompletedFormat1, _entityName);
+            ToggleControls(true, Properties.OutputStrings.SavingEntitiesCompletedFormat2, _entityName, _entityIds.Count);
 
             if (!hasError)
             {
