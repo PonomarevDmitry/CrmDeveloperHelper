@@ -153,11 +153,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingWebResources);
 
-            this.trVWebResources.Dispatcher.Invoke(() =>
-            {
-                _webResourceTree.Clear();
-            });
-
             string textName = string.Empty;
             bool? hidden = null;
             bool? managed = null;
@@ -165,6 +160,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
+                _webResourceTree.Clear();
+
                 textName = txtBFilter.Text.Trim().ToLower();
 
                 if (cmBManaged.SelectedItem is ComboBoxItem comboBoxItemManaged
@@ -1418,27 +1415,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, WebResource.EntityLogicalName, name);
 
-            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
-                ToggleControls(false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
-
-                try
-                {
-                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.DeletingEntity);
-                    _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, WebResource.EntityLogicalName, idWebResource);
-
-                    await _service.DeleteAsync(WebResource.EntityLogicalName, idWebResource);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-                    _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
-                }
-
-                ToggleControls(true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
-
-                await ShowExistingWebResources();
+                return;
             }
+
+            ToggleControls(false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
+
+            try
+            {
+                _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, WebResource.EntityLogicalName, idWebResource);
+
+                await _service.DeleteAsync(WebResource.EntityLogicalName, idWebResource);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
+            }
+
+            ToggleControls(true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
+
+            await ShowExistingWebResources();
         }
 
         private async void btnExportAll_Click(object sender, RoutedEventArgs e)

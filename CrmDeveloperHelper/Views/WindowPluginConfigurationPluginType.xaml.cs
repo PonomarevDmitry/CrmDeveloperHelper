@@ -81,9 +81,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
 
-            txtBFilePath.Text = string.Empty;
+                txtBFilePath.Text = string.Empty;
+            });
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -136,7 +139,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ShowExistingPluginTypes()
         {
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             ToggleControls(false, Properties.OutputStrings.LoadingPluginTypes);
 

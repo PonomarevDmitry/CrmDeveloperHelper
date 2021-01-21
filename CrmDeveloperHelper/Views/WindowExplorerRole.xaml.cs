@@ -296,9 +296,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingRoleSystemUsers);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingRoleSystemUsers);
 
             string textName = string.Empty;
 
@@ -315,6 +315,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null && role != null)
                 {
                     var repository = new SystemUserRepository(service);
@@ -329,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex); ;
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex); ;
             }
 
             this.lstVwSystemUsers.Dispatcher.Invoke(() =>
@@ -345,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingRoleSystemUsersCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingRoleSystemUsersCompletedFormat1, list.Count());
         }
 
         private async Task ShowExistingRoles()
@@ -355,9 +357,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSecurityRoles);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSecurityRoles);
 
             string filterRole = string.Empty;
 
@@ -376,6 +378,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     RoleRepository repository = new RoleRepository(service);
@@ -393,7 +397,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex); ;
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex); ;
             }
 
             this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
@@ -409,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSecurityRolesCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSecurityRolesCompletedFormat1, list.Count());
 
             await RefreshRoleInfo();
         }
@@ -421,9 +425,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingRoleTeams);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingRoleTeams);
 
             string filterTeam = string.Empty;
 
@@ -440,6 +444,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null && role != null)
                 {
                     var repository = new TeamRepository(service);
@@ -456,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             this.lstVwTeams.Dispatcher.Invoke(() =>
@@ -472,7 +478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingRoleTeamsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingRoleTeamsCompletedFormat1, list.Count());
         }
 
         private async Task ShowRoleEntityPrivileges()
@@ -482,9 +488,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntities);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingEntities);
 
             this.Dispatcher.Invoke(() =>
             {
@@ -502,6 +508,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var otherPrivileges = await GetOtherPrivileges(service);
@@ -544,7 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             this.lstVwEntityPrivileges.Dispatcher.Invoke(() =>
@@ -587,7 +595,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, entityMetadataList.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, entityMetadataList.Count());
         }
 
         private async Task<IEnumerable<Privilege>> GetOtherPrivileges(IOrganizationServiceExtented service)
@@ -954,7 +962,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task RefreshRoleInfo()
         {
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
             try
             {
@@ -966,7 +974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
         }
 
@@ -1141,10 +1149,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
@@ -1158,9 +1172,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1298,12 +1317,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (menuItem.DataContext == null
                 || !(menuItem.DataContext is Entity entity)
-                )
+            )
             {
                 return;
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             IEnumerable<EntityMetadata> entityMetadataList = GetEntityMetadataList(service.ConnectionData.ConnectionId);
             IEnumerable<Privilege> privileges = GetOtherPrivilegesList(service.ConnectionData.ConnectionId);
@@ -1340,6 +1364,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, ColumnSetInstances.AllColumns);
 
             string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
@@ -1347,11 +1376,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
 
-            _iWriteToOutput.WriteToOutput(service.ConnectionData
+            _iWriteToOutput.WriteToOutput(
+                service.ConnectionData
                 , Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                 , service.ConnectionData.Name
                 , entityFull.LogicalName
-                , filePath);
+                , filePath
+            );
 
             _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
@@ -1369,14 +1400,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (menuItem.DataContext == null
                 || !(menuItem.DataContext is Entity entity)
-                )
+            )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
             {
                 return;
             }
 
             var role = entity.ToEntity<Role>();
-
-            var service = await GetService();
 
             await PerformRoleBackup(service, role, true);
         }
@@ -1420,10 +1456,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
+
+            _commonConfig.Save();
 
             try
             {
@@ -1446,7 +1488,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (menuItem.DataContext == null
                 || !(menuItem.DataContext is Entity entity)
-                )
+            )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
             {
                 return;
             }
@@ -1454,8 +1503,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var role = entity.ToEntity<Role>();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1507,11 +1554,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var role = entity.ToEntity<Role>();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Role, role.RoleId.Value, null);
         }
@@ -1526,6 +1578,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var repository = new SystemUserRepository(service);
 
@@ -1615,6 +1672,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             string operationName = string.Format(Properties.OperationNames.RemovingRolesFromUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
@@ -1654,6 +1716,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var repository = new TeamRepository(service);
 
@@ -1741,6 +1808,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             string operationName = string.Format(Properties.OperationNames.RemovingRolesFromTeamsFormat3, service.ConnectionData.Name, rolesName, teamsName);
 
@@ -1915,7 +1987,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!dictPrivilegesAdd.Any()
                 && !hashPrivilegesRemove.Any()
-                )
+            )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
             {
                 return;
             }
@@ -1930,8 +2009,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 PrivilegeId = p,
             }).ToList();
-
-            var service = await GetService();
 
             string operationName = string.Format(Properties.OperationNames.SavingChangesInRolesFormat1, service.ConnectionData.Name);
 
@@ -2074,9 +2151,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var sourceRole = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var sourceRole = entity.ToEntity<Role>();
 
             var repository = new RoleRepository(service);
 
@@ -2123,9 +2205,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var sourceRole = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var sourceRole = entity.ToEntity<Role>();
 
             var repository = new RoleRepository(service);
 
@@ -2172,9 +2259,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var sourceRole = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var sourceRole = entity.ToEntity<Role>();
 
             var repository = new RoleRepository(service);
 
@@ -2216,14 +2308,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (menuItem.DataContext == null
                 || !(menuItem.DataContext is Entity entity)
-                )
+            )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
             {
                 return;
             }
 
             var role = entity.ToEntity<Role>();
-
-            var service = await GetService();
 
             string question = string.Format(Properties.MessageBoxStrings.ClearRoleFormat1, role.Name);
 
@@ -2300,9 +2397,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var targetRole = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var targetRole = entity.ToEntity<Role>();
 
             var repository = new RoleRepository(service);
 
@@ -2351,9 +2453,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var targetRole = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var targetRole = entity.ToEntity<Role>();
 
             var repository = new RoleRepository(service);
 
@@ -2402,9 +2509,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var targetRole = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var targetRole = entity.ToEntity<Role>();
 
             var repository = new RoleRepository(service);
 
@@ -2885,9 +2997,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var role1 = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var role1 = entity.ToEntity<Role>();
 
             var repositoryRole = new RoleRepository(service);
 
@@ -2979,9 +3096,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var role1 = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var role1 = entity.ToEntity<Role>();
 
             var repositoryUser = new SystemUserRepository(service);
 
@@ -3070,9 +3192,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var role1 = entity.ToEntity<Role>();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var role1 = entity.ToEntity<Role>();
 
             var repositoryTeam = new TeamRepository(service);
 
@@ -3203,9 +3330,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Privilege, privilege.Privilege.Id, null);
         }
@@ -3219,9 +3351,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -3260,9 +3397,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {

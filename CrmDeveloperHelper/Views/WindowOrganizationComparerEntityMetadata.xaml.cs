@@ -11,7 +11,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -210,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -237,7 +236,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingEntities);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             IEnumerable<LinkedEntityMetadata> list = Enumerable.Empty<LinkedEntityMetadata>();
 
@@ -506,10 +508,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service1 = await GetService1();
             var service2 = await GetService2();
+
+            if (service1 == null || service2 == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
@@ -543,35 +550,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService1, namingService1);
             ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService2, namingService2);
 
-            using (var memoryStream1 = new MemoryStream())
+            var stringBuilder1 = new StringBuilder();
+
+            using (var stringWriter1 = new StringWriter(stringBuilder1))
             {
-                var stringBuilder1 = new StringBuilder();
+                var handler1 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter1, config, service1, _iWriteToOutput, codeGenerationServiceProvider1);
 
-                using (var stringWriter1 = new StringWriter(stringBuilder1))
+                var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
+
+                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    var handler1 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter1, config, service1, _iWriteToOutput, codeGenerationServiceProvider1);
+                    var stringBuilder2 = new StringBuilder();
 
-                    var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
-
-                    if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                    using (var stringWriter2 = new StringWriter(stringBuilder2))
                     {
-                        var stringBuilder2 = new StringBuilder();
+                        var handler2 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter2, config, service2, _iWriteToOutput, codeGenerationServiceProvider2);
 
-                        using (var stringWriter2 = new StringWriter(stringBuilder2))
-                        {
-                            var handler2 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter2, config, service2, _iWriteToOutput, codeGenerationServiceProvider2);
-
-                            await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
-                        }
-
-                        File.WriteAllText(filePath2, stringBuilder2.ToString(), new UTF8Encoding(false));
+                        await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
                     }
 
-                    await task1;
+                    File.WriteAllText(filePath2, stringBuilder2.ToString(), new UTF8Encoding(false));
                 }
 
-                File.WriteAllText(filePath1, stringBuilder1.ToString(), new UTF8Encoding(false));
+                await task1;
             }
+
+            File.WriteAllText(filePath1, stringBuilder1.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionCreatedEntityMetadataFileFormat3, service1.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath1);
 
@@ -617,10 +621,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service1 = await GetService1();
             var service2 = await GetService2();
+
+            if (service1 == null || service2 == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
@@ -715,10 +724,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service1 = await GetService1();
             var service2 = await GetService2();
+
+            if (service1 == null || service2 == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
@@ -850,9 +864,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
@@ -939,9 +958,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
@@ -1024,9 +1048,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
 
@@ -1190,12 +1219,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            if (service1 == null || service2 == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
             ToggleControls(false, Properties.OutputStrings.ShowingDifferenceRibbonForEntityFormat1, entityName);
 
@@ -1278,7 +1312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.OutputStrings.ShowingDifferenceRibbonForEntityFailedFormat1, entityName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
         private async void mIDifferenceEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1300,12 +1334,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            if (service1 == null || service2 == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
             ToggleControls(false, Properties.OutputStrings.ShowingDifferenceRibbonDiffXmlForEntityFormat1, entity.LogicalName);
 
@@ -1398,7 +1437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.OutputStrings.ShowingDifferenceRibbonDiffXmlForEntityFailedFormat1, entity.LogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
         private async void mIConnection1EntityRibbon_Click(object sender, RoutedEventArgs e)
@@ -1432,9 +1471,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
 
@@ -1505,9 +1549,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
 
@@ -1571,9 +1620,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
@@ -1661,6 +1715,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityMetadata1.MetadataId.Value);
         }
 
@@ -1674,6 +1733,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityMetadata2.MetadataId.Value);
         }
@@ -1689,6 +1753,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.OpenFetchXmlFile(service.ConnectionData, _commonConfig, entity.EntityMetadata1.LogicalName);
         }
 
@@ -1702,6 +1771,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.OpenFetchXmlFile(service.ConnectionData, _commonConfig, entity.EntityMetadata2.LogicalName);
         }
@@ -1717,6 +1791,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             service.ConnectionData.OpenEntityInstanceListInWeb(entity.LogicalName);
         }
 
@@ -1730,6 +1809,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             service.ConnectionData.OpenEntityInstanceListInWeb(entity.LogicalName);
         }

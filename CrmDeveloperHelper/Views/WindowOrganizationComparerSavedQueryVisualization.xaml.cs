@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -221,7 +221,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingCharts);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             IEnumerable<LinkedEntities<SavedQueryVisualization>> list = Enumerable.Empty<LinkedEntities<SavedQueryVisualization>>();
 
@@ -1031,6 +1034,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityName);
         }
 
@@ -1046,6 +1054,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityName);
         }
@@ -1063,6 +1076,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.OpenFetchXmlFile(service.ConnectionData, _commonConfig, entity.EntityName);
         }
 
@@ -1078,6 +1096,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.OpenFetchXmlFile(service.ConnectionData, _commonConfig, entity.EntityName);
         }
@@ -1095,6 +1118,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             service.ConnectionData.OpenEntityInstanceListInWeb(entity.EntityName);
         }
 
@@ -1110,6 +1138,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             service.ConnectionData.OpenEntityInstanceListInWeb(entity.EntityName);
         }

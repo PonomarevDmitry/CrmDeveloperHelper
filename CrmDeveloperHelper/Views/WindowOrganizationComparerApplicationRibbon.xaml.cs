@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -191,30 +191,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
+            var connectionData1 = GetConnection1();
+            var connectionData2 = GetConnection2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingApplicationRibbonConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingApplicationRibbonConnectionFormat2, connectionData1.Name, connectionData2.Name);
 
             ToggleControls(false, Properties.OutputStrings.ShowingDifferenceApplicationRibbons);
 
             try
             {
-                string fileName1 = EntityFileNameFormatter.GetApplicationRibbonFileName(service1.ConnectionData.Name);
-                string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
-
+                string filePath1 = string.Empty;
                 string filePath2 = string.Empty;
 
-                var repository1 = new RibbonCustomizationRepository(service1);
-
-                Task<string> task1 = repository1.ExportApplicationRibbonAsync();
+                Task<string> task1 = null;
                 Task<string> task2 = null;
 
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
-                {
-                    var repository2 = new RibbonCustomizationRepository(service2);
+                var service1 = await GetService1();
 
-                    task2 = repository2.ExportApplicationRibbonAsync();
+                if (service1 != null)
+                {
+                    var repository1 = new RibbonCustomizationRepository(service1);
+
+                    task1 = repository1.ExportApplicationRibbonAsync();
+                }
+
+                if (connectionData1.ConnectionId != connectionData2.ConnectionId)
+                {
+                    var service2 = await GetService2();
+
+                    if (service2 != null)
+                    {
+                        var repository2 = new RibbonCustomizationRepository(service2);
+
+                        task2 = repository2.ExportApplicationRibbonAsync();
+                    }
                 }
 
                 if (task1 != null)
@@ -228,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , entityName: string.Empty
                     );
 
-                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service1.ConnectionData.Name);
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(connectionData1.Name);
                     filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     File.WriteAllText(filePath1, ribbonXml, new UTF8Encoding(false));
@@ -245,28 +255,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , entityName: string.Empty
                     );
 
-                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service2.ConnectionData.Name);
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(connectionData2.Name);
                     filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
                 }
 
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service1.ConnectionData.Name, filePath1);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, connectionData1.Name, filePath1);
 
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                if (connectionData1.ConnectionId != connectionData2.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service2.ConnectionData.Name, filePath2);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, connectionData2.Name, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData1, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), connectionData2);
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
+                    this._iWriteToOutput.PerformAction(connectionData1, filePath1);
 
-                    this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
+                    this._iWriteToOutput.PerformAction(connectionData2, filePath2);
                 }
             }
             catch (Exception ex)
@@ -276,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, Properties.OutputStrings.ShowingDifferenceApplicationRibbonsCompleted);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingApplicationRibbonConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingApplicationRibbonConnectionFormat2, connectionData1.Name, connectionData2.Name);
         }
 
         private async void mIDifferenceApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -293,10 +303,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
-            var service1 = await GetService1();
-            var service2 = await GetService2();
+            var connectionData1 = GetConnection1();
+            var connectionData2 = GetConnection2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingApplicationRibbonDiffXmlConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ExportingApplicationRibbonDiffXmlConnectionFormat2, connectionData1.Name, connectionData2.Name);
 
             ToggleControls(false, Properties.OutputStrings.ShowingDifferenceApplicationRibbonsDiffXml);
 
@@ -308,6 +318,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Task<string> task1 = null;
                 Task<string> task2 = null;
 
+                var service1 = await GetService1();
+
+                if (service1 != null)
                 {
                     var repositoryRibbonCustomization = new RibbonCustomizationRepository(service1);
                     var ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
@@ -318,14 +331,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                if (connectionData1.ConnectionId != connectionData2.ConnectionId)
                 {
-                    var repositoryRibbonCustomization = new RibbonCustomizationRepository(service2);
-                    var ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
+                    var service2 = await GetService2();
 
-                    if (ribbonCustomization != null)
+                    if (service2 != null)
                     {
-                        task2 = repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, null, ribbonCustomization);
+                        var repositoryRibbonCustomization = new RibbonCustomizationRepository(service2);
+                        var ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
+
+                        if (ribbonCustomization != null)
+                        {
+                            task2 = repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, null, ribbonCustomization);
+                        }
                     }
                 }
 
@@ -343,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , entityName: string.Empty
                         );
 
-                        string fileName1 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service1.ConnectionData.Name);
+                        string fileName1 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(connectionData1.Name);
                         filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
 
                         File.WriteAllText(filePath1, ribbonDiffXml, new UTF8Encoding(false));
@@ -364,28 +382,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , entityName: string.Empty
                         );
 
-                        string fileName2 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service2.ConnectionData.Name);
+                        string fileName2 = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(connectionData2.Name);
                         filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
 
                         File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
                     }
                 }
 
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, service1.ConnectionData.Name, filePath1);
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, connectionData1.Name, filePath1);
+                if (connectionData1.ConnectionId != connectionData2.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, service2.ConnectionData.Name, filePath2);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, connectionData2.Name, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData1, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), connectionData2);
                 }
                 else
                 {
-                    this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
+                    this._iWriteToOutput.PerformAction(connectionData1, filePath1);
 
-                    this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
+                    this._iWriteToOutput.PerformAction(connectionData2, filePath2);
                 }
 
                 ToggleControls(true, Properties.OutputStrings.ShowingDifferenceApplicationRibbonsDiffXmlCompleted);
@@ -397,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.OutputStrings.ShowingDifferenceApplicationRibbonsDiffXmlFailed);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingApplicationRibbonDiffXmlConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingApplicationRibbonDiffXmlConnectionFormat2, connectionData1.Name, connectionData2.Name);
         }
 
         private async void mIConnection1ApplicationRibbon_Click(object sender, RoutedEventArgs e)
@@ -417,9 +435,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
@@ -476,9 +499,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
@@ -528,9 +556,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 

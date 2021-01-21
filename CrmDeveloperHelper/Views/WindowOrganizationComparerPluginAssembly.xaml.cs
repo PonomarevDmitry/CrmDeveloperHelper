@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -184,12 +184,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingPluginAssemblies);
 
-            this._itemsSource.Clear();
-
             var textName = string.Empty;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 textName = txtBFilter.Text.Trim().ToLower();
             });
 
@@ -783,6 +783,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
         }
 
@@ -793,6 +798,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
         }

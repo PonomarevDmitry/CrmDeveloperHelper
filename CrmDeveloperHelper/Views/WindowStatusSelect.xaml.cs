@@ -143,15 +143,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false, Properties.OutputStrings.FilteringStatusCodesFormat1, _entityName);
 
-            this.lstVwStatusCodes.Dispatcher.Invoke(() =>
-            {
-                _itemsSource.Clear();
-            });
-
             string textName = string.Empty;
 
-            this.txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                _itemsSource.Clear();
+
                 textName = txtBFilter.Text.Trim();
             });
 

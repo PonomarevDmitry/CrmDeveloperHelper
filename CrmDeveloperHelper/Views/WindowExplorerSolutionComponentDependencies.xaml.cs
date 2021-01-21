@@ -196,19 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._itemsSource.Clear();
-
             string textName = string.Empty;
-
-            txtBFilter.Dispatcher.Invoke(() =>
-            {
-                textName = txtBFilter.Text.Trim().ToLower();
-            });
-
             int? category = null;
 
-            cmBComponentType.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
+                textName = txtBFilter.Text.Trim().ToLower();
+
                 if (cmBComponentType.SelectedItem is ComponentType selected)
                 {
                     category = (int)selected;

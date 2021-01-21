@@ -145,7 +145,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             settings.DictDouble[paramColumnFetchTextWidth] = columnFetchText.Width.Value;
             settings.Save();
 
-            this._connectionCache.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._connectionCache.Clear();
+            });
 
             this._serviceLocker.Dispose();
         }

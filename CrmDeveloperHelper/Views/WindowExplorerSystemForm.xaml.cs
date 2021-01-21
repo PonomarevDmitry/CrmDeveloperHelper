@@ -234,11 +234,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingForms);
-
-            this._itemsSource.Clear();
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingForms);
 
             string filterEntity = null;
 
@@ -248,6 +246,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 if (!string.IsNullOrEmpty(cmBEntityName.Text)
                     && cmBEntityName.Items.Contains(cmBEntityName.Text)
                 )
@@ -270,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            if (service.ConnectionData.IsValidEntityName(entityName))
+            if (connectionData.IsValidEntityName(entityName))
             {
                 filterEntity = entityName;
             }
@@ -279,6 +279,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SystemFormRepository(service);
@@ -299,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string textName = string.Empty;
@@ -313,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSystemForms(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingFormsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingFormsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<SystemForm> FilterList(IEnumerable<SystemForm> list, string textName)
@@ -603,6 +605,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
@@ -651,6 +658,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
@@ -830,6 +842,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, SystemForm.EntityLogicalName);
 
             foreach (var systemForm in selectedSystemForms)
@@ -913,6 +930,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
@@ -947,6 +969,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SystemForm.EntityLogicalName, idSystemForm);
@@ -956,29 +983,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SystemForm.EntityLogicalName, name);
 
-            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
-                var service = await GetService();
-
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SystemForm.EntityLogicalName);
-
-                try
-                {
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
-                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SystemForm.EntityLogicalName, idSystemForm);
-
-                    await service.DeleteAsync(SystemForm.EntityLogicalName, idSystemForm);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SystemForm.EntityLogicalName);
-
-                await ShowExistingSystemForms();
+                return;
             }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SystemForm.EntityLogicalName);
+
+            try
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SystemForm.EntityLogicalName, idSystemForm);
+
+                await service.DeleteAsync(SystemForm.EntityLogicalName, idSystemForm);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SystemForm.EntityLogicalName);
+
+            await ShowExistingSystemForms();
         }
 
         private async void mIPublishSystemForm_Click(object sender, RoutedEventArgs e)
@@ -1001,6 +1035,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
 
@@ -1065,6 +1104,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
@@ -1102,6 +1146,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformExportFormDescriptionToFileAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingSystemFormDescriptionFormat2, entityName, name);
 
@@ -1184,6 +1233,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformDownloadWebResources(string folder, Guid idSystemForm, string entityName, string name)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DownloadingSystemFormWebResourcesFormat2, entityName, name);
 
@@ -1315,6 +1369,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityJavaScriptFileOnFormFormat2, entityName, name);
 
@@ -1476,10 +1535,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
+
+            _commonConfig.Save();
 
             try
             {
@@ -1662,9 +1727,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1846,6 +1916,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormFormat2, entityName, name);
 
             var repository = new SystemFormRepository(service);
@@ -1911,6 +1986,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCopyFormJavaScriptTagBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormFormat2, entityName, name);
 

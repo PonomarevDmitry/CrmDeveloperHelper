@@ -293,18 +293,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            var connectionData = GetSelectedConnection();
+
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingEntities);
+
+            this.Dispatcher.Invoke(() =>
+            {
+                _itemsSource.Clear();
+            });
+
+            string textName = string.Empty;
+            RoleEditorLayoutTab selectedTab = null;
+
+            IEnumerable<EntityMetadata> list = Enumerable.Empty<EntityMetadata>();
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntities);
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    _itemsSource.Clear();
-                });
-
-                IEnumerable<EntityMetadata> list = Enumerable.Empty<EntityMetadata>();
+                var service = await GetService();
 
                 if (service != null)
                 {
@@ -320,25 +325,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
                 }
 
-                string textName = string.Empty;
-                RoleEditorLayoutTab selectedTab = null;
-
                 this.Dispatcher.Invoke(() =>
                 {
                     textName = txtBFilterEnitity.Text.Trim().ToLower();
                     selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
                 });
-
-                list = FilterList(list, textName, selectedTab);
-
-                LoadEntities(list);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
+
+            list = FilterList(list, textName, selectedTab);
+
+            LoadEntities(list);
+
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
         }
 
         private IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
@@ -585,6 +587,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repositoryEntityMetadata = new EntityMetadataRepository(service);
             IMetadataProviderService metadataProviderService = new MetadataProviderService(repositoryEntityMetadata);
 
@@ -595,6 +602,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repositoryEntityMetadata = new EntityMetadataRepository(service);
             IMetadataProviderService metadataProviderService = new MetadataProviderService(repositoryEntityMetadata);
 
@@ -604,6 +616,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task ExecuteCreateEntityMetadataFileCSharpSchemaAndProxyAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var repositoryEntityMetadata = new EntityMetadataRepository(service);
             IMetadataProviderService metadataProviderService = new MetadataProviderService(repositoryEntityMetadata);
@@ -756,6 +773,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
@@ -842,6 +864,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, entityMetadata.EntityMetadata.LogicalName, Guid.Empty);
@@ -872,6 +899,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             string operation = string.Format(Properties.OperationNames.CreatingFileWithAttributesDependentComponentsFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
@@ -939,6 +971,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
@@ -999,6 +1036,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadataViewItem.LogicalName);
 
@@ -1288,6 +1330,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
@@ -1303,6 +1350,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1528,6 +1580,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             await ExportEntityRibbon(service, folder, entityMetadata);
 
             await ExportEntityRibbonDiffXml(service, folder, entityMetadata);
@@ -1559,6 +1616,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             await ExportEntityRibbon(service, folder, entityMetadata);
         }
 
@@ -1587,6 +1649,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingRibbonForEntityFormat1, entityMetadata.LogicalName);
 
@@ -1639,6 +1706,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             await ExportEntityRibbonDiffXml(service, folder, entityMetadata);
         }
 
@@ -1666,9 +1738,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var newText = string.Empty;
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var newText = string.Empty;
 
             {
                 bool? dialogResult = false;
@@ -1922,6 +1999,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCreateEntityJavaScriptFile(string folder, EntityMetadataListViewItem entityMetadata, JavaScriptObjectType javaScriptObjectType, string formTypeName, string formTypeConstructorName)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
 

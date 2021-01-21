@@ -353,17 +353,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            var connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntities);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingEntities);
 
-            _itemsSourceEntityList.Clear();
-            _itemsSourceSecurityRoleList.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                _itemsSourceEntityList.Clear();
+                _itemsSourceSecurityRoleList.Clear();
+            });
 
             IEnumerable<EntityMetadataListViewItem> list = Enumerable.Empty<EntityMetadataListViewItem>();
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
@@ -380,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string textName = string.Empty;
@@ -396,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
 
             await ShowEntitySecurityRoles();
         }
@@ -515,9 +520,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            var connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntityPrivileges);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingEntityPrivileges);
 
             string textName = string.Empty;
 
@@ -530,6 +535,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     if (entityMetadata.Privileges != null && entityMetadata.Privileges.Any())
@@ -557,12 +564,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             LoadSecurityRoles(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntityPrivilegesCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntityPrivilegesCompletedFormat1, list.Count());
         }
 
         private void ActivateMenuItemsSetPrivileges(SecurityPrivilegeMetadata[] privileges)
@@ -855,6 +862,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Role, role.Role.RoleId.Value);
         }
 
@@ -1010,9 +1022,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {
@@ -1082,9 +1099,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
@@ -1098,9 +1120,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1138,9 +1165,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Role, role.Role.RoleId.Value, null);
         }
@@ -1154,9 +1186,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1255,12 +1292,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (menuItem.DataContext == null
                 || !(menuItem.DataContext is RoleEntityPrivilegesViewItem role)
-                )
+            )
             {
                 return;
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             IEnumerable<EntityMetadata> entityMetadataList = null;
 
@@ -1281,12 +1323,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (menuItem.DataContext == null
                 || !(menuItem.DataContext is RoleEntityPrivilegesViewItem role)
-                )
+            )
             {
                 return;
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             string operationName = string.Format(Properties.OperationNames.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Role.Name);
 
@@ -1363,6 +1410,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             string operationName = string.Format(Properties.OperationNames.SavingChangesInRolesFormat1, service.ConnectionData.Name);
 

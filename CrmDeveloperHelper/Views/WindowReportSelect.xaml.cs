@@ -79,12 +79,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingReports);
 
-            this._itemsSource.Clear();
-
             string textName = string.Empty;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 textName = txtBFilter.Text.Trim().ToLower();
             });
 

@@ -494,9 +494,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public async void miEntityMetadataExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var entityName = GetEntityName();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityName = GetEntityName();
 
             IEnumerable<EntityMetadata> entityMetadataList = GetEntityMetadataList(service.ConnectionData.ConnectionId);
 
@@ -505,95 +510,135 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entityName);
         }
 
         private async void miEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entityName);
         }
 
         private async void miEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entityName);
         }
 
         private async void miEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entityName);
         }
 
         public async void miEntityPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            IEnumerable<EntityMetadata> entityMetadataList = GetEntityMetadataList(service.ConnectionData.ConnectionId);
+
             var entityName = GetEntityName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
-
-            IEnumerable<EntityMetadata> entityMetadataList = GetEntityMetadataList(service.ConnectionData.ConnectionId);
 
             WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entityName, entityMetadataList);
         }
 
         public async void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            IEnumerable<Privilege> privilegesList = GetOtherPrivilegesList(service.ConnectionData.ConnectionId);
+
             var otherPrivilegeName = GetOtherPrivilegeName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
-
-            IEnumerable<Privilege> privilegesList = GetOtherPrivilegesList(service.ConnectionData.ConnectionId);
 
             WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, otherPrivilegeName, privilegesList);
         }
 
         private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
         {
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             IEnumerable<EntityMetadata> entityMetadataList = GetEntityMetadataList(service.ConnectionData.ConnectionId);
 
             IEnumerable<Privilege> privilegesList = GetOtherPrivilegesList(service.ConnectionData.ConnectionId);
+
+            _commonConfig.Save();
 
             WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entityMetadataList, privilegesList);
         }
 
         private async void miGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
-            var entityName = GetEntityName();
-            var optionSetName = GetGlobalOptionSetName();
-
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var optionSetMetadataList = GetGlobalOptionSetMetadataList(service.ConnectionData.ConnectionId);
+
+            var entityName = GetEntityName();
+            var optionSetName = GetGlobalOptionSetName();
 
             _commonConfig.Save();
 
@@ -617,12 +662,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var entityName = GetEntityName();
-            var optionSetName = GetGlobalOptionSetName();
-
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var optionSetMetadataList = GetGlobalOptionSetMetadataList(service.ConnectionData.ConnectionId);
+
+            var entityName = GetEntityName();
+            var optionSetName = GetGlobalOptionSetName();
 
             _commonConfig.Save();
 
@@ -641,18 +691,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void miSiteMaps_Click(object sender, RoutedEventArgs e)
         {
-            var siteMapName = GetSiteMapName();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var siteMapName = GetSiteMapName();
 
             _commonConfig.Save();
 
@@ -661,9 +721,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miWebResources_Click(object sender, RoutedEventArgs e)
         {
-            var webResourceName = GetWebResourceName();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var webResourceName = GetWebResourceName();
 
             _commonConfig.Save();
 
@@ -672,9 +737,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miReports_Click(object sender, RoutedEventArgs e)
         {
-            var reportName = GetReportName();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var reportName = GetReportName();
 
             _commonConfig.Save();
 
@@ -683,12 +753,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miSystemForms_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var systemFormName = GetSystemFormName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig, entityName, systemFormName);
         }
@@ -700,57 +775,82 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var systemFormName = GetSystemFormName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig, entityName, systemFormName, _selectedItem);
         }
 
         private async void miSavedQuery_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var savedQueryName = GetSavedQueryName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, _commonConfig, entityName, savedQueryName);
         }
 
         private async void miSavedChart_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var chartName = GetSavedQueryVisualizationName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, _commonConfig, entityName, chartName);
         }
 
         private async void miWorkflows_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var workflowName = GetWorkflowName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, entityName, workflowName);
         }
 
         public async void miPluginAssemblies_Click(object sender, RoutedEventArgs e)
         {
-            var pluginAssemblyName = GetPluginAssemblyName();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var pluginAssemblyName = GetPluginAssemblyName();
 
             _commonConfig.Save();
 
@@ -759,9 +859,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public async void miPluginTypes_Click(object sender, RoutedEventArgs e)
         {
-            var pluginTypeName = GetPluginTypeName();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var pluginTypeName = GetPluginTypeName();
 
             _commonConfig.Save();
 
@@ -770,73 +875,103 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public async void miPluginTree_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var pluginTypeName = GetPluginTypeName();
             var messageName = GetMessageName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entityName, pluginTypeName, messageName);
         }
 
         public async void miMessageProcessingStepExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var pluginTypeName = GetPluginTypeName();
             var messageName = GetMessageName();
 
             _commonConfig.Save();
 
-            var service = await GetService();
-
             WindowHelper.OpenSdkMessageProcessingStepExplorer(this._iWriteToOutput, service, _commonConfig, entityName, pluginTypeName, messageName);
         }
 
         public async void miMessageExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var messageName = GetMessageName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, service, _commonConfig, messageName);
         }
 
         public async void miMessageFilterExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var messageName = GetMessageName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSdkMessageFilterExplorer(this._iWriteToOutput, service, _commonConfig, entityName, messageName);
         }
 
         public async void miMessageFilterTree_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var messageName = GetMessageName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, entityName, messageName);
         }
 
         public async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var messageName = GetMessageName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entityName, messageName);
         }
@@ -848,12 +983,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var entityName = GetEntityName();
             var messageName = GetMessageName();
 
             _commonConfig.Save();
-
-            var service = await GetService();
 
             WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, string.Empty, false, _selectedItem, entityName, messageName);
         }

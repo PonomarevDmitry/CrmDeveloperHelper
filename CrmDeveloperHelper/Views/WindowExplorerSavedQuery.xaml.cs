@@ -175,17 +175,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSavedQueries);
-
-            this._itemsSource.Clear();
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSavedQueries);
 
             string entityName = string.Empty;
             SavedQuery.Schema.OptionSets.statuscode? statuscode = null;
 
             this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 if (!string.IsNullOrEmpty(cmBEntityName.Text)
                     && cmBEntityName.Items.Contains(cmBEntityName.Text)
                 )
@@ -201,7 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string filterEntity = null;
 
-            if (service.ConnectionData.IsValidEntityName(entityName))
+            if (connectionData.IsValidEntityName(entityName))
             {
                 filterEntity = entityName;
             }
@@ -210,6 +210,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SavedQueryRepository(service);
@@ -229,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string textName = string.Empty;
@@ -243,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSavedQueries(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSavedQueriesCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSavedQueriesCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<SavedQuery> FilterList(IEnumerable<SavedQuery> list, string textName)
@@ -547,6 +549,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
@@ -579,6 +586,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopingXmlFieldToClipboardFormat1, fieldTitle);
 
@@ -624,6 +636,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
@@ -908,6 +925,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, SavedQuery.EntityLogicalName);
 
             var hashEntities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
@@ -968,6 +990,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
@@ -1002,6 +1029,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQuery.EntityLogicalName, idSavedQuery);
@@ -1011,29 +1043,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SavedQuery.EntityLogicalName, name);
 
-            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
-                var service = await GetService();
-
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
-
-                try
-                {
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
-                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SavedQuery.EntityLogicalName, idSavedQuery);
-
-                    await service.DeleteAsync(SavedQuery.EntityLogicalName, idSavedQuery);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
-
-                await ShowExistingSavedQueries();
+                return;
             }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
+
+            try
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SavedQuery.EntityLogicalName, idSavedQuery);
+
+                await service.DeleteAsync(SavedQuery.EntityLogicalName, idSavedQuery);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
+
+            await ShowExistingSavedQueries();
         }
 
         protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
@@ -1198,9 +1237,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {
@@ -1360,9 +1404,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
@@ -1372,7 +1421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , (int)ComponentType.SavedQuery
                 , entity.Id
                 , null
-                );
+            );
         }
 
         private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
@@ -1384,9 +1433,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1502,6 +1556,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 

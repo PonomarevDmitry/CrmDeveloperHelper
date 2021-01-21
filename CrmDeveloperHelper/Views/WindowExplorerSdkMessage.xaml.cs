@@ -154,16 +154,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSdkMessage);
-
-            this._itemsSource.Clear();
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSdkMessage);
 
             string textName = string.Empty;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 textName = txtBFilter.Text.Trim().ToLower();
             });
 
@@ -171,6 +171,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SdkMessageRepository(service);
@@ -198,12 +200,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             LoadSdkMessages(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSdkMessageCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSdkMessageCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -426,6 +428,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             var repository = new SdkMessageRepository(service);
@@ -452,6 +459,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SdkMessage.EntityLogicalName, idSdkMessage);
@@ -461,29 +473,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SdkMessage.EntityLogicalName, name);
 
-            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
-                var service = await GetService();
-
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SdkMessage.EntityLogicalName);
-
-                try
-                {
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
-                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SdkMessage.EntityLogicalName, idSdkMessage);
-
-                    await service.DeleteAsync(SdkMessage.EntityLogicalName, idSdkMessage);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SdkMessage.EntityLogicalName);
-
-                await ShowExistingMessages();
+                return;
             }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SdkMessage.EntityLogicalName);
+
+            try
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SdkMessage.EntityLogicalName, idSdkMessage);
+
+                await service.DeleteAsync(SdkMessage.EntityLogicalName, idSdkMessage);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SdkMessage.EntityLogicalName);
+
+            await ShowExistingMessages();
         }
 
         protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
@@ -536,10 +555,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
+
+            _commonConfig.Save();
 
             try
             {
@@ -574,9 +599,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
@@ -598,9 +628,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -682,6 +717,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 

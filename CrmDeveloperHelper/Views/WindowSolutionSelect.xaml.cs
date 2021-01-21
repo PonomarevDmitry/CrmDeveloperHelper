@@ -87,7 +87,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingSolutions);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             List<Solution> list = null;
 

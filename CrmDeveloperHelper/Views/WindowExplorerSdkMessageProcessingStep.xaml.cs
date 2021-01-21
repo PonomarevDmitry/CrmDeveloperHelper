@@ -245,9 +245,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            var connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingPlugins);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingPlugins);
 
             string entityNameFilter = string.Empty;
             string messageNameFilter = string.Empty;
@@ -276,6 +276,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SdkMessageProcessingStepRepository(service);
@@ -287,8 +289,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                ToggleControls(service.ConnectionData, true, string.Empty);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                ToggleControls(connectionData, true, string.Empty);
             }
 
             this.lstVwPluginSteps.Dispatcher.Invoke(() =>
@@ -314,7 +316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginsCompleted);
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingPluginsCompleted);
         }
 
         private class SdkMessageProcessingStepViewItem
@@ -626,11 +628,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingDescription);
 
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
             string fileName = string.Empty;
 
@@ -903,6 +910,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
@@ -958,6 +970,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1035,6 +1052,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
         }
@@ -1167,6 +1189,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.SdkMessageProcessingStep, nodeItem.SdkMessageProcessingStep.Id, null);
         }
 
@@ -1189,6 +1216,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1279,6 +1311,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new SdkMessageProcessingStepRepository(service);
 
             var steps = new List<SdkMessageProcessingStep>();
@@ -1340,6 +1377,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
@@ -1383,6 +1425,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new SdkMessageProcessingStepRepository(service);
 
             var steps = new List<SdkMessageProcessingStep>();
@@ -1422,6 +1469,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var step = new SdkMessageProcessingStep()
             {
                 EventHandler = nodeStep.SdkMessageProcessingStep.EventHandler,
@@ -1454,6 +1506,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task ExecuteAddingPluginStepImage(SdkMessageProcessingStepViewItem nodeStep)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var image = new SdkMessageProcessingStepImage()
             {
@@ -1501,6 +1558,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             List<SdkMessageFilter> filters = await GetSdkMessageFiltersAsync(service);
 
             var repositoryStep = new SdkMessageProcessingStepRepository(service);
@@ -1525,6 +1587,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             _commonConfig.Save();
 
@@ -1554,6 +1621,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, SdkMessageProcessingStep.EntityLogicalName);
 
@@ -1602,22 +1674,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SdkMessageProcessingStep.EntityLogicalName, nodeItem.Name);
 
-            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
-                var service = await GetService();
-
-                try
-                {
-                    await service.DeleteAsync(referenceToDelete.LogicalName, referenceToDelete.Id);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
-
-                await ShowExistingPluginSteps();
+                return;
             }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            try
+            {
+                await service.DeleteAsync(referenceToDelete.LogicalName, referenceToDelete.Id);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            await ShowExistingPluginSteps();
         }
 
         private async void mICompareWithLocalAssembly_Click(object sender, RoutedEventArgs e)
@@ -1629,9 +1708,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, nodeItem.Name);
 
@@ -1652,6 +1736,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task ExecuteRegisterNewAssembly()
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var pluginAssembly = new PluginAssembly()
             {

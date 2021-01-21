@@ -158,34 +158,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingTraceFiles);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingTraceFiles);
 
-            this._itemsSource.Clear();
-
-            this.tabControl.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 tabControl.SelectedItem = tbITraces;
             });
 
             var taskFiles = TraceRecord.ParseFilesAsync(files);
 
-            if (service != null)
+            try
             {
-                if (!_systemUserCache.ContainsKey(service.ConnectionData.ConnectionId))
+                var service = await GetService();
+
+                if (service != null)
                 {
-                    var repository = new SystemUserRepository(service);
+                    if (!_systemUserCache.ContainsKey(service.ConnectionData.ConnectionId))
+                    {
+                        var repository = new SystemUserRepository(service);
 
-                    var list = await repository.GetListAsync(null, new ColumnSet(SystemUser.Schema.EntityPrimaryIdAttribute, SystemUser.Schema.Attributes.fullname));
+                        var list = await repository.GetListAsync(null, new ColumnSet(SystemUser.Schema.EntityPrimaryIdAttribute, SystemUser.Schema.Attributes.fullname));
 
-                    _systemUserCache.Add(service.ConnectionData.ConnectionId, list.ToDictionary(e => e.Id));
+                        _systemUserCache.Add(service.ConnectionData.ConnectionId, list.ToDictionary(e => e.Id));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             _loadedRecords = await taskFiles;
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingTraceFilesCompletedFormat1, _loadedRecords.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingTraceFilesCompletedFormat1, _loadedRecords.Count());
 
             await FilterExistingTraceRecords();
         }
@@ -197,7 +206,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             ConnectionData connectionData = GetSelectedConnection();
 

@@ -235,16 +235,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSdkMessage);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSdkMessage);
 
             string entityName = string.Empty;
             string messageName = string.Empty;
 
             this.Dispatcher.Invoke(() =>
             {
-                _messageTree.Clear();
+                this._messageTree.Clear();
 
                 entityName = cmBEntityName.Text?.Trim();
                 messageName = txtBMessageFilter.Text.Trim();
@@ -254,6 +254,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SdkMessageFilterRepository(service);
@@ -271,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             if (search != null)
@@ -301,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSdkMessageCompleted);
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSdkMessageCompleted);
         }
 
         private void FillTreeByEntity(IEnumerable<SdkMessageFilter> result)
@@ -667,6 +669,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingDescription);
@@ -924,9 +931,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (componentType.HasValue && id.HasValue)
             {
-                _commonConfig.Save();
-
                 var service = await GetService();
+
+                if (service == null)
+                {
+                    return;
+                }
+
+                _commonConfig.Save();
 
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
@@ -973,21 +985,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ComponentType? componentType = nodeItem.ComponentType;
+            Guid? id = nodeItem.GetId();
+
             _commonConfig.Save();
 
-            ConnectionData connectionData = GetSelectedConnection();
-
-            if (connectionData != null)
+            if (componentType.HasValue && id.HasValue)
             {
-                var service = await GetService();
-
-                ComponentType? componentType = nodeItem.ComponentType;
-                Guid? id = nodeItem.GetId();
-
-                if (componentType.HasValue && id.HasValue)
-                {
-                    WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)nodeItem.ComponentType.Value, id.Value, null);
-                }
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)nodeItem.ComponentType.Value, id.Value, null);
             }
         }
 
@@ -1066,9 +1078,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var entityName = nodeItem.EntityLogicalName;
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityName = nodeItem.EntityLogicalName;
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
@@ -1122,9 +1139,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1199,9 +1221,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
         }
@@ -1296,9 +1323,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {

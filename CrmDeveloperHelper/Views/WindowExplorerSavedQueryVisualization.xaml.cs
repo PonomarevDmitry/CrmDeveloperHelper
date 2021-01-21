@@ -168,11 +168,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingCharts);
-
-            this._itemsSource.Clear();
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingCharts);
 
             string filterEntity = null;
 
@@ -180,6 +178,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 if (!string.IsNullOrEmpty(cmBEntityName.Text)
                     && cmBEntityName.Items.Contains(cmBEntityName.Text)
                 )
@@ -188,7 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            if (service.ConnectionData.IsValidEntityName(entityName))
+            if (connectionData.IsValidEntityName(entityName))
             {
                 filterEntity = entityName;
             }
@@ -197,6 +197,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SavedQueryVisualizationRepository(service);
@@ -211,7 +213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string textName = string.Empty;
@@ -225,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSystemCharts(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingChartsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingChartsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<SavedQueryVisualization> FilterList(IEnumerable<SavedQueryVisualization> list, string textName)
@@ -491,6 +493,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
@@ -523,6 +530,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
@@ -660,6 +672,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
@@ -694,6 +711,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.Save();
 
             var repositoryPublish = new PublishActionsRepository(service);
@@ -705,29 +727,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SavedQueryVisualization.EntityLogicalName, name);
 
-            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
-                var service = await GetService();
-
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SavedQueryVisualization.EntityLogicalName);
-
-                try
-                {
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
-                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
-
-                    await service.DeleteAsync(SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SavedQueryVisualization.EntityLogicalName);
-
-                await ShowExistingCharts();
+                return;
             }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, SavedQueryVisualization.EntityLogicalName);
+
+            try
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
+
+                await service.DeleteAsync(SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, SavedQueryVisualization.EntityLogicalName);
+
+            await ShowExistingCharts();
         }
 
         protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
@@ -815,9 +844,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {
@@ -957,9 +991,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
@@ -969,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , (int)ComponentType.SavedQueryVisualization
                 , entity.Id
                 , null
-                );
+            );
         }
 
         private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
@@ -981,9 +1020,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -1063,6 +1107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 

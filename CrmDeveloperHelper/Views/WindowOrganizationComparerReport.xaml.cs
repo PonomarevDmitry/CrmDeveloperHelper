@@ -162,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -189,12 +189,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingReports);
 
-            this._itemsSource.Clear();
-
             var textName = string.Empty;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 textName = txtBFilter.Text.Trim().ToLower();
             });
 
@@ -1142,9 +1142,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var entity = GetSelectedEntity();
 
-            _commonConfig.Save();
-
             var service = await GetService1();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReportName1 ?? txtBFilter.Text);
         }
@@ -1153,9 +1158,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var entity = GetSelectedEntity();
 
-            _commonConfig.Save();
-
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReportName2 ?? txtBFilter.Text);
         }
@@ -1223,12 +1233,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             service.ConnectionData.OpenEntityInstanceListInWeb(Report.EntityLogicalName);
         }
 
         private async void mIConnection2OpenReportListInWeb_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             service.ConnectionData.OpenEntityInstanceListInWeb(Report.EntityLogicalName);
         }

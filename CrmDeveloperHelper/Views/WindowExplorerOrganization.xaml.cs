@@ -116,16 +116,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingOrganizations);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingOrganizations);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             IEnumerable<Organization> list = Enumerable.Empty<Organization>();
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new OrganizationRepository(service);
@@ -134,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string textName = string.Empty;
@@ -148,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSavedOrganizations(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingOrganizationsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingOrganizationsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<Organization> FilterList(IEnumerable<Organization> list, string textName)
@@ -314,16 +319,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(folder, organization);
         }
 
-        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string siteMapXml)
+        private Task<string> CreateFileAsync(ConnectionData connectionData, string folder, string name, string fieldTitle, string siteMapXml)
         {
-            return Task.Run(() => CreateFile(folder, name, fieldTitle, siteMapXml));
+            return Task.Run(() => CreateFile(connectionData, folder, name, fieldTitle, siteMapXml));
         }
 
-        private async Task<string> CreateFile(string folder, string name, string fieldTitle, string siteMapXml)
+        private string CreateFile(ConnectionData connectionData, string folder, string name, string fieldTitle, string siteMapXml)
         {
-            var service = await GetService();
-
-            string fileName = EntityFileNameFormatter.GetOrganizationFileName(service.ConnectionData.Name, name, fieldTitle, FileExtension.xml);
+            string fileName = EntityFileNameFormatter.GetOrganizationFileName(connectionData.Name, name, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(siteMapXml))
@@ -350,17 +353,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, Organization.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, connectionData.Name, Organization.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
                 }
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, Organization.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, connectionData.Name, Organization.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -426,13 +429,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
                 string xmlContent = organization.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, organization.Name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData, folder, organization.Name, fieldTitle, xmlContent);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -455,13 +463,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
             try
             {
                 string xmlContent = organization.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, organization.Name, fieldTitle + " BackUp", xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData, folder, organization.Name, fieldTitle + " BackUp", xmlContent);
 
                 var newText = string.Empty;
                 bool? dialogResult = false;
@@ -535,6 +548,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Organization.EntityLogicalName, organization.Id);
@@ -543,6 +561,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformExportEntityDescription(string folder, Organization organization)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
@@ -758,13 +781,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ShowingDifferenceForFieldsFormat2, fieldTitle1, fieldTitle2);
 
             string xmlContent1 = organization.GetAttributeValue<string>(fieldName1);
-            string filePath1 = await CreateFileAsync(folder, organization.Name, fieldTitle1, xmlContent1);
+            string filePath1 = await CreateFileAsync(service.ConnectionData, folder, organization.Name, fieldTitle1, xmlContent1);
 
             string xmlContent2 = organization.GetAttributeValue<string>(fieldName2);
-            string filePath2 = await CreateFileAsync(folder, organization.Name, fieldTitle2, xmlContent2);
+            string filePath2 = await CreateFileAsync(service.ConnectionData, folder, organization.Name, fieldTitle2, xmlContent2);
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {

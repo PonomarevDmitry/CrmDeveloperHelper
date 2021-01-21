@@ -122,8 +122,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ShowExistingAssemblies()
         {
-            this._itemsSource.Clear();
-
             ToggleControls(null, false, Properties.OutputStrings.LoadingPluginAssemblies);
 
             IEnumerable<PluginAssembly> filter = null;
@@ -139,8 +137,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string textName = string.Empty;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 textName = txtBFilter.Text.Trim().ToLower();
             });
 

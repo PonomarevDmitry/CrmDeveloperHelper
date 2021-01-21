@@ -172,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -199,7 +199,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingSiteMaps);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             IEnumerable<LinkedEntities<SiteMap>> list = Enumerable.Empty<LinkedEntities<SiteMap>>();
 
@@ -894,6 +897,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
@@ -902,6 +910,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, _commonConfig);
         }

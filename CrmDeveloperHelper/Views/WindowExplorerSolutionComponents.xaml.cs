@@ -197,12 +197,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._itemsSource.Clear();
-
             int? category = null;
 
-            cmBComponentType.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 if (cmBComponentType.SelectedItem is ComponentType comp)
                 {
                     category = (int)comp;

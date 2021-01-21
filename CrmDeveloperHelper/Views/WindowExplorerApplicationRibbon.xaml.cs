@@ -293,6 +293,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             await ExportApplicationRibbon(service);
 
             await ExportApplicationRibbonDiffXml(service);
@@ -312,6 +317,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             await ExportApplicationRibbon(service);
         }
 
@@ -328,6 +338,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             await ExportApplicationRibbonDiffXml(service);
         }
@@ -349,6 +364,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
@@ -398,6 +418,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
@@ -503,6 +528,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingApplicationRibbonFormat1, service.ConnectionData.Name);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionPublishingApplicationRibbonFormat1, service.ConnectionData.Name);
@@ -536,6 +566,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new RibbonCustomizationRepository(service);
 
             var ribbonCustomization = await repository.FindApplicationRibbonCustomizationAsync();
@@ -559,6 +594,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new RibbonCustomizationRepository(service);
 
             var ribbonCustomization = await repository.FindApplicationRibbonCustomizationAsync();
@@ -572,6 +612,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void miApplicationRibbonOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var repository = new RibbonCustomizationRepository(service);
 
@@ -610,6 +655,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task AddApplicationRibbonToSolution(bool withSelect, string solutionUniqueName)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var repository = new RibbonCustomizationRepository(service);
 

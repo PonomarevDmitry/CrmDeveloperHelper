@@ -181,9 +181,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
 
-            txtBFilePath.Text = string.Empty;
+                txtBFilePath.Text = string.Empty;
+            });
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -238,7 +241,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._itemsSource?.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource?.Clear();
+            });
 
             ToggleControls(null, false, Properties.OutputStrings.FilteringOrganizationDifferenceImageComponents);
 
@@ -486,6 +492,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
@@ -515,6 +527,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
@@ -549,6 +567,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
@@ -581,6 +605,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
@@ -631,6 +661,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(solutionImageComponents);

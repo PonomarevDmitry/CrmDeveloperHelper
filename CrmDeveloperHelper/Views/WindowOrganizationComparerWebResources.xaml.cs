@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -200,6 +200,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 textName = txtBFilter.Text.Trim().ToLower();
 
                 if (cmBManaged.SelectedItem is ComboBoxItem comboBoxItemManaged
@@ -223,8 +225,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     webResourceType = (int)webresourcetype;
                 }
             });
-
-            this._itemsSource.Clear();
 
             IEnumerable<LinkedEntities<WebResource>> list = Enumerable.Empty<LinkedEntities<WebResource>>();
 
@@ -1025,6 +1025,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
+            if (service == null)
+            {
+                return;
+            }
+
             WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, _commonConfig, entity?.WebResourceName ?? txtBFilter.Text);
         }
 
@@ -1035,6 +1040,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService2();
+
+            if (service == null)
+            {
+                return;
+            }
 
             WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, _commonConfig, entity?.WebResourceName ?? txtBFilter.Text);
         }

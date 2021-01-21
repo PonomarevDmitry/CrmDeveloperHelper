@@ -1602,9 +1602,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingPlugins);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingPlugins);
 
             string entityName = string.Empty;
             string messageName = string.Empty;
@@ -1614,32 +1614,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             bool withBusinessProcesses = false;
             SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode = null;
 
+            this.Dispatcher.Invoke(() =>
+            {
+                this.trVPluginTree.BeginInit();
+
+                this._pluginTree.Clear();
+
+                this.trVPluginTree.EndInit();
+
+                entityName = cmBEntityName.Text?.Trim();
+                messageName = txtBMessageFilter.Text.Trim();
+                pluginTypeName = txtBPluginTypeFilter.Text.Trim();
+                withBusinessRules = chBBusinessRules.IsChecked.GetValueOrDefault();
+                withBusinessProcesses = chBBusinessProcesses.IsChecked.GetValueOrDefault();
+
+                if (cmBStatusCode.SelectedItem is SdkMessageProcessingStep.Schema.OptionSets.statuscode comboBoxItem)
+                {
+                    statuscode = comboBoxItem;
+                }
+            });
+
+            var stages = GetStages();
+
+            IEnumerable<PluginTreeViewItem> listNewNodes = Enumerable.Empty<PluginTreeViewItem>();
+
             try
             {
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.trVPluginTree.BeginInit();
-
-                    _pluginTree.Clear();
-
-                    this.trVPluginTree.EndInit();
-
-                    entityName = cmBEntityName.Text?.Trim();
-                    messageName = txtBMessageFilter.Text.Trim();
-                    pluginTypeName = txtBPluginTypeFilter.Text.Trim();
-                    withBusinessRules = chBBusinessRules.IsChecked.GetValueOrDefault();
-                    withBusinessProcesses = chBBusinessProcesses.IsChecked.GetValueOrDefault();
-
-                    if (cmBStatusCode.SelectedItem is SdkMessageProcessingStep.Schema.OptionSets.statuscode comboBoxItem)
-                    {
-                        statuscode = comboBoxItem;
-                    }
-                });
-
-                var stages = GetStages();
-
-                IEnumerable<PluginTreeViewItem> listNewNodes = Enumerable.Empty<PluginTreeViewItem>();
+                var service = await GetService();
 
                 if (service != null)
                 {
@@ -1655,26 +1656,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     base.StartGettingSdkMessageFilters(service);
                 }
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.trVPluginTree.BeginInit();
-
-                    foreach (var nodeEntity in listNewNodes)
-                    {
-                        _pluginTree.Add(nodeEntity);
-                    }
-
-                    this.trVPluginTree.EndInit();
-                });
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginsCompleted);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                ToggleControls(service.ConnectionData, true, string.Empty);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
+
+            this.Dispatcher.Invoke(() =>
+            {
+                this.trVPluginTree.BeginInit();
+
+                foreach (var nodeEntity in listNewNodes)
+                {
+                    _pluginTree.Add(nodeEntity);
+                }
+
+                this.trVPluginTree.EndInit();
+            });
+
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingPluginsCompleted);
         }
 
         public List<PluginStage> GetStages()
@@ -2478,6 +2478,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingDescription);
@@ -2991,9 +2996,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var entityName = nodeItem.EntityLogicalName;
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityName = nodeItem.EntityLogicalName;
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
@@ -3047,9 +3057,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -3124,9 +3139,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
         }
@@ -3227,12 +3247,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (nodeItem == null
                 || nodeItem.ComponentType != ComponentType.Workflow
                 || !nodeItem.WorkflowId.HasValue
-                )
+            )
             {
                 return;
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var repository = new WorkflowRepository(service);
             var workflow = await repository.GetByIdAsync(nodeItem.WorkflowId.Value, new ColumnSet(Workflow.Schema.Attributes.name, Workflow.Schema.Attributes.primaryentity));
@@ -3289,6 +3314,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
+                if (service == null)
+                {
+                    return;
+                }
+
                 ComponentType? componentType = nodeItem.ComponentType;
                 Guid? id = nodeItem.GetId();
 
@@ -3320,9 +3350,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (componentType.HasValue && id.HasValue)
             {
-                _commonConfig.Save();
-
                 var service = await GetService();
+
+                if (service == null)
+                {
+                    return;
+                }
+
+                _commonConfig.Save();
 
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
@@ -3428,6 +3463,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new SdkMessageProcessingStepRepository(service);
 
             var steps = await repository.GetAllStepsByPluginTypeAsync(idPluginType);
@@ -3483,9 +3523,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddAssemblyToSolution(Guid idPluginAssembly, bool withSelect, string solutionUniqueName)
         {
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {
@@ -3533,6 +3578,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new SdkMessageProcessingStepRepository(service);
 
             var steps = await repository.GetAllStepsByPluginAssemblyAsync(idPluginAssembly);
@@ -3574,6 +3624,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task ExecuteAddingNewPluginStep(PluginTreeViewItem nodePluginType)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var step = new SdkMessageProcessingStep()
             {
@@ -3625,6 +3680,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             var image = new SdkMessageProcessingStepImage()
             {
                 SdkMessageProcessingStepId = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeStep.StepId.Value),
@@ -3670,6 +3730,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task ExecuteUpdateSdkObject(PluginTreeViewItem nodeItem)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage && nodeItem.StepImageId.HasValue)
             {
@@ -3748,6 +3813,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var service = await GetService();
 
+                    if (service == null)
+                    {
+                        return;
+                    }
+
                     _commonConfig.Save();
 
                     WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, componentEntityName, id.Value);
@@ -3787,37 +3857,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 status = nodeItem.IsActive ? (int)Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1 : (int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2;
             }
 
-            if (referenceToChangeState != null
-                && state.HasValue
-                && status.HasValue
+            if (referenceToChangeState == null
+                || !state.HasValue
+                || !status.HasValue
             )
             {
-                var service = await GetService();
+                return;
+            }
 
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, referenceToChangeState.LogicalName);
+            var service = await GetService();
 
-                try
+            if (service == null)
+            {
+                return;
+            }
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, referenceToChangeState.LogicalName);
+
+            try
+            {
+                await service.ExecuteAsync<Microsoft.Crm.Sdk.Messages.SetStateResponse>(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
                 {
-                    await service.ExecuteAsync<Microsoft.Crm.Sdk.Messages.SetStateResponse>(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
-                    {
-                        EntityMoniker = referenceToChangeState,
-                        State = new OptionSetValue(state.Value),
-                        Status = new OptionSetValue(status.Value),
-                    });
+                    EntityMoniker = referenceToChangeState,
+                    State = new OptionSetValue(state.Value),
+                    Status = new OptionSetValue(status.Value),
+                });
 
-                    nodeItem.IsActive = !nodeItem.IsActive;
+                nodeItem.IsActive = !nodeItem.IsActive;
 
-                    nodeItem.CorrectImage();
+                nodeItem.CorrectImage();
 
-                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, referenceToChangeState.LogicalName);
-                }
-                catch (Exception ex)
-                {
-                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateFailedFormat1, referenceToChangeState.LogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, referenceToChangeState.LogicalName);
+            }
+            catch (Exception ex)
+            {
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateFailedFormat1, referenceToChangeState.LogicalName);
 
-                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
         }
 
@@ -3858,45 +3935,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 referenceToDelete = new EntityReference(Workflow.EntityLogicalName, nodeItem.WorkflowId.Value);
             }
 
-            if (referenceToDelete != null)
+            if (referenceToDelete == null)
             {
-                string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, nodeItem.ComponentType, nodeItem.Name);
+                return;
+            }
 
-                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, nodeItem.ComponentType, nodeItem.Name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            try
+            {
+                await service.DeleteAsync(referenceToDelete.LogicalName, referenceToDelete.Id);
+
+                if (nodeItem.Parent != null)
                 {
-                    var service = await GetService();
+                    nodeItem.Parent.Items.Remove(nodeItem);
+                    CheckChildNodes(nodeItem.Parent);
+                }
+                else if (trVPluginTree.ItemsSource != null
+                    && trVPluginTree.ItemsSource is ObservableCollection<PluginTreeViewItem> list
+                    && list.Contains(nodeItem)
+                )
+                {
+                    var index = list.IndexOf(nodeItem) - 1;
+                    list.Remove(nodeItem);
 
-                    try
+                    if (0 <= index && index < list.Count)
                     {
-                        await service.DeleteAsync(referenceToDelete.LogicalName, referenceToDelete.Id);
-
-                        if (nodeItem.Parent != null)
-                        {
-                            nodeItem.Parent.Items.Remove(nodeItem);
-                            CheckChildNodes(nodeItem.Parent);
-                        }
-                        else if (trVPluginTree.ItemsSource != null
-                            && trVPluginTree.ItemsSource is ObservableCollection<PluginTreeViewItem> list
-                            && list.Contains(nodeItem)
-                        )
-                        {
-                            var index = list.IndexOf(nodeItem) - 1;
-                            list.Remove(nodeItem);
-
-                            if (0 <= index && index < list.Count)
-                            {
-                                list[index].IsSelected = true;
-                            }
-                        }
-
-                        trVPluginTree.UpdateLayout();
-                    }
-                    catch (Exception ex)
-                    {
-                        _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                        _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                        list[index].IsSelected = true;
                     }
                 }
+
+                trVPluginTree.UpdateLayout();
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
         }
 
@@ -3928,9 +4014,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, nodeItem.Name);
 
@@ -3951,6 +4042,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task ExecuteRegisterNewAssembly()
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             var pluginAssembly = new PluginAssembly()
             {

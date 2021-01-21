@@ -210,16 +210,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSolutions);
-
-            this._itemsSource.Clear();
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSolutions);
 
             string textName = string.Empty;
 
-            cmBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
+
                 textName = cmBFilter.Text?.Trim().ToLower();
             });
 
@@ -227,6 +227,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SolutionRepository(service);
@@ -236,12 +238,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             LoadSolutions(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -581,17 +583,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var service = await GetService();
 
-                        SolutionRepository repository = new SolutionRepository(service);
+                        if (service != null)
+                        {
+                            SolutionRepository repository = new SolutionRepository(service);
 
-                        var solutionsTask = await repository.GetSolutionsVisibleUnmanagedAsync(listSolutionNames);
+                            var solutionsTask = await repository.GetSolutionsVisibleUnmanagedAsync(listSolutionNames);
 
-                        var lastSolutions = solutionsTask.ToDictionary(s => s.UniqueName, StringComparer.InvariantCultureIgnoreCase);
+                            var lastSolutions = solutionsTask.ToDictionary(s => s.UniqueName, StringComparer.InvariantCultureIgnoreCase);
 
-                        var listTo = listSolutionNames.Where(s => lastSolutions.ContainsKey(s)).Select(s => lastSolutions[s]).ToList();
+                            var listTo = listSolutionNames.Where(s => lastSolutions.ContainsKey(s)).Select(s => lastSolutions[s]).ToList();
 
-                        FillCopyComponentsMenuItems(tSDDBCopyComponentsLastSolution, listFrom, listTo);
+                            FillCopyComponentsMenuItems(tSDDBCopyComponentsLastSolution, listFrom, listTo);
 
-                        FillRemoveComponentsMenuItems(tSDDBRemoveComponentsLastSolution, listFrom, listTo);
+                            FillRemoveComponentsMenuItems(tSDDBRemoveComponentsLastSolution, listFrom, listTo);
+                        }
                     }
                 }
             }
@@ -1123,6 +1128,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task<bool> CheckImportPossibility(ConnectionData targetConnectionData, Solution solution)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return false;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingAllRequiredComponentsFormat1, solution.UniqueName);
@@ -1235,8 +1246,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(exportFolder))
             {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportSolutionIsEmpty);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FolderForExportSolutionIsEmpty);
                 _iWriteToOutput.ActivateOutputWindow(connectionData, this);
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
                 return;
             }
 
@@ -1279,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Directory.CreateDirectory(fileExportFolder);
             }
 
-            ExportSolutionOverrideInformation solutionExportInfo = new ExportSolutionOverrideInformation(
+            var solutionExportInfo = new ExportSolutionOverrideInformation(
                 exportSolutionProfile.IsOverrideSolutionNameAndVersion
                 , uniqueName
                 , displayName
@@ -1288,7 +1306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , description
                 );
 
-            ExportSolutionConfig config = new ExportSolutionConfig()
+            var config = new ExportSolutionConfig()
             {
                 ExportAutoNumberingSettings = exportSolutionProfile.ExportAutoNumberingSettings,
                 ExportCalendarSettings = exportSolutionProfile.ExportCalendarSettings,
@@ -1310,8 +1328,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ExportFolder = fileExportFolder,
             };
-
-            var service = await GetService();
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingSolutionFormat1, solution.UniqueName);
 
@@ -1562,6 +1578,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
@@ -1601,6 +1622,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
@@ -1628,6 +1654,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCreateFileWithSolutionComponents(string folder, Solution solution)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {
@@ -1665,6 +1696,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformOpenSolutionComponentsInExplorer(string folder, Solution solution)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {
@@ -1715,6 +1751,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformShowingMissingDependencies(string folder, Solution solution)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {
@@ -1767,6 +1808,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformShowingDependenciesForUninstall(string folder, Solution solution)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {
@@ -1903,6 +1949,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
@@ -1930,6 +1981,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCompareSolutionsAndShowUnique(string folder, Solution solution1, Solution solution2)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {
@@ -2070,6 +2126,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopingSolutionComponentsToFromFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
@@ -2183,6 +2244,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCopyFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
 
@@ -2325,6 +2391,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
@@ -2437,9 +2508,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformRemoveFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
         {
-            string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
+           var service = await GetService();
 
-            var service = await GetService();
+            if (service == null)
+            {
+                return;
+            }
+
+            string sourceName = string.Join(",", solutionSourceCollection.Select(e => e.UniqueName).OrderBy(s => s));
 
             try
             {
@@ -2610,6 +2686,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             service.ConnectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
         }
 
@@ -2634,6 +2715,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformClearUnmanagedSolution(string folder, Solution solution)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             var descriptor = GetSolutionComponentDescriptor(service);
 
             try
@@ -2764,6 +2851,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
@@ -2806,6 +2898,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
@@ -2846,6 +2943,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformCreateFileWithUsedNotExistsEntitiesInWorkflows(string folder, Solution solution)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {
@@ -3098,6 +3200,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {

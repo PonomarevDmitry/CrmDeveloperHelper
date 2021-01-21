@@ -154,16 +154,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSiteMaps);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSiteMaps);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             IEnumerable<SiteMap> list = Enumerable.Empty<SiteMap>();
 
             try
             {
+                var service = await GetService();
+
                 if (service != null)
                 {
                     var repository = new SiteMapRepository(service);
@@ -173,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string textName = string.Empty;
@@ -187,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSiteMaps(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSiteMapsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSiteMapsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<SiteMap> FilterList(IEnumerable<SiteMap> list, string textName)
@@ -456,6 +461,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
@@ -488,6 +498,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
@@ -597,6 +612,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
@@ -654,6 +674,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformPublishSiteMap(string folder, Guid idSiteMap, string name, string nameUnique)
         {
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
 
@@ -762,9 +787,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {
@@ -799,9 +829,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
@@ -811,7 +846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , (int)ComponentType.SiteMap
                 , entity.Id
                 , null
-                );
+            );
         }
 
         private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
@@ -823,9 +858,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
@@ -885,7 +925,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            var repositoryPublish = new PublishActionsRepository(service);
+            if (service == null)
+            {
+                return;
+            }
 
             _commonConfig.Save();
 

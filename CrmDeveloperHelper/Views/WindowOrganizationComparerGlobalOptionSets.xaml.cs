@@ -9,7 +9,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -204,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = null;
 
-            cmBConnection1.Dispatcher.Invoke(() =>
+            cmBConnection2.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
@@ -248,7 +247,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingOptionSets);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             IEnumerable<LinkedOptionSetMetadata> list = Enumerable.Empty<LinkedOptionSetMetadata>();
 
@@ -507,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (_cacheOptionSetMetadata.TryGetValue(service1.ConnectionData.ConnectionId, out var optionSets1)
                     && _cacheOptionSetMetadata.TryGetValue(service2.ConnectionData.ConnectionId, out var optionSets2)
-                    )
+                )
                 {
                     await PerformComparingCSharpFiles(optionSets1, optionSets2);
                 }
@@ -546,10 +548,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service1 = await GetService1();
             var service2 = await GetService2();
+
+            if (service1 == null || service2 == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             string optionSetsName = string.Join(",", optionSets1.Select(o => o.Name).OrderBy(s => s));
 
@@ -639,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (_cacheOptionSetMetadata.TryGetValue(service1.ConnectionData.ConnectionId, out var optionSets1)
                     && _cacheOptionSetMetadata.TryGetValue(service2.ConnectionData.ConnectionId, out var optionSets2)
-                    )
+                )
                 {
                     await PerformComparingJavaScriptFile(optionSets1, optionSets2);
                 }
@@ -678,10 +685,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
-
             var service1 = await GetService1();
             var service2 = await GetService2();
+
+            if (service1 == null || service2 == null)
+            {
+                return;
+            }
+
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             string optionSetsName = string.Join(",", optionSets1.Select(o => o.Name).OrderBy(s => s));
 
@@ -826,6 +838,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
@@ -836,8 +855,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var service = await getService();
-
                 string filePath = CreateFileNameCSharp(optionSets, service.ConnectionData);
 
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
@@ -933,6 +950,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await getService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
@@ -950,8 +974,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var withDependentComponents = fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
                 var namespaceJavaScript = fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript;
-
-                var service = await getService();
 
                 string filePath = CreateFileNameJavaScript(optionSets, service.ConnectionData);
 

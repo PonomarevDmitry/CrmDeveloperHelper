@@ -298,13 +298,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var service = await GetService();
+            ConnectionData connectionData = GetSelectedConnection();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingOptionSets);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingOptionSets);
 
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             IEnumerable<OptionSetMetadata> list = Enumerable.Empty<OptionSetMetadata>();
+
+            var service = await GetService();
 
             try
             {
@@ -326,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string entityName = string.Empty;
@@ -346,14 +351,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string filterEntity = null;
 
-            if (service.ConnectionData.IsValidEntityName(entityName))
+            if (connectionData.IsValidEntityName(entityName))
             {
                 filterEntity = entityName;
             }
 
-            if (!string.IsNullOrEmpty(filterEntity))
+            if (service != null && !string.IsNullOrEmpty(filterEntity))
             {
-                var entityId = service.ConnectionData.GetEntityMetadataId(filterEntity);
+                var entityId = connectionData.GetEntityMetadataId(filterEntity);
 
                 if (entityId.HasValue)
                 {
@@ -381,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string name = entity.Name;
                     string displayName = CreateFileHandler.GetLocalizedLabel(entity.DisplayName);
 
-                    OptionSetMetadataListViewItem item = new OptionSetMetadataListViewItem(name, displayName, entity);
+                    var item = new OptionSetMetadataListViewItem(name, displayName, entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -392,7 +397,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingOptionSetsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingOptionSetsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<OptionSetMetadata> FilterList(IEnumerable<OptionSetMetadata> list, string textName)
@@ -459,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateCSharpFile_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = GetSelectedConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId))
             {
@@ -479,11 +484,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             string folder = txtBFolder.Text.Trim();
 
             folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
-
-            var service = await GetService();
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
@@ -539,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = GetSelectedConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null
                 && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId)
@@ -561,11 +571,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
             string folder = txtBFolder.Text.Trim();
 
             folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
-
-            var service = await GetService();
 
             string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
 
@@ -734,6 +749,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            if (service == null)
+            {
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionPublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
@@ -816,9 +836,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             try
             {
@@ -853,9 +878,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
@@ -865,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , (int)ComponentType.OptionSet
                 , entity.OptionSetMetadata.MetadataId.Value
                 , null
-                );
+            );
         }
 
         private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
@@ -877,9 +907,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
             var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
 
             WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput

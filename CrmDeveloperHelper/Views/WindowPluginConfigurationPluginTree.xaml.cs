@@ -1249,10 +1249,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(Properties.MessageBoxStrings.RegisterAllStepsForPluginAssemblyFormat1, connectionData?.Name);
             }
 
-            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             {
-                await RegisterSteps(step);
+                return;
             }
+
+            await RegisterSteps(step);
         }
 
         private async Task RegisterSteps(StepFullInfo step)
@@ -1276,33 +1278,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                var helper = new RegistrerPluginHelper(service);
-
-                try
+                if (service != null)
                 {
-                    string filePath = string.Empty;
+                    var helper = new RegistrerPluginHelper(service);
 
-                    if (step.PluginStep != null)
+                    try
                     {
-                        filePath = await helper.RegisterPluginsForPluginStepAsync(this._commonConfig.FolderForExport, step.PluginAssembly.Name, step.PluginType.TypeName, step.PluginStep);
-                    }
-                    else if (step.PluginType != null)
-                    {
-                        filePath = await helper.RegisterPluginsForPluginTypeAsync(this._commonConfig.FolderForExport, step.PluginAssembly.Name, step.PluginType);
-                    }
-                    else if (step.PluginAssembly != null)
-                    {
-                        filePath = await helper.RegisterPluginsForAssemblyAsync(this._commonConfig.FolderForExport, step.PluginAssembly);
-                    }
+                        string filePath = string.Empty;
 
-                    if (File.Exists(filePath))
-                    {
-                        this._iWriteToOutput.PerformAction(null, filePath);
+                        if (step.PluginStep != null)
+                        {
+                            filePath = await helper.RegisterPluginsForPluginStepAsync(this._commonConfig.FolderForExport, step.PluginAssembly.Name, step.PluginType.TypeName, step.PluginStep);
+                        }
+                        else if (step.PluginType != null)
+                        {
+                            filePath = await helper.RegisterPluginsForPluginTypeAsync(this._commonConfig.FolderForExport, step.PluginAssembly.Name, step.PluginType);
+                        }
+                        else if (step.PluginAssembly != null)
+                        {
+                            filePath = await helper.RegisterPluginsForAssemblyAsync(this._commonConfig.FolderForExport, step.PluginAssembly);
+                        }
+
+                        if (File.Exists(filePath))
+                        {
+                            this._iWriteToOutput.PerformAction(null, filePath);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(null, ex);
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(null, ex);
+                    }
                 }
             }
 

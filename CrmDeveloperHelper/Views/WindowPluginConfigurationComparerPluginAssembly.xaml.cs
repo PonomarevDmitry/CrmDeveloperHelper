@@ -162,7 +162,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ShowExistingAssemblies()
         {
-            this._itemsSource.Clear();
+            this.Dispatcher.Invoke(() =>
+            {
+                this._itemsSource.Clear();
+            });
 
             ToggleControls(false, Properties.OutputStrings.LoadingPluginAssemblies);
 
