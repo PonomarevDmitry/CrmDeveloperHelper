@@ -28,8 +28,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly CreateFileCSharpConfiguration _config;
 
-        private Task<List<StringMap>> _listStringMap;
-        private Task<List<AttributeMap>> _listAttributeMap;
+        private List<StringMap> _listStringMap;
+
+        private async Task<List<StringMap>> GetStringMaps()
+        {
+            if (this._listStringMap == null)
+            {
+                var repositoryStringMap = new StringMapRepository(_service);
+                this._listStringMap = await repositoryStringMap.GetListAsync(this._entityMetadata.LogicalName);
+            }
+
+            return _listStringMap;
+        }
+
+        private List<AttributeMap> _listAttributeMap;
+
+        private async Task<List<AttributeMap>> GetAttributeMaps()
+        {
+            if (this._listAttributeMap == null)
+            {
+                var repositoryAttributeMap = new AttributeMapRepository(_service);
+                this._listAttributeMap = await repositoryAttributeMap.GetListWithEntityMapAsync(this._entityMetadata.LogicalName);
+            }
+
+            return _listAttributeMap;
+        }
 
         private readonly IWriteToOutput _iWriteToOutput;
         private Task _taskDownloadMetadata;
@@ -85,13 +108,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             hashSet.Remove(this._entityMetadata.LogicalName);
 
-            this._taskDownloadMetadata = this._solutionComponentDescriptor.MetadataSource.DownloadEntityMetadataOnlyForNamesAsync(hashSet.ToArray(), new[] { "DisplayName", "DisplayCollectionName", "Description", "PrimaryIdAttribute", "PrimaryNameAttribute" }, true);
-
-            var repositoryStringMap = new StringMapRepository(_service);
-            this._listStringMap = repositoryStringMap.GetListAsync(this._entityMetadata.LogicalName);
-
-            var repositoryAttributeMap = new AttributeMapRepository(_service);
-            this._listAttributeMap = repositoryAttributeMap.GetListWithEntityMapAsync(this._entityMetadata.LogicalName);
+            this._taskDownloadMetadata = this._solutionComponentDescriptor.MetadataSource.DownloadEntityMetadataOnlyForNamesAsync(hashSet.ToArray(), new[]
+            {
+                nameof(EntityMetadata.DisplayName)
+                , nameof(EntityMetadata.DisplayCollectionName)
+                , nameof(EntityMetadata.Description)
+                , nameof(EntityMetadata.PrimaryIdAttribute)
+                , nameof(EntityMetadata.PrimaryNameAttribute)
+            }, true);
 
             if (this._config.ConstantType == Model.ConstantType.ReadOnlyField)
             {
@@ -780,7 +804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             WriteLine("{");
 
-            var options = GetStateOptionItems(statusAttr, stateAttr, await this._listStringMap);
+            var options = GetStateOptionItems(statusAttr, stateAttr, await GetStringMaps());
 
             bool first = true;
 
@@ -885,7 +909,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             WriteLine("{");
 
-            var options = GetStatusOptionItems(statusAttr, stateAttr, await this._listStringMap);
+            var options = GetStatusOptionItems(statusAttr, stateAttr, await GetStringMaps());
 
             bool first = true;
 
@@ -1038,7 +1062,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            var options = GetOptionItems(attributeList.First().EntityLogicalName, attributeList.First().LogicalName, optionSet, await this._listStringMap);
+            var options = GetOptionItems(attributeList.First().EntityLogicalName, attributeList.First().LogicalName, optionSet, await GetStringMaps());
 
             if (!options.Any())
             {
@@ -1248,7 +1272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 {
-                    var attributeMaps = (await _listAttributeMap).Where(a =>
+                    var attributeMaps = (await GetAttributeMaps()).Where(a =>
                         string.Equals(a.EntityMapIdSourceEntityName, relationship.ReferencedEntity, StringComparison.InvariantCultureIgnoreCase)
                         && string.Equals(a.EntityMapIdTargetEntityName, relationship.ReferencingEntity, StringComparison.InvariantCultureIgnoreCase)
                     );
