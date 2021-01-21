@@ -714,6 +714,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ToggleControl(IsControlsEnabled
                 && _entityCollection != null
                 && !string.IsNullOrEmpty(_entityCollection.EntityName)
+
+                , this.btnOpenEntityCustomizationInWeb
+                , this.btnOpenEntityExplorer
+                , this.btnOpenEntityFetchXmlFile
+                , this.btnOpenEntityListInWeb
                 , this.btnCreateEntityInstance
             );
 
@@ -756,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIOpenEntityCustomizationInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityFromDataRowView(e, out var entity))
             {
@@ -773,9 +778,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var commonConfig = CommonConfiguration.Get();
+            if (this.ConnectionData == null)
+            {
+                return;
+            }
 
-            this._iWriteToOutput.OpenFetchXmlFile(this.ConnectionData, commonConfig, entity.LogicalName);
+            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", entity.LogicalName);
+
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                string entityName = dialog.EntityTypeName;
+
+                var connectionData = dialog.GetConnectionData();
+
+                var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+
+                if (idEntityMetadata.HasValue)
+                {
+                    var commonConfig = CommonConfiguration.Get();
+
+                    this._iWriteToOutput.OpenFetchXmlFile(connectionData, commonConfig, entityName);
+                }
+            }
         }
 
         private void mIOpenInstanceInWeb_Click(object sender, RoutedEventArgs e)
@@ -827,19 +851,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            if (this.ConnectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var commonConfig = CommonConfiguration.Get();
-
-                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, Guid.Empty);
+                return;
             }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, Guid.Empty);
         }
 
         private void mICopyEntityId_Click(object sender, RoutedEventArgs e)
@@ -949,9 +975,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var commonConfig = CommonConfiguration.Get();
+            if (this.ConnectionData == null)
+            {
+                return;
+            }
 
-            this._iWriteToOutput.OpenFetchXmlFile(this.ConnectionData, commonConfig, entityReferenceView.LogicalName);
+            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", entityReferenceView.LogicalName);
+
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                string entityName = dialog.EntityTypeName;
+
+                var connectionData = dialog.GetConnectionData();
+
+                var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+
+                if (idEntityMetadata.HasValue)
+                {
+                    var commonConfig = CommonConfiguration.Get();
+
+                    this._iWriteToOutput.OpenFetchXmlFile(connectionData, commonConfig, entityName);
+                }
+            }
         }
 
         private void mIOpenEntityReferenceInWeb_Click(object sender, RoutedEventArgs e)
@@ -981,19 +1026,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            if (this.ConnectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var commonConfig = CommonConfiguration.Get();
-
-                Views.WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName);
+                return;
             }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            Views.WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName);
         }
 
         private async void miCreateNewEntityReferenceInstance_Click(object sender, RoutedEventArgs e)
@@ -1831,7 +1878,90 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #endregion Assign to Team
 
-        #region Create new Entity
+        #region Entity Actions
+
+        private void btnOpenEntityCustomizationInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (_entityCollection == null
+                || string.IsNullOrEmpty(_entityCollection.EntityName)
+            )
+            {
+                return;
+            }
+
+            this.ConnectionData?.OpenEntityMetadataInWeb(_entityCollection.EntityName);
+        }
+
+        private void btnOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (_entityCollection == null
+                || string.IsNullOrEmpty(_entityCollection.EntityName)
+            )
+            {
+                return;
+            }
+
+            if (this.ConnectionData == null)
+            {
+                return;
+            }
+
+            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", _entityCollection.EntityName);
+
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                string entityName = dialog.EntityTypeName;
+
+                var connectionData = dialog.GetConnectionData();
+
+                var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+
+                if (idEntityMetadata.HasValue)
+                {
+                    var commonConfig = CommonConfiguration.Get();
+
+                    this._iWriteToOutput.OpenFetchXmlFile(connectionData, commonConfig, entityName);
+                }
+            }
+        }
+
+        private void btnOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (_entityCollection == null
+                || string.IsNullOrEmpty(_entityCollection.EntityName)
+            )
+            {
+                return;
+            }
+
+            this.ConnectionData?.OpenEntityInstanceListInWeb(_entityCollection.EntityName);
+        }
+
+        private async void btnOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            if (_entityCollection == null
+                || string.IsNullOrEmpty(_entityCollection.EntityName)
+            )
+            {
+                return;
+            }
+
+            if (this.ConnectionData == null)
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            Views.WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName);
+        }
 
         private async void btnCreateEntityInstance_Click(object sender, RoutedEventArgs e)
         {
@@ -1859,7 +1989,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName, Guid.Empty);
         }
 
-        #endregion Create new Entity
+        #endregion Entity Actions
 
         #region Edit Entity
 
@@ -2922,5 +3052,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
             WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionAllEntitiesLast_Click, "contMnAddToSolutionLast");
         }
+
+        #region Connection Actions
+
+        private void mIOpenConfigFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var directoryPath = FileOperations.GetConfigurationFolder();
+
+            this._iWriteToOutput.OpenFolder(null, directoryPath);
+        }
+
+        private void mIOpenConnectionInformationFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ConnectionData == null)
+            {
+                return;
+            }
+
+            string directoryPath = FileOperations.GetConnectionInformationFolderPath(this.ConnectionData.ConnectionId);
+
+            this._iWriteToOutput.OpenFolder(this.ConnectionData, directoryPath);
+        }
+
+        private void mIOpenConnectionFetchXmlFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ConnectionData == null)
+            {
+                return;
+            }
+
+            string directoryPath = FileOperations.GetConnectionFetchXmlFolderPath(this.ConnectionData.ConnectionId);
+
+            this._iWriteToOutput.OpenFolder(this.ConnectionData, directoryPath);
+        }
+
+        #endregion Connection Actions
     }
 }
