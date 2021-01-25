@@ -13111,9 +13111,18 @@
           <ButtonText>Workflows used Not Exists Entities</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Workflows with Entity Field Strings</ButtonText>
+        </Strings>
+      </Button>
 
 
-
+      
       <Button guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -14677,8 +14686,17 @@
           <ButtonText>Workflows used Not Exists Entities</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Workflows with Entity Field Strings</ButtonText>
+        </Strings>
+      </Button>
 
-
+      
 
       <Button guid="guidCommandSet" id="OutputCheckEntitiesOwnerShipsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -21231,22 +21249,22 @@
 
     <!-- #region CommandPlacements commonMenu_GroupCheck_MenuCheck -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x0630">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x0640">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x0650">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x0660">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
 
@@ -21255,10 +21273,13 @@
 
     <!-- #region CommandPlacements commonMenu_GroupCheck_MenuCheck_GroupWorkflows -->
 
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesCommandId" priority="0x0600">
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x0610">
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
 
@@ -21266,7 +21287,7 @@
 
     <!-- #region CommandPlacements commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="CommonCheckEntitiesOwnerShipsCommandId_MenuDyn" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="CommonCheckEntitiesOwnerShipsCommandId_MenuDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" />
     </CommandPlacement>
 
@@ -25562,22 +25583,22 @@
 
     <!-- #region CommandPlacements outputMenu_GroupCheck_MenuCheck -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x0630">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x0640">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x0650">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
 
@@ -25586,18 +25607,21 @@
 
     <!-- #region CommandPlacements outputMenu_GroupCheck_MenuCheck_GroupWorkflows -->
 
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedEntitiesCommandId" priority="0x0600">
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedEntitiesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x0610">
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
-
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    
     <!-- #endregion CommandPlacements outputMenu_GroupCheck_MenuCheck_GroupWorkflows -->
 
     <!-- #region CommandPlacements outputMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership -->
 
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckEntitiesOwnerShipsCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckEntitiesOwnerShipsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" />
     </CommandPlacement>
 
@@ -30459,6 +30483,7 @@
 
       <IDSymbol name="CommonCheckWorkflowsUsedEntitiesCommandId" value="0x216C" />
       <IDSymbol name="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x216D" />
+      <IDSymbol name="CommonCheckWorkflowsWithEntityFieldStringsCommandId" value="0x228D" />
 
       <IDSymbol name="CommonFindEntityObjectsByNameCommandId" value="0x2021" />
       <IDSymbol name="CommonFindEntityObjectsByNameInExplorerCommandId" value="0x2205" />
@@ -30651,6 +30676,7 @@
 
       <IDSymbol name="OutputCheckWorkflowsUsedEntitiesCommandId" value="0x21DB" />
       <IDSymbol name="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x21DC" />
+      <IDSymbol name="OutputCheckWorkflowsWithEntityFieldStringsCommandId" value="0x228E" />
 
       <IDSymbol name="OutputCheckEntitiesOwnerShipsCommandId" value="0x21CE" />
 
@@ -30772,7 +30798,7 @@
     <!-- 0x1621 -->
 
     <!-- Commands -->
-    <!-- 0x228D -->
+    <!-- 0x228F -->
 
     <!-- Commands Dynamic -->
     <!-- 21150 -->

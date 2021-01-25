@@ -790,6 +790,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Checking Workflows with Entity Field Strings.
+        /// </summary>
+        internal static string CheckingWorkflowsWithEntityFieldStringsFormat1 {
+            get {
+                return ResourceManager.GetString("CheckingWorkflowsWithEntityFieldStringsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Clearing Last Link.
         /// </summary>
         internal static string ClearingLastLinkFormat1 {

@@ -109,6 +109,7 @@
     <Compile Include="Commands\Checks\CommonCheckCreateMissingTeamTemplatesInSystemFormsCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckTeamTemplatesCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypesCommand.cs" />
+    <Compile Include="Commands\Checks\CommonCheckWorkflowsWithEntityFieldStringsCommand.cs" />
     <Compile Include="Commands\CodeLinkedGlobalOptionSetActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CodeLinkedGlobalOptionSetAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeLinkedGlobalOptionSetAddToSolutionLastCommand.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckCreateMissingTeamTemplatesInSystemFormsCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckTeamTemplatesCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsWithEntityFieldStringsCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />

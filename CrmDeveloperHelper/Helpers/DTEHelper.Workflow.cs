@@ -203,6 +203,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleCheckingWorkflowsWithEntityFieldStrings()
+        {
+            HandleCheckingWorkflowsWithEntityFieldStrings(null);
+        }
+
+        public void HandleCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var worker = new System.Threading.Thread(() =>
+                {
+                    try
+                    {
+                        var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+
+                        if (form.ShowDialog().GetValueOrDefault())
+                        {
+                            commonConfig.FolderForExport = form.SelectedFolder;
+                            commonConfig.DefaultFileAction = form.GetFileAction();
+
+                            connectionData = form.GetConnectionData();
+
+                            if (connectionData != null)
+                            {
+                                commonConfig.Save();
+
+                                ActivateOutputWindow(connectionData);
+                                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                                CheckWishToChangeCurrentConnection(connectionData);
+
+                                try
+                                {
+                                    Controller.ExecuteCheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig);
+                                }
+                                catch (Exception ex)
+                                {
+                                    WriteErrorToOutput(connectionData, ex);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
+            }
+        }
+
         public void HandleExplorerWorkflows()
         {
             string selection = GetSelectedText();

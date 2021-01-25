@@ -207,6 +207,9 @@
   <data name="CheckingWorkflowsUsedNotExistingEntitiesFormat1" xml:space="preserve">
     <value>{0} - Checking Workflows Used Not Existing Entities</value>
   </data>
+  <data name="CheckingWorkflowsWithEntityFieldStringsFormat1" xml:space="preserve">
+    <value>{0} - Checking Workflows with Entity Field Strings</value>
+  </data>
   <data name="ClearingLastLinkFormat1" xml:space="preserve">
     <value>{0} - Clearing Last Link</value>
   </data>

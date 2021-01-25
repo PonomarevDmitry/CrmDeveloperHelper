@@ -620,8 +620,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #region Common Check
 
             CommonCheckEntitiesOwnerShipsCommand.Initialize,
+
             CommonCheckWorkflowsUsedEntitiesCommand.Initialize,
             CommonCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize,
+            CommonCheckWorkflowsWithEntityFieldStringsCommand.Initialize,
+
             CommonCheckGlobalOptionSetDuplicateCommand.Initialize,
             CommonCheckManagedElementsCommand.Initialize,
             CommonCheckPluginImagesCommand.Initialize,
@@ -859,6 +862,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputCheckPluginStepsRequiredComponentsCommand.Initialize,
             OutputCheckWorkflowsUsedEntitiesCommand.Initialize,
             OutputCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize,
+            OutputCheckWorkflowsWithEntityFieldStringsCommand.Initialize,
 
             OutputCheckUnknownFormControlTypesCommand.Initialize,
             OutputCheckCreateMissingTeamTemplatesInSystemFormsCommand.Initialize,

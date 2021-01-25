@@ -291,8 +291,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(_service);
-
                 var repositoryWorkflow = new WorkflowRepository(_service);
 
                 HashSet<Guid> workflowsWithEntities = new HashSet<Guid>();
@@ -317,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         var doc = XElement.Parse(xmlContent);
 
-                        var coll = await handler.GetWorkflowUsedEntitiesAsync(doc);
+                        List<EntityReference> coll = await handler.GetWorkflowUsedEntitiesAsync(doc);
 
                         if (coll.Count > 0)
                         {
@@ -352,11 +350,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private async Task FillDescriptionUsedEntities(StringBuilder strFile, HashSet<Guid> workflowsWithEntities, Dictionary<EntityReference, HashSet<Guid>> list)
+        private async Task FillDescriptionUsedEntities(StringBuilder strFile, HashSet<Guid> workflowsWithEntities, Dictionary<EntityReference, HashSet<Guid>> dictUsedEntities)
         {
             string message = string.Empty;
 
-            if (list.Count == 0)
+            if (dictUsedEntities.Count == 0)
             {
                 strFile
                        .AppendLine()
@@ -370,10 +368,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             strFile
                 .AppendLine()
                 .AppendLine()
-                .AppendFormat(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Used Entities {0}", list.Count)).AppendLine()
+                .AppendFormat(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Used Entities {0}", dictUsedEntities.Count)).AppendLine()
                 ;
 
-            var orderedList = list.Keys.OrderBy(i => i.LogicalName).ThenBy(i => i.Name).ThenBy(i => i.Id);
+            var orderedList = dictUsedEntities.Keys.OrderBy(i => i.LogicalName).ThenBy(i => i.Name).ThenBy(i => i.Id);
 
             {
                 FormatTextTableHandler table = new FormatTextTableHandler();
@@ -406,7 +404,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .AppendLine()
                 ;
 
-            strFile.AppendFormat("Used Entities Full Information {0}", list.Count).AppendLine();
+            strFile.AppendFormat("Used Entities Full Information {0}", dictUsedEntities.Count).AppendLine();
 
             foreach (var item in orderedList)
             {
@@ -480,7 +478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         ;
                 }
 
-                message = await _descriptor.GetSolutionComponentsDescriptionAsync(list[item].Select(id => new SolutionComponent()
+                message = await _descriptor.GetSolutionComponentsDescriptionAsync(dictUsedEntities[item].Select(id => new SolutionComponent()
                 {
                     ObjectId = id,
                     ComponentType = new OptionSetValue((int)ComponentType.Workflow),
@@ -516,6 +514,140 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 strFile.AppendLine(message);
             }
+        }
+
+        public Task GetDescriptionWithEntityFieldStringsInAllWorkflowsAsync(StringBuilder strFile)
+        {
+            return Task.Run(() => GetDescriptionWithEntityFieldStringsInAllWorkflows(strFile));
+        }
+
+        private async Task GetDescriptionWithEntityFieldStringsInAllWorkflows(StringBuilder strFile)
+        {
+            try
+            {
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
+
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
+
+                var repositoryWorkflow = new WorkflowRepository(_service);
+
+                var workflowsWithStrings = new Dictionary<Guid, TupleList<string, string, List<string>>>();
+
+                var handler = new WorkflowUsedEntitiesHandler();
+
+                {
+                    var workflowsList = await repositoryWorkflow.GetListAsync(null, null, null, null, new ColumnSet(Workflow.Schema.Attributes.xaml));
+
+                    _descriptor.GetEntities<Workflow>((int)ComponentType.Workflow, workflowsList.Select(c => c.Id));
+
+                    foreach (var workflow in workflowsList)
+                    {
+                        if (string.IsNullOrEmpty(workflow.Xaml))
+                        {
+                            continue;
+                        }
+
+                        var xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
+
+                        var doc = XElement.Parse(xmlContent);
+
+                        TupleList<string, string, List<string>> coll = await handler.GetWorkflowStringsEntityFieldsAsync(doc);
+
+                        if (coll.Count > 0)
+                        {
+                            workflowsWithStrings.Add(workflow.Id, coll);
+                        }
+                    }
+                }
+
+                await FillDescriptionUsedEntities(strFile, workflowsWithStrings);
+
+                strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+            }
+        }
+
+        private async Task FillDescriptionUsedEntities(StringBuilder strFile, Dictionary<Guid, TupleList<string, string, List<string>>> workflowsWithStrings)
+        {
+            string message = string.Empty;
+
+            if (workflowsWithStrings.Count == 0)
+            {
+                strFile
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine()
+                       .AppendLine(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "No workflows with Entity Field Strings."))
+                       ;
+
+                return;
+            }
+
+            strFile
+                .AppendLine()
+                .AppendLine()
+                .AppendFormat(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Workflows with Entity Field Strings: {0}", workflowsWithStrings.Count)).AppendLine()
+                .AppendLine()
+                ;
+
+            message = await _descriptor.GetSolutionComponentsDescriptionAsync(workflowsWithStrings.Keys.Select(id => new SolutionComponent()
+            {
+                ObjectId = id,
+                ComponentType = new OptionSetValue((int)ComponentType.Workflow),
+            }));
+
+            strFile.AppendLine(message);
+
+            var worlflowList = _descriptor.GetEntities<Workflow>((int)ComponentType.Workflow, workflowsWithStrings.Keys);
+
+            foreach (var workflow in worlflowList
+                .OrderBy(w => w.PrimaryEntity)
+                .ThenBy(w => w.Category?.Value)
+                .ThenBy(w => w.Name)
+                .ThenBy(w => w.UniqueName)
+                .ThenBy(w => w.Id)
+            )
+            {
+                strFile
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine();
+
+                var table = new FormatTextTableHandler("Step Name", "Value", "OriginalString");
+
+                var list = workflowsWithStrings[workflow.Id];
+
+                foreach (var step in list)
+                {
+                    foreach (var entityFieldString in step.Item3)
+                    {
+                        table.AddLine(step.Item1, entityFieldString, step.Item2);
+                    }
+                }
+
+                message = _descriptor.GetComponentDescription((int)ComponentType.Workflow, workflow.Id);
+
+                strFile
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine(new string('-', 150))
+                    .AppendLine()
+                    .AppendLine(message)
+                    ;
+
+                table.GetFormatedLines(false).ForEach(s => strFile.AppendLine(s));
+            }
+
+            strFile
+                   .AppendLine()
+                   .AppendLine()
+                   .AppendLine()
+                   ;
         }
 
         public Task GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(StringBuilder strFile)

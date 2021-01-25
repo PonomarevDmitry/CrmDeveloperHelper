@@ -4207,6 +4207,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonCheckWorkflowsUsedNotExistsEntitiesCommandId = 0x216D;
 
+            public const int CommonCheckWorkflowsWithEntityFieldStringsCommandId = 0x228D;
+
             public const int CommonFindEntityObjectsByNameCommandId = 0x2021;
 
             public const int CommonFindEntityObjectsByNameInExplorerCommandId = 0x2205;
@@ -4440,6 +4442,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputCheckWorkflowsUsedEntitiesCommandId = 0x21DB;
 
             public const int OutputCheckWorkflowsUsedNotExistsEntitiesCommandId = 0x21DC;
+
+            public const int OutputCheckWorkflowsWithEntityFieldStringsCommandId = 0x228E;
 
             public const int OutputCheckEntitiesOwnerShipsCommandId = 0x21CE;
 

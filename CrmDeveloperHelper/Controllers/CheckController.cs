@@ -579,6 +579,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Поиск несуществующих используемых в БП сущностей
 
+        public async Task ExecuteCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.CheckingWorkflowsWithEntityFieldStringsFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            using (service.Lock())
+            {
+                var content = new StringBuilder();
+
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Workflows with Entity Field Strings at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                var descriptor = new SolutionComponentDescriptor(service);
+                descriptor.WithUrls = true;
+                descriptor.WithManagedInfo = true;
+                descriptor.WithSolutionsInfo = true;
+
+                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
+
+                var stringBuider = new StringBuilder();
+
+                await workflowDescriptor.GetDescriptionWithEntityFieldStringsInAllWorkflowsAsync(stringBuider);
+
+                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Entity Field Strings: {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+        }
+
         #region Checking Unknown Form Control Types
 
         public async Task ExecuteCheckingUnknownFormControlType(ConnectionData connectionData, CommonConfiguration commonConfig)

@@ -1079,6 +1079,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsNotExistingUsedEntities, commonConfig);
 
+        public void ExecuteCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsWithEntityFieldStrings, commonConfig);
+
         public void StartCheckManagedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkManagedEntitiesController.ExecuteCheckingManagedEntities, commonConfig);
 

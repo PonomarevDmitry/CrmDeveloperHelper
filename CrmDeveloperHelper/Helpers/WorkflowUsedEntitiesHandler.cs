@@ -3,6 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -261,6 +262,103 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             if (element.Value.IndexOf("Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.EntityReference", StringComparison.InvariantCultureIgnoreCase) == -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public Task<TupleList<string, string, List<string>>> GetWorkflowStringsEntityFieldsAsync(XElement doc)
+        {
+            return Task.Run(() => GetWorkflowStringsEntityFields(doc));
+        }
+
+        private TupleList<string, string, List<string>> GetWorkflowStringsEntityFields(XElement doc)
+        {
+            var usedCreateEntityReference = new TupleList<string, string, List<string>>();
+
+            FillWorkflowsStrings(doc, usedCreateEntityReference);
+
+            return usedCreateEntityReference;
+        }
+
+        private static readonly Regex regexEntityField = new Regex(@"{[\w\s]+\([\w\s]+\)}", RegexOptions.Compiled);
+        private static readonly Regex regexString = new Regex(@"\[New Object\(\) { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, ""(.*)"", ""String"" }\]", RegexOptions.Compiled);
+
+        private void FillWorkflowsStrings(XElement doc, TupleList<string, string, List<string>> usedCreateEntityReference)
+        {
+            var inArguments = doc.Descendants().Where(IsInArgumentCreateCrmType);
+
+            foreach (var inArg in inArguments)
+            {
+                var nodeParameters = inArg.ElementsAfterSelf().FirstOrDefault(IsInArgumentParametersString);
+
+                var nodeResult = inArg.ElementsAfterSelf().FirstOrDefault(IsOutArgumentResult);
+
+                if (nodeParameters != null && nodeResult != null)
+                {
+                    var parameters = nodeParameters.Value;
+
+                    Match matchParameters = regexString.Match(parameters);
+
+                    if (matchParameters.Success && matchParameters.Groups.Count > 1)
+                    {
+                        var arguments = matchParameters.Groups[1].Value;
+
+                        if (!string.IsNullOrEmpty(arguments))
+                        {
+                            var resultStepName = nodeResult.Value;
+
+                            resultStepName = resultStepName.Replace("[", string.Empty).Replace("]", string.Empty);
+
+                            arguments = WebUtility.HtmlDecode(arguments);
+
+                            var matchesEntityField = regexEntityField.Matches(arguments);
+
+                            if (matchesEntityField.Count > 0)
+                            {
+                                var entityFields = new List<string>();
+
+                                foreach (var item in matchesEntityField.OfType<Match>())
+                                {
+                                    entityFields.Add(item.Value);
+                                }
+
+                                usedCreateEntityReference.Add(resultStepName, arguments, entityFields);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static bool IsInArgumentParametersString(XElement element)
+        {
+            if (!string.Equals(element.Name.LocalName, "InArgument", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            {
+                var attrTypeArguments = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "TypeArguments", StringComparison.InvariantCultureIgnoreCase));
+
+                if (attrTypeArguments == null || attrTypeArguments.Value.IndexOf("Object[]", StringComparison.InvariantCultureIgnoreCase) == -1)
+                {
+                    return false;
+                }
+            }
+
+            {
+                var attrKey = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Key", StringComparison.InvariantCultureIgnoreCase));
+
+                if (attrKey == null || !string.Equals(attrKey.Value, "Parameters", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return false;
+                }
+            }
+
+            if (element.Value.IndexOf("Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String", StringComparison.InvariantCultureIgnoreCase) == -1)
             {
                 return false;
             }
