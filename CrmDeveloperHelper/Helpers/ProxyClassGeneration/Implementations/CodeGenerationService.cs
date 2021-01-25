@@ -55,8 +55,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
         private const string CSharpLanguage = "CSharp";
 
-        private const string VariableMethodOnPropertyChanged = "onPropertyChanged";
-        private const string VariableMethodOnPropertyChanging = "onPropertyChanging";
+        private const string VariableMethodOnPropertyChanged = "eventDelegatePropertyChanged";
+        private const string VariableMethodOnPropertyChanging = "eventDelegatePropertyChanging";
 
         private const string MethodNameOnPropertyChanged = "OnPropertyChanged";
         private const string MethodNameOnPropertyChanging = "OnPropertyChanging";
