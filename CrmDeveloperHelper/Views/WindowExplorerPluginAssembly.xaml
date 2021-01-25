@@ -155,7 +155,11 @@
 
                 <DataGridTextColumn Header="IsCustomizable" Width="100" Binding="{Binding Path=IsCustomizable}" />
 
-                <DataGridTextColumn Header="IsManaged" Width="100" Binding="{Binding Path=IsManaged}" />
+                <DataGridTextColumn Width="100" Binding="{Binding Path=IsManaged}">
+                    <DataGridTextColumn.Header>
+                        <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
                 <DataGridTextColumn Header="SourceType" Width="100" Binding="{Binding Path=SourceType}" />
 

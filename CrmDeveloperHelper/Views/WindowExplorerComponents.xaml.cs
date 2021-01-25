@@ -1196,6 +1196,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Width = 120,
                     };
 
+                    CorrectHeaderToLabel(item.Item2, column);
+
                     lstVSolutionComponents.Columns.Add(column);
                 }
             }
@@ -1217,6 +1219,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Binding = new Binding(item),
                         Width = 120,
                     };
+
+                    CorrectHeaderToLabel(item, column);
 
                     lstVSolutionComponents.Columns.Add(column);
                 }

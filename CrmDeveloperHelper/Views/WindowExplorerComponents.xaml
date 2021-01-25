@@ -183,9 +183,17 @@
 
                 <DataGridTextColumn Header="Behavior" Width="120" Binding="{Binding Behavior}" />
 
-                <DataGridTextColumn Header="IsManaged" Width="120" Binding="{Binding IsManaged}" />
+                <DataGridTextColumn Width="120" Binding="{Binding IsManaged}">
+                    <DataGridTextColumn.Header>
+                        <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
-                <DataGridTextColumn Header="IsCustomizable" Width="120" Binding="{Binding IsCustomizable}" />
+                <DataGridTextColumn Width="120" Binding="{Binding IsCustomizable}">
+                    <DataGridTextColumn.Header>
+                        <Label Content="C" Margin="0" Padding="0" ToolTip="IsCustomizable" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

@@ -175,7 +175,11 @@
 
                 <DataGridTextColumn Header="CompatibleDataTypes" Width="150" Binding="{Binding CompatibleDataTypes}" />
 
-                <DataGridTextColumn Header="IsManaged" Width="150" Binding="{Binding IsManaged}" />
+                <DataGridTextColumn Width="150" Binding="{Binding IsManaged}">
+                    <DataGridTextColumn.Header>
+                        <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

@@ -894,5 +894,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             comboBox.Items.Add(true);
             comboBox.SelectedIndex = 0;
         }
+
+        protected static void CorrectHeaderToLabel(string header, DataGridTextColumn column)
+        {
+            if (string.Equals(header, "IsManaged", StringComparison.InvariantCultureIgnoreCase))
+            {
+                column.Header = new System.Windows.Controls.Label()
+                {
+                    Content = "M",
+                    ToolTip = "IsManaged",
+                    Margin = new Thickness(0),
+                    Padding = new Thickness(0),
+                };
+
+                column.Width = DataGridLength.Auto;
+                column.CanUserResize = false;
+            }
+            else if (string.Equals(header, "IsCustomizable", StringComparison.InvariantCultureIgnoreCase))
+            {
+                column.Header = new System.Windows.Controls.Label()
+                {
+                    Content = "C",
+                    ToolTip = "IsCustomizable",
+                    Margin = new Thickness(0),
+                    Padding = new Thickness(0),
+                };
+
+                column.Width = DataGridLength.Auto;
+                column.CanUserResize = false;
+            }
+        }
     }
 }

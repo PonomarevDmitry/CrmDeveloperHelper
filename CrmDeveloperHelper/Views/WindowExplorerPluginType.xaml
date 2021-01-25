@@ -165,7 +165,11 @@
 
                 <DataGridTextColumn Header="TypeName" Width="500" Binding="{Binding TypeName}" />
 
-                <DataGridTextColumn Header="IsManaged" Width="100" Binding="{Binding IsManaged}" />
+                <DataGridTextColumn Width="100" Binding="{Binding IsManaged}">
+                    <DataGridTextColumn.Header>
+                        <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
                 <DataGridTextColumn Header="IsWorkflowActivity" Width="100" Binding="{Binding IsWorkflowActivity}" />
 

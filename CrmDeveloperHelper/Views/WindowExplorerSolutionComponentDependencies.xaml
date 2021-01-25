@@ -46,19 +46,19 @@
                 <Separator x:Uid="contMnAddToSolutionWithBehaviour" />
                 <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLast" Header="Add to Last Crm Solution">
                     <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastIncludeSubcomponents" Header="Include Subcomponents" />
-                    
+
                     <Separator/>
                     <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
-                    
+
                     <Separator/>
                     <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastIncludeAsShellOnly" Header="Include As ShellOnly" />
                 </MenuItem>
                 <MenuItem x:Uid="contMnAddToSolutionWithBehaviour" Header="Add to Crm Solution">
                     <MenuItem Header="Include Subcomponents" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Do Not Include Subcomponents" Click="AddToCrmSolutionDoNotIncludeSubcomponents_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
@@ -111,10 +111,10 @@
 
                     <Separator/>
                     <MenuItem Header="Customization" Click="btnOpenInWebCustomization_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Solution List" Click="btnOpenInWebSolutionList_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
                 </MenuItem>
@@ -177,9 +177,17 @@
 
                 <DataGridTextColumn Header="ComponentType" Width="120" Binding="{Binding ComponentType}" />
 
-                <DataGridTextColumn Header="IsManaged" Width="120" Binding="{Binding IsManaged}" />
+                <DataGridTextColumn Width="120" Binding="{Binding IsManaged}">
+                    <DataGridTextColumn.Header>
+                        <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
-                <DataGridTextColumn Header="IsCustomizable" Width="120" Binding="{Binding IsCustomizable}" />
+                <DataGridTextColumn Width="120" Binding="{Binding IsCustomizable}">
+                    <DataGridTextColumn.Header>
+                        <Label Content="C" Margin="0" Padding="0" ToolTip="IsCustomizable" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>
@@ -219,17 +227,17 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Solution Component Information">
                             <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" />
-                            
+
                             <Separator/>
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                                
+
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                             </MenuItem>
