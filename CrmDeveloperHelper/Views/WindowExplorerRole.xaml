@@ -107,14 +107,11 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddRoleToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIRoleOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIRoleOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIRoleOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIRoleOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIRoleOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIRoleOpenSolutionsContainingComponentInExplorer_Click" />
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuTeam">
@@ -183,14 +180,11 @@
                 <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
@@ -222,14 +216,11 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddOtherPrivilegeToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
             </ContextMenu>
 
         </ResourceDictionary>
@@ -473,7 +464,7 @@
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                             <Menu Background="{x:Null}">
                                 <MenuItem Header="Open Window">
-                                    
+
                                     <MenuItem x:Name="miExplorers" Header="Open Entity Information" />
 
                                     <Separator />

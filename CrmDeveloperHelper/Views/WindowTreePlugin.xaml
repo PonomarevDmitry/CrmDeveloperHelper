@@ -101,14 +101,11 @@
                     <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="miOpenEntityDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="miOpenEntityDependentComponentsInExplorer_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Dependent Components">
-                        <MenuItem Header="Open Dependent Components in Browser" Click="miOpenEntityDependentComponentsInWeb_Click" />
-                        <Separator/>
-                        <MenuItem Header="Open Dependent Components in Explorer" Click="miOpenEntityDependentComponentsInExplorer_Click" />
-                    </MenuItem>
+                    <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolution"/>
@@ -131,7 +128,7 @@
                 <MenuItem x:Uid="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                 <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
                 <MenuItem x:Uid="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
-                
+
                 <Separator x:Uid="contMnSdkMessage" />
                 <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
                 <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
@@ -140,15 +137,12 @@
                 <Separator x:Uid="contMnWorkflowExlorer" />
                 <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" Click="mIOpenWorkflowExplorer_Click" />
 
+                <Separator x:Uid="contMnDependentComponents" />
+                <MenuItem x:Uid="contMnDependentComponents" Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem x:Uid="contMnDependentComponents" Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
+
                 <Separator x:Uid="contMnDependentComponents"/>
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions List with Component in Explorer" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
-
-                <Separator x:Uid="contMnDependentComponents" />
-                <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />

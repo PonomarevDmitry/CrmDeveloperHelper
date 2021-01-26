@@ -10,7 +10,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                
+
                 <MenuItem Header="Open Attribute Customization in Browser" Click="mIOpenAttributeInWeb_Click" />
 
                 <Separator/>
@@ -30,16 +30,13 @@
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddAttributeToCrmSolution_Click" />
-                
+
+                <Separator/>
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIAttributeOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIAttributeOpenDependentComponentsInExplorer_Click" />
+
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIAttributeOpenSolutionsContainingComponentInExplorer_Click" />
-                
-                <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIAttributeOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIAttributeOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
             </ContextMenu>
 
         </ResourceDictionary>
@@ -104,14 +101,14 @@
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
 
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20"/>
-                
+
                 <Separator Margin="10,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 <Button x:Name="btnSelectAttribute" Content="Select Attribute" Click="btnSelectAttribute_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="10" />
             </DockPanel>
         </ToolBar>
-        
+
         <StatusBar Grid.Row="3" Margin="0">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />

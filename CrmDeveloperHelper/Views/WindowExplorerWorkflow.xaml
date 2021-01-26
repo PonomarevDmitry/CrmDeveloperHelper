@@ -27,7 +27,7 @@
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
-                    
+
                     <MenuItem Header="Copy to Clipboard Primary Entity Name" Click="mIClipboardCopyPrimaryEntityName_Click" />
 
                     <Separator/>
@@ -41,7 +41,7 @@
 
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Workflow in Editor" Click="mIChangeEntityInEditor_Click"/>
-                
+
                 <Separator />
                 <MenuItem x:Uid="miActivateWorkflows" Header="Activate Workflows" Click="miActivateWorkflows_Click" />
                 <MenuItem x:Uid="miDeactivateWorkflows" Header="Deactivate Workflows" Click="miDeactivateWorkflows_Click" />
@@ -104,14 +104,11 @@
                 <MenuItem Header="Created or Updated Entities" Click="mIExportWorkflowCreatedOrUpdatedEntities_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
@@ -404,14 +401,11 @@
                             <MenuItem Header="Created or Updated Entities" Click="mIExportWorkflowCreatedOrUpdatedEntities_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                            <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                                <Separator/>
-                                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                            </MenuItem>
+                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                             <Separator/>
                             <MenuItem x:Name="miExplorers2" Header="Get Other Entity Information" />

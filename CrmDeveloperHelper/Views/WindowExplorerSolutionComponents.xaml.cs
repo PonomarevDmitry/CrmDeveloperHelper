@@ -869,13 +869,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mILinkedComponentAddToSolution.Click += miLinkedComponentAddToSolution_Click;
 
-            MenuItem mILinkedComponentOpenSolutionsContainingComponentInExplorer = new MenuItem()
-            {
-                Header = "Open Solutions Containing Component in Explorer",
-                Tag = solutionComponent,
-            };
-            mILinkedComponentOpenSolutionsContainingComponentInExplorer.Click += mILinkedComponentOpenSolutionsContainingComponentInExplorer_Click;
-
             MenuItem mILinkedComponentOpenDependentComponentsInWeb = new MenuItem()
             {
                 Header = "Open Dependent Components in Browser",
@@ -889,6 +882,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Tag = solutionComponent,
             };
             mILinkedComponentOpenDependentComponentsInExplorer.Click += mILinkedComponentOpenDependentComponentsInExplorer_Click;
+
+            MenuItem mILinkedComponentOpenSolutionsContainingComponentInExplorer = new MenuItem()
+            {
+                Header = "Open Solutions Containing Component in Explorer",
+                Tag = solutionComponent,
+            };
+            mILinkedComponentOpenSolutionsContainingComponentInExplorer.Click += mILinkedComponentOpenSolutionsContainingComponentInExplorer_Click;
 
             //MenuItem mILinkedComponent = new MenuItem()
             //{
@@ -921,11 +921,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(mILinkedComponentAddToSolution);
 
             itemCollection.Add(new Separator());
-            itemCollection.Add(mILinkedComponentOpenSolutionsContainingComponentInExplorer);
-
-            itemCollection.Add(new Separator());
             itemCollection.Add(mILinkedComponentOpenDependentComponentsInWeb);
             itemCollection.Add(mILinkedComponentOpenDependentComponentsInExplorer);
+
+            itemCollection.Add(new Separator());
+            itemCollection.Add(mILinkedComponentOpenSolutionsContainingComponentInExplorer);
         }
 
         private void mILinkedComponentOpenInWeb_Click(object sender, RoutedEventArgs e)

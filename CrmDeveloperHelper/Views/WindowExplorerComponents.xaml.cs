@@ -880,19 +880,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(new Separator());
 
             {
-                MenuItem mILinkedComponentOpenSolutionsContainingComponentInExplorer = new MenuItem()
-                {
-                    Header = "Open Solutions Containing Component in Explorer",
-                    Tag = solutionComponent,
-                };
-                mILinkedComponentOpenSolutionsContainingComponentInExplorer.Click += MILinkedComponentOpenSolutionsContainingComponentInExplorer_Click;
-
-                itemCollection.Add(mILinkedComponentOpenSolutionsContainingComponentInExplorer);
-            }
-
-            itemCollection.Add(new Separator());
-
-            {
                 MenuItem mILinkedComponentOpenDependentComponentsInWeb = new MenuItem()
                 {
                     Header = "Open Dependent Components in Browser",
@@ -912,6 +899,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 mILinkedComponentOpenDependentComponentsInExplorer.Click += MILinkedComponentOpenDependentComponentsInExplorer_Click;
 
                 itemCollection.Add(mILinkedComponentOpenDependentComponentsInExplorer);
+            }
+
+            itemCollection.Add(new Separator());
+
+            {
+                MenuItem mILinkedComponentOpenSolutionsContainingComponentInExplorer = new MenuItem()
+                {
+                    Header = "Open Solutions Containing Component in Explorer",
+                    Tag = solutionComponent,
+                };
+                mILinkedComponentOpenSolutionsContainingComponentInExplorer.Click += MILinkedComponentOpenSolutionsContainingComponentInExplorer_Click;
+
+                itemCollection.Add(mILinkedComponentOpenSolutionsContainingComponentInExplorer);
             }
         }
 

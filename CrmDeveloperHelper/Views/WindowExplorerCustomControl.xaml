@@ -17,10 +17,10 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open CustomControl in Browser" VerticalAlignment="Center" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
+                <MenuItem Header="Open CustomControl in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -35,31 +35,28 @@
 
                 <Separator />
                 <MenuItem Header="Change CustomControl in Editor" Click="mIChangeEntityInEditor_Click"/>
-                <MenuItem Header="Delete CustomControl" VerticalAlignment="Center" Click="mIDeleteCustomControl_Click" />
+                <MenuItem Header="Delete CustomControl" Click="mIDeleteCustomControl_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIExportCustomControlManifest_Click" />
-                <MenuItem Header="Client Json" VerticalAlignment="Center" Click="mIExportCustomControlClientJson_Click" />
+                <MenuItem Header="Manifest" Click="mIExportCustomControlManifest_Click" />
+                <MenuItem Header="Client Json" Click="mIExportCustomControlClientJson_Click" />
 
                 <Separator />
                 <MenuItem Header="Change CustomControl Attribute" VerticalAlignment="Center">
-                    <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIUpdateCustomControlManifest_Click" />
-                    <MenuItem Header="Client Json" VerticalAlignment="Center" Click="mIUpdateCustomControlClientJson_Click" />
+                    <MenuItem Header="Manifest" Click="mIUpdateCustomControlManifest_Click" />
+                    <MenuItem Header="Client Json" Click="mIUpdateCustomControlClientJson_Click" />
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
@@ -218,38 +215,35 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportCustomControl" Header="Export Form Information" VerticalAlignment="Center">
-                            <MenuItem Header="Open CustomControl in Browser" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open CustomControl in Browser" Click="mIOpenInWeb_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
                             <MenuItem Header="Change CustomControl in Editor" Click="mIChangeEntityInEditor_Click"/>
-                            <MenuItem Header="Delete CustomControl" VerticalAlignment="Center" Click="mIDeleteCustomControl_Click" />
+                            <MenuItem Header="Delete CustomControl" Click="mIDeleteCustomControl_Click" />
 
                             <Separator/>
-                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToCrmSolution_Click" />
+                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                            <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportCustomControlManifest_Click" />
-                            <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportCustomControlClientJson_Click" />
+                            <MenuItem Header="Form XML" Click="mIExportCustomControlManifest_Click" />
+                            <MenuItem Header="Form Json" Click="mIExportCustomControlClientJson_Click" />
 
                             <Separator />
                             <MenuItem Header="Change CustomControl Attribute" VerticalAlignment="Center">
-                                <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateCustomControlManifest_Click" />
-                                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateCustomControlClientJson_Click" />
+                                <MenuItem Header="Form XML" Click="mIUpdateCustomControlManifest_Click" />
+                                <MenuItem Header="Form Json" Click="mIUpdateCustomControlClientJson_Click" />
                             </MenuItem>
 
                             <Separator/>
-                            <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                            <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Browser" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-                                <Separator/>
-                                <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
-                            </MenuItem>
+                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

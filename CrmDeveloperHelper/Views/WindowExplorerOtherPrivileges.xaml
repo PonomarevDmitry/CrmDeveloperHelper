@@ -27,36 +27,33 @@
             <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
             <ContextMenu x:Key="listContextMenuSecurityRole" Opened="ContextMenuSecurityRole_Opened">
-                <MenuItem Header="Open Role in Browser" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Role in Browser" Click="mIOpenSecurityRoleInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Role List in Browser" VerticalAlignment="Center" Click="mIOpenSecurityRoleListInWeb_Click" />
+                <MenuItem Header="Open Role List in Browser" Click="mIOpenSecurityRoleListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenSecurityRoleExplorer_Click" />
+                <MenuItem Header="Open Role Explorer" Click="mIOpenSecurityRoleExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Role Backup" VerticalAlignment="Center" Click="mICreateSecurityRoleBackup_Click" />
+                <MenuItem Header="Create Role Backup" Click="mICreateSecurityRoleBackup_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
-                    <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                    <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                    <MenuItem Header="Copy Role Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                    <MenuItem Header="Copy Role Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddSecurityRoleToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddSecurityRoleToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddSecurityRoleToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddSecurityRoleToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mISecurityRoleOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mISecurityRoleOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mISecurityRoleOpenSolutionsContainingComponentInExplorer_Click" />
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuOtherPrivileges" Opened="ContextMenuOtherPrivilege_Opened">
@@ -75,18 +72,15 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddOtherPrivilegeToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddOtherPrivilegeToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">

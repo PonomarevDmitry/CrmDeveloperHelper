@@ -33,7 +33,7 @@
 
                     <Separator/>
                     <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Copy to Clipboard QueryType Code" Click="mIClipboardCopyQueryTypeCode_Click" />
                     <MenuItem Header="Copy to Clipboard QueryType Name" Click="mIClipboardCopyQueryTypeName_Click" />
@@ -112,14 +112,11 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
@@ -363,9 +360,9 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSavedQuery" Header="Export Saved Query Information" SubmenuOpened="tSDDBExportSavedQuery_SubmenuOpened">
-                            
+
                             <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
@@ -406,15 +403,11 @@
                             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                            <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                                <Separator/>
-                                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                            </MenuItem>
-
+                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

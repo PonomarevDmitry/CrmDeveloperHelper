@@ -55,17 +55,14 @@
 
                 <Separator/>
                 <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
-                
+
+                <Separator/>
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
+
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                
-                <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
 
@@ -103,14 +100,11 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddEntityRelationshipToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIEntityRelationshipOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIEntityRelationshipOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIEntityRelationshipOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIEntityRelationshipOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIEntityRelationshipOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIEntityRelationshipOpenSolutionsContainingComponentInExplorer_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">

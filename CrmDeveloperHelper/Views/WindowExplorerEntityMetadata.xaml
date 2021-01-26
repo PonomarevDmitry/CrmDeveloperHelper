@@ -19,7 +19,7 @@
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                
+
                 <MenuItem Header="Open Entity Customization in Browser" Click="miOpenEntityInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
@@ -111,14 +111,11 @@
                 <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="miOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="miOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="miOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="miOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
@@ -166,13 +163,13 @@
 
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Options">
-                    
+
                     <MenuItem Header="Export Xml Options" Click="miExportXmlOptions_Click" />
 
                     <MenuItem Header="C# File Options" Click="miFileGenerationEntityMetadataOptions_Click" />
 
                     <MenuItem Header="JavaScript File Options" Click="miFileGenerationJavaScriptOptions_Click" />
-                    
+
                 </MenuItem>
             </Menu>
 
@@ -353,12 +350,12 @@
                         <Setter Property="Padding" Value="3" />
                     </Style>
                 </DockPanel.Resources>
-                
+
                 <ToolBarPanel Orientation="Horizontal" >
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        
+
                         <MenuItem x:Name="miEntityOperations" Header="Entity Operations" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="3" SubmenuOpened="miEntityOperations_SubmenuOpened">
-                            
+
                             <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click" />
                             <MenuItem Header="Create C# Proxy Class File" Click="miCreateCSharpFileProxyClass_Click"/>
 
@@ -405,7 +402,7 @@
 
                             <Separator/>
                             <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
-                            
+
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
@@ -423,6 +420,6 @@
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
             <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
-        
+
     </Grid>
 </src:WindowWithConnectionList>

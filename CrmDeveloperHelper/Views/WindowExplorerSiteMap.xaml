@@ -39,32 +39,29 @@
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Change SiteMap in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem Header="Change SiteMap Attribute">
                     <MenuItem Header="SiteMap Xml" Click="mIUpdateSiteMapXml_Click"/>
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Publish SiteMap" Click="btnPublishSiteMap_Click"/>
-                
+
+                <Separator/>
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
+
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                
-                <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
 
                 <Separator/>
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
-                
+
                 <Separator/>
                 <MenuItem Header="Export All SiteMap Information" Click="btnExportAll_Click"/>
             </ContextMenu>
@@ -85,7 +82,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            
+
             <Button Content="Options" Click="miOptions_Click"/>
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
 
@@ -97,7 +94,7 @@
             <Menu Background="{x:Null}">
                 <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
             </Menu>
-            
+
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
@@ -170,7 +167,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All SiteMap Xml" Click="btnExportAll_Click" />
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSiteMap" Header="Export SiteMap Information">
@@ -181,28 +178,25 @@
 
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Change SiteMap Attribute">
                                 <MenuItem Header="SiteMap Xml" Click="mIUpdateSiteMapXml_Click"/>
                             </MenuItem>
-                            
+
                             <Separator/>
                             <MenuItem Header="Publish SiteMap" Click="btnPublishSiteMap_Click"/>
-                            
+
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
+
                             <Separator/>
                             <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                            
-                            <Separator/>
-                            <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                                <Separator/>
-                                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                            </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>

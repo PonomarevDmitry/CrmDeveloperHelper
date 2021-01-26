@@ -81,14 +81,11 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                    <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                </MenuItem>
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
@@ -274,21 +271,22 @@
                             <Separator/>
                             <MenuItem Header="Data Description" Click="mIExportSystemChartDataDescription_Click"/>
                             <MenuItem Header="Presentation Description" Click="mIExportSystemChartPresentationDescription_Click"/>
+
                             <Separator x:Uid="controlChangeEntityAttribute"/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart Attribute">
                                 <MenuItem Header="Data Description" Click="mIUpdateSystemChartDataDescription_Click"/>
                                 <MenuItem Header="Presentation Description" Click="mIUpdateSystemChartPresentationDescription_Click"/>
                             </MenuItem>
+
                             <Separator/>
                             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+                            <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
+
                             <Separator/>
                             <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                            <Separator/>
-                            <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                                <Separator/>
-                                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-                            </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

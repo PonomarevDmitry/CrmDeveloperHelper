@@ -18,10 +18,10 @@
 
         <ContextMenu x:Key="listContextMenuSystemUser">
             <MenuItem Header="Open User in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
-            
+
             <Separator/>
             <MenuItem Header="Open User List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Create User Entity Description" Click="mICreateEntityDescription_Click" />
 
@@ -45,48 +45,48 @@
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
             <MenuItem Header="Open Role in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
-            
+
             <Separator/>
             <MenuItem Header="Open Role List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Role Explorer" Click="mIOpenEntityExplorer_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Create Role Entity Description" Click="mICreateEntityDescription_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy to Clipboard Role Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy to Clipboard Role Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
             <MenuItem Header="Add to Crm Solution" Click="AddRoleToCrmSolution_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Remove Role from User" Click="btnRemoveRoleFromUser_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRoleByTeam" Opened="ContextMenuRoleByTeam_Opened">
             <MenuItem Header="Open Role in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
-            
+
             <Separator/>
             <MenuItem Header="Open Role List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Role Explorer" Click="mIOpenEntityExplorer_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Create Role Entity Description" Click="mICreateEntityDescription_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy to Clipboard Role Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy to Clipboard Role Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem Header="Team">
                 <MenuItem Header="Open Team in Browser" Click="mIOpenRoleTeamInWeb_Click" />
@@ -98,7 +98,7 @@
                 <MenuItem Header="Copy to Clipboard Team Id" Click="mICopyRoleTeamIdToClipboard_Click" />
                 <MenuItem Header="Copy to Clipboard Team Url" Click="mICopyRoleTeamUrlToClipboard_Click" />
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
             <MenuItem Header="Add to Crm Solution" Click="AddRoleByTeamToCrmSolution_Click" />
@@ -106,22 +106,22 @@
 
         <ContextMenu x:Key="listContextMenuTeam">
             <MenuItem Header="Open Team in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
-            
+
             <Separator/>
             <MenuItem Header="Open Team List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Team Explorer" Click="mIOpenEntityExplorer_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Create Team Entity Description" Click="mICreateEntityDescription_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Team to Clipboard Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Team to Clipboard Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem Header="Remove User from Team" Click="btnRemoveUserFromTeam_Click" />
         </ContextMenu>
@@ -168,17 +168,14 @@
 
             <Separator/>
             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
-            
+
+            <Separator/>
+            <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
+            <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
+
             <Separator/>
             <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-            
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
-                <Separator/>
-                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
-            </MenuItem>
-            
+
             <Separator/>
             <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
 
@@ -209,14 +206,11 @@
             <MenuItem Header="Add to Crm Solution" Click="AddOtherPrivilegeToCrmSolution_Click" />
 
             <Separator/>
-            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
+            <MenuItem Header="Open Dependent Components in Browser" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+            <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
 
             <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Browser" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
-                <Separator/>
-                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
-            </MenuItem>
+            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
         </ContextMenu>
 
     </src:WindowWithSolutionComponentDescriptor.Resources>
@@ -462,7 +456,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="100*"/>
@@ -622,7 +616,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
