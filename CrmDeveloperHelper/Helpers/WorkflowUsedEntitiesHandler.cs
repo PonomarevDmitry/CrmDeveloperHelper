@@ -269,24 +269,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return true;
         }
 
-        public Task<TupleList<string, string, List<string>>> GetWorkflowStringsEntityFieldsAsync(XElement doc)
+        public Task<List<WorkflowEntityFieldString>> GetWorkflowStringsEntityFieldsAsync(XElement doc)
         {
             return Task.Run(() => GetWorkflowStringsEntityFields(doc));
         }
 
-        private TupleList<string, string, List<string>> GetWorkflowStringsEntityFields(XElement doc)
+        private List<WorkflowEntityFieldString> GetWorkflowStringsEntityFields(XElement doc)
         {
-            var usedCreateEntityReference = new TupleList<string, string, List<string>>();
+            var entityFilesStrings = new List<WorkflowEntityFieldString>();
 
-            FillWorkflowsStrings(doc, usedCreateEntityReference);
+            FillWorkflowsStrings(doc, entityFilesStrings);
 
-            return usedCreateEntityReference;
+            return entityFilesStrings;
         }
 
-        private static readonly Regex regexEntityField = new Regex(@"{[\w\s]+\([\w\s]+\)}", RegexOptions.Compiled);
+        private static readonly Regex regexEntityField = new Regex(@"{([\w\s-]+|\([\w\s-]+\))+\(([\w\s-]+|\([\w\s-]+\))+\)}", RegexOptions.Compiled);
         private static readonly Regex regexString = new Regex(@"\[New Object\(\) { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, ""(.*)"", ""String"" }\]", RegexOptions.Compiled);
 
-        private void FillWorkflowsStrings(XElement doc, TupleList<string, string, List<string>> usedCreateEntityReference)
+        private void FillWorkflowsStrings(XElement doc, List<WorkflowEntityFieldString> entityFilesStrings)
         {
             var inArguments = doc.Descendants().Where(IsInArgumentCreateCrmType);
 
@@ -318,14 +318,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (matchesEntityField.Count > 0)
                             {
-                                var entityFields = new List<string>();
+                                var workflowString = new WorkflowEntityFieldString(resultStepName, arguments);
 
                                 foreach (var item in matchesEntityField.OfType<Match>())
                                 {
-                                    entityFields.Add(item.Value);
+                                    workflowString.EntityFields.Add(item.Value);
                                 }
 
-                                usedCreateEntityReference.Add(resultStepName, arguments, entityFields);
+                                entityFilesStrings.Add(workflowString);
                             }
                         }
                     }

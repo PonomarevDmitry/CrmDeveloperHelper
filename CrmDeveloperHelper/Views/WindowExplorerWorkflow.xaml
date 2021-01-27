@@ -4,6 +4,7 @@
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
     xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerWorkflow"
     Title="Workflow Explorer"
     Height="540"
@@ -104,6 +105,9 @@
                 <MenuItem Header="Created or Updated Entities" Click="mIExportWorkflowCreatedOrUpdatedEntities_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Entity Field Strings" Click="mIExportWorkflowEntityFieldStrings_Click"/>
+
+                <Separator/>
                 <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
@@ -185,17 +189,33 @@
             <Label Content="Filter Entity" Grid.Row="0" Grid.Column="2" />
             <ComboBox x:Name="cmBEntityName" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="5" KeyDown="txtBFilterEnitity_KeyDown" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
 
+            <Label x:Name="lblInList" Content="Workflows" Grid.Row="0" Grid.Column="6" Visibility="Collapsed" />
+            <ComboBox x:Name="cmBInList" Grid.Row="0" Grid.Column="7" IsEditable="False" SelectedIndex="0" SelectionChanged="comboBox_SelectionChanged" Width="Auto" Visibility="Collapsed">
+                <ComboBoxItem Content="In List">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>True</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="All">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>False</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            
+
             <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
             <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
 
             <Label Content="Category" Grid.Row="1" Grid.Column="2" />
-            <ComboBox x:Name="cmBCategory" Grid.Row="1" Grid.Column="3" IsEditable="False" SelectionChanged="cmBCategory_SelectionChanged" HorizontalContentAlignment="Stretch" />
+            <ComboBox x:Name="cmBCategory" Grid.Row="1" Grid.Column="3" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
 
             <Label Content="Mode" Grid.Row="1" Grid.Column="4" />
-            <ComboBox x:Name="cmBMode" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="cmBCategory_SelectionChanged" HorizontalContentAlignment="Stretch" />
+            <ComboBox x:Name="cmBMode" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
 
             <Label Content="Status" Grid.Row="1" Grid.Column="6" />
-            <ComboBox x:Name="cmBStatusCode" Grid.Row="1" Grid.Column="7" IsEditable="False" SelectionChanged="cmBCategory_SelectionChanged" HorizontalContentAlignment="Stretch" />
+            <ComboBox x:Name="cmBStatusCode" Grid.Row="1" Grid.Column="7" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
         </Grid>
 
         <DataGrid x:Name="lstVwWorkflows" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
@@ -399,6 +419,9 @@
                             <MenuItem Header="Used Entities" Click="mIExportWorkflowUsedEntities_Click"/>
                             <MenuItem Header="Used Not Exists Entities" Click="mIExportWorkflowUsedNotExistsEntities_Click"/>
                             <MenuItem Header="Created or Updated Entities" Click="mIExportWorkflowCreatedOrUpdatedEntities_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Entity Field Strings" Click="mIExportWorkflowEntityFieldStrings_Click"/>
 
                             <Separator/>
                             <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />

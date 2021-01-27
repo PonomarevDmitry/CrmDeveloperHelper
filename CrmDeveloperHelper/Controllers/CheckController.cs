@@ -8,6 +8,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescript
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -449,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Поиск используемых в БП сущностей
 
-        public async Task ExecuteCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
         {
             string operation = string.Format(Properties.OperationNames.CheckingWorkflowsUsedEntitiesFormat1, connectionData?.Name);
 
@@ -457,7 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await CheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                await CheckingWorkflowsUsedEntities(connectionData, commonConfig, openExplorer);
             }
             catch (Exception ex)
             {
@@ -469,7 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task CheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -478,36 +479,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service.Lock())
+            var content = new StringBuilder();
+
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.WithUrls = true;
+            descriptor.WithManagedInfo = true;
+            descriptor.WithSolutionsInfo = true;
+
+            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
+
+            var stringBuider = new StringBuilder();
+
+            var listWorkflows = await workflowDescriptor.GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(stringBuider);
+
+            File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Entities: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            if (openExplorer && listWorkflows.Any())
             {
-                var content = new StringBuilder();
-
-                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-                content.AppendLine(connectionData.GetConnectionDescription());
-                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                var descriptor = new SolutionComponentDescriptor(service);
-                descriptor.WithUrls = true;
-                descriptor.WithManagedInfo = true;
-                descriptor.WithSolutionsInfo = true;
-
-                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
-
-                var stringBuider = new StringBuilder();
-
-                await workflowDescriptor.GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(stringBuider);
-
-                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Entities: {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig, string.Empty, string.Empty, listWorkflows);
+            }
+            else
+            {
+                service.TryDispose();
             }
         }
 
@@ -515,7 +522,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Поиск несуществующих используемых в БП сущностей
 
-        public async Task ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
         {
             string operation = string.Format(Properties.OperationNames.CheckingWorkflowsUsedNotExistingEntitiesFormat1, connectionData?.Name);
 
@@ -523,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await CheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
+                await CheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig, openExplorer);
             }
             catch (Exception ex)
             {
@@ -535,7 +542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task CheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -544,42 +551,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service.Lock())
+            var content = new StringBuilder();
+
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.WithUrls = true;
+            descriptor.WithManagedInfo = true;
+            descriptor.WithSolutionsInfo = true;
+
+            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
+
+            var stringBuider = new StringBuilder();
+
+            var listWorkflows = await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(stringBuider);
+
+            File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Not Existing Entities: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            if (openExplorer && listWorkflows.Any())
             {
-                var content = new StringBuilder();
-
-                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-                content.AppendLine(connectionData.GetConnectionDescription());
-                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                var descriptor = new SolutionComponentDescriptor(service);
-                descriptor.WithUrls = true;
-                descriptor.WithManagedInfo = true;
-                descriptor.WithSolutionsInfo = true;
-
-                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
-
-                var stringBuider = new StringBuilder();
-
-                await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(stringBuider);
-
-                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Not Existing Entities: {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig, string.Empty, string.Empty, listWorkflows);
+            }
+            else
+            {
+                service.TryDispose();
             }
         }
 
         #endregion Поиск несуществующих используемых в БП сущностей
 
-        public async Task ExecuteCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig)
+        #region Checking Workflows with Entity Field Strings
+
+        public async Task ExecuteCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
         {
             string operation = string.Format(Properties.OperationNames.CheckingWorkflowsWithEntityFieldStringsFormat1, connectionData?.Name);
 
@@ -587,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await CheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig);
+                await CheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig, openExplorer);
             }
             catch (Exception ex)
             {
@@ -599,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task CheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -608,38 +623,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service.Lock())
+            var content = new StringBuilder();
+
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            string fileName = string.Format("{0}.Workflows with Entity Field Strings at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.WithUrls = true;
+            descriptor.WithManagedInfo = true;
+            descriptor.WithSolutionsInfo = true;
+
+            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
+
+            var stringBuider = new StringBuilder();
+
+            var listWorkflows = await workflowDescriptor.GetDescriptionWithEntityFieldStringsInAllWorkflowsAsync(stringBuider);
+
+            File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Entity Field Strings: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            if (openExplorer && listWorkflows.Any())
             {
-                var content = new StringBuilder();
-
-                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-                content.AppendLine(connectionData.GetConnectionDescription());
-                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                string fileName = string.Format("{0}.Workflows with Entity Field Strings at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                var descriptor = new SolutionComponentDescriptor(service);
-                descriptor.WithUrls = true;
-                descriptor.WithManagedInfo = true;
-                descriptor.WithSolutionsInfo = true;
-
-                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
-
-                var stringBuider = new StringBuilder();
-
-                await workflowDescriptor.GetDescriptionWithEntityFieldStringsInAllWorkflowsAsync(stringBuider);
-
-                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Entity Field Strings: {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig, string.Empty, string.Empty, listWorkflows);
+            }
+            else
+            {
+                service.TryDispose();
             }
         }
+
+        #endregion Checking Workflows with Entity Field Strings
 
         #region Checking Unknown Form Control Types
 

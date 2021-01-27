@@ -49,17 +49,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     };
                     menuItemCheckWorkflowsUsedEntities.Click += (s, e) => miCheckWorkflowsUsedEntities_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
+                    var menuItemCheckWorkflowsUsedEntitiesOpenExplorer = new MenuItem()
+                    {
+                        Header = "Open Workflows used Entities in Explorer",
+                    };
+                    menuItemCheckWorkflowsUsedEntitiesOpenExplorer.Click += (s, e) => miCheckWorkflowsUsedEntitiesOpenExplorer_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
+
                     var menuItemCheckWorkflowsUsedNotExistsEntities = new MenuItem()
                     {
                         Header = "Workflows used Not Exists Entities",
                     };
                     menuItemCheckWorkflowsUsedNotExistsEntities.Click += (s, e) => miCheckWorkflowsUsedNotExistsEntities_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
+                    var menuItemCheckWorkflowsUsedNotExistsEntitiesOpenExplorer = new MenuItem()
+                    {
+                        Header = "Open Workflows used Not Exists Entities in Explorer",
+                    };
+                    menuItemCheckWorkflowsUsedNotExistsEntitiesOpenExplorer.Click += (s, e) => miCheckWorkflowsUsedNotExistsEntitiesOpenExplorer_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
+
                     var menuItemCheckWorkflowsWithEntityFieldStrings = new MenuItem()
                     {
                         Header = "Workflows with Entity Field Strings",
                     };
                     menuItemCheckWorkflowsWithEntityFieldStrings.Click += (s, e) => miCheckWorkflowsWithEntityFieldStrings_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
+
+                    var menuItemCheckWorkflowsWithEntityFieldStringsOpenExplorer = new MenuItem()
+                    {
+                        Header = "Open Workflows with Entity Field Strings in Explorer",
+                    };
+                    menuItemCheckWorkflowsWithEntityFieldStringsOpenExplorer.Click += (s, e) => menuItemOpenWorkflowsWithEntityFieldStringsInExplorer_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     var menuItemCheckEntitiesOwnership = new MenuItem()
                     {
@@ -118,9 +136,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuItemCheckPluginImagesRequiredComponents.Click += (s, e) => miCheckPluginImagesRequiredComponents_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     menuItemCheck.Items.Add(menuItemCheckWorkflowsUsedEntities);
-                    menuItemCheck.Items.Add(menuItemCheckWorkflowsUsedNotExistsEntities);
-                    menuItemCheck.Items.Add(menuItemCheckWorkflowsWithEntityFieldStrings);
+                    menuItemCheck.Items.Add(menuItemCheckWorkflowsUsedEntitiesOpenExplorer);
                     
+                    menuItemCheck.Items.Add(menuItemCheckWorkflowsUsedNotExistsEntities);
+                    menuItemCheck.Items.Add(menuItemCheckWorkflowsUsedNotExistsEntitiesOpenExplorer);
+
+                    menuItemCheck.Items.Add(menuItemCheckWorkflowsWithEntityFieldStrings);
+                    menuItemCheck.Items.Add(menuItemCheckWorkflowsWithEntityFieldStringsOpenExplorer);
+                    
+
+
                     menuItemCheck.Items.Add(new Separator());
                     menuItemCheck.Items.Add(menuItemCheckEntitiesOwnership);
                     menuItemCheck.Items.Add(new Separator());
@@ -2062,6 +2087,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private static void miCheckWorkflowsUsedEntities_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
         {
+            CheckWorkflowsUsedEntities(iWriteToOutput, commonConfig, getSelectedSingleConnection, false);
+        }
+
+        private static void miCheckWorkflowsUsedEntitiesOpenExplorer_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        {
+            CheckWorkflowsUsedEntities(iWriteToOutput, commonConfig, getSelectedSingleConnection, true);
+        }
+
+        private static void CheckWorkflowsUsedEntities(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection, bool openExplorer)
+        {
             var connection = getSelectedSingleConnection();
 
             if (connection != null)
@@ -2082,7 +2117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 var contr = new CheckController(iWriteToOutput);
 
-                                var task = contr.ExecuteCheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                                var task = contr.ExecuteCheckingWorkflowsUsedEntities(connectionData, commonConfig, openExplorer);
                             }
                             catch (Exception ex)
                             {
@@ -2098,41 +2133,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private static void miCheckWorkflowsUsedNotExistsEntities_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
         {
-            var connection = getSelectedSingleConnection();
-
-            if (connection != null)
-            {
-                var dialog = new WindowSelectFolderForExport(connection, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    var connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        commonConfig.Save();
-
-                        var backWorker = new Thread(() =>
-                        {
-                            try
-                            {
-                                var contr = new CheckController(iWriteToOutput);
-
-                                var task = contr.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
-                            }
-                            catch (Exception ex)
-                            {
-                                iWriteToOutput.WriteErrorToOutput(null, ex);
-                            }
-                        });
-
-                        backWorker.Start();
-                    }
-                }
-            }
+            CheckWorkflowsUsedNotExistsEntities(iWriteToOutput, commonConfig, getSelectedSingleConnection, false);
         }
 
-        private static void miCheckWorkflowsWithEntityFieldStrings_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        private static void miCheckWorkflowsUsedNotExistsEntitiesOpenExplorer_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        {
+            CheckWorkflowsUsedNotExistsEntities(iWriteToOutput, commonConfig, getSelectedSingleConnection, true);
+        }
+
+        private static void CheckWorkflowsUsedNotExistsEntities(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection, bool openExplorer)
         {
             var connection = getSelectedSingleConnection();
 
@@ -2154,7 +2163,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 var contr = new CheckController(iWriteToOutput);
 
-                                var task = contr.ExecuteCheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig);
+                                var task = contr.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig, openExplorer);
+                            }
+                            catch (Exception ex)
+                            {
+                                iWriteToOutput.WriteErrorToOutput(null, ex);
+                            }
+                        });
+
+                        backWorker.Start();
+                    }
+                }
+            }
+        }
+
+        private static void miCheckWorkflowsWithEntityFieldStrings_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        {
+            CheckWorkflowsWithEntityFieldStrings(iWriteToOutput, commonConfig, getSelectedSingleConnection, false);
+        }
+
+        private static void menuItemOpenWorkflowsWithEntityFieldStringsInExplorer_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        {
+            CheckWorkflowsWithEntityFieldStrings(iWriteToOutput, commonConfig, getSelectedSingleConnection, true);
+        }
+
+        private static void CheckWorkflowsWithEntityFieldStrings(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection, bool openExplorer)
+        {
+            var connection = getSelectedSingleConnection();
+
+            if (connection != null)
+            {
+                var dialog = new WindowSelectFolderForExport(connection, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    var connectionData = dialog.GetConnectionData();
+
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
+
+                        var backWorker = new Thread(() =>
+                        {
+                            try
+                            {
+                                var contr = new CheckController(iWriteToOutput);
+
+                                var task = contr.ExecuteCheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig, openExplorer);
                             }
                             catch (Exception ex)
                             {

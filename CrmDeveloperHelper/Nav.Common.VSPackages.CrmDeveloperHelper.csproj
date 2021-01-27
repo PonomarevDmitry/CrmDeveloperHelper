@@ -662,6 +662,7 @@
     <Compile Include="Helpers\AssemblyReaderResult.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Model\WorkflowEntityFieldString.cs" />
     <Compile Include="Repository\ColumnSetInstances.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
     <Compile Include="Commands\Commons\CommonOrganizationComparerCommand.cs" />

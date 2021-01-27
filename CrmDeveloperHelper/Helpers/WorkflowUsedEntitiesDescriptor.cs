@@ -277,13 +277,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public Task GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(StringBuilder strFile)
+        public Task<IEnumerable<Guid>> GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(StringBuilder strFile)
         {
             return Task.Run(() => GetDescriptionWithUsedEntitiesInAllWorkflows(strFile));
         }
 
-        private async Task GetDescriptionWithUsedEntitiesInAllWorkflows(StringBuilder strFile)
+        private async Task<IEnumerable<Guid>> GetDescriptionWithUsedEntitiesInAllWorkflows(StringBuilder strFile)
         {
+            var workflowsWithEntities = new HashSet<Guid>();
+
             try
             {
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
@@ -292,8 +294,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
 
                 var repositoryWorkflow = new WorkflowRepository(_service);
-
-                HashSet<Guid> workflowsWithEntities = new HashSet<Guid>();
 
                 Dictionary<EntityReference, HashSet<Guid>> list = new Dictionary<EntityReference, HashSet<Guid>>();
 
@@ -348,6 +348,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
+
+            return workflowsWithEntities;
         }
 
         private async Task FillDescriptionUsedEntities(StringBuilder strFile, HashSet<Guid> workflowsWithEntities, Dictionary<EntityReference, HashSet<Guid>> dictUsedEntities)
@@ -516,13 +518,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public Task GetDescriptionWithEntityFieldStringsInAllWorkflowsAsync(StringBuilder strFile)
+        public Task<IEnumerable<Guid>> GetDescriptionWithEntityFieldStringsInAllWorkflowsAsync(StringBuilder strFile)
         {
             return Task.Run(() => GetDescriptionWithEntityFieldStringsInAllWorkflows(strFile));
         }
 
-        private async Task GetDescriptionWithEntityFieldStringsInAllWorkflows(StringBuilder strFile)
+        private async Task<IEnumerable<Guid>> GetDescriptionWithEntityFieldStringsInAllWorkflows(StringBuilder strFile)
         {
+            var workflowsWithStrings = new Dictionary<Guid, List<WorkflowEntityFieldString>>();
+
             try
             {
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
@@ -531,8 +535,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
 
                 var repositoryWorkflow = new WorkflowRepository(_service);
-
-                var workflowsWithStrings = new Dictionary<Guid, TupleList<string, string, List<string>>>();
 
                 var handler = new WorkflowUsedEntitiesHandler();
 
@@ -552,7 +554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         var doc = XElement.Parse(xmlContent);
 
-                        TupleList<string, string, List<string>> coll = await handler.GetWorkflowStringsEntityFieldsAsync(doc);
+                        List<WorkflowEntityFieldString> coll = await handler.GetWorkflowStringsEntityFieldsAsync(doc);
 
                         if (coll.Count > 0)
                         {
@@ -561,7 +563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                await FillDescriptionUsedEntities(strFile, workflowsWithStrings);
+                await FillDescriptionEntityFieldStrings(strFile, workflowsWithStrings);
 
                 strFile.AppendLine(this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
             }
@@ -569,9 +571,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
+
+            return workflowsWithStrings.Keys.ToArray();
         }
 
-        private async Task FillDescriptionUsedEntities(StringBuilder strFile, Dictionary<Guid, TupleList<string, string, List<string>>> workflowsWithStrings)
+        private async Task FillDescriptionEntityFieldStrings(StringBuilder strFile, Dictionary<Guid, List<WorkflowEntityFieldString>> workflowsWithStrings)
         {
             string message = string.Empty;
 
@@ -623,9 +627,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (var step in list)
                 {
-                    foreach (var entityFieldString in step.Item3)
+                    foreach (var entityFieldString in step.EntityFields)
                     {
-                        table.AddLine(step.Item1, entityFieldString, step.Item2);
+                        table.AddLine(step.StepName, entityFieldString, step.OriginalString);
                     }
                 }
 
@@ -650,13 +654,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                    ;
         }
 
-        public Task GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(StringBuilder strFile)
+        public Task<IEnumerable<Guid>> GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(StringBuilder strFile)
         {
             return Task.Run(() => GetDescriptionWithUsedNotExistsEntitiesInAllWorkflows(strFile));
         }
 
-        private async Task GetDescriptionWithUsedNotExistsEntitiesInAllWorkflows(StringBuilder strFile)
+        private async Task<IEnumerable<Guid>> GetDescriptionWithUsedNotExistsEntitiesInAllWorkflows(StringBuilder strFile)
         {
+            HashSet<Guid> workflowsWithEntities = new HashSet<Guid>();
+
             try
             {
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
@@ -665,8 +671,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 strFile.AppendLine(this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.AnalyzingWorkflowsFormat1, _service.ConnectionData.Name));
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
-
-                HashSet<Guid> workflowsWithEntities = new HashSet<Guid>();
 
                 Dictionary<EntityReference, HashSet<Guid>> list = new Dictionary<EntityReference, HashSet<Guid>>();
 
@@ -718,6 +722,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
+
+            return workflowsWithEntities;
         }
 
         private async Task FillDescriptionNotExistsEntities(StringBuilder strFile, HashSet<Guid> workflowsWithEntities, Dictionary<EntityReference, HashSet<Guid>> list)
@@ -1036,6 +1042,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         strFile.AppendLine().AppendLine();
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+            }
+        }
+
+        public async Task GetDescriptionEntityFieldStringsInWorkflowAsync(StringBuilder strFile, Guid idWorkflow)
+        {
+            try
+            {
+                var repository = new WorkflowRepository(_service);
+
+                var workflow = await repository.GetByIdAsync(idWorkflow, ColumnSetInstances.AllColumns);
+
+                string xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
+
+                var doc = XElement.Parse(xmlContent);
+
+                var handler = new WorkflowUsedEntitiesHandler();
+
+                strFile
+                    .AppendFormat("Entity:   {0}", workflow.PrimaryEntity).AppendLine()
+                    .AppendFormat("Category: {0}", workflow.FormattedValues[Workflow.Schema.Attributes.category]).AppendLine()
+                    .AppendFormat("Name:     {0}", workflow.Name).AppendLine()
+                    .AppendFormat("Url:      {0}", _service.UrlGenerator.GetSolutionComponentUrl(ComponentType.Workflow, idWorkflow)).AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    ;
+
+                var strings = await handler.GetWorkflowStringsEntityFieldsAsync(doc);
+
+                Dictionary<Guid, List<WorkflowEntityFieldString>> workflowsWithStrings = new Dictionary<Guid, List<WorkflowEntityFieldString>>();
+
+                if (strings.Any())
+                {
+                    workflowsWithStrings.Add(idWorkflow, strings);
+                }
+
+                await FillDescriptionEntityFieldStrings(strFile, workflowsWithStrings);
             }
             catch (Exception ex)
             {

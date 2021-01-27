@@ -13102,6 +13102,16 @@
           <ButtonText>Workflows used Entities</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesOpenExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Workflows used Entities in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -13111,6 +13121,16 @@
           <ButtonText>Workflows used Not Exists Entities</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesOpenExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Workflows used Not Exists Entities in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="CommonCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -13120,9 +13140,18 @@
           <ButtonText>Workflows with Entity Field Strings</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonCheckWorkflowsWithEntityFieldStringsOpenExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Workflows with Entity Field Strings in Explorer</ButtonText>
+        </Strings>
+      </Button>
 
 
-      
+
       <Button guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -14677,6 +14706,16 @@
           <ButtonText>Workflows used Entities</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputCheckWorkflowsUsedEntitiesOpenExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Workflows used Entities in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -14686,6 +14725,16 @@
           <ButtonText>Workflows used Not Exists Entities</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputCheckWorkflowsUsedNotExistsEntitiesOpenExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Workflows used Not Exists Entities in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="OutputCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -14695,8 +14744,17 @@
           <ButtonText>Workflows with Entity Field Strings</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputCheckWorkflowsWithEntityFieldStringsOpenExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Workflows with Entity Field Strings in Explorer</ButtonText>
+        </Strings>
+      </Button>
 
-      
+
 
       <Button guid="guidCommandSet" id="OutputCheckEntitiesOwnerShipsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -21276,10 +21334,21 @@
     <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesOpenExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06020">
+    
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesOpenExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06040">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsWithEntityFieldStringsOpenExplorerCommandId" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
 
@@ -25610,13 +25679,24 @@
     <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedEntitiesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedEntitiesOpenExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
     
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsUsedNotExistsEntitiesOpenExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsWithEntityFieldStringsCommandId" priority="0x06040">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckWorkflowsWithEntityFieldStringsOpenExplorerCommandId" priority="0x06050">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
+    </CommandPlacement>
+
     <!-- #endregion CommandPlacements outputMenu_GroupCheck_MenuCheck_GroupWorkflows -->
 
     <!-- #region CommandPlacements outputMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership -->
@@ -30482,8 +30562,13 @@
       <IDSymbol name="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" value="0x2020" />
 
       <IDSymbol name="CommonCheckWorkflowsUsedEntitiesCommandId" value="0x216C" />
+      <IDSymbol name="CommonCheckWorkflowsUsedEntitiesOpenExplorerCommandId" value="0x2291" />
+      
       <IDSymbol name="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x216D" />
+      <IDSymbol name="CommonCheckWorkflowsUsedNotExistsEntitiesOpenExplorerCommandId" value="0x2292" />
+      
       <IDSymbol name="CommonCheckWorkflowsWithEntityFieldStringsCommandId" value="0x228D" />
+      <IDSymbol name="CommonCheckWorkflowsWithEntityFieldStringsOpenExplorerCommandId" value="0x228F" />
 
       <IDSymbol name="CommonFindEntityObjectsByNameCommandId" value="0x2021" />
       <IDSymbol name="CommonFindEntityObjectsByNameInExplorerCommandId" value="0x2205" />
@@ -30675,8 +30760,13 @@
       <IDSymbol name="OutputTraceReaderCommandId" value="0x21D" />
 
       <IDSymbol name="OutputCheckWorkflowsUsedEntitiesCommandId" value="0x21DB" />
+      <IDSymbol name="OutputCheckWorkflowsUsedEntitiesOpenExplorerCommandId" value="0x2293" />
+      
       <IDSymbol name="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x21DC" />
+      <IDSymbol name="OutputCheckWorkflowsUsedNotExistsEntitiesOpenExplorerCommandId" value="0x2294" />
+      
       <IDSymbol name="OutputCheckWorkflowsWithEntityFieldStringsCommandId" value="0x228E" />
+      <IDSymbol name="OutputCheckWorkflowsWithEntityFieldStringsOpenExplorerCommandId" value="0x2290" />
 
       <IDSymbol name="OutputCheckEntitiesOwnerShipsCommandId" value="0x21CE" />
 
@@ -30798,7 +30888,7 @@
     <!-- 0x1621 -->
 
     <!-- Commands -->
-    <!-- 0x228F -->
+    <!-- 0x2295 -->
 
     <!-- Commands Dynamic -->
     <!-- 21150 -->

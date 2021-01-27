@@ -476,8 +476,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string filterEntityName = null
-            , string selection = null
+        )
+        {
+            OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, null, null, null);
+        }
+
+        public static void OpenWorkflowExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+        )
+        {
+            OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, filterEntityName, null, null);
+        }
+
+        public static void OpenWorkflowExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+        )
+        {
+            OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, filterEntityName, selection, null);
+        }
+
+        public static void OpenWorkflowExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+            , IEnumerable<Guid> selectedWorkflows
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
@@ -488,6 +519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , service
                     , filterEntityName
                     , selection
+                    , selectedWorkflows
                 )
             );
         }

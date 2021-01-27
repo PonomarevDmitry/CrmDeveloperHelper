@@ -67,12 +67,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWorkflowGetCurrent(conn, commonConfig, selectedFile));
         }
 
-        public void HandleCheckingWorkflowsUsedEntities()
+        public void HandleCheckingWorkflowsUsedEntities(bool openExplorer)
         {
-            HandleCheckingWorkflowsUsedEntities(null);
+            HandleCheckingWorkflowsUsedEntities(null, openExplorer);
         }
 
-        public void HandleCheckingWorkflowsUsedEntities(ConnectionData connectionData)
+        public void HandleCheckingWorkflowsUsedEntities(ConnectionData connectionData, bool openExplorer)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 try
                                 {
-                                    Controller.StartCheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                                    Controller.StartCheckingWorkflowsUsedEntities(connectionData, commonConfig, openExplorer);
                                 }
                                 catch (Exception ex)
                                 {
@@ -135,12 +135,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckingWorkflowsNotExistingUsedEntities()
+        public void HandleCheckingWorkflowsNotExistingUsedEntities(bool openExplorer)
         {
-            HandleCheckingWorkflowsNotExistingUsedEntities(null);
+            HandleCheckingWorkflowsNotExistingUsedEntities(null, openExplorer);
         }
 
-        public void HandleCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData)
+        public void HandleCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, bool openExplorer)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 try
                                 {
-                                    Controller.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
+                                    Controller.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig, openExplorer);
                                 }
                                 catch (Exception ex)
                                 {
@@ -203,12 +203,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleCheckingWorkflowsWithEntityFieldStrings()
+        public void HandleCheckingWorkflowsWithEntityFieldStrings(bool openExplorer)
         {
-            HandleCheckingWorkflowsWithEntityFieldStrings(null);
+            HandleCheckingWorkflowsWithEntityFieldStrings(null, openExplorer);
         }
 
-        public void HandleCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData)
+        public void HandleCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, bool openExplorer)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -250,7 +250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                                 try
                                 {
-                                    Controller.ExecuteCheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig);
+                                    Controller.ExecuteCheckingWorkflowsWithEntityFieldStrings(connectionData, commonConfig, openExplorer);
                                 }
                                 catch (Exception ex)
                                 {

@@ -28,12 +28,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<IEnumerable<Workflow>> GetListAsync(string filterEntity, Workflow.Schema.OptionSets.category? category, Workflow.Schema.OptionSets.mode? mode, Workflow.Schema.OptionSets.statuscode? statuscode, ColumnSet columnSet)
+        public Task<IEnumerable<Workflow>> GetListAsync(
+            string filterEntity
+            , Workflow.Schema.OptionSets.category? category
+            , Workflow.Schema.OptionSets.mode? mode
+            , Workflow.Schema.OptionSets.statuscode? statuscode
+            , IEnumerable<Guid> selectedWorkflows
+            , ColumnSet columnSet
+        )
         {
-            return Task.Run(() => GetList(filterEntity, category, mode, statuscode, columnSet));
+            return Task.Run(() => GetList(filterEntity, category, mode, statuscode, selectedWorkflows, columnSet));
         }
 
-        private IEnumerable<Workflow> GetList(string filterEntity, Workflow.Schema.OptionSets.category? category, Workflow.Schema.OptionSets.mode? mode, Workflow.Schema.OptionSets.statuscode? statuscode, ColumnSet columnSet)
+        public Task<IEnumerable<Workflow>> GetListAsync(
+            string filterEntity
+            , Workflow.Schema.OptionSets.category? category
+            , Workflow.Schema.OptionSets.mode? mode
+            , Workflow.Schema.OptionSets.statuscode? statuscode
+            , ColumnSet columnSet
+        )
+        {
+            return Task.Run(() => GetList(filterEntity, category, mode, statuscode, null, columnSet));
+        }
+
+        private IEnumerable<Workflow> GetList(
+            string filterEntity
+            , Workflow.Schema.OptionSets.category? category
+            , Workflow.Schema.OptionSets.mode? mode
+            , Workflow.Schema.OptionSets.statuscode? statuscode
+            , IEnumerable<Guid> selectedWorkflows
+            , ColumnSet columnSet
+        )
         {
             QueryExpression query = new QueryExpression()
             {
@@ -80,6 +105,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (statuscode.HasValue)
             {
                 query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.statuscode, ConditionOperator.Equal, (int)statuscode.Value));
+            }
+
+            if (selectedWorkflows != null && selectedWorkflows.Any())
+            {
+                var hashIds = new HashSet<Guid>(selectedWorkflows);
+
+                query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.EntityPrimaryIdAttribute, ConditionOperator.In, hashIds.ToArray()));
             }
 
             return _service.RetrieveMultipleAll<Workflow>(query);

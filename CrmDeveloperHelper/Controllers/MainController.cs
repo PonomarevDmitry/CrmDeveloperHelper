@@ -1073,14 +1073,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartCheckEntitiesOwnership(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingEntitiesOwnership, commonConfig);
 
-        public void StartCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsUsedEntities, commonConfig);
+        public void StartCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
+            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsUsedEntities, commonConfig, openExplorer);
 
-        public void ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsNotExistingUsedEntities, commonConfig);
+        public void ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
+            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsNotExistingUsedEntities, commonConfig, openExplorer);
 
-        public void ExecuteCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsWithEntityFieldStrings, commonConfig);
+        public void ExecuteCheckingWorkflowsWithEntityFieldStrings(ConnectionData connectionData, CommonConfiguration commonConfig, bool openExplorer)
+            => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsWithEntityFieldStrings, commonConfig, openExplorer);
 
         public void StartCheckManagedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkManagedEntitiesController.ExecuteCheckingManagedEntities, commonConfig);

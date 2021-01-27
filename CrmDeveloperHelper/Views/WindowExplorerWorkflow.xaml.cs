@@ -31,6 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<WorkflowViewItem> _itemsSource;
 
         private readonly Popup _optionsPopup;
+        private readonly HashSet<Guid> _selectedWorkflowsList = new HashSet<Guid>();
 
         public WindowExplorerWorkflow(
              IWriteToOutput iWriteToOutput
@@ -38,6 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , string filterEntity
             , string selection
+            , IEnumerable<Guid> selectedWorkflowsList
         ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
@@ -67,6 +69,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadFromConfig();
 
             LoadConfiguration();
+
+            if (selectedWorkflowsList != null)
+            {
+                foreach (var id in selectedWorkflowsList)
+                {
+                    _selectedWorkflowsList.Add(id);
+                }
+            }
+
+            if (_selectedWorkflowsList.Any())
+            {
+                Grid.SetColumnSpan(cmBEntityName, 3);
+
+                cmBInList.Visibility = Visibility.Visible;
+                lblInList.Visibility = Visibility.Visible;
+            }
 
             if (!string.IsNullOrEmpty(selection))
             {
@@ -262,6 +280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             Workflow.Schema.OptionSets.category? category = null;
             Workflow.Schema.OptionSets.mode? mode = null;
             Workflow.Schema.OptionSets.statuscode? statuscode = null;
+            bool onlyInList = false;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -288,6 +307,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
+                if (cmBInList.SelectedItem is ComboBoxItem comboBoxItemManaged
+                    && comboBoxItemManaged.Tag != null
+                    && comboBoxItemManaged.Tag is bool boolList
+                )
+                {
+                    onlyInList = boolList;
+                }
+
                 if (!string.IsNullOrEmpty(cmBEntityName.Text)
                     && cmBEntityName.Items.Contains(cmBEntityName.Text)
                 )
@@ -295,6 +322,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     entityName = cmBEntityName.Text.Trim().ToLower();
                 }
             });
+
+            IEnumerable<Guid> selectedWorkflows = null;
+
+            if (onlyInList && _selectedWorkflowsList.Any())
+            {
+                selectedWorkflows = _selectedWorkflowsList;
+            }
 
             string filterEntity = null;
 
@@ -317,6 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , category
                         , mode
                         , statuscode
+                        , selectedWorkflows
                         , new ColumnSet(
                             Workflow.Schema.Attributes.category
                             , Workflow.Schema.Attributes.name
@@ -1048,6 +1083,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async Task PerformExportEntityFieldsStrings(string folder, Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingWorkflowFormat2, entityName, name);
+
+            try
+            {
+                var repository = new WorkflowRepository(service);
+
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+
+                string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+                if (!string.IsNullOrEmpty(xmlContent) && ContentComparerHelper.TryParseXml(xmlContent, out var doc))
+                {
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, FileExtension.txt);
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service));
+
+                    var stringBuider = new StringBuilder();
+
+                    await workflowDescriptor.GetDescriptionEntityFieldStringsInWorkflowAsync(stringBuider, idWorkflow);
+
+                    File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowCompletedFormat2, entityName, name);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowFailedFormat2, entityName, name);
+            }
+        }
+
         private async void mIExportWorkflowXaml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1106,6 +1198,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             await ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "CreatedOrUpdatedEntities", PerformExportCreatedOrUpdatedEntitiesToFile);
+        }
+
+        private async void mIExportWorkflowEntityFieldStrings_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, "EntityFieldsStrings", PerformExportEntityFieldsStrings);
         }
 
         private async void mIExportWorkflowInputParameters_Click(object sender, RoutedEventArgs e)
@@ -1709,7 +1813,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ActivateControls(items, hasEnabledWorkflows, "miDeactivateWorkflows");
         }
 
-        private async void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
             {
