@@ -153,7 +153,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = optionSetValue.Value;
                 }
 
-                return new PicklistAttributeMetadataControl(fillAllways, entity.FormattedValues, picklistAttrib, initialValue);
+                string initialFormatedValue = string.Empty;
+
+                if (entity != null
+                    && entity.FormattedValues != null
+                    && entity.FormattedValues.ContainsKey(picklistAttrib.LogicalName)
+                    && !string.IsNullOrEmpty(entity.FormattedValues[picklistAttrib.LogicalName])
+                )
+                {
+                    initialFormatedValue = entity.FormattedValues[picklistAttrib.LogicalName];
+                }
+
+                return new PicklistAttributeMetadataControl(fillAllways, picklistAttrib, initialValue, initialFormatedValue);
             }
 
             if (attributeMetadata is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttributeMetadata)
@@ -182,16 +193,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                         initialValueStatus = optionSetValueStatus.Value;
                     }
 
-                    if (entity != null
-                        && entity.Attributes.ContainsKey(stateAttrib.LogicalName)
-                        && entity.Attributes[stateAttrib.LogicalName] != null
-                        && entity.Attributes[stateAttrib.LogicalName] is OptionSetValue optionSetValueState
-                    )
+                    string statusFormatedValue = string.Empty;
+
+                    if (entity != null)
                     {
-                        initialValueState = optionSetValueState.Value;
+                        if (entity.Attributes.ContainsKey(stateAttrib.LogicalName)
+                            && entity.Attributes[stateAttrib.LogicalName] != null
+                            && entity.Attributes[stateAttrib.LogicalName] is OptionSetValue optionSetValueState
+                        )
+                        {
+                            initialValueState = optionSetValueState.Value;
+                        }
+
+                        if (entity.FormattedValues != null
+                            && entity.FormattedValues.ContainsKey(statusAttrib.LogicalName)
+                            && !string.IsNullOrEmpty(entity.FormattedValues[statusAttrib.LogicalName])
+                        )
+                        {
+                            statusFormatedValue = entity.FormattedValues[statusAttrib.LogicalName];
+                        }
                     }
 
-                    return new StatusAttributeMetadataControl(fillAllways, entity.FormattedValues, statusAttrib, stateAttrib, initialValueStatus, initialValueState);
+                    return new StatusAttributeMetadataControl(fillAllways, statusAttrib, stateAttrib, initialValueStatus, initialValueState, statusFormatedValue);
                 }
             }
 

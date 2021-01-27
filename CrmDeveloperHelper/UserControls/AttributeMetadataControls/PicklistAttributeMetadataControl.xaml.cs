@@ -1,7 +1,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Linq;
 using System.Text;
@@ -15,20 +14,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         public PicklistAttributeMetadata AttributeMetadata { get; }
 
         private readonly int? _initialValue;
+        private readonly string _initialFormattedValue;
 
         private readonly bool _fillAllways;
 
-        public PicklistAttributeMetadataControl(bool fillAllways, FormattedValueCollection formattedValues, PicklistAttributeMetadata attributeMetadata, int? initialValue)
+        public PicklistAttributeMetadataControl(bool fillAllways, PicklistAttributeMetadata attributeMetadata, int? initialValue, string initialFormattedValue)
         {
             InitializeComponent();
 
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
 
             this._initialValue = initialValue;
+            this._initialFormattedValue = initialFormattedValue;
             this._fillAllways = fillAllways;
             this.AttributeMetadata = attributeMetadata;
 
-            FillComboBox(formattedValues);
+            FillComboBox();
 
             btnRemoveControl.IsEnabled = _fillAllways;
 
@@ -39,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void FillComboBox(FormattedValueCollection formattedValues)
+        private void FillComboBox()
         {
             cmBValue.Items.Clear();
             cmBValue.Items.Add("<Null>");
@@ -54,12 +55,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
                 name.Append(_initialValue.Value);
 
-                if (formattedValues != null
-                    && formattedValues.ContainsKey(AttributeMetadata.LogicalName)
-                    && !string.IsNullOrEmpty(formattedValues[AttributeMetadata.LogicalName])
-                )
+                if (!string.IsNullOrEmpty(_initialFormattedValue))
                 {
-                    name.AppendFormat(" - {0}", formattedValues[AttributeMetadata.LogicalName]);
+                    name.AppendFormat(" - {0}", _initialFormattedValue);
                 }
                 else
                 {

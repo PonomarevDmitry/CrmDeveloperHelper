@@ -1,7 +1,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Linq;
 using System.Text;
@@ -22,14 +21,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         private readonly int? _initialValueStatus;
         private readonly int? _initialValueState;
 
+        private readonly string _initialStatusFormattedValue;
+
         private readonly bool _fillAllways;
 
         public StatusAttributeMetadataControl(bool fillAllways
-            , FormattedValueCollection formattedValues
             , StatusAttributeMetadata attributeMetadataStatus
             , StateAttributeMetadata attributeMetadataState
             , int? initialValueStatus
             , int? initialValueState
+            , string statusFormattedValue
         )
         {
             InitializeComponent();
@@ -38,13 +39,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             this._initialValueStatus = initialValueStatus;
             this._initialValueState = initialValueState;
+            this._initialStatusFormattedValue = statusFormattedValue;
 
             this._fillAllways = fillAllways;
 
             this.AttributeMetadata = attributeMetadataStatus;
             this._stateAttributeMetadata = attributeMetadataState;
 
-            FillComboBox(formattedValues);
+            FillComboBox();
 
             btnRemoveControl.IsEnabled = _fillAllways;
 
@@ -55,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void FillComboBox(FormattedValueCollection formattedValues)
+        private void FillComboBox()
         {
             cmBValue.Items.Clear();
             cmBValue.Items.Add("<Null>");
@@ -70,12 +72,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
                 name.Append(_initialValueStatus.Value);
 
-                if (formattedValues != null
-                    && formattedValues.ContainsKey(AttributeMetadata.LogicalName)
-                    && !string.IsNullOrEmpty(formattedValues[AttributeMetadata.LogicalName])
+                if (!string.IsNullOrEmpty(_initialStatusFormattedValue)
                 )
                 {
-                    name.AppendFormat(" - {0}", formattedValues[AttributeMetadata.LogicalName]);
+                    name.AppendFormat(" - {0}", _initialStatusFormattedValue);
                 }
                 else
                 {
