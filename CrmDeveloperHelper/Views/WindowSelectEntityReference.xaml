@@ -5,7 +5,11 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Select EntityReference" Height="358.316" Width="827" WindowStartupLocation="Manual">
+        Title="Select EntityReference" 
+        Height="358"
+        Width="827"
+        WindowStartupLocation="Manual"
+        >
     <src:WindowWithSingleConnection.Resources>
 
         <ResourceDictionary>
@@ -15,20 +19,24 @@
 
             <ContextMenu x:Key="listContextMenu">
 
-                <!--
-                <MenuItem Header="Select Entity" VerticalAlignment="Center" Click="btnSelectEntity_Click"/>
+                <MenuItem Header="Select Entity" VerticalAlignment="Center" Click="mISelectEntity_Click"/>
+
                 <Separator/>
                 <MenuItem Header="Open Entity in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
+
                 <Separator/>
                 <MenuItem Header="Open Entity List in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
-                <Separator/>
-                <MenuItem Header="Clipboard">
-                    <MenuItem Header="Copy Entity Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                    <MenuItem Header="Copy Entity Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
-                </MenuItem>
+
                 <Separator/>
                 <MenuItem Header="Open Entity Customization in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
-                -->
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy to Clipboard Entity Id" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Entity Url" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                </MenuItem>
 
             </ContextMenu>
 
@@ -100,9 +108,7 @@
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <!--
                     <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
-                    -->
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -125,12 +131,11 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
 
-                    <Button x:Name="btnSelect" Content="OK" Click="btnSelectEntity_Click" />
-
                 </ToolBarPanel>
 
-                <Button x:Name="btnCancel" Content="Cancel" Click="btnCancel_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-
+                <Button x:Name="btnCancel" Content="Cancel" Click="btnCancel_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20" />
+                <Separator DockPanel.Dock="Right" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0" />
+                <Button x:Name="btnSelect" Content="OK" Click="btnSelectEntity_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="10" />
             </DockPanel>
         </ToolBar>
 

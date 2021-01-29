@@ -30,7 +30,7 @@
                 <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -41,12 +41,12 @@
                     <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
                 </MenuItem>
 
-                <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-
                 <Separator x:Uid="contMnAddToSolution" />
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
+
+                <Separator/>
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Change Entity">
@@ -90,6 +90,9 @@
                 <MenuItem Header="Create EntityReference New Instance" Click="miCreateNewEntityReferenceInstance_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
+
+                <Separator/>
                 <MenuItem Header="Clipboard EntityReference">
                     <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
                     <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
@@ -100,9 +103,6 @@
                     <Separator/>
                     <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
                 </MenuItem>
-
-                <Separator/>
-                <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
 
                 <Separator x:Uid="contMnAddToSolutionEntityReference" />
                 <MenuItem x:Uid="contMnAddToSolutionEntityReferenceLast" Header="Add EntityReference to Last Crm Solution"  />
@@ -127,7 +127,7 @@
                 <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -138,12 +138,12 @@
                     <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
                 </MenuItem>
 
-                <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-
                 <Separator x:Uid="contMnAddToSolution" />
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
+
+                <Separator/>
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Change Entity">
@@ -191,8 +191,11 @@
                     <ToolBar Grid.Row="0">
                         <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
 
-                        <Separator/>
+                        <Separator Margin="10,0"/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
+
+                        <Separator Margin="10,0"/>
+                        <Button Content="Select File in Folder" Click="btnSelectFileInFolder_Click"/>
 
                         <Separator Margin="10,0"/>
                         <Menu Background="{x:Null}">
@@ -257,6 +260,9 @@
 
                         <Separator Margin="10,0"/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
+
+                        <Separator Margin="10,0"/>
+                        <Button Content="Select File in Folder" Click="btnSelectFileInFolder_Click"/>
 
                         <Separator Margin="10,0"/>
                         <Menu Background="{x:Null}">

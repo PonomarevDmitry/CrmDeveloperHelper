@@ -1054,6 +1054,9 @@
   <data name="DownloadingSystemFormWebResourcesFormat2" xml:space="preserve">
     <value>Downloading SystemForm's WebResources for {0} - {1}...</value>
   </data>
+  <data name="PreparingFetchRequest" xml:space="preserve">
+    <value>Preparing Fetch Request...</value>
+  </data>
   <data name="ExecutingFetch" xml:space="preserve">
     <value>Executing Fetch...</value>
   </data>

@@ -39,8 +39,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             SetInputLanguageEnglish();
 
-            cmBEntityName.Focus();
-
             LoadEntityNames(entityNames);
 
             var task = LoadEntityMetadataAsync(entityNames);
@@ -80,6 +78,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 cmBEntityName.SelectedIndex = 0;
+
+                FocusOnComboBoxTextBox(cmBEntityName);
             }
         }
 
@@ -249,12 +249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                DataRowView item = WindowBase.GetItemFromRoutedDataContext<DataRowView>(e);
-
-                if (item != null
-                    && item[EntityDescriptionHandler.ColumnOriginalEntity] != null
-                    && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity entity
-                )
+                if (TryFindEntityFromDataRowView(e, out var entity))
                 {
                     cmBEntityName.SelectedItem = entity.LogicalName;
                     txtBEntityId.Text = entity.Id.ToString();
@@ -791,6 +786,90 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             _service.ConnectionData.OpenEntityInstanceListInWeb(savedQuery.SavedQuery.ReturnedTypeCode, savedQuery.SavedQuery.Id);
+        }
+
+        private bool TryFindEntityFromDataRowView(RoutedEventArgs e, out Entity entity)
+        {
+            entity = null;
+
+            DataRowView item = WindowBase.GetItemFromRoutedDataContext<DataRowView>(e);
+
+            if (item != null
+                && item[EntityDescriptionHandler.ColumnOriginalEntity] != null
+                && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity result
+            )
+            {
+                entity = result;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private void mISelectEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            cmBEntityName.SelectedItem = entity.LogicalName;
+            txtBEntityId.Text = entity.Id.ToString();
+
+            MakeOkClick();
+        }
+
+        private void mIOpenEntityInstanceInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            this._service.ConnectionData.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
+        }
+
+        private void mIOpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            this._service.ConnectionData.OpenEntityInstanceListInWeb(entity.LogicalName);
+        }
+
+        private void mIOpenEntityInstanceCustomizationInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            this._service.ConnectionData.OpenEntityMetadataInWeb(entity.LogicalName);
+        }
+
+        private void mICopyEntityInstanceIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            ClipboardHelper.SetText(entity.Id.ToString());
+        }
+
+        private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            var url = this._service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+
+            ClipboardHelper.SetText(url);
         }
     }
 }

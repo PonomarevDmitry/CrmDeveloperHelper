@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (settings.DictDouble.ContainsKey(paramColumnParametersWidth)
                 && settings.DictDouble.ContainsKey(paramColumnFetchTextWidth)
-                )
+            )
             {
                 var widthParameters = settings.DictDouble[paramColumnParametersWidth];
                 var widthFetchText = settings.DictDouble[paramColumnFetchTextWidth];
@@ -172,6 +172,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             ClearGridAndTextBox();
 
+            UpdateStatus(this.ConnectionData, string.Empty);
+
             this.dGrParameters.DataContext = cmBCurrentConnection;
         }
 
@@ -205,7 +207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            ToggleControls(this.ConnectionData, false, Properties.OutputStrings.ExecutingFetch);
+            ToggleControls(this.ConnectionData, false, Properties.OutputStrings.PreparingFetchRequest);
 
             ClearGridAndTextBox();
 
@@ -283,8 +285,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(null, ex);
-                _iWriteToOutput.ActivateOutputWindow(null);
+                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
             }
         }
 
@@ -337,7 +339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     Query = new FetchExpression(fetchXml.ToString()),
                 };
 
-                var response = (RetrieveMultipleResponse)service.Execute(request);
+                var response = await service.ExecuteAsync<RetrieveMultipleResponse>(request);
 
                 this._entityCollection = response.EntityCollection;
 
@@ -347,18 +349,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
             catch (Exception ex)
             {
+                var errorTextBuilder = new StringBuilder();
+
+                errorTextBuilder.AppendLine(Properties.OutputStrings.FetchExecutionError);
+                errorTextBuilder.AppendLine();
+
+                string description = DTEHelper.GetExceptionDescription(ex);
+
+                errorTextBuilder.AppendLine(description);
+
                 this.Dispatcher.Invoke(() =>
                 {
-                    StringBuilder text = new StringBuilder();
-
-                    text.AppendLine(Properties.OutputStrings.FetchExecutionError);
-                    text.AppendLine();
-
-                    var description = DTEHelper.GetExceptionDescription(ex);
-
-                    text.AppendLine(description);
-
-                    txtBErrorText.Text = text.ToString();
+                    txtBErrorText.Text = errorTextBuilder.ToString();
 
                     tbErrorText.IsEnabled = true;
                     tbErrorText.Visibility = Visibility.Visible;
@@ -370,8 +372,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     ToggleControls(service.ConnectionData, true, Properties.OutputStrings.FetchExecutionError);
                 });
-
-                return;
             }
         }
 
@@ -559,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     if (valueText.StartsWith("@")
                         || (valueText.StartsWith("{") && valueText.EndsWith("}") && !Guid.TryParse(valueText, out _))
-                        )
+                    )
                     {
                         var parameter = connectionData.FetchXmlRequestParameterList.FirstOrDefault(p => string.Equals(p.Name, valueText));
 
@@ -622,21 +622,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void ClearGridAndTextBox()
         {
-            tbFetchXml.IsSelected = true;
-            tbFetchXml.Focus();
+            this.Dispatcher.Invoke(() =>
+            {
+                tbFetchXml.IsSelected = true;
+                tbFetchXml.Focus();
 
-            txtBErrorText.Text = string.Empty;
+                txtBErrorText.Text = string.Empty;
 
-            tbErrorText.Visibility = tbResults.Visibility = Visibility.Collapsed;
-            tbErrorText.IsEnabled = tbResults.IsEnabled = false;
+                tbErrorText.Visibility = tbResults.Visibility = Visibility.Collapsed;
+                tbErrorText.IsEnabled = tbResults.IsEnabled = false;
 
-            dGrResults.Columns.Clear();
-            dGrResults.Items.DetachFromSourceCollection();
-            dGrResults.ItemsSource = null;
+                dGrResults.Columns.Clear();
+                dGrResults.Items.DetachFromSourceCollection();
+                dGrResults.ItemsSource = null;
 
-            this._selectedItem = tbFetchXml;
-
-            UpdateStatus(this.ConnectionData, string.Empty);
+                this._selectedItem = tbFetchXml;
+            });
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -649,6 +650,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
                 ClearGridAndTextBox();
+
+                UpdateStatus(this.ConnectionData, string.Empty);
 
                 if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
                 {
@@ -688,7 +691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 if (item != null
                     && item[EntityDescriptionHandler.ColumnOriginalEntity] != null
                     && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity entity
-                    )
+                )
                 {
                     this.ConnectionData?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
                 }
@@ -933,7 +936,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
-                    , filePath);
+                    , filePath
+                );
 
                 _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
@@ -948,7 +952,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (item != null
                 && item[EntityDescriptionHandler.ColumnOriginalEntity] != null
                 && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity result
-                )
+            )
             {
                 entity = result;
 
@@ -1138,7 +1142,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
-                    , filePath);
+                    , filePath
+                );
 
                 _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
@@ -1253,6 +1258,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             string jsCode = ContentComparerHelper.FormatToJavaScript(SavedQuery.Schema.Variables.fetchxml, fileText);
 
             ClipboardHelper.SetText(jsCode);
+        }
+
+        private void btnSelectFileInFolder_Click(object sender, RoutedEventArgs e)
+        {
+            _iWriteToOutput.SelectFileInFolder(this.ConnectionData, FilePath);
         }
 
         private IEnumerable<Entity> GetSelectedEntities()

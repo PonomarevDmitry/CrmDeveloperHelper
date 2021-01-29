@@ -5335,6 +5335,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preparing Fetch Request....
+        /// </summary>
+        internal static string PreparingFetchRequest {
+            get {
+                return ResourceManager.GetString("PreparingFetchRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processing Steps to add to Solution {0}: {1}.
         /// </summary>
         internal static string ProcessingStepsToAddToSolutionFormat2 {
