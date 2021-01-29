@@ -285,7 +285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.category)),
+                        Path = new PropertyPath(string.Format("{0}[{1}]", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.category)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -307,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(150),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.mode)),
+                        Path = new PropertyPath(string.Format("{0}[{1}]", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.mode)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -318,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(150),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.statuscode)),
+                        Path = new PropertyPath(string.Format("{0}[{1}]", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.statuscode)),
                         Mode = BindingMode.OneTime,
                     },
                 },

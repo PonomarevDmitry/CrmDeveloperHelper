@@ -3544,6 +3544,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Setting Business Process Flow {1} on Entities {2} count {3}....
+        /// </summary>
+        internal static string InConnectionSettingBusinessProcessFlowFormat4 {
+            get {
+                return ResourceManager.GetString("InConnectionSettingBusinessProcessFlowFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6} completed..
         /// </summary>
         internal static string InConnectionSettingEntitiesStateCompletedFormat7 {
@@ -5650,11 +5659,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting Business Process Flow {0} on Entities {2} count {3} completed..
+        /// </summary>
+        internal static string SettingBusinessProcessFlowCompletedFormat4 {
+            get {
+                return ResourceManager.GetString("SettingBusinessProcessFlowCompletedFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Business Process Flow {0} on Entities {2} count {3} failed..
+        /// </summary>
+        internal static string SettingBusinessProcessFlowFailedFormat4 {
+            get {
+                return ResourceManager.GetString("SettingBusinessProcessFlowFailedFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting Entity {0} of {1} State {2} - {3} Status {4} - {5}....
         /// </summary>
         internal static string SettingEntityStateFormat6 {
             get {
                 return ResourceManager.GetString("SettingEntityStateFormat6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting on Entity Business Process Flow {0} {1} of {2}....
+        /// </summary>
+        internal static string SettingOnEntityBusinessProcessFlowFormat3 {
+            get {
+                return ResourceManager.GetString("SettingOnEntityBusinessProcessFlowFormat3", resourceCulture);
             }
         }
         

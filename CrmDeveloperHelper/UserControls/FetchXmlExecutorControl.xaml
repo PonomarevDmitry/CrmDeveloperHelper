@@ -61,6 +61,9 @@
                     <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
 
                     <Separator/>
+                    <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click"/>
+
+                    <Separator/>
                     <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
 
                 </MenuItem>
@@ -155,6 +158,9 @@
                     <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
 
                     <Separator/>
+                    <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click"/>
+
+                    <Separator/>
                     <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
 
                 </MenuItem>
@@ -187,7 +193,7 @@
 
                         <Separator/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
-                        
+
                         <Separator Margin="10,0"/>
                         <Menu Background="{x:Null}">
                             <MenuItem Header="Connection Actions">
@@ -199,6 +205,9 @@
 
                                 <Separator />
                                 <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click"/>
+
+                                <Separator/>
+                                <MenuItem Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
 
                             </MenuItem>
                         </Menu>
@@ -261,6 +270,9 @@
                                 <Separator />
                                 <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click"/>
 
+                                <Separator/>
+                                <MenuItem Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
+
                             </MenuItem>
                         </Menu>
 
@@ -268,17 +280,17 @@
                         <Menu Background="{x:Null}">
                             <MenuItem Header="Entity Actions">
 
-                                <MenuItem x:Name="btnOpenEntityCustomizationInWeb" Header="Open Entity Customization in Browser" Click="btnOpenEntityCustomizationInWeb_Click" />
+                                <MenuItem Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="btnOpenEntityFetchXmlFile" Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
+                                <MenuItem x:Name="btnOpenEntityCustomizationInWeb" Header="Open Entity Customization in Browser" Click="btnOpenEntityCustomizationInWeb_Click" />
 
                                 <Separator/>
                                 <MenuItem x:Name="btnOpenEntityListInWeb" Header="Open Entity List in Browser" Click="btnOpenEntityListInWeb_Click"/>
 
                                 <Separator/>
                                 <MenuItem x:Name="btnOpenEntityExplorer" Header="Open Entity Explorer" Click="btnOpenEntityExplorer_Click"/>
-                                
+
                                 <Separator />
                                 <MenuItem x:Name="btnCreateEntityInstance" Header="Create Entity New Instance" Click="btnCreateEntityInstance_Click"/>
 
@@ -299,6 +311,9 @@
 
                                 <Separator />
                                 <MenuItem Header="Execute Workflow on Selected Entities" Click="miExecuteWorkflowOnSelectedEntites_Click"/>
+
+                                <Separator />
+                                <MenuItem Header="Set Business Process Flow on Selected Entities" Click="miSetBusinessProcessFlowOnSelectedEntites_Click"/>
 
                                 <Separator x:Uid="contMnAddToSolution" />
                                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add Selected Entities to Last Crm Solution"  />
@@ -323,6 +338,9 @@
 
                                 <Separator />
                                 <MenuItem Header="Execute Workflow on All Entities" Click="miExecuteWorkflowOnAllEntites_Click"/>
+
+                                <Separator />
+                                <MenuItem Header="Set Business Process Flow on All Entities" Click="miSetBusinessProcessFlowOnAllEntites_Click"/>
 
                                 <Separator x:Uid="contMnAddToSolution" />
                                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add All Entities to Last Crm Solution"  />
@@ -369,9 +387,9 @@
 
         <StatusBar Grid.Row="1">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
-            
+
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            
+
             <Button x:Name="stBtnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click" Margin="20,3" />
 
             <Menu Background="{x:Null}">
@@ -385,11 +403,16 @@
                     <Separator />
                     <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click"/>
 
+                    <Separator/>
+                    <MenuItem Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
+
                 </MenuItem>
             </Menu>
 
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            
+
             <StatusBarItem x:Name="stBIStatus" Content=""/>
         </StatusBar>
     </Grid>

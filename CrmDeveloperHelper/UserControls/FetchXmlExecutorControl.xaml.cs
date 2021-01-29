@@ -704,6 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ToggleControl(IsControlsEnabled
                 , this.tSProgressBar
                 , this.cmBCurrentConnection
+                , this.btnSetCurrentConnection
                 , this.tSProgressBar
                 , this.btnExecuteFetchXml
                 , this.btnExecuteFetchXml2
@@ -717,7 +718,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 , this.btnOpenEntityCustomizationInWeb
                 , this.btnOpenEntityExplorer
-                , this.btnOpenEntityFetchXmlFile
                 , this.btnOpenEntityListInWeb
                 , this.btnCreateEntityInstance
             );
@@ -1392,7 +1392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             Func<string, Task<IEnumerable<Workflow>>> getter = (string filter) => repository.GetListAsync(
                 entityName
-                , (int)Workflow.Schema.OptionSets.category.Workflow_0
+                , Workflow.Schema.OptionSets.category.Workflow_0
                 , null
                 , null
                 , new ColumnSet
@@ -1483,6 +1483,213 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         }
 
         #endregion Execute Workflow
+
+        #region Set Business Process Flow
+
+        private async void mISetBusinessProcessFlow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            try
+            {
+                await SetBusinessProcessFlowOnEntities(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miSetBusinessProcessFlowOnSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            try
+            {
+                await SetBusinessProcessFlowOnEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miSetBusinessProcessFlowOnAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            try
+            {
+                await SetBusinessProcessFlowOnEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async Task SetBusinessProcessFlowOnEntities(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new WorkflowRepository(service);
+
+            Func<string, Task<IEnumerable<Workflow>>> getter = (string filter) => repository.GetListAsync(
+                entityName
+                , Workflow.Schema.OptionSets.category.Business_Process_Flow_4
+                , null
+                , null
+                , new ColumnSet
+                (
+                    Workflow.Schema.Attributes.workflowid
+                    , Workflow.Schema.Attributes.category
+                    , Workflow.Schema.Attributes.name
+                    , Workflow.Schema.Attributes.mode
+                    , Workflow.Schema.Attributes.uniquename
+                    , Workflow.Schema.Attributes.primaryentity
+                    , Workflow.Schema.Attributes.iscustomizable
+                    , Workflow.Schema.Attributes.statuscode
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = WorkflowRepository.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Workflow>(_iWriteToOutput, service.ConnectionData, Workflow.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            Workflow workflow = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.SettingBusinessProcessFlowFormat4
+                , service.ConnectionData.Name
+                , workflow.Name
+                , entityName
+                , listIds.Count
+            );
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false
+                , Properties.OutputStrings.InConnectionSettingBusinessProcessFlowFormat4
+                , service.ConnectionData.Name
+                , workflow.Name
+                , entityName
+                , listIds.Count
+            );
+
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            var request = new SetProcessRequest()
+            {
+                NewProcess = workflow.ToEntityReference(),
+            };
+
+            int number = 1;
+
+            foreach (var id in listIds)
+            {
+                try
+                {
+                    request.Target = new EntityReference(entityName, id);
+
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SettingOnEntityBusinessProcessFlowFormat3, workflow.Name, number, listIds.Count);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
+
+                    await service.ExecuteAsync<SetProcessResponse>(request);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                number++;
+            }
+
+            ToggleControls(service.ConnectionData, true
+                , Properties.OutputStrings.SettingBusinessProcessFlowCompletedFormat4
+                , service.ConnectionData.Name
+                , workflow.Name
+                , entityName
+                , listIds.Count
+            );
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        #endregion Set Business Process Flow
 
         #region Assign to User
 
@@ -1894,19 +2101,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void btnOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
         {
-            if (_entityCollection == null
-                || string.IsNullOrEmpty(_entityCollection.EntityName)
-            )
-            {
-                return;
-            }
-
             if (this.ConnectionData == null)
             {
                 return;
             }
 
-            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", _entityCollection.EntityName);
+            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", _entityCollection?.EntityName);
 
             if (dialog.ShowDialog().GetValueOrDefault())
             {
@@ -3087,5 +3287,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         }
 
         #endregion Connection Actions
+
+        private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
+        {
+            SetCurrentConnection(_iWriteToOutput, this.ConnectionData);
+        }
+
+        protected void SetCurrentConnection(IWriteToOutput iWriteToOutput, ConnectionData connectionData)
+        {
+            if (connectionData == null || connectionData.ConnectionConfiguration == null)
+            {
+                return;
+            }
+
+            if (connectionData.ConnectionConfiguration.CurrentConnectionData?.ConnectionId == connectionData.ConnectionId)
+            {
+                return;
+            }
+
+            connectionData.ConnectionConfiguration.SetCurrentConnection(connectionData.ConnectionId);
+            connectionData.ConnectionConfiguration.Save();
+            iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+        }
     }
 }

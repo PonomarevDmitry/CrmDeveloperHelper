@@ -441,6 +441,9 @@
   <data name="ExecutingOnEntityWorkflowFormat3" xml:space="preserve">
     <value>Executing on Entity Workflow {0} {1} of {2}...</value>
   </data>
+  <data name="SettingOnEntityBusinessProcessFlowFormat3" xml:space="preserve">
+    <value>Setting on Entity Business Process Flow {0} {1} of {2}...</value>
+  </data>
   <data name="DeletingEntity" xml:space="preserve">
     <value>Deleting Entity...</value>
   </data>
@@ -1987,6 +1990,16 @@
   </data>
   <data name="InConnectionExecutingWorkflowFormat4" xml:space="preserve">
     <value>{0}. Executing Workflow {1} on Entities {2} count {3}...</value>
+  </data>
+
+  <data name="SettingBusinessProcessFlowCompletedFormat4" xml:space="preserve">
+    <value>Setting Business Process Flow {0} on Entities {2} count {3} completed.</value>
+  </data>
+  <data name="SettingBusinessProcessFlowFailedFormat4" xml:space="preserve">
+    <value>Setting Business Process Flow {0} on Entities {2} count {3} failed.</value>
+  </data>
+  <data name="InConnectionSettingBusinessProcessFlowFormat4" xml:space="preserve">
+    <value>{0}. Setting Business Process Flow {1} on Entities {2} count {3}...</value>
   </data>
 
   <data name="InConnectionDeletingEntityCompletedFormat2" xml:space="preserve">

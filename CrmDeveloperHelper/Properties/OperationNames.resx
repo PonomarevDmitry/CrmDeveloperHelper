@@ -848,6 +848,9 @@
   <data name="ExecutingWorkflowFormat4" xml:space="preserve">
     <value>{0} - Executing Workflow {1} on Entities {2} count {3}</value>
   </data>
+  <data name="SettingBusinessProcessFlowFormat4" xml:space="preserve">
+    <value>{0} - Setting Business Process Flow {1} on Entities {2} count {3}</value>
+  </data>
   <data name="DeletingEntityFormat2" xml:space="preserve">
     <value>{0} - Deleting Entity {1}</value>
   </data>

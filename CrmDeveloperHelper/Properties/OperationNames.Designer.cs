@@ -2077,6 +2077,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Setting Business Process Flow {1} on Entities {2} count {3}.
+        /// </summary>
+        internal static string SettingBusinessProcessFlowFormat4 {
+            get {
+                return ResourceManager.GetString("SettingBusinessProcessFlowFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}.
         /// </summary>
         internal static string SettingEntitiesStateFormat7 {
