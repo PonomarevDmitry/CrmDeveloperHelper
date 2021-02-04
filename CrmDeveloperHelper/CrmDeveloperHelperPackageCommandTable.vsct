@@ -16158,11 +16158,11 @@
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
-
-    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceWithSelectCommandId" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn" priority="0x06020">
+
+    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceWithSelectCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
 
@@ -17938,10 +17938,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding" priority="0x06090">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution" priority="0x060A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupActionOnComponent" priority="0x060A0">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupActionOnComponent" priority="0x060B0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution" priority="0x060B0">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLastLink" priority="0x060C0">
@@ -18855,10 +18855,11 @@
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceWithSelectCommandId" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceInConnectionGroupCommandId_MenuDyn" priority="0x06020">
+    
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceWithSelectCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
 
@@ -19898,10 +19899,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" priority="0x06090">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupAddToSolution" priority="0x060A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupActionOnComponent" priority="0x060A0">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupActionOnComponent" priority="0x060B0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupAddToSolution" priority="0x060B0">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLastLink" priority="0x060C0">
