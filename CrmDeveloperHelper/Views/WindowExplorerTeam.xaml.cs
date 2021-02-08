@@ -2317,5 +2317,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard Entity
+
+        private async void btnChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, entity.LogicalName, entity.Id);
+        }
     }
 }

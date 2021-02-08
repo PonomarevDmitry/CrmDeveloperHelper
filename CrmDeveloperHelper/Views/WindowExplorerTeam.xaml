@@ -36,6 +36,9 @@
 
             <Separator/>
             <MenuItem Header="Remove User from Team" Click="btnRemoveUserFromTeam_Click" />
+
+            <Separator/>
+            <MenuItem Header="Change User in Editor" Click="btnChangeEntityInEditor_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
@@ -62,6 +65,9 @@
 
             <Separator/>
             <MenuItem Header="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click" />
+
+            <Separator/>
+            <MenuItem Header="Change Role in Editor" Click="btnChangeEntityInEditor_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuTeam">
@@ -89,6 +95,9 @@
                 <MenuItem Header="Copy Team Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Team Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
+
+            <Separator/>
+            <MenuItem Header="Change Team in Editor" Click="btnChangeEntityInEditor_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">

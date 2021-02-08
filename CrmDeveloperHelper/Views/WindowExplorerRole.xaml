@@ -46,6 +46,9 @@
 
                 <Separator/>
                 <MenuItem Header="Remove Role from User" Click="btnRemoveRoleFromUser_Click" />
+
+                <Separator/>
+                <MenuItem Header="Change User in Editor" Click="btnChangeEntityInEditor_Click" />
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
@@ -103,6 +106,9 @@
                 </MenuItem>
 
                 <Separator/>
+                <MenuItem Header="Change Role in Editor" Click="btnChangeEntityInEditor_Click" />
+
+                <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddRoleToCrmSolution_Click" />
 
@@ -134,6 +140,9 @@
 
                 <Separator/>
                 <MenuItem Header="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click" />
+
+                <Separator/>
+                <MenuItem Header="Change Team in Editor" Click="btnChangeEntityInEditor_Click" />
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
