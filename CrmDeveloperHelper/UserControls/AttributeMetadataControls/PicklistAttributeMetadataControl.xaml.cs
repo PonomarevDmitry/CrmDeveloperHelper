@@ -16,9 +16,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         private readonly int? _initialValue;
         private readonly string _initialFormattedValue;
 
-        private readonly bool _fillAllways;
+        private readonly bool _allwaysAddToEntity;
 
-        public PicklistAttributeMetadataControl(bool fillAllways, PicklistAttributeMetadata attributeMetadata, int? initialValue, string initialFormattedValue)
+        public PicklistAttributeMetadataControl(PicklistAttributeMetadata attributeMetadata, int? initialValue, string initialFormattedValue, bool allwaysAddToEntity, bool showRestoreButton)
         {
             InitializeComponent();
 
@@ -26,18 +26,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             this._initialValue = initialValue;
             this._initialFormattedValue = initialFormattedValue;
-            this._fillAllways = fillAllways;
+            this._allwaysAddToEntity = allwaysAddToEntity;
             this.AttributeMetadata = attributeMetadata;
 
             FillComboBox();
 
-            btnRemoveControl.IsEnabled = _fillAllways;
+            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
 
-            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
-
-            btnRestore.IsEnabled = !_fillAllways;
-            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
         }
 
         private void FillComboBox()
@@ -153,7 +149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetIntValue();
 
-            if (this._fillAllways || currentValue != _initialValue)
+            if (this._allwaysAddToEntity || currentValue != _initialValue)
             {
                 if (currentValue.HasValue)
                 {

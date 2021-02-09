@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public string FilePath { get; private set; }
 
-        public ConnectionData ConnectionData => cmBCurrentConnection.SelectedItem as ConnectionData;
+        public ConnectionData GetSelectedConnection() => cmBCurrentConnection.SelectedItem as ConnectionData;
 
         private const string paramColumnParametersWidth = "ColumnParametersWidth";
         private const string paramColumnFetchTextWidth = "ColumnFetchTextWidth";
@@ -172,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             ClearGridAndTextBox();
 
-            UpdateStatus(this.ConnectionData, string.Empty);
+            UpdateStatus(this.GetSelectedConnection(), string.Empty);
 
             this.dGrParameters.DataContext = cmBCurrentConnection;
         }
@@ -207,17 +207,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            ToggleControls(this.ConnectionData, false, Properties.OutputStrings.PreparingFetchRequest);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            ToggleControls(connectionData, false, Properties.OutputStrings.PreparingFetchRequest);
 
             ClearGridAndTextBox();
 
-            if (!TryLoadFileText())
-            {
-                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.FileNotExists);
-                return;
-            }
-
-            if (!(cmBCurrentConnection.SelectedItem is ConnectionData connectionData))
+            if (connectionData == null)
             {
                 txtBErrorText.Text = Properties.OutputStrings.ConnectionIsNotSelected;
 
@@ -229,8 +225,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.ConnectionIsNotSelected);
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionIsNotSelected);
 
+                return;
+            }
+
+            if (!TryLoadFileText(connectionData))
+            {
+                ToggleControls(connectionData, true, Properties.OutputStrings.FileNotExists);
                 return;
             }
 
@@ -259,7 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.FileTextIsNotValidXml);
+                ToggleControls(connectionData, true, Properties.OutputStrings.FileTextIsNotValidXml);
 
                 return;
             }
@@ -268,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (CheckParametersAndReturnHasNew(doc, connectionData))
             {
-                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.FillNewParameters);
+                ToggleControls(connectionData, true, Properties.OutputStrings.FillNewParameters);
 
                 return;
             }
@@ -277,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             FillParametersValues(doc, connectionData);
 
-            UpdateStatus(this.ConnectionData, Properties.OutputStrings.ExecutingFetch);
+            UpdateStatus(connectionData, Properties.OutputStrings.ExecutingFetch);
 
             try
             {
@@ -290,7 +292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private bool TryLoadFileText()
+        private bool TryLoadFileText(ConnectionData connectionData)
         {
             if (!File.Exists(this.FilePath))
             {
@@ -304,7 +306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                UpdateStatus(this.ConnectionData, Properties.OutputStrings.FileNotExists);
+                UpdateStatus(connectionData, Properties.OutputStrings.FileNotExists);
 
                 return false;
             }
@@ -329,6 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (service == null)
             {
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
 
@@ -651,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 ClearGridAndTextBox();
 
-                UpdateStatus(this.ConnectionData, string.Empty);
+                UpdateStatus(this.GetSelectedConnection(), string.Empty);
 
                 if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
                 {
@@ -693,7 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity entity
                 )
                 {
-                    this.ConnectionData?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
+                    this.GetSelectedConnection()?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
                 }
             }
         }
@@ -771,7 +774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityMetadataInWeb(entity.LogicalName);
+            this.GetSelectedConnection()?.OpenEntityMetadataInWeb(entity.LogicalName);
         }
 
         private void mIOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
@@ -781,26 +784,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
                 return;
             }
 
-            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", entity.LogicalName);
+            var dialog = new WindowSelectEntityName(connectionData, "EntityName", entity.LogicalName);
 
             if (dialog.ShowDialog().GetValueOrDefault())
             {
                 string entityName = dialog.EntityTypeName;
 
-                var connectionData = dialog.GetConnectionData();
+                var dialogConnectionData = dialog.GetConnectionData();
 
-                var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+                var idEntityMetadata = dialogConnectionData.GetEntityMetadataId(entityName);
 
                 if (idEntityMetadata.HasValue)
                 {
                     var commonConfig = CommonConfiguration.Get();
 
-                    this._iWriteToOutput.OpenFetchXmlFile(connectionData, commonConfig, entityName);
+                    this._iWriteToOutput.OpenFetchXmlFile(dialogConnectionData, commonConfig, entityName);
                 }
             }
         }
@@ -812,7 +818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
+            this.GetSelectedConnection()?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
         }
 
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
@@ -822,7 +828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityInstanceListInWeb(entity.LogicalName);
+            this.GetSelectedConnection()?.OpenEntityInstanceListInWeb(entity.LogicalName);
         }
 
         private async void mIOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
@@ -832,19 +838,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var commonConfig = CommonConfiguration.Get();
-
-                Views.WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entity.LogicalName);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
             }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            Views.WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entity.LogicalName);
         }
 
         private async void miCreateNewEntityInstance_Click(object sender, RoutedEventArgs e)
@@ -854,12 +865,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -868,7 +881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var commonConfig = CommonConfiguration.Get();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, Guid.Empty);
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName);
         }
 
         private void mICopyEntityId_Click(object sender, RoutedEventArgs e)
@@ -899,7 +912,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             if (TryFindEntityFromDataRowView(e, out var entity))
             {
-                var url = this.ConnectionData?.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+                var url = this.GetSelectedConnection()?.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
 
                 ClipboardHelper.SetText(url);
             }
@@ -921,32 +934,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, ColumnSetInstances.AllColumns);
-
-                var commonConfig = CommonConfiguration.Get();
-
-                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
-
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
-                    , service.ConnectionData.Name
-                    , entityFull.LogicalName
-                    , filePath
-                );
-
-                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
             }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityFull = await service.RetrieveByQueryAsync<Entity>(entity.LogicalName, entity.Id, ColumnSetInstances.AllColumns);
+
+            var commonConfig = CommonConfiguration.Get();
+
+            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
+                , service.ConnectionData.Name
+                , entityFull.LogicalName
+                , filePath
+            );
+
+            _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         private bool TryFindEntityFromDataRowView(RoutedEventArgs e, out Entity entity)
@@ -975,7 +993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityMetadataInWeb(entityReferenceView.LogicalName);
+            this.GetSelectedConnection()?.OpenEntityMetadataInWeb(entityReferenceView.LogicalName);
         }
 
         private void mIOpenEntityReferenceFetchXmlFile_Click(object sender, RoutedEventArgs e)
@@ -985,26 +1003,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
                 return;
             }
 
-            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", entityReferenceView.LogicalName);
+            var dialog = new WindowSelectEntityName(connectionData, "EntityName", entityReferenceView.LogicalName);
 
             if (dialog.ShowDialog().GetValueOrDefault())
             {
                 string entityName = dialog.EntityTypeName;
 
-                var connectionData = dialog.GetConnectionData();
+                var dialogConnectionData = dialog.GetConnectionData();
 
-                var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+                var idEntityMetadata = dialogConnectionData.GetEntityMetadataId(entityName);
 
                 if (idEntityMetadata.HasValue)
                 {
                     var commonConfig = CommonConfiguration.Get();
 
-                    this._iWriteToOutput.OpenFetchXmlFile(connectionData, commonConfig, entityName);
+                    this._iWriteToOutput.OpenFetchXmlFile(dialogConnectionData, commonConfig, entityName);
                 }
             }
         }
@@ -1016,7 +1037,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityInstanceInWeb(entityReferenceView.LogicalName, entityReferenceView.Id);
+            this.GetSelectedConnection()?.OpenEntityInstanceInWeb(entityReferenceView.LogicalName, entityReferenceView.Id);
         }
 
         private void mIOpenEntityReferenceListInWeb_Click(object sender, RoutedEventArgs e)
@@ -1026,7 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityInstanceListInWeb(entityReferenceView.LogicalName);
+            this.GetSelectedConnection()?.OpenEntityInstanceListInWeb(entityReferenceView.LogicalName);
         }
 
         private async void mIOpenEntityReferenceExplorer_Click(object sender, RoutedEventArgs e)
@@ -1036,12 +1057,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -1060,19 +1084,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var commonConfig = CommonConfiguration.Get();
-
-                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName, Guid.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
             }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName);
         }
 
         private void mICopyEntityReferenceId_Click(object sender, RoutedEventArgs e)
@@ -1135,32 +1164,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var entityFull = service.RetrieveByQuery<Entity>(entityReferenceView.LogicalName, entityReferenceView.Id, ColumnSetInstances.AllColumns);
-
-                var commonConfig = CommonConfiguration.Get();
-
-                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
-
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
-                    , service.ConnectionData.Name
-                    , entityFull.LogicalName
-                    , filePath
-                );
-
-                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
             }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityFull = await service.RetrieveByQueryAsync<Entity>(entityReferenceView.LogicalName, entityReferenceView.Id, ColumnSetInstances.AllColumns);
+
+            var commonConfig = CommonConfiguration.Get();
+
+            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
+                , service.ConnectionData.Name
+                , entityFull.LogicalName
+                , filePath
+            );
+
+            _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         private bool TryFindEntityReferenceViewFromRow<T>(RoutedEventArgs e, out T result) where T : PrimaryGuidView
@@ -1276,7 +1310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void btnSelectFileInFolder_Click(object sender, RoutedEventArgs e)
         {
-            _iWriteToOutput.SelectFileInFolder(this.ConnectionData, FilePath);
+            _iWriteToOutput.SelectFileInFolder(this.GetSelectedConnection(), FilePath);
         }
 
         private IEnumerable<Entity> GetSelectedEntities()
@@ -1405,7 +1439,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -1612,7 +1654,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -1819,7 +1869,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -2016,7 +2074,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -2120,31 +2186,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityMetadataInWeb(_entityCollection.EntityName);
+            this.GetSelectedConnection()?.OpenEntityMetadataInWeb(_entityCollection.EntityName);
         }
 
         private void btnOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
                 return;
             }
 
-            var dialog = new WindowSelectEntityName(this.ConnectionData, "EntityName", _entityCollection?.EntityName);
+            var dialog = new WindowSelectEntityName(connectionData, "EntityName", _entityCollection?.EntityName);
 
             if (dialog.ShowDialog().GetValueOrDefault())
             {
                 string entityName = dialog.EntityTypeName;
 
-                var connectionData = dialog.GetConnectionData();
+                var dialogConnectionData = dialog.GetConnectionData();
 
-                var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+                var idEntityMetadata = dialogConnectionData.GetEntityMetadataId(entityName);
 
                 if (idEntityMetadata.HasValue)
                 {
                     var commonConfig = CommonConfiguration.Get();
 
-                    this._iWriteToOutput.OpenFetchXmlFile(connectionData, commonConfig, entityName);
+                    this._iWriteToOutput.OpenFetchXmlFile(dialogConnectionData, commonConfig, entityName);
                 }
             }
         }
@@ -2158,7 +2227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            this.ConnectionData?.OpenEntityInstanceListInWeb(_entityCollection.EntityName);
+            this.GetSelectedConnection()?.OpenEntityInstanceListInWeb(_entityCollection.EntityName);
         }
 
         private async void btnOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
@@ -2170,12 +2239,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -2201,7 +2273,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -2210,7 +2290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var commonConfig = CommonConfiguration.Get();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName, Guid.Empty);
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName);
         }
 
         #endregion Entity Actions
@@ -2229,19 +2309,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var commonConfig = CommonConfiguration.Get();
-
-                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, entity.Id);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
             }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, entity.Id);
         }
 
         private async void mIChangeEntityReferenceInEditor_Click(object sender, RoutedEventArgs e)
@@ -2256,22 +2341,99 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (this.ConnectionData != null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
-                var service = await GetServiceAsync(this.ConnectionData);
-
-                if (service == null)
-                {
-                    return;
-                }
-
-                var commonConfig = CommonConfiguration.Get();
-
-                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName, entityReferenceView.Id);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
             }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName, entityReferenceView.Id);
         }
 
         #endregion Edit Entity
+
+        #region Create Entity Copy
+
+        private async void mICreateEntityCopyInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityFull = await service.RetrieveByQueryAsync<Entity>(entity.LogicalName, entity.Id, ColumnSetInstances.AllColumns);
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, entityFull);
+        }
+
+        private async void mICreateEntityReferenceCopyInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
+            {
+                return;
+            }
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityFull = await service.RetrieveByQueryAsync<Entity>(entityReferenceView.LogicalName, entityReferenceView.Id, ColumnSetInstances.AllColumns);
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName, entityFull);
+        }
+
+        #endregion Create Entity Copy
 
         #region Bulk Edit Entities
 
@@ -2347,7 +2509,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -2467,7 +2637,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -2578,47 +2756,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             mITransferAllEntitiesToConnection.Items.Clear();
             mITransferSelectedEntitiesToConnection.Items.Clear();
 
-            var connectionData = this.ConnectionData;
+            ConnectionData connectionData = this.GetSelectedConnection();
 
-            if (connectionData != null)
+            if (connectionData == null)
             {
-                var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
+                return;
+            }
 
-                if (otherConnections.Any())
+            var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
+
+            if (otherConnections.Any())
+            {
+                foreach (var connection in otherConnections)
                 {
-                    foreach (var connection in otherConnections)
                     {
+                        MenuItem menuItem = new MenuItem()
                         {
-                            MenuItem menuItem = new MenuItem()
-                            {
-                                Header = connection.Name,
-                                Tag = connection,
-                            };
-                            menuItem.Click += mITransferAllEntitiesToConnection_Click;
+                            Header = connection.Name,
+                            Tag = connection,
+                        };
+                        menuItem.Click += mITransferAllEntitiesToConnection_Click;
 
-                            if (mITransferAllEntitiesToConnection.Items.Count > 0)
-                            {
-                                mITransferAllEntitiesToConnection.Items.Add(new Separator());
-                            }
-
-                            mITransferAllEntitiesToConnection.Items.Add(menuItem);
+                        if (mITransferAllEntitiesToConnection.Items.Count > 0)
+                        {
+                            mITransferAllEntitiesToConnection.Items.Add(new Separator());
                         }
 
+                        mITransferAllEntitiesToConnection.Items.Add(menuItem);
+                    }
+
+                    {
+                        MenuItem menuItem = new MenuItem()
                         {
-                            MenuItem menuItem = new MenuItem()
-                            {
-                                Header = connection.Name,
-                                Tag = connection,
-                            };
-                            menuItem.Click += mITransferSelectedEntitiesToConnection_Click;
+                            Header = connection.Name,
+                            Tag = connection,
+                        };
+                        menuItem.Click += mITransferSelectedEntitiesToConnection_Click;
 
-                            if (mITransferSelectedEntitiesToConnection.Items.Count > 0)
-                            {
-                                mITransferSelectedEntitiesToConnection.Items.Add(new Separator());
-                            }
-
-                            mITransferSelectedEntitiesToConnection.Items.Add(menuItem);
+                        if (mITransferSelectedEntitiesToConnection.Items.Count > 0)
+                        {
+                            mITransferSelectedEntitiesToConnection.Items.Add(new Separator());
                         }
+
+                        mITransferSelectedEntitiesToConnection.Items.Add(menuItem);
                     }
                 }
             }
@@ -2832,6 +3012,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
             string question = string.Format(Properties.MessageBoxStrings.DeleteEntityCountFormat2, entityName, listIds.Count);
 
             if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
@@ -2839,7 +3027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -3190,9 +3378,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async Task AddToSolution(ComponentType componentType, IEnumerable<Guid> entityIds, bool withSelect, string solutionUniqueName)
         {
-            var commonConfig = CommonConfiguration.Get();
+            ConnectionData connectionData = this.GetSelectedConnection();
 
-            var service = await GetServiceAsync(this.ConnectionData);
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
 
             if (service == null)
             {
@@ -3202,6 +3396,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             try
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                var commonConfig = CommonConfiguration.Get();
 
                 await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, commonConfig, solutionUniqueName, componentType, entityIds, null, withSelect);
             }
@@ -3235,10 +3431,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionEntityLast_Click, "contMnAddToSolutionLast");
-
             WindowBase.ActivateControls(items, hasSolutionComponentEntityReference, "contMnAddToSolutionEntityReference", "contMnAddToSolutionEntityReferenceLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntityReference, AddToCrmSolutionEntityReferenceLast_Click, "contMnAddToSolutionEntityReferenceLast");
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            WindowBase.FillLastSolutionItems(connectionData, items, hasSolutionComponentEntity, AddToCrmSolutionEntityLast_Click, "contMnAddToSolutionLast");
+            WindowBase.FillLastSolutionItems(connectionData, items, hasSolutionComponentEntityReference, AddToCrmSolutionEntityReferenceLast_Click, "contMnAddToSolutionEntityReferenceLast");
         }
 
         private void SelectedEntities_SubmenuOpened(object sender, RoutedEventArgs e)
@@ -3256,7 +3454,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 ;
 
             WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionSelectedEntitiesLast_Click, "contMnAddToSolutionLast");
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            WindowBase.FillLastSolutionItems(connectionData, items, hasSolutionComponentEntity, AddToCrmSolutionSelectedEntitiesLast_Click, "contMnAddToSolutionLast");
         }
 
         private void AllEntities_SubmenuOpened(object sender, RoutedEventArgs e)
@@ -3274,7 +3475,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 ;
 
             WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionAllEntitiesLast_Click, "contMnAddToSolutionLast");
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            WindowBase.FillLastSolutionItems(connectionData, items, hasSolutionComponentEntity, AddToCrmSolutionAllEntitiesLast_Click, "contMnAddToSolutionLast");
         }
 
         #region Connection Actions
@@ -3288,33 +3492,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mIOpenConnectionInformationFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
                 return;
             }
 
-            string directoryPath = FileOperations.GetConnectionInformationFolderPath(this.ConnectionData.ConnectionId);
+            string directoryPath = FileOperations.GetConnectionInformationFolderPath(connectionData.ConnectionId);
 
-            this._iWriteToOutput.OpenFolder(this.ConnectionData, directoryPath);
+            this._iWriteToOutput.OpenFolder(connectionData, directoryPath);
         }
 
         private void mIOpenConnectionFetchXmlFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ConnectionData == null)
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
             {
                 return;
             }
 
-            string directoryPath = FileOperations.GetConnectionFetchXmlFolderPath(this.ConnectionData.ConnectionId);
+            string directoryPath = FileOperations.GetConnectionFetchXmlFolderPath(connectionData.ConnectionId);
 
-            this._iWriteToOutput.OpenFolder(this.ConnectionData, directoryPath);
+            this._iWriteToOutput.OpenFolder(connectionData, directoryPath);
         }
 
         #endregion Connection Actions
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, this.ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, this.GetSelectedConnection());
         }
 
         protected void SetCurrentConnection(IWriteToOutput iWriteToOutput, ConnectionData connectionData)

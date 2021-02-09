@@ -1,6 +1,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Linq;
 using System.Windows;
@@ -10,15 +10,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class EntityNameAttributeMetadataControl : UserControl, IAttributeMetadataControl<EntityNameAttributeMetadata>
     {
-        private readonly IOrganizationServiceExtented _service;
+        private readonly ConnectionData _connectionData;
 
         private readonly string _initialValue;
 
-        private readonly bool _fillAllways;
+        private readonly bool _allwaysAddToEntity;
 
         public EntityNameAttributeMetadata AttributeMetadata { get; }
 
-        public EntityNameAttributeMetadataControl(IOrganizationServiceExtented service, bool fillAllways, EntityNameAttributeMetadata attributeMetadata, string initialValue)
+        public EntityNameAttributeMetadataControl(ConnectionData connectionData, EntityNameAttributeMetadata attributeMetadata, string initialValue, bool allwaysAddToEntity, bool showRestoreButton)
         {
             InitializeComponent();
 
@@ -30,20 +30,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
 
             this._initialValue = initialValue;
-            this._fillAllways = fillAllways;
-            this._service = service;
+            this._allwaysAddToEntity = allwaysAddToEntity;
+            this._connectionData = connectionData;
 
             this.AttributeMetadata = attributeMetadata;
 
             FillComboBox();
 
-            btnRemoveControl.IsEnabled = _fillAllways;
+            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
 
-            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
-
-            btnRestore.IsEnabled = !_fillAllways;
-            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
         }
 
         private void FillComboBox()
@@ -66,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 currentItem = noneItem;
             }
 
-            if (_service.ConnectionData.IsValidEntityName(_initialValue))
+            if (_connectionData.IsValidEntityName(_initialValue))
             {
                 currentItem = new ComboBoxItem()
                 {
@@ -77,11 +73,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 cmBValue.Items.Add(currentItem);
             }
 
-            if (_service.ConnectionData.EntitiesIntellisenseData != null
-                && _service.ConnectionData.EntitiesIntellisenseData.Entities != null
+            if (_connectionData.EntitiesIntellisenseData != null
+                && _connectionData.EntitiesIntellisenseData.Entities != null
             )
             {
-                var entityArray = _service.ConnectionData.EntitiesIntellisenseData.Entities.Values.ToList().OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToArray();
+                var entityArray = _connectionData.EntitiesIntellisenseData.Entities.Values.ToList().OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToArray();
 
                 foreach (var entityData in entityArray)
                 {
@@ -141,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetEntitNameValue();
 
-            if (this._fillAllways || !string.Equals(currentValue, _initialValue, StringComparison.InvariantCultureIgnoreCase))
+            if (this._allwaysAddToEntity || !string.Equals(currentValue, _initialValue, StringComparison.InvariantCultureIgnoreCase))
             {
                 entity.Attributes[AttributeMetadata.LogicalName] = currentValue;
             }

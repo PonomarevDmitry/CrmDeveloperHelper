@@ -19,11 +19,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly EntityReference _initialValue;
 
-        private readonly bool _fillAllways;
+        private readonly bool _allwaysAddToEntity;
 
         private EntityReference currentValue;
 
-        public LookupAttributeMetadataControl(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, bool fillAllways, LookupAttributeMetadata attributeMetadata, EntityReference initialValue)
+        public LookupAttributeMetadataControl(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , LookupAttributeMetadata attributeMetadata
+            , EntityReference initialValue
+            , bool allwaysAddToEntity
+            , bool showRestoreButton
+        )
         {
             InitializeComponent();
 
@@ -33,18 +40,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             this._iWriteToOutput = iWriteToOutput;
 
             this._initialValue = initialValue;
-            this._fillAllways = fillAllways;
+            this._allwaysAddToEntity = allwaysAddToEntity;
             this.AttributeMetadata = attributeMetadata;
 
             SetEntityReference(_initialValue);
 
-            btnRemoveControl.IsEnabled = _fillAllways;
+            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
 
-            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
-
-            btnRestore.IsEnabled = !_fillAllways;
-            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
         }
 
         private void SetEntityReference(EntityReference entityReferenceValue)
@@ -130,7 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         public void AddChangedAttribute(Entity entity)
         {
-            if (_fillAllways || !IsEntityReferenceEquals(this.currentValue, _initialValue))
+            if (_allwaysAddToEntity || !IsEntityReferenceEquals(this.currentValue, _initialValue))
             {
                 entity.Attributes[AttributeMetadata.LogicalName] = this.currentValue;
             }

@@ -397,7 +397,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                control = _controlFactory.CreateControlForAttribute(this._iWriteToOutput, _service, true, _entityMetadata, attributeMetadata, null, null);
+                control = _controlFactory.CreateControlForAttribute(this._iWriteToOutput, _service, _entityMetadata, attributeMetadata, null, null, true, false);
 
                 if (control is IAttributeMetadataControl<AttributeMetadata> attributeControl)
                 {
@@ -451,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this.Dispatcher.Invoke(() =>
                 {
-                    control = _controlFactory.CreateControlForAttribute(this._iWriteToOutput, _service, true, _entityMetadata, attributeMetadata, null, null);
+                    control = _controlFactory.CreateControlForAttribute(this._iWriteToOutput, _service, _entityMetadata, attributeMetadata, null, null, true, false);
 
                     if (control != null && control is IAttributeMetadataControl<AttributeMetadata> attributeControl)
                     {

@@ -15,7 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
 
         public string FilePath => this._control.FilePath;
 
-        public ConnectionData ConnectionData => this._control.ConnectionData;
+        public ConnectionData GetSelectedConnection() => this._control.GetSelectedConnection();
 
         public FetchXmlExecutorToolWindowPane()
         {
@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
 
         private void SetCaption()
         {
-            this.Caption = string.Format(Properties.CommandNames.FetchXmlExecutorNameFormat2, Path.GetFileName(FilePath), this._control.ConnectionData?.Name);
+            this.Caption = string.Format(Properties.CommandNames.FetchXmlExecutorNameFormat2, Path.GetFileName(FilePath), this._control.GetSelectedConnection()?.Name);
         }
 
         public void Execute()

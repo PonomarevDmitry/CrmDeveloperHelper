@@ -35,15 +35,18 @@
                 <Separator/>
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
+                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
                     <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolution" />
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
+
+                <Separator/>
+                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
@@ -67,7 +70,6 @@
                     <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
 
                 </MenuItem>
-
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityReference" Opened="ContextMenu_Opened">
@@ -109,6 +111,9 @@
                 <MenuItem x:Uid="contMnAddToSolutionEntityReference" Header="Add EntityReference to Crm Solution" Click="AddToCrmSolutionEntityReference_Click" />
 
                 <Separator/>
+                <MenuItem Header="Create EntityReference Copy in Editor" Click="mICreateEntityReferenceCopyInEditor_Click"/>
+
+                <Separator/>
                 <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
 
                 <Separator/>
@@ -141,6 +146,9 @@
                 <Separator x:Uid="contMnAddToSolution" />
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
+
+                <Separator/>
+                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>

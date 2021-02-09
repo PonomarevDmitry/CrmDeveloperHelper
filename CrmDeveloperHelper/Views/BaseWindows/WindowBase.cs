@@ -924,5 +924,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 column.CanUserResize = false;
             }
         }
+
+        public static void SetElementsEnabled(bool enabled, params UIElement[] elementsArray)
+        {
+            if (elementsArray == null || elementsArray.Length == 0)
+            {
+                return;
+            }
+
+            foreach (var element in elementsArray)
+            {
+                element.IsEnabled = enabled;
+                element.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
     }
 }

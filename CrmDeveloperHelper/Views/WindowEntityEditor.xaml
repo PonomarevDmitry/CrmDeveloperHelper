@@ -8,9 +8,26 @@
     Width="717"
     WindowStartupLocation="Manual"
     >
+    <src:WindowWithSingleConnection.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </src:WindowWithSingleConnection.Resources>
     <Grid>
 
-        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar x:Name="toolBarHeader" Margin="0" Grid.Row="0">
 
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem x:Name="mIEntityInformation" Header="Entity Information" VerticalAlignment="Center">
@@ -45,18 +62,24 @@
 
         </ToolBar>
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilterAttribute" Height="26" Margin="51,38,10,0" IsTabStop="True" VerticalAlignment="Top" KeyDown="txtBFilterAttribute_KeyDown" VerticalContentAlignment="Center" />
+        <Grid Margin="10,5" Grid.Row="1">
 
-        <GroupBox Header="Attributes" Margin="10,69,10,62">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFilterAttribute" Grid.Row="2" Grid.Column="1" IsTabStop="True" KeyDown="txtBFilterAttribute_KeyDown" />
+        </Grid>
+
+        <GroupBox Header="Attributes" Margin="5" Grid.Row="2">
             <ScrollViewer x:Name="scrollViewerAttributes" VerticalScrollBarVisibility="Auto" Focusable="False">
-                <Grid x:Name="lstVwAttributes">
-
-                </Grid>
+                <Grid x:Name="lstVwAttributes" />
             </ScrollViewer>
         </GroupBox>
 
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+        <ToolBar Margin="0" Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -71,8 +94,6 @@
                 </DockPanel.Resources>
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
 
-                    <Button x:Name="btnSaveAsCopyEntity" Content="Save Entity as Copy" Click="btnSaveAsCopyEntity_Click" Visibility="Collapsed" IsEnabled="False" />
-
                 </ToolBarPanel>
 
                 <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="20"/>
@@ -81,10 +102,11 @@
                 <Button x:Name="btnSaveEntity" Content="Save Entity" Click="btnSaveEntity_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="10" />
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="4">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowWithSingleConnection>

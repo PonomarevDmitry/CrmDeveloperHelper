@@ -18,9 +18,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly HashSet<int> _initialValues;
 
-        private readonly bool _fillAllways;
+        private readonly bool _allwaysAddToEntity;
 
-        public MultiSelectPicklistAttributeMetadataControl(bool fillAllways, MultiSelectPicklistAttributeMetadata attributeMetadata, OptionSetValueCollection initialValue)
+        public MultiSelectPicklistAttributeMetadataControl(MultiSelectPicklistAttributeMetadata attributeMetadata, OptionSetValueCollection initialValue, bool allwaysAddToEntity, bool showRestoreButton)
         {
             InitializeComponent();
 
@@ -36,18 +36,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 }
             }
 
-            this._fillAllways = fillAllways;
+            this._allwaysAddToEntity = allwaysAddToEntity;
             this.AttributeMetadata = attributeMetadata;
 
             FillListBox();
 
-            btnRemoveControl.IsEnabled = _fillAllways;
+            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
 
-            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
-
-            btnRestore.IsEnabled = !_fillAllways;
-            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
         }
 
         private class CheckListBoxItem : INotifyPropertyChanging, INotifyPropertyChanged
@@ -230,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValues = GetCurrentValues();
 
-            if (this._fillAllways
+            if (this._allwaysAddToEntity
                 || !_initialValues.SetEquals(currentValues)
             )
             {

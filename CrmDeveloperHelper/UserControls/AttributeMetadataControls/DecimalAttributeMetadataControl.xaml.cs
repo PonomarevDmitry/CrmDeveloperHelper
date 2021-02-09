@@ -12,27 +12,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly decimal? _initialValue;
 
-        private readonly bool _fillAllways;
+        private readonly bool _allwaysAddToEntity;
 
-        public DecimalAttributeMetadataControl(bool fillAllways, DecimalAttributeMetadata attributeMetadata, decimal? initialValue)
+        public DecimalAttributeMetadataControl(DecimalAttributeMetadata attributeMetadata, decimal? initialValue, bool allwaysAddToEntity, bool showRestoreButton)
         {
             InitializeComponent();
 
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
 
             this._initialValue = initialValue;
-            this._fillAllways = fillAllways;
+            this._allwaysAddToEntity = allwaysAddToEntity;
             this.AttributeMetadata = attributeMetadata;
 
             txtBValue.Text = _initialValue.ToString();
 
-            btnRemoveControl.IsEnabled = _fillAllways;
+            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
 
-            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
-
-            btnRestore.IsEnabled = !_fillAllways;
-            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
         }
 
         private void txtBValue_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetDecimalValue();
 
-            if (this._fillAllways || currentValue != _initialValue)
+            if (this._allwaysAddToEntity || currentValue != _initialValue)
             {
                 entity.Attributes[AttributeMetadata.LogicalName] = currentValue;
             }

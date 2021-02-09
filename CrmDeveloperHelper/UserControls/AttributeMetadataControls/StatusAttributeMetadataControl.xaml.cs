@@ -23,14 +23,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly string _initialStatusFormattedValue;
 
-        private readonly bool _fillAllways;
+        private readonly bool _allwaysAddToEntity;
 
-        public StatusAttributeMetadataControl(bool fillAllways
-            , StatusAttributeMetadata attributeMetadataStatus
+        public StatusAttributeMetadataControl(
+            StatusAttributeMetadata attributeMetadataStatus
             , StateAttributeMetadata attributeMetadataState
             , int? initialValueStatus
             , int? initialValueState
             , string statusFormattedValue
+            , bool allwaysAddToEntity
+            , bool showRestoreButton
         )
         {
             InitializeComponent();
@@ -41,20 +43,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             this._initialValueState = initialValueState;
             this._initialStatusFormattedValue = statusFormattedValue;
 
-            this._fillAllways = fillAllways;
+            this._allwaysAddToEntity = allwaysAddToEntity;
 
             this.AttributeMetadata = attributeMetadataStatus;
             this._stateAttributeMetadata = attributeMetadataState;
 
             FillComboBox();
 
-            btnRemoveControl.IsEnabled = _fillAllways;
+            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
 
-            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
-
-            btnRestore.IsEnabled = !_fillAllways;
-            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
         }
 
         private void FillComboBox()
@@ -173,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetIntValue();
 
-            if (this._fillAllways || currentValue != _initialValueStatus)
+            if (this._allwaysAddToEntity || currentValue != _initialValueStatus)
             {
                 if (currentValue.HasValue)
                 {

@@ -14,11 +14,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         public UserControl CreateControlForAttribute(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
-            , bool fillAllways
             , EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
             , Entity entity
             , object value
+            , bool allwaysAddToEntity
+            , bool showRestoreButton
         )
         {
             if (attributeMetadata is MemoAttributeMetadata memoAttrib)
@@ -30,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (string)value;
                 }
 
-                return new MemoAttributeMetadataControl(fillAllways, memoAttrib, initialValue);
+                return new MemoAttributeMetadataControl(memoAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is StringAttributeMetadata stringAttrib)
@@ -42,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (string)value;
                 }
 
-                return new StringAttributeMetadataControl(fillAllways, stringAttrib, initialValue);
+                return new StringAttributeMetadataControl(stringAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is IntegerAttributeMetadata intAttrib)
@@ -54,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (int)value;
                 }
 
-                return new IntegerAttributeMetadataControl(fillAllways, intAttrib, initialValue);
+                return new IntegerAttributeMetadataControl(intAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is BigIntAttributeMetadata bigIntAttrib)
@@ -66,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (long)value;
                 }
 
-                return new BigIntAttributeMetadataControl(fillAllways, bigIntAttrib, initialValue);
+                return new BigIntAttributeMetadataControl(bigIntAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is DecimalAttributeMetadata decimalAttrib)
@@ -78,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (decimal)value;
                 }
 
-                return new DecimalAttributeMetadataControl(fillAllways, decimalAttrib, initialValue);
+                return new DecimalAttributeMetadataControl(decimalAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is DoubleAttributeMetadata doubleAttrib)
@@ -90,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (double)value;
                 }
 
-                return new DoubleAttributeMetadataControl(fillAllways, doubleAttrib, initialValue);
+                return new DoubleAttributeMetadataControl(doubleAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is MoneyAttributeMetadata moneyAttrib)
@@ -102,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (Money)value;
                 }
 
-                return new MoneyAttributeMetadataControl(fillAllways, moneyAttrib, initialValue);
+                return new MoneyAttributeMetadataControl(moneyAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is DateTimeAttributeMetadata dateTimeAttrib)
@@ -114,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (DateTime)value;
                 }
 
-                return new DateTimeAttributeMetadataControl(fillAllways, dateTimeAttrib, initialValue);
+                return new DateTimeAttributeMetadataControl(dateTimeAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is BooleanAttributeMetadata boolAttrib)
@@ -126,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = boolValue;
                 }
 
-                return new BooleanAttributeMetadataControl(fillAllways, boolAttrib, initialValue);
+                return new BooleanAttributeMetadataControl(boolAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is ManagedPropertyAttributeMetadata managedPropertyAttributeMetadata)
@@ -140,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                         initialValue = booleanManagedProperty;
                     }
 
-                    return new BooleanManagedPropertyAttributeMetadataControl(fillAllways, managedPropertyAttributeMetadata, initialValue);
+                    return new BooleanManagedPropertyAttributeMetadataControl(managedPropertyAttributeMetadata, initialValue, allwaysAddToEntity, showRestoreButton);
                 }
             }
 
@@ -164,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialFormatedValue = entity.FormattedValues[picklistAttrib.LogicalName];
                 }
 
-                return new PicklistAttributeMetadataControl(fillAllways, picklistAttrib, initialValue, initialFormatedValue);
+                return new PicklistAttributeMetadataControl(picklistAttrib, initialValue, initialFormatedValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttributeMetadata)
@@ -176,7 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = optionSetValueCollection;
                 }
 
-                return new MultiSelectPicklistAttributeMetadataControl(fillAllways, multiSelectPicklistAttributeMetadata, initialValue);
+                return new MultiSelectPicklistAttributeMetadataControl(multiSelectPicklistAttributeMetadata, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is StatusAttributeMetadata statusAttrib)
@@ -214,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                         }
                     }
 
-                    return new StatusAttributeMetadataControl(fillAllways, statusAttrib, stateAttrib, initialValueStatus, initialValueState, statusFormatedValue);
+                    return new StatusAttributeMetadataControl(statusAttrib, stateAttrib, initialValueStatus, initialValueState, statusFormatedValue, allwaysAddToEntity, showRestoreButton);
                 }
             }
 
@@ -227,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (EntityReference)value;
                 }
 
-                return new LookupAttributeMetadataControl(iWriteToOutput, service, fillAllways, lookupAttrib, initialValue);
+                return new LookupAttributeMetadataControl(iWriteToOutput, service, lookupAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is EntityNameAttributeMetadata entityNameAttrib)
@@ -239,7 +240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = entityName;
                 }
 
-                return new EntityNameAttributeMetadataControl(service, fillAllways, entityNameAttrib, initialValue);
+                return new EntityNameAttributeMetadataControl(service.ConnectionData, entityNameAttrib, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             if (attributeMetadata is UniqueIdentifierAttributeMetadata uniqueAttrib
@@ -253,7 +254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = valueGuid;
                 }
 
-                return new UniqueIdentifierAttributeMetadataControl(fillAllways, attributeMetadata, initialValue);
+                return new UniqueIdentifierAttributeMetadataControl(attributeMetadata, initialValue, allwaysAddToEntity, showRestoreButton);
             }
 
             return null;

@@ -309,7 +309,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string entityName
+        )
+        {
+            OpenEntityEditorInternal(iWriteToOutput, service, commonConfig, entityName, null, null);
+        }
+
+        public static void OpenEntityEditor(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , Entity entity
+        )
+        {
+            OpenEntityEditorInternal(iWriteToOutput, service, commonConfig, entityName, null, entity);
+        }
+
+        public static void OpenEntityEditor(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
             , Guid entityId
+        )
+        {
+            OpenEntityEditorInternal(iWriteToOutput, service, commonConfig, entityName, entityId, null);
+        }
+
+        private static void OpenEntityEditorInternal(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , Guid? entityId
+            , Entity entity
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
@@ -320,6 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , service
                     , entityName
                     , entityId
+                    , entity
                 )
             );
         }

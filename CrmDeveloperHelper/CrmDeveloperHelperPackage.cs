@@ -100,7 +100,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             var panes = FindOrCreateFetchXmlExecutorToolWindowPane(filePath);
 
-            var connectionPane = panes.FirstOrDefault(p => p.ConnectionData.ConnectionId == connectionData.ConnectionId);
+            var connectionPane = panes
+                .Select(p => new { Pane = p, ConnectionData = p.GetSelectedConnection() })
+                .FirstOrDefault(p => p.ConnectionData != null && p.ConnectionData.ConnectionId == connectionData.ConnectionId)
+                ?.Pane
+                ;
 
             if (!panes.Any() || (strictConnection && connectionPane == null))
             {

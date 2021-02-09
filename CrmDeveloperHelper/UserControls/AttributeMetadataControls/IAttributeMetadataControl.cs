@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
     {
         T AttributeMetadata { get; }
 
-        void AddAttribute(Entity entity);
+        //void AddAttribute(Entity entity);
 
         void AddChangedAttribute(Entity entity);
 
