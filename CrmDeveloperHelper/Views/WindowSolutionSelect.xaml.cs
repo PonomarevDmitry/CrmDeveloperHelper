@@ -6,7 +6,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -92,11 +91,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSource.Clear();
             });
 
-            List<Solution> list = null;
+            IEnumerable<Solution> list = Enumerable.Empty<Solution>();
 
             try
             {
-                SolutionRepository repository = new SolutionRepository(this._service);
+                var repository = new SolutionRepository(this._service);
 
                 string textName = string.Empty;
 
@@ -110,8 +109,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
-
-                list = new List<Solution>();
             }
 
             LoadSolutions(list);
@@ -302,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            SolutionRepository repository = new SolutionRepository(this._service);
+            var repository = new SolutionRepository(this._service);
 
             var lastSolution = await repository.GetSolutionByUniqueNameAsync(lastSolutionUniqueName);
 
@@ -367,9 +364,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             sepForAllOther.Visibility = chBForAllOther.Visibility = Visibility.Visible;
         }
 
-        private void mICreateNewSolution_Click(object sender, RoutedEventArgs e)
+        private void mICreateNewSolutionInBrowser_Click(object sender, RoutedEventArgs e)
         {
             this._service.ConnectionData.OpenSolutionCreateInWeb();
+        }
+
+        private void mICreateNewSolutionInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, _service, commonConfig, Solution.EntityLogicalName, Guid.Empty);
         }
 
         private async void ClearUnmanagedSolution_Click(object sender, RoutedEventArgs e)
@@ -398,7 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var descriptor = new SolutionComponentDescriptor(_service);
                 descriptor.SetSettings(commonConfig);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, descriptor);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Creating backup Solution Components in '{0}'.", solution.UniqueName);
@@ -434,7 +438,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await solutionImage.SaveAsync(filePath);
                 }
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(_service);
+                var repository = new SolutionComponentRepository(_service);
+
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
                 ToggleControls(true, Properties.OutputStrings.InConnectionClearingSolutionCompletedFormat2, _service.ConnectionData.Name, solution.UniqueName);

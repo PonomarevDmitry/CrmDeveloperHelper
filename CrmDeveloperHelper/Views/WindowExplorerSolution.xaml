@@ -1,11 +1,11 @@
 ﻿<src:WindowWithSolutionComponentDescriptor
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
     xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
     mc:Ignorable="d" 
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSolution"
     Title="Solution Explorer"
@@ -40,6 +40,37 @@
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
             <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
+
+            <Separator/>
+            <Menu Background="{x:Null}" >
+                <MenuItem Header="Solution Actions">
+                    <MenuItem Header="Create New Solution in Browser" Click="miCreateNewSolutionInBrowser_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Create New Solution in Editor" Click="miCreateNewSolutionInEditor_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Solution List in Browser" Click="mIOpenSolutionListInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Customization in Browser" Click="mIOpenCustomizationInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Default Solution in Browser" Click="mIOpenDefaultSolutionInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Solution DifferenceImage Window" Click="mIOpenSolutionDifferenceImage_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Create SolutionImage from Zip-file" Click="mICreateSolutionImageFromZipFile_Click" />
+                </MenuItem>
+            </Menu>
 
             <Separator/>
             <Menu Background="{x:Null}">
@@ -107,7 +138,10 @@
 
                             <Menu Background="{x:Null}" >
                                 <MenuItem Header="Solution Actions">
-                                    <MenuItem Header="Create New Solution" Click="miCreateNewSolution_Click" />
+                                    <MenuItem Header="Create New Solution in Browser" Click="miCreateNewSolutionInBrowser_Click" />
+
+                                    <Separator/>
+                                    <MenuItem Header="Create New Solution in Editor" Click="miCreateNewSolutionInEditor_Click" />
 
                                     <Separator/>
                                     <MenuItem Header="Open Solution List in Browser" Click="mIOpenSolutionListInWeb_Click" />

@@ -1,8 +1,13 @@
-﻿<src:WindowWithSingleConnection x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSolutionSelect"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        Title="Select Solution" Height="538.662" Width="717" WindowStartupLocation="Manual">
+﻿<src:WindowWithSingleConnection 
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSolutionSelect"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    Title="Select Solution" 
+    Height="538" 
+    Width="717" 
+    WindowStartupLocation="Manual"
+    >
     <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,18 +16,27 @@
 
             <ContextMenu x:Key="listContextMenu">
                 <MenuItem Header="Select Solution" VerticalAlignment="Center" Click="btnSelectSolution_Click"/>
+
                 <Separator/>
                 <MenuItem Header="Open Components in Explorer" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click"/>
+
                 <Separator/>
                 <MenuItem Header="Open in Browser" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
+
                 <Separator/>
                 <MenuItem Header="Open Solution List in Browser" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
+
                 <Separator/>
                 <MenuItem Header="Open Customization in Browser" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
+
                 <Separator/>
                 <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click"/>
+
                 <Separator/>
-                <MenuItem Header="Create New Solution" VerticalAlignment="Center" Click="mICreateNewSolution_Click" />
+                <MenuItem Header="Create New Solution in Browser" VerticalAlignment="Center" Click="mICreateNewSolutionInBrowser_Click" />
+
+                <Separator/>
+                <MenuItem Header="Create New Solution in Editor" VerticalAlignment="Center" Click="mICreateNewSolutionInEditor_Click" />
             </ContextMenu>
 
         </ResourceDictionary>
@@ -111,7 +125,10 @@
                     <Button x:Name="btnOpenSolutionInWeb" Content="Open in Browser" Click="btnOpenSolutionInWeb_Click" />
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
-                    <Button Content="Create New Solution" Click="mICreateNewSolution_Click" />
+                    <Button Content="Create New Solution in Browser" Click="mICreateNewSolutionInBrowser_Click" />
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
+                    <Button Content="Create New Solution in Editor" Click="mICreateNewSolutionInEditor_Click" />
 
                     <Separator x:Name="sepForAllOther" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" Visibility="Collapsed" IsEnabled="False" />
                     <CheckBox x:Name="chBForAllOther" Content="For All Other New WebResources" IsChecked="True" VerticalContentAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" IsEnabled="False" />

@@ -8,7 +8,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -352,7 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                         tSDDBCompareSolutions.Items.Add(new Separator());
                                     }
 
-                                    MenuItem menuItemSolutuion1 = new MenuItem()
+                                    var menuItemSolutuion1 = new MenuItem()
                                     {
                                         Header = string.Format("Solution {0}", solution1.UniqueNameEscapeUnderscore),
                                     };
@@ -368,28 +367,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                             menuItemSolutuion1.Items.Add(new Separator());
                                         }
 
-                                        MenuItem menuItemSolutuion2 = new MenuItem()
+                                        var menuItemSolutuion2 = new MenuItem()
                                         {
                                             Header = string.Format("Solution {0}", solution2.UniqueNameEscapeUnderscore),
                                         };
 
                                         menuItemSolutuion1.Items.Add(menuItemSolutuion2);
 
-                                        MenuItem mICompareSolutions = new MenuItem()
+                                        var mICompareSolutions = new MenuItem()
                                         {
                                             Header = string.Format("Compare Solutions {0} and {1}", solution1.UniqueNameEscapeUnderscore, solution2.UniqueNameEscapeUnderscore),
                                             Tag = Tuple.Create(solution1, solution2),
                                         };
                                         mICompareSolutions.Click += mICompareSolutions_Click;
 
-                                        MenuItem mIShowUniqueComponentsIn1 = new MenuItem()
+                                        var mIShowUniqueComponentsIn1 = new MenuItem()
                                         {
                                             Header = string.Format("Show Unique Components in {0} compare to {1}", solution1.UniqueNameEscapeUnderscore, solution2.UniqueNameEscapeUnderscore),
                                             Tag = Tuple.Create(solution1, solution2),
                                         };
                                         mIShowUniqueComponentsIn1.Click += mIShowUniqueComponentsInSolution_Click;
 
-                                        MenuItem mIShowUniqueComponentsIn2 = new MenuItem()
+                                        var mIShowUniqueComponentsIn2 = new MenuItem()
                                         {
                                             Header = string.Format("Show Unique Components in {0} compare to {1}", solution2.UniqueNameEscapeUnderscore, solution1.UniqueNameEscapeUnderscore),
                                             Tag = Tuple.Create(solution2, solution1),
@@ -443,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                             tSDDBShow.Items.Add(new Separator());
                                         }
 
-                                        MenuItem menuItem = new MenuItem()
+                                        var menuItem = new MenuItem()
                                         {
                                             Header = string.Format("Solution {0}", solution.UniqueNameEscapeUnderscore),
                                         };
@@ -527,7 +526,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                         tSDDBClearUnmanagedSolution.Items.Add(new Separator());
                                     }
 
-                                    MenuItem menuItem = new MenuItem()
+                                    var menuItem = new MenuItem()
                                     {
                                         Header = string.Format("Clear solution {0}", solution.UniqueNameEscapeUnderscore),
                                         Tag = solution,
@@ -585,7 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (service != null)
                         {
-                            SolutionRepository repository = new SolutionRepository(service);
+                            var repository = new SolutionRepository(service);
 
                             var solutionsTask = await repository.GetSolutionsVisibleUnmanagedAsync(listSolutionNames);
 
@@ -623,7 +622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     continue;
                 }
 
-                MenuItem menuItemSolution = new MenuItem()
+                var menuItemSolution = new MenuItem()
                 {
                     Header = string.Format("Solution {0}", solutionTo.UniqueNameEscapeUnderscore),
                 };
@@ -637,7 +636,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (listFromFiltered.Count() > 1)
                 {
-                    MenuItem menuItem = new MenuItem()
+                    var menuItem = new MenuItem()
                     {
                         Header = string.Format("Copy Components from All Selected Solutions to {0}", solutionTo.UniqueNameEscapeUnderscore),
                         Tag = Tuple.Create(listFromFiltered.ToArray(), solutionTo),
@@ -649,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var solutionFrom in listFromFiltered)
                 {
-                    MenuItem menuItem = new MenuItem()
+                    var menuItem = new MenuItem()
                     {
                         Header = string.Format("Copy Components from {0} to {1}", solutionFrom.UniqueNameEscapeUnderscore, solutionTo.UniqueNameEscapeUnderscore),
                         Tag = Tuple.Create(solutionFrom, solutionTo),
@@ -677,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     continue;
                 }
 
-                MenuItem menuItemSolution = new MenuItem()
+                var menuItemSolution = new MenuItem()
                 {
                     Header = string.Format("Solution {0}", solutionTo.UniqueNameEscapeUnderscore),
                 };
@@ -753,7 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             {
-                
+
 
                 var mICopyUniqueName = new MenuItem()
                 {
@@ -855,8 +854,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 mISelectSolutionAsLast.Click += miSelectSolutionAsLast_Click;
 
+
+                var mIChangeSolutionInEditor = new MenuItem()
+                {
+                    Header = string.Format("Change Solution {0} in Editor", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIChangeSolutionInEditor.Click += mIChangeSolutionInEditor_Click;
+
                 itemCollection.Add(new Separator());
                 itemCollection.Add(mISelectSolutionAsLast);
+
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIChangeSolutionInEditor);
             }
 
             {
@@ -1138,7 +1148,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingAllRequiredComponentsFormat1, solution.UniqueName);
 
-            DependencyRepository repository = new DependencyRepository(service);
+            var repository = new DependencyRepository(service);
 
             var fullMissingComponents = await repository.GetSolutionAllRequiredComponentsAsync(solution.Id, solution.UniqueName);
 
@@ -1152,7 +1162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var targetDescription = GetSolutionComponentDescriptor(targetService);
 
-            List<SolutionComponent> existingComponentsInTarget = new List<SolutionComponent>();
+            var existingComponentsInTarget = new List<SolutionComponent>();
 
             foreach (var item in fullMissingComponents)
             {
@@ -1360,7 +1370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         });
                     }
 
-                    ExportSolutionHelper helper = new ExportSolutionHelper(service);
+                    var helper = new ExportSolutionHelper(service);
 
                     var filePath = await helper.ExportAsync(config, solutionExportInfo);
 
@@ -1415,7 +1425,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
                 && solution.IsManaged.GetValueOrDefault() == false
-                )
+            )
             {
                 this.Dispatcher.Invoke(() =>
                 {
@@ -1432,6 +1442,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         cmBFilter.Text = text;
                     }
                 });
+            }
+        }
+
+        private async void mIChangeSolutionInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+                && solution.IsManaged.GetValueOrDefault() == false
+            )
+            {
+                var service = await GetService();
+
+                if (service == null)
+                {
+                    return;
+                }
+
+                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, solution.LogicalName, solution.Id);
             }
         }
 
@@ -1589,7 +1617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     service.ConnectionData.Name
@@ -1633,7 +1661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageAsync(solution.Id, solution.UniqueName);
 
@@ -1666,7 +1694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     service.ConnectionData.Name
@@ -1727,7 +1755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -1743,9 +1771,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         private async Task PerformShowingMissingDependencies(string folder, Solution solution)
@@ -1763,7 +1791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 ComponentsGroupBy showComponents = _commonConfig.ComponentsGroupBy;
 
@@ -1820,7 +1848,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 ComponentsGroupBy showComponents = _commonConfig.ComponentsGroupBy;
 
@@ -1964,7 +1992,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 await solutionDescriptor.FindUniqueComponentsInSolutionsAsync(solution1.Id, solution2.Id);
 
@@ -1993,7 +2021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
                     service.ConnectionData.Name
@@ -2137,9 +2165,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(service);
+                var repository = new SolutionComponentRepository(service);
 
                 var columnSet = new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior);
 
@@ -2258,11 +2286,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var descriptor = GetSolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(service);
+                var repository = new SolutionComponentRepository(service);
 
-                List<SolutionComponent> componentsSource = new List<SolutionComponent>();
+                var componentsSource = new List<SolutionComponent>();
 
                 var columnSet = new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior);
 
@@ -2344,7 +2372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , componentsTarget.Count
                             , componentesOnlyInSource
                             , componentesOnlyInTarget.Count
-                            );
+                        );
 
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created file with Unique Components in '{0}' for Adding to '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
                         this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
@@ -2508,7 +2536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformRemoveFromSolutionCollectionToSolution(string folder, Solution[] solutionSourceCollection, Solution solutionTarget)
         {
-           var service = await GetService();
+            var service = await GetService();
 
             if (service == null)
             {
@@ -2621,7 +2649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , sourceName
                             , solutionTarget.UniqueName
                             , $"SolutionImage Unique Components for Removing from {sourceName}"
-                            );
+                        );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -2652,7 +2680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void miCreateNewSolution_Click(object sender, RoutedEventArgs e)
+        private void miCreateNewSolutionInBrowser_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -2660,6 +2688,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 connectionData.OpenSolutionCreateInWeb();
             }
+        }
+
+        private async void miCreateNewSolutionInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Solution.EntityLogicalName, Guid.Empty);
         }
 
         private void mIOpenSolutionListInWeb_Click(object sender, RoutedEventArgs e)
@@ -2727,7 +2767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Creating backup Solution Components in '{0}'.", solution.UniqueName);
@@ -2764,7 +2804,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await solutionImage.SaveAsync(filePath);
                 }
 
-                SolutionComponentRepository repository = new SolutionComponentRepository(service);
+                var repository = new SolutionComponentRepository(service);
+
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
@@ -2786,9 +2827,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override bool CanCloseWindow(KeyEventArgs e)
         {
-            Popup[] _popupArray = new Popup[] { _optionsPopup, _optionsSolutionPopup };
+            var popupArray = new Popup[] { _optionsPopup, _optionsSolutionPopup };
 
-            foreach (var popup in _popupArray)
+            foreach (var popup in popupArray)
             {
                 if (popup.IsOpen)
                 {
@@ -3015,7 +3056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 contextMenu.Items.Add(new Separator());
                             }
 
-                            MenuItem menuItem = new MenuItem()
+                            var menuItem = new MenuItem()
                             {
                                 Header = string.Format("Solution {0}", solution.UniqueNameEscapeUnderscore),
                             };
@@ -3160,7 +3201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var t = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -3182,10 +3223,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 });
 
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
 
-                t.Join();
+                thread.Join();
 
                 if (string.IsNullOrEmpty(selectedPath) || !File.Exists(selectedPath))
                 {
@@ -3214,7 +3255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var components = await descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     service.ConnectionData.Name
