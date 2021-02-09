@@ -237,6 +237,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         miSelectAsLastSelected.IsEnabled = sepClearUnManagedSolution2.IsEnabled = !isManaged;
                         miSelectAsLastSelected.Visibility = sepClearUnManagedSolution2.Visibility = !isManaged ? Visibility.Visible : Visibility.Collapsed;
 
+                        miChangeInEditor.IsEnabled = sepChangeInEditor.IsEnabled = !isManaged;
+                        miChangeInEditor.Visibility = sepChangeInEditor.Visibility = !isManaged ? Visibility.Visible : Visibility.Collapsed;
+
                         miSolutionDescription.IsEnabled = sepSolutionDescription.IsEnabled = hasDescription;
                         miSolutionDescription.Visibility = sepSolutionDescription.Visibility = hasDescription ? Visibility.Visible : Visibility.Collapsed;
 
@@ -1344,6 +1347,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miClearUnManagedSolution_Click(object sender, RoutedEventArgs e)
         {
+            if (_solution == null || _solution.IsManaged.GetValueOrDefault())
+            {
+                return;
+            }
+
             string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat1, _solution.UniqueName);
 
             if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
@@ -1411,7 +1419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miSelectAsLastSelected_Click(object sender, RoutedEventArgs e)
         {
-            if (_solution.IsManaged.GetValueOrDefault())
+            if (_solution == null || _solution.IsManaged.GetValueOrDefault())
             {
                 return;
             }
@@ -1419,6 +1427,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.AddLastSelectedSolution(_solution.UniqueName);
 
             _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData, _solution.UniqueName, _solution.Id);
+        }
+
+        private void miChangeSolutionInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution == null || _solution.IsManaged.GetValueOrDefault())
+            {
+                return;
+            }
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, _service, _commonConfig, Solution.EntityLogicalName, _solution.Id);
         }
 
         private void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)

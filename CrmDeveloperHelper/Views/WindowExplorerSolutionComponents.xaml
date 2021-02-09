@@ -254,6 +254,9 @@
                             <Separator x:Name="sepClearUnManagedSolution2" Visibility="Collapsed" IsEnabled="False"/>
                             <MenuItem x:Name="miSelectAsLastSelected" Header="Select Current Solution as Last Selected" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False"/>
 
+                            <Separator x:Name="sepChangeInEditor" Visibility="Collapsed" IsEnabled="False"/>
+                            <MenuItem x:Name="miChangeInEditor" Header="Change Current Solution in Editor" Click="miChangeSolutionInEditor_Click" Visibility="Collapsed" IsEnabled="False"/>
+
                             <Separator/>
                             <MenuItem Header="Used Entities in Workflows" Click="mIUsedEntitiesInWorkflows_Click" />
                             <MenuItem Header="Used Not Exists Entities in Workflows" Click="mIUsedNotExistsEntitiesInWorkflows_Click" />
