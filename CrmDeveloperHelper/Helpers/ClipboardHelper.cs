@@ -40,5 +40,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
         }
+
+        public static void Clear()
+        {
+            var thread = new Thread(() =>
+            {
+                try
+                {
+                    Clipboard.Clear();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+        }
     }
 }

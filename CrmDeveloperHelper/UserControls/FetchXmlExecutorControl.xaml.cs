@@ -439,7 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (dataColumn.DataType == typeof(EntityReferenceView)
                 || dataColumn.DataType == typeof(PrimaryGuidView)
-                )
+            )
             {
                 var columnDGT = new DataGridHyperlinkColumn()
                 {
@@ -873,34 +873,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mICopyEntityId_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityFromDataRowView(e, out var entity))
+            if (TryFindEntityFromDataRowView(e, out var entity))
             {
-                return;
+                ClipboardHelper.SetText(entity.Id.ToString());
             }
-
-            ClipboardHelper.SetText(entity.Id.ToString());
+            else
+            {
+                ClipboardHelper.Clear();
+            }
         }
 
         private void mICopyEntityName_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityFromDataRowView(e, out var entity))
+            if (TryFindEntityFromDataRowView(e, out var entity))
             {
-                return;
+                ClipboardHelper.SetText(entity.LogicalName);
             }
-
-            ClipboardHelper.SetText(entity.LogicalName);
+            else
+            {
+                ClipboardHelper.Clear();
+            }
         }
 
         private void mICopyEntityUrl_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityFromDataRowView(e, out var entity))
+            if (TryFindEntityFromDataRowView(e, out var entity))
             {
-                return;
+                var url = this.ConnectionData?.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+
+                ClipboardHelper.SetText(url);
             }
-
-            var url = this.ConnectionData?.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
-
-            ClipboardHelper.SetText(url);
+            else
+            {
+                ClipboardHelper.Clear();
+            }
         }
 
         private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -964,7 +970,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mIOpenEntityReferenceCustomizationInWeb_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -974,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mIOpenEntityReferenceFetchXmlFile_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -1005,7 +1011,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mIOpenEntityReferenceInWeb_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -1015,7 +1021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mIOpenEntityReferenceListInWeb_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -1025,7 +1031,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async void mIOpenEntityReferenceExplorer_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -1049,7 +1055,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async void miCreateNewEntityReferenceInstance_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -1071,42 +1077,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void mICopyEntityReferenceId_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
-                return;
+                ClipboardHelper.SetText(entityReferenceView.Id.ToString());
             }
-
-            ClipboardHelper.SetText(entityReferenceView.Id.ToString());
+            else
+            {
+                ClipboardHelper.Clear();
+            }
         }
 
         private void mICopyEntityReferenceEntityName_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
-                return;
+                ClipboardHelper.SetText(entityReferenceView.LogicalName);
             }
-
-            ClipboardHelper.SetText(entityReferenceView.LogicalName);
+            else
+            {
+                ClipboardHelper.Clear();
+            }
         }
 
         private void mICopyEntityReferenceName_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (TryFindEntityReferenceViewFromRow(e, out EntityReferenceView entityReferenceView))
             {
-                return;
+                ClipboardHelper.SetText(entityReferenceView.Name);
             }
-
-            ClipboardHelper.SetText(entityReferenceView.Name);
+            else
+            {
+                ClipboardHelper.Clear();
+            }
         }
 
         private void mICopyEntityReferenceUrl_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryFindNavigateUriFromHyperlink(e, out var navigateUri))
+            if (TryFindNavigateUriFromHyperlink(e, out var navigateUri))
             {
-                return;
+                ClipboardHelper.SetText(navigateUri.AbsoluteUri);
             }
-
-            ClipboardHelper.SetText(navigateUri.AbsoluteUri);
+            else
+            {
+                ClipboardHelper.Clear();
+            }
         }
 
         private async void mICreateEntityReferenceDescription_Click(object sender, RoutedEventArgs e)
@@ -1116,7 +1130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -1149,9 +1163,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private bool TryFindEntityReferenceViewFromRow(RoutedEventArgs e, out EntityReferenceView entityReferenceView)
+        private bool TryFindEntityReferenceViewFromRow<T>(RoutedEventArgs e, out T result) where T : PrimaryGuidView
         {
-            entityReferenceView = null;
+            result = null;
 
             ContextMenu contextMenu = null;
 
@@ -1169,7 +1183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 || !(contextMenu.PlacementTarget is TextBlock textBlock)
                 || !(contextMenu.DataContext is DataRowView dataRowView)
                 || !(textBlock.Parent is DataGridCell cell)
-                )
+            )
             {
                 return false;
             }
@@ -1184,12 +1198,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return false;
             }
 
-            if (!(dataRowView[cell.Column.SortMemberPath] is EntityReferenceView value))
+            if (!(dataRowView[cell.Column.SortMemberPath] is T value))
             {
                 return false;
             }
 
-            entityReferenceView = value;
+            result = value;
 
             return true;
         }
@@ -2237,7 +2251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView))
             {
                 return;
             }
@@ -2949,7 +2963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (!TryFindEntityReferenceViewFromRow(e, out var entity))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entity))
             {
                 return;
             }
@@ -2982,7 +2996,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (!TryFindEntityReferenceViewFromRow(e, out var entity))
+            if (!TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entity))
             {
                 return;
             }
@@ -3214,7 +3228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 hasSolutionComponentEntity = SolutionComponent.GetEntityComponentType(entity?.LogicalName, out _);
             }
 
-            bool hasSolutionComponentEntityReference = TryFindEntityReferenceViewFromRow(e, out var entityReferenceView);
+            bool hasSolutionComponentEntityReference = TryFindEntityReferenceViewFromRow(e, out PrimaryGuidView entityReferenceView);
             if (hasSolutionComponentEntityReference)
             {
                 hasSolutionComponentEntityReference = SolutionComponent.GetEntityComponentType(entityReferenceView?.LogicalName, out _);

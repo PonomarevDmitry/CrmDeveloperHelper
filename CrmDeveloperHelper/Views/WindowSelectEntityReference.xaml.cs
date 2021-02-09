@@ -477,7 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (dataColumn.DataType == typeof(EntityReferenceView)
                 || dataColumn.DataType == typeof(PrimaryGuidView)
-                )
+            )
             {
                 var columnDGT = new DataGridHyperlinkColumn()
                 {
