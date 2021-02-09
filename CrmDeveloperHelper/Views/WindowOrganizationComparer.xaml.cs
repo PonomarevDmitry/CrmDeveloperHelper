@@ -346,7 +346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void tSBLoadFromFile_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
-            var t = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -369,10 +369,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
 
-            t.Join();
+            thread.Join();
 
             if (string.IsNullOrEmpty(selectedPath))
             {
@@ -1580,7 +1580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void tSBLoadSolutionImageFromFile_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
-            var t = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -1602,10 +1602,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
 
-            t.Join();
+            thread.Join();
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
@@ -1623,7 +1623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             string selectedPath = string.Empty;
-            var t = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -1645,10 +1645,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
 
-            t.Join();
+            thread.Join();
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
@@ -1691,7 +1691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 Solution solution = null;
 
-                var t = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1706,10 +1706,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                     }
                 });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
 
-                t.Join();
+                thread.Join();
 
                 if (solution == null)
                 {

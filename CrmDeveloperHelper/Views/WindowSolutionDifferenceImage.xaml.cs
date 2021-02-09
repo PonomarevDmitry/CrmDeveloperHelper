@@ -419,7 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void tSBLoadSolutionDifferenceImage_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
-            var t = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -441,10 +441,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
 
-            t.Join();
+            thread.Join();
 
             if (!string.IsNullOrEmpty(selectedPath))
             {

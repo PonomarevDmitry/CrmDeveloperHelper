@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private void ExecuteWithConnectionInThreadVoid<T1>(ConnectionData connectionData, Action<ConnectionData, T1> action, T1 arg1)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -74,12 +74,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThreadVoid<T1, T2>(ConnectionData connectionData, Action<ConnectionData, T1, T2> action, T1 arg1, T2 arg2)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -91,12 +91,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThread(ConnectionData connectionData, Func<ConnectionData, Task> action)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -108,12 +108,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThread<T1>(ConnectionData connectionData, Func<ConnectionData, T1, Task> action, T1 arg1)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -125,12 +125,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThread<T1, T2>(ConnectionData connectionData, Func<ConnectionData, T1, T2, Task> action, T1 arg1, T2 arg2)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -142,12 +142,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThread<T1, T2, T3>(ConnectionData connectionData, Func<ConnectionData, T1, T2, T3, Task> action, T1 arg1, T2 arg2, T3 arg3)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -159,12 +159,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThread<T1, T2, T3, T4>(ConnectionData connectionData, Func<ConnectionData, T1, T2, T3, T4, Task> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -176,12 +176,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThread<T1, T2, T3, T4, T5>(ConnectionData connectionData, Func<ConnectionData, T1, T2, T3, T4, T5, Task> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -193,12 +193,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteWithConnectionInThread<T1, T2, T3, T4, T5, T6>(ConnectionData connectionData, Func<ConnectionData, T1, T2, T3, T4, T5, T6, Task> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -210,12 +210,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThreadVoid(Action action)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -227,12 +227,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThreadVoid<T1>(Action<T1> action, T1 art1)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -244,12 +244,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThreadVoid<T1, T2>(Action<T1, T2> action, T1 art1, T2 arg2)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -261,12 +261,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThreadVoid<T1, T2, T3>(Action<T1, T2, T3> action, T1 art1, T2 arg2, T3 arg3)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -278,12 +278,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThreadVoid<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 art1, T2 arg2, T3 arg3, T4 arg4)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -295,12 +295,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThread<T1>(Func<T1, Task> action, T1 arg1)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -312,12 +312,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThread<T1, T2>(Func<T1, T2, Task> action, T1 arg1, T2 arg2)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -329,12 +329,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThread<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 arg1, T2 arg2, T3 arg3)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -346,12 +346,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThread<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -363,12 +363,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThread<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -380,12 +380,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThread<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -397,12 +397,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         private void ExecuteInThread<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -414,7 +414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.Start();
+            thread.Start();
         }
 
         #endregion ExecuteInThread Methods

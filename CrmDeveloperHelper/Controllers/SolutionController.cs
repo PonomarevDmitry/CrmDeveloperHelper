@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                var t = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -56,10 +56,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                     }
                 });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
 
-                t.Join();
+                thread.Join();
             }
             else
             {

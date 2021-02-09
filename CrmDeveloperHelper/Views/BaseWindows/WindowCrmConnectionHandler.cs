@@ -736,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -749,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -761,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -774,7 +774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -786,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -799,7 +799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -811,7 +811,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -824,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -836,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -849,7 +849,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -861,7 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -874,7 +874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -886,7 +886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -899,7 +899,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -911,7 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -924,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -936,7 +936,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -949,7 +949,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -961,7 +961,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -974,7 +974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -986,7 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -999,7 +999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1011,7 +1011,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1024,7 +1024,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1036,7 +1036,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1049,7 +1049,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1061,7 +1061,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1074,7 +1074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1086,7 +1086,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1099,7 +1099,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1111,7 +1111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1124,7 +1124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1136,7 +1136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1149,7 +1149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1161,7 +1161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1174,7 +1174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1186,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1199,7 +1199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1211,7 +1211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1224,7 +1224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1236,7 +1236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1249,7 +1249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1261,7 +1261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1274,7 +1274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1286,7 +1286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1299,7 +1299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1311,7 +1311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1324,7 +1324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1336,7 +1336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1349,7 +1349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1361,7 +1361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1374,7 +1374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1386,7 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1399,7 +1399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1411,7 +1411,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1424,7 +1424,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1440,7 +1440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     commonConfig.Save();
 
-                    var backWorker = new Thread(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -1453,7 +1453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             iWriteToOutput.WriteErrorToOutput(null, ex);
                         }
                     });
-                    backWorker.Start();
+                    thread.Start();
                 }
             }
         }
@@ -1550,7 +1550,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1563,7 +1563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1575,7 +1575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1588,7 +1588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1600,7 +1600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1613,7 +1613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1625,7 +1625,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1638,7 +1638,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1658,7 +1658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     commonConfig.Save();
 
-                    var backWorker = new Thread(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -1672,7 +1672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     });
 
-                    backWorker.Start();
+                    thread.Start();
                 }
             }
         }
@@ -1689,7 +1689,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     commonConfig.Save();
 
-                    var backWorker = new Thread(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -1703,7 +1703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     });
 
-                    backWorker.Start();
+                    thread.Start();
                 }
             }
         }
@@ -1720,7 +1720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     commonConfig.Save();
 
-                    var backWorker = new Thread(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -1734,7 +1734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     });
 
-                    backWorker.Start();
+                    thread.Start();
                 }
             }
         }
@@ -1751,7 +1751,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     commonConfig.Save();
 
-                    var backWorker = new Thread(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -1765,7 +1765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     });
 
-                    backWorker.Start();
+                    thread.Start();
                 }
             }
         }
@@ -1782,7 +1782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     commonConfig.Save();
 
-                    var backWorker = new Thread(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -1796,7 +1796,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     });
 
-                    backWorker.Start();
+                    thread.Start();
                 }
             }
         }
@@ -1821,7 +1821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         commonConfig.Save();
 
-                        var backWorker = new Thread(() =>
+                        var thread = new Thread(() =>
                         {
                             try
                             {
@@ -1835,7 +1835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         });
 
-                        backWorker.Start();
+                        thread.Start();
                     }
                 }
             }
@@ -1861,7 +1861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         commonConfig.Save();
 
-                        var backWorker = new Thread(() =>
+                        var thread = new Thread(() =>
                         {
                             try
                             {
@@ -1875,7 +1875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         });
 
-                        backWorker.Start();
+                        thread.Start();
                     }
                 }
             }
@@ -1893,7 +1893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1906,7 +1906,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1918,7 +1918,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1931,7 +1931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1943,7 +1943,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1956,7 +1956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1968,7 +1968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -1981,7 +1981,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -1993,7 +1993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -2006,7 +2006,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -2018,7 +2018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -2031,7 +2031,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -2043,7 +2043,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -2056,7 +2056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -2068,7 +2068,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -2081,7 +2081,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 
@@ -2111,7 +2111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         commonConfig.Save();
 
-                        var backWorker = new Thread(() =>
+                        var thread = new Thread(() =>
                         {
                             try
                             {
@@ -2125,7 +2125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         });
 
-                        backWorker.Start();
+                        thread.Start();
                     }
                 }
             }
@@ -2157,7 +2157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         commonConfig.Save();
 
-                        var backWorker = new Thread(() =>
+                        var thread = new Thread(() =>
                         {
                             try
                             {
@@ -2171,7 +2171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         });
 
-                        backWorker.Start();
+                        thread.Start();
                     }
                 }
             }
@@ -2203,7 +2203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         commonConfig.Save();
 
-                        var backWorker = new Thread(() =>
+                        var thread = new Thread(() =>
                         {
                             try
                             {
@@ -2217,7 +2217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         });
 
-                        backWorker.Start();
+                        thread.Start();
                     }
                 }
             }
@@ -2243,7 +2243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         commonConfig.Save();
 
-                        var backWorker = new Thread(() =>
+                        var thread = new Thread(() =>
                         {
                             try
                             {
@@ -2257,7 +2257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                         });
 
-                        backWorker.Start();
+                        thread.Start();
                     }
                 }
             }
@@ -2271,7 +2271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 commonConfig.Save();
 
-                var backWorker = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     try
                     {
@@ -2284,7 +2284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput.WriteErrorToOutput(null, ex);
                     }
                 });
-                backWorker.Start();
+                thread.Start();
             }
         }
 

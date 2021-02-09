@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             bool isSuccess = false;
 
-            var t = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -84,10 +84,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
 
-            t.Join();
+            thread.Join();
 
             if (!isSuccess)
             {
@@ -515,7 +515,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 EventHandler = pluginType.ToEntityReference(),
             };
 
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var thread = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -529,9 +529,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         #endregion Добавление шага плагина.

@@ -1031,7 +1031,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 EventHandler = new EntityReference(PluginType.EntityLogicalName, idPluginType),
             };
 
-            var worker = new System.Threading.Thread(() =>
+            var thread = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -1045,9 +1045,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

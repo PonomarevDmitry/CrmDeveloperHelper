@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Guid? selectedReportId = null;
 
                     string selectedPath = string.Empty;
-                    var t = new Thread((ThreadStart)(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -104,11 +104,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             DTEHelper.WriteExceptionToOutput(connectionData, ex);
                         }
-                    }));
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
+                    });
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.Start();
 
-                    t.Join();
+                    thread.Join();
 
                     if (dialogResult.GetValueOrDefault())
                     {
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             Guid? selectedReportId = null;
 
             string selectedPath = string.Empty;
-            var t = new Thread((ThreadStart)(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -204,11 +204,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
-            }));
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
 
-            t.Join();
+            thread.Join();
 
             if (!dialogResult.GetValueOrDefault())
             {
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Guid? selectedReportId = null;
 
                     string selectedPath = string.Empty;
-                    var t = new Thread(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -307,10 +307,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             DTEHelper.WriteExceptionToOutput(connectionData, ex);
                         }
                     });
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.Start();
 
-                    t.Join();
+                    thread.Join();
 
                     if (dialogResult.GetValueOrDefault())
                     {
@@ -373,7 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             Guid? selectedReportId = null;
 
                             string selectedPath = string.Empty;
-                            var t = new Thread(() =>
+                            var thread = new Thread(() =>
                             {
                                 try
                                 {
@@ -387,10 +387,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                     DTEHelper.WriteExceptionToOutput(connectionData, ex);
                                 }
                             });
-                            t.SetApartmentState(ApartmentState.STA);
-                            t.Start();
+                            thread.SetApartmentState(ApartmentState.STA);
+                            thread.Start();
 
-                            t.Join();
+                            thread.Join();
 
                             if (dialogResult.GetValueOrDefault())
                             {
@@ -736,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Guid? selectedReportId = null;
 
                     string selectedPath = string.Empty;
-                    var t = new Thread((ThreadStart)(() =>
+                    var thread = new Thread(() =>
                     {
                         try
                         {
@@ -749,11 +749,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             DTEHelper.WriteExceptionToOutput(connectionData, ex);
                         }
-                    }));
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
+                    });
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.Start();
 
-                    t.Join();
+                    thread.Join();
 
                     if (dialogResult.GetValueOrDefault())
                     {

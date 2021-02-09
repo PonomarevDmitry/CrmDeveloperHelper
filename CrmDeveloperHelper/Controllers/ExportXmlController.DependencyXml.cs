@@ -328,14 +328,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var dialogResult = MessageBoxResult.Cancel;
 
-                var t = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
 
-                t.Join();
+                thread.Join();
 
                 if (dialogResult != MessageBoxResult.OK)
                 {

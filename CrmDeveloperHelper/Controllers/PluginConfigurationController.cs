@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var thread = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -71,9 +71,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         #endregion Дерево плагинов с конфигуации.
@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private void ShowingPluginConfigurationAssemblyDescriptionWindow(CommonConfiguration commonConfig, string filePath)
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var thread = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -118,9 +118,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         #endregion Форма для описания сборки плагинов по конфигурации.
@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private void ShowingPluginConfigurationTypeDescriptionWindow(CommonConfiguration commonConfig, string filePath)
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var thread = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -165,9 +165,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         #endregion Форма для описания типа плагинов по конфигурации.
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private void ShowingPluginConfigurationComparer(CommonConfiguration commonConfig, string filePath)
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var thread = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -212,9 +212,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         #endregion Форма для описания типа плагинов по конфигурации.

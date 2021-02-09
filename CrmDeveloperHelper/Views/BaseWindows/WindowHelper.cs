@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private static void ExecuteWithConnectionInSTAThread(ConnectionData connectionData, Func<System.Windows.Window> windowGetter)
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -35,9 +35,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            worker.SetApartmentState(ApartmentState.STA);
+            thread.SetApartmentState(ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         public static void OpenEntityMetadataExplorer(
@@ -1489,7 +1489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connectionData
         )
         {
-            var worker = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -1506,9 +1506,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            worker.SetApartmentState(ApartmentState.STA);
+            thread.SetApartmentState(ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         public static bool IsDefinedExplorer(ComponentType componentType)

@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -63,9 +63,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -217,7 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null && selectedItem != null)
             {
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -248,9 +248,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
     }

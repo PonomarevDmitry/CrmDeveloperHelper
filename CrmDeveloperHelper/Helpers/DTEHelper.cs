@@ -66,8 +66,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             this.Controller = new MainController(this);
 
-            System.Threading.Thread clearTempFiles = new System.Threading.Thread(ClearTemporaryFiles);
-            clearTempFiles.Start();
+            var threadClearTempFiles = new System.Threading.Thread(ClearTemporaryFiles);
+            threadClearTempFiles.Start();
         }
 
         private void ClearTemporaryFiles()
@@ -314,7 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             ConnectionConfiguration connectionConfig = ConnectionConfiguration.Get();
 
-            var worker = new System.Threading.Thread(() =>
+            var thread = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -330,9 +330,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-            worker.Start();
+            thread.Start();
         }
 
         public void HandleConnectionTest(ConnectionData connectionData)
@@ -419,7 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string selection = GetSelectedText();
 
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -462,9 +462,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -493,7 +493,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string selection = GetSelectedText();
 
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -536,9 +536,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -567,7 +567,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string selection = GetSelectedText();
 
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -611,9 +611,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -642,7 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string selection = GetSelectedText();
 
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -685,9 +685,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -716,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 string selection = GetSelectedText();
 
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -750,9 +750,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -914,7 +914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (config != null)
             {
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -928,9 +928,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -955,7 +955,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -979,9 +979,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
@@ -991,7 +991,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (commonConfig != null)
             {
-                var worker = new System.Threading.Thread(() =>
+                var thread = new System.Threading.Thread(() =>
                 {
                     try
                     {
@@ -1046,9 +1046,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 });
 
-                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
 
-                worker.Start();
+                thread.Start();
             }
         }
 
