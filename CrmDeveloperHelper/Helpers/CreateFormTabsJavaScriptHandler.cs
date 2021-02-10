@@ -33,43 +33,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._javaScriptObjectType = javaScriptObjectType;
         }
 
-        public Task WriteContentAsync(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
+        public Task WriteContentAsync(EntityMetadata entityMetadata, string objectName, string constructorName, FormInformation formInfo)
         {
-            return Task.Run(() => WriteContent(entityMetadata, objectName, constructorName, tabs, formId, formName, formType, formTypeName));
+            return Task.Run(() => WriteContent(entityMetadata, objectName, constructorName, formInfo));
         }
 
-        private void WriteContent(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
+        private void WriteContent(EntityMetadata entityMetadata, string objectName, string constructorName, FormInformation formInfo)
         {
             this._entityMetadata = entityMetadata;
 
-            WriteContentInternal(entityMetadata.LogicalName, objectName, constructorName, tabs, formId, formName, formType, formTypeName);
+            WriteContentInternal(entityMetadata.LogicalName, objectName, constructorName, formInfo);
         }
 
-        public Task WriteContentAsync(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
+        public Task WriteContentAsync(string entityLogicalName, string objectName, string constructorName, FormInformation formInfo)
         {
-            return Task.Run(() => WriteContent(entityLogicalName, objectName, constructorName, tabs, formId, formName, formType, formTypeName));
+            return Task.Run(() => WriteContent(entityLogicalName, objectName, constructorName, formInfo));
         }
 
-        private void WriteContent(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
+        private void WriteContent(string entityLogicalName, string objectName, string constructorName, FormInformation formInfo)
         {
             var repository = new EntityMetadataRepository(_service);
             this._entityMetadata = repository.GetEntityMetadata(entityLogicalName);
 
-            WriteContentInternal(entityLogicalName, objectName, constructorName, tabs, formId, formName, formType, formTypeName);
+            WriteContentInternal(entityLogicalName, objectName, constructorName, formInfo);
         }
 
         private void WriteContentInternal(
             string entityLogicalName
             , string objectName
             , string constructorName
-            , IEnumerable<FormTab> tabs
-            , Guid? formId
-            , string formName
-            , int? formType
-            , string formTypeName
+            , FormInformation formInfo
         )
         {
-            WriteFormJavaScriptTag(entityLogicalName, formId, formName, formType, formTypeName);
+            WriteFormJavaScriptTag(entityLogicalName, formInfo?.FormId, formInfo?.FormName, formInfo?.FormType, formInfo?.FormTypeName);
 
             WriteNamespace();
 
@@ -85,41 +81,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteConstantsAndFunctions(objectName);
 
-            WriteTabs(tabs);
-
-            WriteSections(tabs);
-
-            WriteSubgrids(tabs);
-
-            WriteWebResources(tabs);
-
-            WriteQuickViewForms(tabs);
-
-            WriteIFrames(tabs);
+            if (formInfo != null)
+            {
+                WriteFormContent(formInfo);
+            }
 
             WriteObjectEnd(objectDeclaration, constructorName);
         }
 
-        public void WriteContentOnlyForm(IEnumerable<FormTab> tabs)
+        public void WriteContentOnlyForm(FormInformation formInfo)
         {
             _isFirstElement = true;
 
-            WriteTabs(tabs);
-
-            WriteSections(tabs);
-
-            WriteSubgrids(tabs);
-
-            WriteWebResources(tabs);
-
-            WriteQuickViewForms(tabs);
-
-            WriteIFrames(tabs);
+            if (formInfo != null)
+            {
+                WriteFormContent(formInfo);
+            }
 
             if (this._javaScriptObjectType == JavaScriptObjectType.JsonObject)
             {
                 Write(",");
             }
+        }
+
+        private void WriteFormContent(FormInformation formInfo)
+        {
+            WriteTabs(formInfo.Tabs);
+
+            WriteSections(formInfo.Tabs);
+
+            WriteSubgrids(formInfo.Tabs);
+
+            WriteWebResources(formInfo.Tabs);
+
+            WriteQuickViewForms(formInfo.Tabs);
+
+            WriteIFrames(formInfo.Tabs);
+
+            WriteFormParameters(formInfo.FormParameters);
         }
 
         private void WriteConstantsAndFunctions(string objectName)
@@ -317,6 +316,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 WriteLine();
                 Write($"{prefix}'{control.Name}': '{control.Name}'");
+
+                if (string.IsNullOrEmpty(prefix))
+                {
+                    prefix = ", ";
+                }
+            }
+
+            WriteElementNameEnd();
+        }
+
+        private void WriteFormParameters(IEnumerable<FormParameter> formParameters)
+        {
+            if (formParameters == null ||  !formParameters.Any())
+            {
+                return;
+            }
+
+            WriteElementNameStart("FormParameters", "{");
+
+            string prefix = string.Empty;
+
+            foreach (var item in formParameters)
+            {
+                WriteLine();
+                Write($"{prefix}'{item.Name}': '{item.Name}'");
 
                 if (string.IsNullOrEmpty(prefix))
                 {

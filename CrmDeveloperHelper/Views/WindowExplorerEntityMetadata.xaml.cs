@@ -2036,7 +2036,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var handler = new CreateFormTabsJavaScriptHandler(stringWriter, config, javaScriptObjectType, service);
 
-                    await handler.WriteContentAsync(entityMetadata.EntityMetadata, objectName, constructorName, Enumerable.Empty<FormTab>(), null, null, null, null);
+                    await handler.WriteContentAsync(entityMetadata.EntityMetadata, objectName, constructorName, null);
                 }
 
                 File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));

@@ -194,15 +194,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void SaveInfoTabSection(StringBuilder result, XElement doc)
         {
-            FormTab header = GetHeader(doc);
+            FormInformation formInfo = GetFormInformation(doc);
 
-            List<FormTab> tabs = GetFormTabs(doc);
-
-            FormTab footer = GetFooter(doc);
-
-            if (header != null || tabs.Any() || footer != null)
+            if (formInfo.Header != null || formInfo.Tabs.Any() || formInfo.Footer != null)
             {
-                List<int> locales = GetLabelLocales(header, tabs, footer);
+                List<int> locales = GetLabelLocales(formInfo.Header, formInfo.Tabs, formInfo.Footer);
 
                 locales.Sort(LocaleComparer.Comparer);
 
@@ -222,14 +218,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         table.SetHeader(fields);
                     }
 
-                    if (header != null)
+                    if (formInfo.Header != null)
                     {
-                        List<string> fields = new List<string>() { header.Name, header.ShowLabel, header.Visible, "" };
-                        AddLabels(header.Labels, locales, fields);
+                        List<string> fields = new List<string>() { formInfo.Header.Name, formInfo.Header.ShowLabel, formInfo.Header.Visible, "" };
+                        AddLabels(formInfo.Header.Labels, locales, fields);
                         table.AddLine(fields);
                     }
 
-                    foreach (var tab in tabs)
+                    foreach (var tab in formInfo.Tabs)
                     {
                         {
                             List<string> fields = new List<string>() { tab.Name, tab.ShowLabel, tab.Visible, tab.Expanded };
@@ -245,10 +241,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
 
-                    if (footer != null)
+                    if (formInfo.Footer != null)
                     {
-                        List<string> fields = new List<string>() { footer.Name, footer.ShowLabel, footer.Visible, "" };
-                        AddLabels(footer.Labels, locales, fields);
+                        List<string> fields = new List<string>() { formInfo.Footer.Name, formInfo.Footer.ShowLabel, formInfo.Footer.Visible, "" };
+                        AddLabels(formInfo.Footer.Labels, locales, fields);
                         table.AddLine(fields);
                     }
 
@@ -287,15 +283,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         table.SetHeader(fields);
                     }
 
-                    if (header != null)
+                    if (formInfo.Header != null)
                     {
                         {
-                            List<string> fields = new List<string>() { header.Name, "Header", "", header.ShowLabel, header.Visible, "" };
-                            AddLabels(header.Labels, locales, fields);
+                            List<string> fields = new List<string>() { formInfo.Header.Name, "Header", "", formInfo.Header.ShowLabel, formInfo.Header.Visible, "" };
+                            AddLabels(formInfo.Header.Labels, locales, fields);
                             table.AddLine(fields);
                         }
 
-                        foreach (var section in header.Sections)
+                        foreach (var section in formInfo.Header.Sections)
                         {
                             foreach (var control in section.Controls)
                             {
@@ -307,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
 
-                    foreach (var tab in tabs)
+                    foreach (var tab in formInfo.Tabs)
                     {
                         {
                             List<string> fields = new List<string>() { tab.Name, "Tab", "", tab.ShowLabel, tab.Visible, "" };
@@ -333,15 +329,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
 
-                    if (footer != null)
+                    if (formInfo.Footer != null)
                     {
                         {
-                            List<string> fields = new List<string>() { footer.Name, "Footer", "", footer.ShowLabel, footer.Visible, "" };
-                            AddLabels(footer.Labels, locales, fields);
+                            List<string> fields = new List<string>() { formInfo.Footer.Name, "Footer", "", formInfo.Footer.ShowLabel, formInfo.Footer.Visible, "" };
+                            AddLabels(formInfo.Footer.Labels, locales, fields);
                             table.AddLine(fields);
                         }
 
-                        foreach (var section in footer.Sections)
+                        foreach (var section in formInfo.Footer.Sections)
                         {
                             foreach (var control in section.Controls)
                             {
@@ -577,10 +573,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public List<FormTab> GetFormTabs(XElement doc)
+        public FormInformation GetFormInformation(XElement doc)
         {
-            List<FormTab> result = new List<FormTab>();
+            var result = new FormInformation();
 
+            result.Header = GetHeader(doc);
+
+            result.Footer = GetFooter(doc);
+
+            FindFormTabs(doc, result);
+
+            FindFormParameters(doc, result);
+
+            return result;
+        }
+
+        private void FindFormTabs(XElement doc, FormInformation result)
+        {
             var allTabs = doc.Descendants("tab");
 
             foreach (var nodeTab in allTabs)
@@ -594,7 +603,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     Visible = (string)nodeTab.Attribute("visible") ?? "true",
                 };
 
-                result.Add(tab);
+                result.Tabs.Add(tab);
 
                 {
                     var nodeLabels = nodeTab.Element("labels");
@@ -662,8 +671,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
             }
+        }
 
-            return result;
+        private void FindFormParameters(XElement doc, FormInformation result)
+        {
+            var nodeFormParameters = doc.Descendants("formparameters").FirstOrDefault();
+
+            if (nodeFormParameters == null)
+            {
+                return;
+            }
+
+            var nodeParametersList = nodeFormParameters.Descendants("querystringparameter");
+
+            foreach (var nodeParameter in nodeParametersList)
+            {
+                var paramerter = new FormParameter((string)nodeParameter.Attribute("name"), (string)nodeParameter.Attribute("type"));
+
+                result.FormParameters.Add(paramerter);
+            }
         }
 
         private void FillFormControlProperites(string tabName, string sectionName, XElement nodeCell, XElement nodeControl, FormControl formControl)

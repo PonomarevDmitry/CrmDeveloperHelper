@@ -724,9 +724,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         XElement doc = XElement.Parse(formXml);
 
-                        var tabs = handler.GetFormTabs(doc);
+                        FormInformation formInfo = handler.GetFormInformation(doc);
 
-                        var unknownControls = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.UnknownControl);
+                        var unknownControls = formInfo.Tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.UnknownControl);
 
                         foreach (var control in unknownControls)
                         {

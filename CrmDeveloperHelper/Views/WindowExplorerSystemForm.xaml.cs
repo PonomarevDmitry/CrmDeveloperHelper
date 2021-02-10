@@ -1408,7 +1408,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     XElement doc = XElement.Parse(formXml);
 
-                    var tabs = handler.GetFormTabs(doc);
+                    FormInformation formInfo = handler.GetFormInformation(doc);
+
+                    systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out string typeName);
+
+                    formInfo.FormId = systemForm.Id;
+                    formInfo.FormName = systemForm.Name;
+                    formInfo.FormType = systemForm.Type?.Value;
+                    formInfo.FormTypeName = typeName;
 
                     string filePath = Path.Combine(folder, fileName);
 
@@ -1423,9 +1430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var handlerCreate = new CreateFormTabsJavaScriptHandler(stringWriter, config, javaScriptObjectType, service);
 
-                        systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out string typeName);
-
-                        await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs, systemForm.Id, systemForm.Name, systemForm.Type?.Value, typeName);
+                        await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, formInfo);
                     }
 
                     File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
@@ -1942,7 +1947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var descriptor = GetSolutionComponentDescriptor(service);
                     var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
-                    var tabs = handler.GetFormTabs(doc);
+                    FormInformation formInfo = handler.GetFormInformation(doc);
 
                     var stringBuilder = new StringBuilder();
 
@@ -1950,7 +1955,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
 
-                        handlerCreate.WriteContentOnlyForm(tabs);
+                        handlerCreate.WriteContentOnlyForm(formInfo);
                     }
 
                     ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
@@ -1995,8 +2000,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormFormat2, entityName, name);
 
             var descriptor = GetSolutionComponentDescriptor(service);
-
-            var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
             var repository = new SystemFormRepository(service);
 

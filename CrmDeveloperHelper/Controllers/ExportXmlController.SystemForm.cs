@@ -286,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
-                var tabs = handler.GetFormTabs(doc);
+                FormInformation formInfo = handler.GetFormInformation(doc);
 
                 var stringBuilder = new StringBuilder();
 
@@ -294,7 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, jsObjectType, service);
 
-                    handlerCreate.WriteContentOnlyForm(tabs);
+                    handlerCreate.WriteContentOnlyForm(formInfo);
                 }
 
                 ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
