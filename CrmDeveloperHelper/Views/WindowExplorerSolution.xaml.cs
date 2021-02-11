@@ -2699,7 +2699,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Solution.EntityLogicalName);
+            var newSolution = new Solution()
+            {
+                FriendlyName = string.Empty,
+                UniqueName = string.Empty,
+                Version = "1.0.0.0",
+                PublisherId = null,
+            };
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Solution.EntityLogicalName, newSolution);
         }
 
         private void mIOpenSolutionListInWeb_Click(object sender, RoutedEventArgs e)

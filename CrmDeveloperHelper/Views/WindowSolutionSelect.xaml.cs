@@ -373,7 +373,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var commonConfig = CommonConfiguration.Get();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, _service, commonConfig, Solution.EntityLogicalName);
+            var newSolution = new Solution()
+            {
+                FriendlyName = string.Empty,
+                UniqueName = string.Empty,
+                Version = "1.0.0.0",
+                PublisherId = null,
+            };
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, _service, commonConfig, Solution.EntityLogicalName, newSolution);
         }
 
         private async void ClearUnmanagedSolution_Click(object sender, RoutedEventArgs e)
