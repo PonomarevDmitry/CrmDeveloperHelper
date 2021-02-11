@@ -1803,12 +1803,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             if (string.IsNullOrEmpty(this.Path)
                 && this.ConnectionId != Guid.Empty
-                )
+            )
             {
                 this.Path = FileOperations.GetConnectionDataFilePath(this.ConnectionId);
             }
 
             this.Save(this.Path);
+
+            string connectionNameFilePath = FileOperations.GetConnectionNameFilePath(this.ConnectionId);
+            File.WriteAllText(connectionNameFilePath, this.Name);
         }
 
         public void StartWatchFile()

@@ -11,6 +11,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private const string _fileNameConnectionDataFormat1 = "ConnectionData.{0}.xml";
 
+        private const string _fileNameConnectionName = "ConnectionName.txt";
+
         private const string _fileNameConnectionConfig = "ConnectionConfiguration.xml";
         private const string _fileNameCommonConfig = "CommonConfiguration.xml";
         private const string _fileNameFileGenerationConfiguration = "FileGenerationConfiguration.xml";
@@ -490,6 +492,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 Directory.CreateDirectory(result);
             }
+
+            return result;
+        }
+
+        internal static string GetConnectionNameFilePath(Guid connectionId)
+        {
+            string directory = GetConnectionInformationFolderPath(connectionId);
+
+            var result = Path.Combine(directory, _fileNameConnectionName);
 
             return result;
         }
