@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this._serviceLocker = new OrganizationServiceExtentedLocker();
         }
 
-        protected bool IsControlsEnabled => this._init == 0;
+        protected bool IsControlsEnabled => this._init >= 0;
 
         protected void ChangeInitByEnabled(bool enabled)
         {
@@ -199,15 +199,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             });
         }
 
-
         public async Task Execute()
+        {
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            try
+            {
+                await this.Execute(connectionData);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                ToggleControls(connectionData, true, Properties.OutputStrings.FetchExecutionError);
+
+                while (IsControlsEnabled)
+                {
+                    ChangeInitByEnabled(true);
+                }
+            }
+        }
+
+        private async Task Execute(ConnectionData connectionData)
         {
             if (!IsControlsEnabled)
             {
                 return;
             }
-
-            ConnectionData connectionData = this.GetSelectedConnection();
 
             ToggleControls(connectionData, false, Properties.OutputStrings.PreparingFetchRequest);
 
@@ -215,15 +234,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (connectionData == null)
             {
-                txtBErrorText.Text = Properties.OutputStrings.ConnectionIsNotSelected;
-
-                tbErrorText.IsEnabled = true;
-                tbErrorText.Visibility = Visibility.Visible;
-
-                tbErrorText.IsSelected = true;
-                tbErrorText.Focus();
-
                 this._selectedItem = tbErrorText;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    txtBErrorText.Text = Properties.OutputStrings.ConnectionIsNotSelected;
+
+                    tbErrorText.IsEnabled = true;
+                    tbErrorText.Visibility = Visibility.Visible;
+
+                    tbErrorText.IsSelected = true;
+                    tbErrorText.Focus();
+                });
 
                 ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionIsNotSelected);
 
@@ -251,15 +273,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 text.AppendLine(description);
 
-                txtBErrorText.Text = text.ToString();
-
-                tbErrorText.IsEnabled = true;
-                tbErrorText.Visibility = Visibility.Visible;
-
-                tbErrorText.IsSelected = true;
-                tbErrorText.Focus();
-
                 this._selectedItem = tbErrorText;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    txtBErrorText.Text = text.ToString();
+
+                    tbErrorText.IsEnabled = true;
+                    tbErrorText.Visibility = Visibility.Visible;
+
+                    tbErrorText.IsSelected = true;
+                    tbErrorText.Focus();
+                });
 
                 ToggleControls(connectionData, true, Properties.OutputStrings.FileTextIsNotValidXml);
 
@@ -289,6 +314,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                ToggleControls(connectionData, true, Properties.OutputStrings.FetchExecutionError);
+
+                while (IsControlsEnabled)
+                {
+                    ChangeInitByEnabled(true);
+                }
             }
         }
 
@@ -568,7 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                         if (parameter != null)
                         {
-                            attrValue.Value = parameter.Value;
+                            attrValue.Value = parameter.Value ?? string.Empty;
                         }
                     }
                 }
