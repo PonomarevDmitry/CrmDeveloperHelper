@@ -29,9 +29,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 dPValue.SelectedDate = _initialValue.Value;
             }
 
-            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
+            Views.WindowBase.SetElementsEnabledAndVisible(allwaysAddToEntity, btnRemoveControl);
 
-            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
+            Views.WindowBase.SetElementsEnabledAndVisible(showRestoreButton, btnRestore);
+
+            Views.WindowBase.SetElementsVisible(showRestoreButton, chBChanged);
         }
 
         protected override void OnGotFocus(RoutedEventArgs e)

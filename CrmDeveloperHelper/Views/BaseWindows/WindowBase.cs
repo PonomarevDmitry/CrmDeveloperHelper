@@ -925,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        public static void SetElementsEnabled(bool enabled, params UIElement[] elementsArray)
+        public static void SetElementsEnabledAndVisible(bool enabled, params UIElement[] elementsArray)
         {
             if (elementsArray == null || elementsArray.Length == 0)
             {
@@ -935,6 +935,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             foreach (var element in elementsArray)
             {
                 element.IsEnabled = enabled;
+                element.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        public static void SetElementsVisible(bool enabled, params UIElement[] elementsArray)
+        {
+            if (elementsArray == null || elementsArray.Length == 0)
+            {
+                return;
+            }
+
+            foreach (var element in elementsArray)
+            {
                 element.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
             }
         }

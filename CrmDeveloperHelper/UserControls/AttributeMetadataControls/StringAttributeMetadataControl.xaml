@@ -17,17 +17,23 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="100*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False"  />
+            <StackPanel Grid.Column="0" Margin="0">
+                <CheckBox x:Name="chBChanged" Content="Ch" ToolTip="Is Changed" IsEnabled="False" Margin="4" Padding="1" />
+            </StackPanel>
 
-            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
+            <StackPanel Grid.Column="1" Margin="0">
+                <Button x:Name="btnRemoveControl" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
+            </StackPanel>
 
             <TextBox x:Name="txtBValue" Grid.Column="2" TextChanged="txtBValue_TextChanged" />
 
-            <Button x:Name="btnRestore" Grid.Column="3" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
+            <StackPanel Grid.Column="3" Margin="0">
+                <Button x:Name="btnRestore" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
+            </StackPanel>
         </Grid>
     </GroupBox>
 </UserControl>

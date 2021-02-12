@@ -50,9 +50,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             FillComboBox();
 
-            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
+            Views.WindowBase.SetElementsEnabledAndVisible(allwaysAddToEntity, btnRemoveControl);
 
-            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
+            Views.WindowBase.SetElementsEnabledAndVisible(showRestoreButton, btnRestore);
+
+            Views.WindowBase.SetElementsVisible(showRestoreButton, chBChanged);
         }
 
         private void FillComboBox()

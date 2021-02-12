@@ -1,24 +1,30 @@
 ﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls.MemoAttributeMetadataControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
-             d:DesignWidth="566" d:DesignHeight="300"
+             d:DesignWidth="566" 
+             d:DesignHeight="300"
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
-        <DockPanel LastChildFill="True"  >
+        <Grid>
 
-            <Grid DockPanel.Dock="Top">
+            <Grid.Resources>
+                <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
+            </Grid.Resources>
 
-                <Grid.Resources>
-                    <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
-                </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
@@ -26,11 +32,11 @@
 
                 <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
 
-                <Button x:Name="btnRestore" Grid.Column="2" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
+                <Button x:Name="btnRestore" Grid.Column="3" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
 
             </Grid>
 
-            <TextBox x:Name="txtBValue" AcceptsReturn="True" VerticalContentAlignment="Top" TextChanged="txtBValue_TextChanged" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
-        </DockPanel>
+            <TextBox x:Name="txtBValue" AcceptsReturn="True" VerticalContentAlignment="Top" TextChanged="txtBValue_TextChanged" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+        </Grid>
     </GroupBox>
 </UserControl>

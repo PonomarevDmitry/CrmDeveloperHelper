@@ -8,20 +8,28 @@
              d:DesignWidth="566" d:DesignHeight="300"
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
-        <DockPanel LastChildFill="True"  >
+        <Grid>
 
-            <Grid DockPanel.Dock="Top">
+            <Grid.Resources>
+                <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
+            </Grid.Resources>
 
-                <Grid.Resources>
-                    <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
-                </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+
+                    <ColumnDefinition Width="100*" />
+                    
                     <ColumnDefinition Width="Auto" />
 
-                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="100*" />
                     
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -31,15 +39,15 @@
 
                 <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
 
-                <Button x:Name="btnRestore" Grid.Column="2" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
+                <Button x:Name="btnRestore" Grid.Column="3" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
 
-                <Label Grid.Column="4">
+                <Label Grid.Column="5">
                     <Hyperlink x:Name="hypLinkSelectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectAll_RequestNavigate">
                         <Run Text="Select All"/>
                     </Hyperlink>
                 </Label>
 
-                <Label Grid.Column="5">
+                <Label Grid.Column="6">
                     <Hyperlink x:Name="hypLinkDeselectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectAll_RequestNavigate" >
                         <Run Text="Deselect All"/>
                     </Hyperlink>
@@ -47,14 +55,13 @@
 
             </Grid>
 
-            <ListBox x:Name="lstBValues" VerticalContentAlignment="Top" SelectionMode="Extended">
+            <ListBox x:Name="lstBValues" SelectionMode="Extended" Grid.Row="1">
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <CheckBox Content="{Binding Content}" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
-
             </ListBox>
-        </DockPanel>
+        </Grid>
     </GroupBox>
 </UserControl>

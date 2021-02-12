@@ -41,9 +41,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             FillListBox();
 
-            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
+            Views.WindowBase.SetElementsEnabledAndVisible(allwaysAddToEntity, btnRemoveControl);
 
-            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
+            Views.WindowBase.SetElementsEnabledAndVisible(showRestoreButton, btnRestore);
+
+            Views.WindowBase.SetElementsVisible(showRestoreButton, chBChanged);
         }
 
         private class CheckListBoxItem : INotifyPropertyChanging, INotifyPropertyChanged

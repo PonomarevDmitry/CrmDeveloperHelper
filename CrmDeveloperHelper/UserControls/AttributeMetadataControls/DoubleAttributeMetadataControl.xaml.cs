@@ -26,9 +26,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             txtBValue.Text = _initialValue.ToString();
 
-            Views.WindowBase.SetElementsEnabled(allwaysAddToEntity, btnRemoveControl);
+            Views.WindowBase.SetElementsEnabledAndVisible(allwaysAddToEntity, btnRemoveControl);
 
-            Views.WindowBase.SetElementsEnabled(showRestoreButton, btnRestore, chBChanged);
+            Views.WindowBase.SetElementsEnabledAndVisible(showRestoreButton, btnRestore);
+
+            Views.WindowBase.SetElementsVisible(showRestoreButton, chBChanged);
         }
 
         private void txtBValue_TextChanged(object sender, TextChangedEventArgs e)
