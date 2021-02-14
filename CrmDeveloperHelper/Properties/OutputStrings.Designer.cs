@@ -5245,6 +5245,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening Solution {0} WebResources completed..
+        /// </summary>
+        internal static string OpeningSolutionWebResourcesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningSolutionWebResourcesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening Solution {0} WebResources failed..
+        /// </summary>
+        internal static string OpeningSolutionWebResourcesFailedFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningSolutionWebResourcesFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening Solution {0} WebResources....
+        /// </summary>
+        internal static string OpeningSolutionWebResourcesFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningSolutionWebResourcesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Solution in Browser       : {0}.
         /// </summary>
         internal static string OpenSolutionInBrowserSolutionUriFormat1 {

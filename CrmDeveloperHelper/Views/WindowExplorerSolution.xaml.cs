@@ -1,4 +1,5 @@
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -983,6 +984,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             {
 
+                var mIOpenWebResources = new MenuItem()
+                {
+                    Header = string.Format("Open WebResources in {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIOpenWebResources.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesInTextEditor = new MenuItem()
+                {
+                    Header = string.Format("Open WebResources in TextEditor in {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIOpenWebResourcesInTextEditor.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIOpenWebResources);
+                itemCollection.Add(mIOpenWebResourcesInTextEditor);
+            }
+
+            {
+
                 var mIComponents = new MenuItem()
                 {
                     Header = string.Format("Components in {0}", solution.UniqueNameEscapeUnderscore),
@@ -1009,6 +1031,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 itemCollection.Add(new Separator());
                 itemCollection.Add(mIMissingComponents);
                 itemCollection.Add(mIUninstallComponents);
+            }
+        }
+
+        private async void mIOpenWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                await PerformOpeningSolutionWebResourcesAsync(solution, false);
+            }
+        }
+
+        private async void mIOpenWebResourcesInTextEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                await PerformOpeningSolutionWebResourcesAsync(solution, true);
+            }
+        }
+
+        private async Task PerformOpeningSolutionWebResourcesAsync(Solution solution, bool openInTextEditor)
+        {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            try
+            {
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.OpeningSolutionWebResourcesFormat1, solution.UniqueName);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
+
+                await SolutionController.OpenSolutionWebResources(
+                    _iWriteToOutput
+                    , service
+                    , descriptor
+                    , _commonConfig
+                    , solution.Id
+                    , solution.UniqueName
+                    , openInTextEditor
+                );
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.OpeningSolutionWebResourcesCompletedFormat1, solution.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.OpeningSolutionWebResourcesFailedFormat1, solution.UniqueName);
             }
         }
 

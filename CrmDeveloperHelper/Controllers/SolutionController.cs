@@ -1706,8 +1706,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             using (service.Lock())
             {
-                var solutionRep = new SolutionComponentRepository(service);
-
                 var solutionDesciptor = new SolutionComponentDescriptor(service)
                 {
                     WithManagedInfo = true,
@@ -1715,127 +1713,142 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     WithUrls = true,
                 };
 
-                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.WebResource, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+                await OpenSolutionWebResources(this._iWriteToOutput, service, solutionDesciptor, commonConfig, solution.Id, solution.UniqueName, inTextEditor);
+            }
+        }
 
-                if (!components.Any())
+        public static async Task OpenSolutionWebResources(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor solutionDesciptor
+            , CommonConfiguration commonConfig
+            , Guid solutionId
+            , string solutionUniqueName
+            , bool inTextEditor
+        )
+        {
+            var solutionRep = new SolutionComponentRepository(service);
+
+            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solutionId, ComponentType.WebResource, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+            if (!components.Any())
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionSolutionNotContainsWebResourcesFormat2, service.ConnectionData.Name, solutionUniqueName);
+                return;
+            }
+
+            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(components);
+
+            if (!string.IsNullOrEmpty(desc))
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourcesToAddToSolutionFormat2, solutionUniqueName, components.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+            }
+
+            var webResourcesList = solutionDesciptor.GetEntities<WebResource>((int)ComponentType.WebResource, components.Select(c => c.ObjectId));
+
+            var openedWebResources = new List<WebResource>();
+            var unknownedWebResources = new List<WebResource>();
+
+            bool isTextEditorProgramExists = commonConfig.TextEditorProgramExists();
+
+            var table = new FormatTextTableHandler();
+
+            if (isTextEditorProgramExists)
+            {
+                table.SetHeader("File Uri", "Open File in Visual Studio", "Open File in TextEditor", "Select File in Folder");
+            }
+            else
+            {
+                table.SetHeader("File Uri", "Open File in Visual Studio", "Select File in Folder");
+            }
+
+            foreach (var webResource in webResourcesList.OrderBy(w => w.Name))
+            {
+                bool success = false;
+                string filePath = string.Empty;
+
+                if (service.ConnectionData.TryGetFriendlyPathByGuid(webResource.WebResourceId.Value, out string friendlyPath))
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionSolutionNotContainsWebResourcesFormat2, service.ConnectionData.Name, solutionUniqueName);
-                    return;
+                    success = Helpers.DTEHelper.Singleton.TryFindFileByRelativePath(service.ConnectionData, friendlyPath, out filePath);
                 }
 
-                var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(components);
-
-                if (!string.IsNullOrEmpty(desc))
+                if (success)
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourcesToAddToSolutionFormat2, solution.UniqueName, components.Count);
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
-                }
+                    openedWebResources.Add(webResource);
 
-                var webResourcesList = solutionDesciptor.GetEntities<WebResource>((int)ComponentType.WebResource, components.Select(c => c.ObjectId));
+                    var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
 
-                var openedWebResources = new List<WebResource>();
-                var unknownedWebResources = new List<WebResource>();
-
-                bool isTextEditorProgramExists = commonConfig.TextEditorProgramExists();
-
-                var table = new FormatTextTableHandler();
-
-                if (isTextEditorProgramExists)
-                {
-                    table.SetHeader("File Uri", "Open File in Visual Studio", "Open File in TextEditor", "Select File in Folder");
-                }
-                else
-                {
-                    table.SetHeader("File Uri", "Open File in Visual Studio", "Select File in Folder");
-                }
-
-                foreach (var webResource in webResourcesList.OrderBy(w => w.Name))
-                {
-                    bool success = false;
-                    string filePath = string.Empty;
-
-                    if (service.ConnectionData.TryGetFriendlyPathByGuid(webResource.WebResourceId.Value, out string friendlyPath))
+                    if (isTextEditorProgramExists)
                     {
-                        success = Helpers.DTEHelper.Singleton.TryFindFileByRelativePath(service.ConnectionData, friendlyPath, out filePath);
-                    }
-
-                    if (success)
-                    {
-                        openedWebResources.Add(webResource);
-
-                        var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
-
-                        if (isTextEditorProgramExists)
-                        {
-                            table.AddLine(
-                                uriFile
-                                , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
-                                , UrlCommandFilter.GetUriOpenInTextEditorByFileUri(uriFile)
-                                , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
-                            );
-                        }
-                        else
-                        {
-                            table.AddLine(
-                                uriFile
-                                , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
-                                , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
-                            );
-                        }
-
-                        if (inTextEditor)
-                        {
-                            this._iWriteToOutput.OpenFileInTextEditor(service.ConnectionData, filePath);
-                        }
-                        else
-                        {
-                            this._iWriteToOutput.OpenFileInVisualStudio(service.ConnectionData, filePath);
-                        }
+                        table.AddLine(
+                            uriFile
+                            , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriOpenInTextEditorByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                        );
                     }
                     else
                     {
-                        unknownedWebResources.Add(webResource);
+                        table.AddLine(
+                            uriFile
+                            , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                        );
+                    }
+
+                    if (inTextEditor)
+                    {
+                        iWriteToOutput.OpenFileInTextEditor(service.ConnectionData, filePath);
+                    }
+                    else
+                    {
+                        iWriteToOutput.OpenFileInVisualStudio(service.ConnectionData, filePath);
                     }
                 }
-
-                if (table.Count > 0)
+                else
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.OpenedFilesFormat1,  table.Count);
-
-                    foreach (var item in table.GetFormatedLines(false))
-                    {
-                        _iWriteToOutput.WriteToOutput(service.ConnectionData, item);
-                    }
+                    unknownedWebResources.Add(webResource);
                 }
+            }
 
-                if (openedWebResources.Any())
+            if (table.Count > 0)
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.OpenedFilesFormat1, table.Count);
+
+                foreach (var item in table.GetFormatedLines(false))
                 {
-                    desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(openedWebResources.Select(w => new SolutionComponent()
-                    {
-                        ObjectId = w.WebResourceId.Value,
-                        ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                    }));
-
-                    if (!string.IsNullOrEmpty(desc))
-                    {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesOpenedFormat2, solution.UniqueName, openedWebResources.Count);
-                        _iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
-                    }
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, item);
                 }
+            }
 
-                if (unknownedWebResources.Any())
+            if (openedWebResources.Any())
+            {
+                desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(openedWebResources.Select(w => new SolutionComponent()
                 {
-                    desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(unknownedWebResources.Select(w => new SolutionComponent()
-                    {
-                        ObjectId = w.WebResourceId.Value,
-                        ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                    }));
+                    ObjectId = w.WebResourceId.Value,
+                    ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                }));
 
-                    if (!string.IsNullOrEmpty(desc))
-                    {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesNotOpenedFormat2, solution.UniqueName, unknownedWebResources.Count);
-                        _iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
-                    }
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesOpenedFormat2, solutionUniqueName, openedWebResources.Count);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+                }
+            }
+
+            if (unknownedWebResources.Any())
+            {
+                desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(unknownedWebResources.Select(w => new SolutionComponent()
+                {
+                    ObjectId = w.WebResourceId.Value,
+                    ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                }));
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesNotOpenedFormat2, solutionUniqueName, unknownedWebResources.Count);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
                 }
             }
         }

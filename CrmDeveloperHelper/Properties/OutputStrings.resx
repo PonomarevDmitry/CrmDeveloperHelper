@@ -1057,6 +1057,17 @@
   <data name="CreatingTextFileWithMissingDependenciesFormat1" xml:space="preserve">
     <value>Creating text file with Missing Dependencies for {0}...</value>
   </data>
+  
+  <data name="OpeningSolutionWebResourcesCompletedFormat1" xml:space="preserve">
+    <value>Opening Solution {0} WebResources completed.</value>
+  </data>
+  <data name="OpeningSolutionWebResourcesFailedFormat1" xml:space="preserve">
+    <value>Opening Solution {0} WebResources failed.</value>
+  </data>
+  <data name="OpeningSolutionWebResourcesFormat1" xml:space="preserve">
+    <value>Opening Solution {0} WebResources...</value>
+  </data>
+  
   <data name="DeletingSolutionFormat1" xml:space="preserve">
     <value>Deleting solution {0}...</value>
   </data>

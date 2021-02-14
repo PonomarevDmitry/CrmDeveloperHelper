@@ -2167,5 +2167,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await ShowExistingSolutionComponents();
         }
+
+        private async void mIOpenWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                await PerformOpeningSolutionWebResourcesAsync(false);
+            }
+        }
+
+        private async void mIOpenWebResourcesInTextEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                await PerformOpeningSolutionWebResourcesAsync(true);
+            }
+        }
+
+        private async Task PerformOpeningSolutionWebResourcesAsync(bool openInTextEditor)
+        {
+            try
+            {
+                ToggleControls(false, Properties.OutputStrings.OpeningSolutionWebResourcesFormat1, _solution.UniqueName);
+
+                await SolutionController.OpenSolutionWebResources(
+                    _iWriteToOutput
+                    , _service
+                    , _descriptor
+                    , _commonConfig
+                    , _solution.Id
+                    , _solution.UniqueName
+                    , openInTextEditor
+                );
+
+                ToggleControls(true, Properties.OutputStrings.OpeningSolutionWebResourcesCompletedFormat1, _solution.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.OutputStrings.OpeningSolutionWebResourcesFailedFormat1, _solution.UniqueName);
+            }
+        }
     }
 }

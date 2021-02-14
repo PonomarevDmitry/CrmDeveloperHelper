@@ -270,6 +270,10 @@
                             <MenuItem Header="Add Components from Solution Zip-file" Click="mILoadSolutionZip_Click" />
 
                             <Separator/>
+                            <MenuItem Header="Open WebResources" Click="mIOpenWebResources_Click" />
+                            <MenuItem Header="Open WebResources in TextEditor" Click="mIOpenWebResourcesInTextEditor_Click" />
+
+                            <Separator/>
                             <MenuItem Header="Components" Click="mIComponentsIn_Click" />
 
                             <Separator/>
