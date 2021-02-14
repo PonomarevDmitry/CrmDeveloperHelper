@@ -1861,6 +1861,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Solution {1} WebResources.
+        /// </summary>
+        internal static string OpeningSolutionWebResourcesFormat2 {
+            get {
+                return ResourceManager.GetString("OpeningSolutionWebResourcesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening SystemUsers Explorer.
         /// </summary>
         internal static string OpeningSystemUsersExplorerFormat1 {

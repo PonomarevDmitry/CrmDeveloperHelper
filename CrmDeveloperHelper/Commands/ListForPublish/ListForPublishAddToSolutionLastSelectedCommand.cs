@@ -9,22 +9,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class ListForPublishAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
-        private ListForPublishAddToSolutionLastCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.ListForPublishAddToSolutionLastCommandId
-            )
+        private ListForPublishAddToSolutionLastSelectedCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.ListForPublishAddToSolutionLastSelectedCommandId)
         {
-
         }
 
-        public static ListForPublishAddToSolutionLastCommand Instance { get; private set; }
+        public static ListForPublishAddToSolutionLastSelectedCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishAddToSolutionLastCommand(commandService);
+            Instance = new ListForPublishAddToSolutionLastSelectedCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

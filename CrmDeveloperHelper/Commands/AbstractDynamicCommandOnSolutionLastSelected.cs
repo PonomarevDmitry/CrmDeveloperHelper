@@ -5,12 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractDynamicCommandOnSolutionLast : AbstractDynamicCommand<string>
+    internal abstract class AbstractDynamicCommandOnSolutionLastSelected : AbstractDynamicCommand<string>
     {
         private readonly Collection<string> EmptyCollection = new Collection<string>();
 
-        protected AbstractDynamicCommandOnSolutionLast(OleMenuCommandService commandService, int baseIdStart)
-            : base(commandService, baseIdStart, ConnectionData.CountLastSolutions)
+        protected AbstractDynamicCommandOnSolutionLastSelected(OleMenuCommandService commandService, int baseIdStart)
+            : base(commandService, PackageGuids.guidDynamicSolutionLastSelectedCommandSet, baseIdStart, ConnectionData.CountLastSolutions)
         {
         }
 

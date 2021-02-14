@@ -8,18 +8,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
-        private ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommandId)
+        private ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId)
         {
         }
 
-        public static ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand Instance { get; private set; }
+        public static ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand(commandService);
+            Instance = new ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

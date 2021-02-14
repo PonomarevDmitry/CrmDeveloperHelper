@@ -4,11 +4,11 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class CodeLinkedGlobalOptionSetAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal abstract class CodeLinkedGlobalOptionSetAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
         private readonly SelectedFileType _selectedFileType;
 
-        protected CodeLinkedGlobalOptionSetAddToSolutionLastCommand(OleMenuCommandService commandService, int baseIdStart, SelectedFileType selectedFileType)
+        protected CodeLinkedGlobalOptionSetAddToSolutionLastSelectedCommand(OleMenuCommandService commandService, int baseIdStart, SelectedFileType selectedFileType)
             : base(commandService, baseIdStart)
         {
             this._selectedFileType = selectedFileType;

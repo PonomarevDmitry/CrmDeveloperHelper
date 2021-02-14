@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         protected AbstractDynamicCommandByConnection(
             OleMenuCommandService commandService
             , int baseIdStart
-        ) : base(commandService, baseIdStart, ConnectionData.CountConnectionToQuickList)
+        ) : base(commandService, PackageGuids.guidDynamicCommandSet, baseIdStart, ConnectionData.CountConnectionToQuickList)
         {
 
         }

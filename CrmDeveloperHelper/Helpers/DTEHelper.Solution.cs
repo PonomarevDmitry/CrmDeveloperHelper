@@ -16,6 +16,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSolutionOpening(conn, commonConfig, solutionUniqueName, actionOnComponent));
         }
 
+        public void HandleSolutionOpenWebResourcesInLastSelected(ConnectionData connectionData, string solutionUniqueName, bool inTextEditor)
+        {
+            if (string.IsNullOrEmpty(solutionUniqueName))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSolutionOpeningWebResources(conn, commonConfig, solutionUniqueName, inTextEditor));
+        }
+
         public string GetLastSolutionUniqueName()
         {
             ConnectionConfiguration connectionConfig = Model.ConnectionConfiguration.Get();

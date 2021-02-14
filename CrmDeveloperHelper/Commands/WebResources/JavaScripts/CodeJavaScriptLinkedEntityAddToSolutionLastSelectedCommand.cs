@@ -4,37 +4,37 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
-    internal sealed class CodeJavaScriptLinkedEntityAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
         private readonly SolutionComponent.Schema.OptionSets.rootcomponentbehavior _rootcomponentbehavior;
 
-        private CodeJavaScriptLinkedEntityAddToSolutionLastCommand(OleMenuCommandService commandService, int baseIdStart, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootcomponentbehavior)
+        private CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand(OleMenuCommandService commandService, int baseIdStart, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootcomponentbehavior)
             : base(commandService, baseIdStart)
         {
             this._rootcomponentbehavior = rootcomponentbehavior;
         }
 
-        public static CodeJavaScriptLinkedEntityAddToSolutionLastCommand InstanceIncludeSubcomponents { get; private set; }
+        public static CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand InstanceIncludeSubcomponents { get; private set; }
 
-        public static CodeJavaScriptLinkedEntityAddToSolutionLastCommand InstanceDoNotIncludeSubcomponents { get; private set; }
+        public static CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand InstanceDoNotIncludeSubcomponents { get; private set; }
 
-        public static CodeJavaScriptLinkedEntityAddToSolutionLastCommand InstanceIncludeAsShellOnly { get; private set; }
+        public static CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand InstanceIncludeAsShellOnly { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceIncludeSubcomponents = new CodeJavaScriptLinkedEntityAddToSolutionLastCommand(
+            InstanceIncludeSubcomponents = new CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId
                 , SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
             );
 
-            InstanceDoNotIncludeSubcomponents = new CodeJavaScriptLinkedEntityAddToSolutionLastCommand(
+            InstanceDoNotIncludeSubcomponents = new CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId
                 , SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1
             );
 
-            InstanceIncludeAsShellOnly = new CodeJavaScriptLinkedEntityAddToSolutionLastCommand(
+            InstanceIncludeAsShellOnly = new CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId
                 , SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2

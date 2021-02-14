@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             WebResourceShowDependentComponentsCommand.Initialize,
 
-            WebResourceAddToSolutionLastCommand.Initialize,
+            WebResourceAddToSolutionLastSelectedCommand.Initialize,
             WebResourceAddToSolutionInConnectionCommand.Initialize,
 
             WebResourceCompareCommand.Initialize,
@@ -219,6 +219,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             WebResourceOpenInWebInConnectionCommand.Initialize,
             WebResourceOpenInExplorerInConnectionCommand.Initialize,
+
+            OpenWebResourcesInSolutionLastSelectedCommand.Initialize,
 
 
 
@@ -256,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.Initialize,
             CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand.Initialize,
 
-            CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
+            CodeJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand.Initialize,
             CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
 
             CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.Initialize,
@@ -264,13 +266,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand.Initialize,
 
             JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
-            JavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
+            JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand.Initialize,
 
 
 
 
 
-            CodeJavaScriptLinkedEntityAddToSolutionLastCommand.Initialize,
+            CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand.Initialize,
             CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand.Initialize,
 
             CodeJavaScriptLinkedEntityExplorerCommand.Initialize,
@@ -281,14 +283,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
 
 
-            CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand.Initialize,
+            CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand.Initialize,
             CodeJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommand.Initialize,
 
             CodeJavaScriptLinkedGlobalOptionSetExplorerCommand.Initialize,
             CodeJavaScriptLinkedGlobalOptionSetPublishInConnectionCommand.Initialize,
             CodeJavaScriptLinkedGlobalOptionSetActionOnComponentInConnectionCommand.Initialize,
 
-            JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand.Initialize,
+            JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand.Initialize,
             JavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommand.Initialize,
 
             #endregion CodeJavaScript
@@ -460,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             ReportLinkClearCommand.Initialize,
 
-            ReportAddToSolutionLastCommand.Initialize,
+            ReportAddToSolutionLastSelectedCommand.Initialize,
             ReportAddToSolutionInConnectionCommand.Initialize,
 
             ReportCreateCommand.Initialize,
@@ -497,7 +499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize,
             CSharpProjectPluginTypeActionOnComponentInConnectionWithoutCurrentCommand.Initialize,
 
-            CSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize,
+            CSharpProjectPluginTypeStepsAddToSolutionLastSelectedCommand.Initialize,
             CSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize,
 
             CSharpAddPluginStepCommand.Initialize,
@@ -512,10 +514,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CSharpPluginAssemblyExplorerCommand.Initialize,
 
 
-            CSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
+            CSharpProjectPluginAssemblyAddToSolutionLastSelectedCommand.Initialize,
             CSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
 
-            CSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize,
+            CSharpProjectPluginAssemblyStepsAddToSolutionLastSelectedCommand.Initialize,
             CSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize,
 
 
@@ -539,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region CodeCSharp
 
-            CodeCSharpLinkedGlobalOptionSetAddToSolutionLastCommand.Initialize,
+            CodeCSharpLinkedGlobalOptionSetAddToSolutionLastSelectedCommand.Initialize,
             CodeCSharpLinkedGlobalOptionSetAddToSolutionInConnectionCommand.Initialize,
 
             CodeCSharpLinkedGlobalOptionSetExplorerCommand.Initialize,
@@ -588,11 +590,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
 
             ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
-            ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
+            ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand.Initialize,
 
             ListForPublishShowListCommand.Initialize,
 
-            ListForPublishAddToSolutionLastCommand.Initialize,
+            ListForPublishAddToSolutionLastSelectedCommand.Initialize,
             ListForPublishAddToSolutionInConnectionCommand.Initialize,
 
             ListForPublishOpenFilesCommand.Initialize,
@@ -721,7 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonOpenSolutionDifferenceImageCommand.Initialize,
 
             CommonOpenDefaultSolutionInWebCommand.Initialize,
-            CommonExportOpenLastSelectedSolutionCommand.Initialize,
+            CommonExportOpenSolutionLastSelectedCommand.Initialize,
 
             #endregion Solutions
 
@@ -810,7 +812,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputOpenCrmWebSiteEntityMetadataCommand.Initialize,
             OutputOpenCrmWebSiteEntityListCommand.Initialize,
 
-            OutputExportOpenLastSelectedSolutionCommand.Initialize,
+            OutputExportOpenSolutionLastSelectedCommand.Initialize,
+            OutputOpenWebResourcesInSolutionLastSelectedCommand.Initialize,
+
             OutputOpenDefaultSolutionInWebCommand.Initialize,
 
             OutputOpenOrganizationDifferenceImageCommand.Initialize,

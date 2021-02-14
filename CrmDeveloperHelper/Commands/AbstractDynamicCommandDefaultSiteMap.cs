@@ -22,13 +22,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         protected AbstractDynamicCommandDefaultSiteMap(
             OleMenuCommandService commandService
             , int baseIdStart
-        ) : base(
-            commandService
-            , baseIdStart
-            , ConnectionData.CountLastSolutions
-        )
+        ) : base(commandService, PackageGuids.guidDynamicCommandSet, baseIdStart, ConnectionData.CountLastSolutions)
         {
-
         }
 
         protected override IList<string> GetElementSourceCollection()

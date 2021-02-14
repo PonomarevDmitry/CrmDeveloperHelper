@@ -14,6 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         protected AbstractDynamicCommand(
             OleMenuCommandService commandService
+            , Guid commandGroupId
             , int baseIdStart
             , int commandsCount
         )
@@ -23,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             for (int i = 0; i < commandsCount; i++)
             {
-                var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
+                var menuCommandID = new CommandID(commandGroupId, _baseIdStart + i);
 
                 var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
 

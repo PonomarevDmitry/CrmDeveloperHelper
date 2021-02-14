@@ -924,6 +924,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSolutionOpening(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionAsync, commonConfig, solutionUniqueName, actionOnComponent);
 
+        public void StartSolutionOpeningWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool inTextEditor)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionWebResourcesAsync, commonConfig, solutionUniqueName, inTextEditor);
+
         #endregion Solutions
 
         #region VisualStudio Projects, Plugin Assemblies, Types, Steps

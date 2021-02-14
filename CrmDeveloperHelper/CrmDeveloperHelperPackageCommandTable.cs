@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const string guidJsonString = "f718ca06-cf4f-4a0c-9106-e79e9ee5e7cd";
         public const string guidAddString = "d309f791-903f-11d0-9efc-00a0c911004f";
         public const string guidGroupAndMenuSetString = "6a1a85fe-5657-4ae9-80fe-fa1277f6abc6";
+        public const string guidDynamicSolutionLastSelectedCommandSetString = "a42b6010-b492-4fec-a4f0-0d76aad80ec7";
         public const string guidDynamicCommandSetString = "f71ca58c-98fe-4935-a0cb-478a076b9821";
         public const string guidCommandSetString = "15ffcbd5-0856-4bda-b6c8-e6e0b635761d";
 
@@ -31,6 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public static readonly System.Guid guidJson = new System.Guid(guidJsonString);
         public static readonly System.Guid guidAdd = new System.Guid(guidAddString);
         public static readonly System.Guid guidGroupAndMenuSet = new System.Guid(guidGroupAndMenuSetString);
+        public static readonly System.Guid guidDynamicSolutionLastSelectedCommandSet = new System.Guid(guidDynamicSolutionLastSelectedCommandSetString);
         public static readonly System.Guid guidDynamicCommandSet = new System.Guid(guidDynamicCommandSetString);
         public static readonly System.Guid guidCommandSet = new System.Guid(guidCommandSetString);
     }
@@ -224,6 +226,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int codeMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1107;
 
             public const int codeMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn = 0x129A;
+
+            public const int codeMenuWebResource_GroupOpenSolutionLastSelectedWebResources = 0x1629;
 
             public const int codeMenuWebResource_GroupLastLink = 0x1007;
 
@@ -527,6 +531,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x15B8;
 
+            public const int documentsMenuWebResource_GroupOpenSolutionLastSelectedWebResources = 0x162E;
+
             public const int documentsMenuWebResource_GroupLastLink = 0x1180;
 
             public const int documentsMenuXml = 0x12E5;
@@ -738,6 +744,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1109;
 
             public const int fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn = 0x12AD;
+
+            public const int fileMenuWebResource_GroupOpenSolutionLastSelectedWebResources = 0x1633;
 
             public const int fileMenuWebResource_GroupLastLink = 0x1027;
 
@@ -952,6 +960,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int folderMenuWebResource_GroupActionOnComponent_Menu_GroupGetCurrent = 0x15C3;
 
             public const int folderMenuWebResource_GroupActionOnComponent_Menu_Group3 = 0x15C4;
+
+            public const int folderMenuWebResource_GroupOpenSolutionLastSelectedWebResources = 0x1638;
 
             public const int folderMenuWebResource_GroupLastLink = 0x1078;
 
@@ -1641,6 +1651,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1143;
 
+            public const int CodeWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn = 0x1625;
+
+            public const int CodeWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn_Group = 0x1626;
+
+            public const int CodeWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn = 0x1627;
+
+            public const int CodeWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn_Group = 0x1628;
+
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId_MenuDyn = 0x1216;
 
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId_MenuDyn_Group = 0x1217;
@@ -2033,6 +2051,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x15BA;
 
+            public const int DocumentsWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn = 0x162A;
+
+            public const int DocumentsWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn_Group = 0x162B;
+
+            public const int DocumentsWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn = 0x162C;
+
+            public const int DocumentsWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn_Group = 0x162D;
+
             public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x1512;
 
             public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn_Group = 0x1513;
@@ -2251,6 +2277,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId_MenuDyn_Group = 0x1153;
 
+            public const int FileWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn = 0x162F;
+
+            public const int FileWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn_Group = 0x1630;
+
+            public const int FileWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn = 0x1631;
+
+            public const int FileWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn_Group = 0x1632;
+
             public const int FileReportUpdateCommandId_MenuDyn = 0x132E;
 
             public const int FileReportUpdateCommandId_MenuDyn_Group = 0x132F;
@@ -2448,6 +2482,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn = 0x15C5;
 
             public const int FolderWebResourceOpenDependentInWebInConnectionCommandId_MenuDyn_Group = 0x15C6;
+
+            public const int FolderWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn = 0x1634;
+
+            public const int FolderWebResourceOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn_Group = 0x1635;
+
+            public const int FolderWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn = 0x1636;
+
+            public const int FolderWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn_Group = 0x1637;
 
             public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId_MenuDyn = 0x152D;
 
@@ -2679,17 +2721,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonSolutionExplorerInConnectionCommandId_MenuDyn_Group = 0x125D;
 
-            public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn = 0x1118;
+            public const int CommonExportOpenSolutionLastSelectedInExplorerCommandId_MenuDyn = 0x1118;
 
-            public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn_Group = 0x1119;
+            public const int CommonExportOpenSolutionLastSelectedInExplorerCommandId_MenuDyn_Group = 0x1119;
+
+            public const int CommonOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn = 0x1621;
+
+            public const int CommonOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn_Group = 0x1622;
+
+            public const int CommonOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn = 0x1623;
+
+            public const int CommonOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn_Group = 0x1624;
 
             public const int CommonImportJobExplorerInConnectionCommandId_MenuDyn = 0x12E0;
 
             public const int CommonImportJobExplorerInConnectionCommandId_MenuDyn_Group = 0x12E1;
 
-            public const int CommonExportOpenLastSelectedSolutionInWebCommandId_MenuDyn = 0x1116;
+            public const int CommonExportOpenSolutionLastSelectedInWebCommandId_MenuDyn = 0x1116;
 
-            public const int CommonExportOpenLastSelectedSolutionInWebCommandId_MenuDyn_Group = 0x1117;
+            public const int CommonExportOpenSolutionLastSelectedInWebCommandId_MenuDyn_Group = 0x1117;
 
             public const int CommonCrmConnectionPublishAllCommandId_MenuDyn = 0x1197;
 
@@ -2847,21 +2897,124 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonCrmConnectionTestCommandId_MenuDyn_Group = 0x1229;
 
-            public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn = 0x137B;
+            public const int OutputExportOpenSolutionLastSelectedInExplorerCommandId_MenuDyn = 0x137B;
 
-            public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId_MenuDyn_Group = 0x137C;
+            public const int OutputExportOpenSolutionLastSelectedInExplorerCommandId_MenuDyn_Group = 0x137C;
 
-            public const int OutputExportOpenLastSelectedSolutionInWebCommandId_MenuDyn = 0x137D;
+            public const int OutputExportOpenSolutionLastSelectedInWebCommandId_MenuDyn = 0x137D;
 
-            public const int OutputExportOpenLastSelectedSolutionInWebCommandId_MenuDyn_Group = 0x137E;
+            public const int OutputExportOpenSolutionLastSelectedInWebCommandId_MenuDyn_Group = 0x137E;
+
+            public const int OutputOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn = 0x1639;
+
+            public const int OutputOpenWebResourcesInSolutionLastSelectedCommandId_MenuDyn_Group = 0x163A;
+
+            public const int OutputOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn = 0x163B;
+
+            public const int OutputOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId_MenuDyn_Group = 0x163C;
+        }
+
+        internal static partial class guidDynamicSolutionLastSelectedCommandSet
+        {
+            public const int CommonExportOpenSolutionLastSelectedInWebCommandId = 0x00C8;
+
+            public const int CommonExportOpenSolutionLastSelectedInExplorerCommandId = 0x00E1;
+
+            public const int CommonOpenWebResourcesInSolutionLastSelectedCommandId = 0x00FA;
+
+            public const int CommonOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId = 0x0113;
+
+            public const int CodeWebResourceAddToSolutionLastSelectedCommandId = 0x012C;
+
+            public const int CodeWebResourceOpenWebResourcesInSolutionLastSelectedCommandId = 0x0145;
+
+            public const int CodeWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId = 0x015E;
+
+            public const int CodeJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId = 0x0177;
+
+            public const int CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId = 0x0190;
+
+            public const int CodeReportAddToSolutionLastSelectedCommandId = 0x01A9;
+
+            public const int CodeCSharpProjectPluginAssemblyAddToSolutionLastSelectedCommandId = 0x01C2;
+
+            public const int CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastSelectedCommandId = 0x01DB;
+
+            public const int CodeCSharpProjectPluginTypeStepsAddToSolutionLastSelectedCommandId = 0x01F4;
+
+            public const int CodeCSharpLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId = 0x020D;
+
+            public const int DocumentsWebResourceAddToSolutionLastSelectedCommandId = 0x0226;
+
+            public const int DocumentsWebResourceOpenWebResourcesInSolutionLastSelectedCommandId = 0x023F;
+
+            public const int DocumentsWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId = 0x0258;
+
+            public const int DocumentsJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId = 0x0271;
+
+            public const int DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId = 0x028A;
+
+            public const int DocumentsReportAddToSolutionLastSelectedCommandId = 0x02A3;
+
+            public const int DocumentsCSharpProjectPluginAssemblyAddToSolutionLastSelectedCommandId = 0x02BC;
+
+            public const int DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastSelectedCommandId = 0x02D5;
+
+            public const int DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastSelectedCommandId = 0x02EE;
+
+            public const int FileWebResourceAddToSolutionLastSelectedCommandId = 0x0307;
+
+            public const int FileWebResourceOpenWebResourcesInSolutionLastSelectedCommandId = 0x0320;
+
+            public const int FileWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId = 0x0339;
+
+            public const int FileJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId = 0x0352;
+
+            public const int FileJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId = 0x036B;
+
+            public const int FileReportAddToSolutionLastSelectedCommandId = 0x0384;
+
+            public const int FileCSharpProjectPluginAssemblyAddToSolutionLastSelectedCommandId = 0x039D;
+
+            public const int FileCSharpProjectPluginAssemblyStepsAddToSolutionLastSelectedCommandId = 0x03B6;
+
+            public const int FileCSharpProjectPluginTypeStepsAddToSolutionLastSelectedCommandId = 0x03CF;
+
+            public const int FolderWebResourceAddToSolutionLastSelectedCommandId = 0x03E8;
+
+            public const int FolderWebResourceOpenWebResourcesInSolutionLastSelectedCommandId = 0x0401;
+
+            public const int FolderWebResourceOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId = 0x041A;
+
+            public const int FolderJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId = 0x0433;
+
+            public const int FolderJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId = 0x044C;
+
+            public const int FolderCSharpProjectPluginAssemblyAddToSolutionLastSelectedCommandId = 0x0465;
+
+            public const int FolderCSharpProjectPluginAssemblyStepsAddToSolutionLastSelectedCommandId = 0x047E;
+
+            public const int FolderCSharpProjectPluginTypeStepsAddToSolutionLastSelectedCommandId = 0x0497;
+
+            public const int ListForPublishAddToSolutionLastSelectedCommandId = 0x04B0;
+
+            public const int ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId = 0x04C9;
+
+            public const int ProjectPluginAssemblyAddToSolutionLastSelectedCommandId = 0x04E2;
+
+            public const int ProjectPluginAssemblyStepsAddToSolutionLastSelectedCommandId = 0x04FB;
+
+            public const int OutputExportOpenSolutionLastSelectedInWebCommandId = 0x0514;
+
+            public const int OutputExportOpenSolutionLastSelectedInExplorerCommandId = 0x052D;
+
+            public const int OutputOpenWebResourcesInSolutionLastSelectedCommandId = 0x0546;
+
+            public const int OutputOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId = 0x055F;
         }
 
         internal static partial class guidDynamicCommandSet
         {
-            public const int CommonExportOpenLastSelectedSolutionInWebCommandId = 0x0190;
-
-            public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId = 0x01A4;
-
             public const int CommonOpenCrmWebSiteCommandId = 0x06A4;
 
             public const int CommonOpenAdvancedFindCommandId = 0x0672;
@@ -2978,8 +3131,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonCheckTeamTemplatesCommandId = 0x4E84;
 
-            public const int CodeWebResourceAddToSolutionLastCommandId = 0x00C8;
-
             public const int CodeWebResourceShowDifferenceInConnectionGroupCommandId = 0x0096;
 
             public const int CodeWebResourceOpenInWebInConnectionCommandId = 0x0352;
@@ -3036,8 +3187,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedSystemFormOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x30D4;
 
-            public const int CodeJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x3138;
-
             public const int CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x316A;
 
             public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId = 0x303E;
@@ -3085,8 +3234,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptLinkedGlobalOptionSetOpenDependentInExplorerInConnectionCommandId = 0x4F1A;
 
             public const int CodeJavaScriptLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x4F4C;
-
-            public const int CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x4F7E;
 
             public const int CodeJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x4FB0;
 
@@ -3172,8 +3319,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId = 0x45EC;
 
-            public const int CodeReportAddToSolutionLastCommandId = 0x00DC;
-
             public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId = 0x0258;
 
             public const int CodeReportOpenInWebInConnectionCommandId = 0x04E2;
@@ -3203,12 +3348,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeReportUpdateCommandId = 0x2648;
 
             public const int CodeReportCreateCommandId = 0x26AC;
-
-            public const int CodeCSharpProjectPluginAssemblyAddToSolutionLastCommandId = 0x01B8;
-
-            public const int CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId = 0x01CC;
-
-            public const int CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommandId = 0x01E0;
 
             public const int CodeCSharpAddPluginStepInConnectionCommandId = 0x1A5E;
 
@@ -3264,13 +3403,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpLinkedGlobalOptionSetOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x51D6;
 
-            public const int CodeCSharpLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x5208;
-
             public const int CodeCSharpLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x523A;
 
             public const int CodeCSharpLinkedGlobalOptionSetPublishInConnectionCommandId = 0x526C;
-
-            public const int DocumentsWebResourceAddToSolutionLastCommandId = 0x00F0;
 
             public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0E74;
 
@@ -3332,15 +3467,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x4718;
 
-            public const int DocumentsJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x474A;
-
             public const int DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x5014;
 
-            public const int DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x5046;
-
             public const int DocumentsXmlCommonXsdSchemaSetCommandId = 0x2260;
-
-            public const int DocumentsReportAddToSolutionLastCommandId = 0x0104;
 
             public const int DocumentsReportAddToSolutionInConnectionCommandId = 0x1DB0;
 
@@ -3361,12 +3490,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int DocumentsCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId = 0x44C0;
 
             public const int DocumentsCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x44F2;
-
-            public const int DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommandId = 0x0F3C;
-
-            public const int DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId = 0x0F6E;
-
-            public const int DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommandId = 0x0FA0;
 
             public const int DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId = 0x2968;
 
@@ -3393,8 +3516,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int DocumentsCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId = 0x3714;
 
             public const int DocumentsCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x3746;
-
-            public const int FileWebResourceAddToSolutionLastCommandId = 0x0118;
 
             public const int FileWebResourceShowDifferenceInConnectionGroupCommandId = 0x028A;
 
@@ -3486,15 +3607,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x477C;
 
-            public const int FileJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x47AE;
-
             public const int FileJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x5078;
 
-            public const int FileJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x50AA;
-
             public const int FileXmlCommonXsdSchemaSetCommandId = 0x2279;
-
-            public const int FileReportAddToSolutionLastCommandId = 0x012C;
 
             public const int FileReportOpenInWebInConnectionCommandId = 0x05AA;
 
@@ -3509,12 +3624,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileReportUpdateCommandId = 0x267A;
 
             public const int FileReportCreateCommandId = 0x26DE;
-
-            public const int FileCSharpProjectPluginAssemblyAddToSolutionLastCommandId = 0x01F4;
-
-            public const int FileCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId = 0x0208;
-
-            public const int FileCSharpProjectPluginTypeStepsAddToSolutionLastCommandId = 0x021C;
 
             public const int FileCSharpAddPluginStepInConnectionCommandId = 0x1A90;
 
@@ -3561,8 +3670,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileCSharpProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId = 0x3CF0;
 
             public const int FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x3D22;
-
-            public const int FolderWebResourceAddToSolutionLastCommandId = 0x0140;
 
             public const int FolderWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0ED8;
 
@@ -3630,11 +3737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x47E0;
 
-            public const int FolderJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x4812;
-
             public const int FolderJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x50DC;
-
-            public const int FolderJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId = 0x510E;
 
             public const int FolderXmlCommonXsdSchemaSetCommandId = 0x2292;
 
@@ -3664,15 +3767,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderCSharpUpdateGlobalOptionSetsFileCommandId = 0x1C20;
 
-            public const int FolderCSharpProjectPluginAssemblyAddToSolutionLastCommandId = 0x20D0;
-
             public const int FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId = 0x2102;
 
-            public const int FolderCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId = 0x2134;
-
             public const int FolderCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId = 0x2166;
-
-            public const int FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommandId = 0x2198;
 
             public const int FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId = 0x21CA;
 
@@ -3696,8 +3793,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderAddSystemFormJavaScriptFileInConnectionCommandId = 0x2616;
 
-            public const int ListForPublishAddToSolutionLastCommandId = 0x0154;
-
             public const int ListForPublishPerformPublishInConnectionGroupCommandId = 0x0F0A;
 
             public const int ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId = 0x0E10;
@@ -3715,8 +3810,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x40D8;
 
             public const int ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x4844;
-
-            public const int ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x4876;
 
             public const int ListForPublishAddToSolutionInConnectionCommandId = 0x1E78;
 
@@ -3737,10 +3830,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ListForPublishMultiDifferenceFilesWithChangesCommandId = 0x413C;
 
             public const int ListForPublishMultiDifferenceFilesWithMirrorCommandId = 0x4141;
-
-            public const int ProjectPluginAssemblyAddToSolutionLastCommandId = 0x0168;
-
-            public const int ProjectPluginAssemblyStepsAddToSolutionLastCommandId = 0x017C;
 
             public const int ProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId = 0x0320;
 
@@ -3765,10 +3854,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId = 0x35E8;
 
             public const int ProjectPluginAssemblyCreateDescriptionInConnectionCommandId = 0x361A;
-
-            public const int OutputExportOpenLastSelectedSolutionInWebCommandId = 0x27D8;
-
-            public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId = 0x280A;
         }
 
         internal static partial class guidCommandSet

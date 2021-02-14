@@ -8,23 +8,23 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class WebResourceAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class WebResourceAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
         private readonly ISourceSelectedFiles _sourceSelectedFiles;
 
-        private WebResourceAddToSolutionLastCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
+        private WebResourceAddToSolutionLastSelectedCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
             : base(commandService, baseIdStart)
         {
             this._sourceSelectedFiles = sourceSelectedFiles;
         }
 
-        public static WebResourceAddToSolutionLastCommand InstanceCode { get; private set; }
+        public static WebResourceAddToSolutionLastSelectedCommand InstanceCode { get; private set; }
 
-        public static WebResourceAddToSolutionLastCommand InstanceDocuments { get; private set; }
+        public static WebResourceAddToSolutionLastSelectedCommand InstanceDocuments { get; private set; }
 
-        public static WebResourceAddToSolutionLastCommand InstanceFile { get; private set; }
+        public static WebResourceAddToSolutionLastSelectedCommand InstanceFile { get; private set; }
 
-        public static WebResourceAddToSolutionLastCommand InstanceFolder { get; private set; }
+        public static WebResourceAddToSolutionLastSelectedCommand InstanceFolder { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
@@ -36,13 +36,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceCode = new WebResourceAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.CodeWebResourceAddToSolutionLastCommandId, sourceCode);
+            InstanceCode = new WebResourceAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.CodeWebResourceAddToSolutionLastSelectedCommandId, sourceCode);
 
-            InstanceDocuments = new WebResourceAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddToSolutionLastCommandId, sourceDocuments);
+            InstanceDocuments = new WebResourceAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.DocumentsWebResourceAddToSolutionLastSelectedCommandId, sourceDocuments);
 
-            InstanceFile = new WebResourceAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceAddToSolutionLastCommandId, sourceFile);
+            InstanceFile = new WebResourceAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.FileWebResourceAddToSolutionLastSelectedCommandId, sourceFile);
 
-            InstanceFolder = new WebResourceAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceAddToSolutionLastCommandId, sourceFolder);
+            InstanceFolder = new WebResourceAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.FolderWebResourceAddToSolutionLastSelectedCommandId, sourceFolder);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

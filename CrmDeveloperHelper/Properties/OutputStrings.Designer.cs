@@ -3580,6 +3580,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Solution {1} does not contain any WebResource..
+        /// </summary>
+        internal static string InConnectionSolutionNotContainsWebResourcesFormat2 {
+            get {
+                return ResourceManager.GetString("InConnectionSolutionNotContainsWebResourcesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. SystemForm with id &apos;{1}&apos; was not found..
         /// </summary>
         internal static string InConnectionSystemFormWasNotFoundFormat2 {
@@ -5155,6 +5164,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opened Files: {0}.
+        /// </summary>
+        internal static string OpenedFilesFormat1 {
+            get {
+                return ResourceManager.GetString("OpenedFilesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open File in Excel         :    {0}.
         /// </summary>
         internal static string OpenFileInExcelUriFormat1 {
@@ -6069,6 +6087,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SolutionNotSelected {
             get {
                 return ResourceManager.GetString("SolutionNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown Solution {0} WebResources: {1}.
+        /// </summary>
+        internal static string SolutionWebResourcesNotOpenedFormat2 {
+            get {
+                return ResourceManager.GetString("SolutionWebResourcesNotOpenedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opened Solution {0} WebResources: {1}.
+        /// </summary>
+        internal static string SolutionWebResourcesOpenedFormat2 {
+            get {
+                return ResourceManager.GetString("SolutionWebResourcesOpenedFormat2", resourceCulture);
             }
         }
         

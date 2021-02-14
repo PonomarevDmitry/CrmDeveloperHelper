@@ -10,21 +10,21 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
-    internal sealed class JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
         private readonly ISourceSelectedFiles _sourceSelectedFiles;
 
-        private JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
+        private JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
             : base(commandService, baseIdStart)
         {
             this._sourceSelectedFiles = sourceSelectedFiles;
         }
 
-        public static JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand InstanceDocuments { get; private set; }
+        public static JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand InstanceDocuments { get; private set; }
 
-        public static JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand InstanceFile { get; private set; }
+        public static JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand InstanceFile { get; private set; }
 
-        public static JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand InstanceFolder { get; private set; }
+        public static JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand InstanceFolder { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
@@ -34,11 +34,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceDocuments = new JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId, sourceDocuments);
+            InstanceDocuments = new JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId, sourceDocuments);
 
-            InstanceFile = new JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.FileJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId, sourceFile);
+            InstanceFile = new JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.FileJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId, sourceFile);
 
-            InstanceFolder = new JavaScriptLinkedGlobalOptionSetAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.FolderJavaScriptLinkedGlobalOptionSetAddToSolutionLastCommandId, sourceFolder);
+            InstanceFolder = new JavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.FolderJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId, sourceFolder);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

@@ -138,6 +138,9 @@
   <data name="AddingWebResourcesToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding WebResources to Solution {1}</value>
   </data>
+  <data name="OpeningSolutionWebResourcesFormat2" xml:space="preserve">
+    <value>{0} - Opening Solution {1} WebResources</value>
+  </data>
   <data name="AddingLinkedSystemFormToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding Linked SystemForm to Solution {1}</value>
   </data>

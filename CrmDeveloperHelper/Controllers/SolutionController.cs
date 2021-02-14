@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -1653,5 +1654,190 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Opening Solution in Browser or Explorer
+
+        public async Task ExecuteOpeningSolutionWebResourcesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool inTextEditor)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningSolutionWebResourcesFormat2, connectionData?.Name, solutionUniqueName);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningSolutionWebResourcesAsync(commonConfig, connectionData, solutionUniqueName, inTextEditor);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningSolutionWebResourcesAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, bool inTextEditor)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new SolutionRepository(service);
+
+            var solution = await repository.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+            if (solution == null)
+            {
+                WindowHelper.OpenExplorerSolutionExplorer(
+                    _iWriteToOutput
+                    , service
+                    , commonConfig
+                    , null
+                    , null
+                    , null
+                );
+
+                return;
+            }
+
+            _iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
+
+            using (service.Lock())
+            {
+                var solutionRep = new SolutionComponentRepository(service);
+
+                var solutionDesciptor = new SolutionComponentDescriptor(service)
+                {
+                    WithManagedInfo = true,
+                    WithSolutionsInfo = true,
+                    WithUrls = true,
+                };
+
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.WebResource, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                if (!components.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionSolutionNotContainsWebResourcesFormat2, service.ConnectionData.Name, solutionUniqueName);
+                    return;
+                }
+
+                var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(components);
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourcesToAddToSolutionFormat2, solution.UniqueName, components.Count);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+                }
+
+                var webResourcesList = solutionDesciptor.GetEntities<WebResource>((int)ComponentType.WebResource, components.Select(c => c.ObjectId));
+
+                var openedWebResources = new List<WebResource>();
+                var unknownedWebResources = new List<WebResource>();
+
+                bool isTextEditorProgramExists = commonConfig.TextEditorProgramExists();
+
+                var table = new FormatTextTableHandler();
+
+                if (isTextEditorProgramExists)
+                {
+                    table.SetHeader("File Uri", "Open File in Visual Studio", "Open File in TextEditor", "Select File in Folder");
+                }
+                else
+                {
+                    table.SetHeader("File Uri", "Open File in Visual Studio", "Select File in Folder");
+                }
+
+                foreach (var webResource in webResourcesList.OrderBy(w => w.Name))
+                {
+                    bool success = false;
+                    string filePath = string.Empty;
+
+                    if (service.ConnectionData.TryGetFriendlyPathByGuid(webResource.WebResourceId.Value, out string friendlyPath))
+                    {
+                        success = Helpers.DTEHelper.Singleton.TryFindFileByRelativePath(service.ConnectionData, friendlyPath, out filePath);
+                    }
+
+                    if (success)
+                    {
+                        openedWebResources.Add(webResource);
+
+                        var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+                        if (isTextEditorProgramExists)
+                        {
+                            table.AddLine(
+                                uriFile
+                                , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                                , UrlCommandFilter.GetUriOpenInTextEditorByFileUri(uriFile)
+                                , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                            );
+                        }
+                        else
+                        {
+                            table.AddLine(
+                                uriFile
+                                , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                                , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                            );
+                        }
+
+                        if (inTextEditor)
+                        {
+                            this._iWriteToOutput.OpenFileInTextEditor(service.ConnectionData, filePath);
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.OpenFileInVisualStudio(service.ConnectionData, filePath);
+                        }
+                    }
+                    else
+                    {
+                        unknownedWebResources.Add(webResource);
+                    }
+                }
+
+                if (table.Count > 0)
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.OpenedFilesFormat1,  table.Count);
+
+                    foreach (var item in table.GetFormatedLines(false))
+                    {
+                        _iWriteToOutput.WriteToOutput(service.ConnectionData, item);
+                    }
+                }
+
+                if (openedWebResources.Any())
+                {
+                    desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(openedWebResources.Select(w => new SolutionComponent()
+                    {
+                        ObjectId = w.WebResourceId.Value,
+                        ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                    }));
+
+                    if (!string.IsNullOrEmpty(desc))
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesOpenedFormat2, solution.UniqueName, openedWebResources.Count);
+                        _iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+                    }
+                }
+
+                if (unknownedWebResources.Any())
+                {
+                    desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(unknownedWebResources.Select(w => new SolutionComponent()
+                    {
+                        ObjectId = w.WebResourceId.Value,
+                        ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                    }));
+
+                    if (!string.IsNullOrEmpty(desc))
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesNotOpenedFormat2, solution.UniqueName, unknownedWebResources.Count);
+                        _iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+                    }
+                }
+            }
+        }
     }
 }

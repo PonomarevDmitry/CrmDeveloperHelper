@@ -8,21 +8,21 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class ReportAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class ReportAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
         private readonly ISourceSelectedFiles _sourceSelectedFiles;
 
-        private ReportAddToSolutionLastCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
+        private ReportAddToSolutionLastSelectedCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
             : base(commandService, baseIdStart)
         {
             this._sourceSelectedFiles = sourceSelectedFiles;
         }
 
-        public static ReportAddToSolutionLastCommand InstanceCode { get; private set; }
+        public static ReportAddToSolutionLastSelectedCommand InstanceCode { get; private set; }
 
-        public static ReportAddToSolutionLastCommand InstanceDocuments { get; private set; }
+        public static ReportAddToSolutionLastSelectedCommand InstanceDocuments { get; private set; }
 
-        public static ReportAddToSolutionLastCommand InstanceFile { get; private set; }
+        public static ReportAddToSolutionLastSelectedCommand InstanceFile { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
@@ -32,11 +32,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             var sourceFile = FileSourceSelectedFiles.CreateSource();
 
-            InstanceCode = new ReportAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.CodeReportAddToSolutionLastCommandId, sourceCode);
+            InstanceCode = new ReportAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.CodeReportAddToSolutionLastSelectedCommandId, sourceCode);
 
-            InstanceDocuments = new ReportAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsReportAddToSolutionLastCommandId, sourceDocuments);
+            InstanceDocuments = new ReportAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.DocumentsReportAddToSolutionLastSelectedCommandId, sourceDocuments);
 
-            InstanceFile = new ReportAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportAddToSolutionLastCommandId, sourceFile);
+            InstanceFile = new ReportAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.FileReportAddToSolutionLastSelectedCommandId, sourceFile);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

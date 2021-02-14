@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     {
         internal const int CountConnectionToQuickList = 45;
 
-        internal const int CountLastSolutions = 15;
+        internal const int CountLastSolutions = 20;
 
         private const int CountLastItems = 20;
 

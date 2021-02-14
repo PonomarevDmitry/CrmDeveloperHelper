@@ -246,6 +246,18 @@
   <data name="InConnectionNoWebResourcesToAddInSolutionFormat2" xml:space="preserve">
     <value>{0}. No WebResources to add in solution {1}.</value>
   </data>
+  <data name="InConnectionSolutionNotContainsWebResourcesFormat2" xml:space="preserve">
+    <value>{0}. Solution {1} does not contain any WebResource.</value>
+  </data>
+  <data name="SolutionWebResourcesOpenedFormat2" xml:space="preserve">
+    <value>Opened Solution {0} WebResources: {1}</value>
+  </data>
+  <data name="SolutionWebResourcesNotOpenedFormat2" xml:space="preserve">
+    <value>Unknown Solution {0} WebResources: {1}</value>
+  </data>
+
+
+  
   <data name="InConnectionNoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
     <value>{0}. No SystemForms to add. All SystemForms already in Solution {1}.</value>
   </data>
@@ -2467,10 +2479,11 @@
     <value>There is no valid configuration for ThreeWay Difference.</value>
   </data>
 
-  <!--
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
+  <data name="OpenedFilesFormat1" xml:space="preserve">
+    <value>Opened Files: {0}</value>
   </data>
+  
+  <!--
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>

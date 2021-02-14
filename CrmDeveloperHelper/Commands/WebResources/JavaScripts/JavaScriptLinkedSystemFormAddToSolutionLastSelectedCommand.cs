@@ -11,21 +11,21 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
-    internal sealed class JavaScriptLinkedSystemFormAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
         private readonly ISourceSelectedFiles _sourceSelectedFiles;
 
-        private JavaScriptLinkedSystemFormAddToSolutionLastCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
+        private JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
             : base(commandService, baseIdStart)
         {
             this._sourceSelectedFiles = sourceSelectedFiles;
         }
 
-        public static JavaScriptLinkedSystemFormAddToSolutionLastCommand InstanceDocuments { get; private set; }
+        public static JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand InstanceDocuments { get; private set; }
 
-        public static JavaScriptLinkedSystemFormAddToSolutionLastCommand InstanceFile { get; private set; }
+        public static JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand InstanceFile { get; private set; }
 
-        public static JavaScriptLinkedSystemFormAddToSolutionLastCommand InstanceFolder { get; private set; }
+        public static JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand InstanceFolder { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
@@ -35,11 +35,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceDocuments = new JavaScriptLinkedSystemFormAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsJavaScriptLinkedSystemFormAddToSolutionLastCommandId, sourceDocuments);
+            InstanceDocuments = new JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.DocumentsJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId, sourceDocuments);
 
-            InstanceFile = new JavaScriptLinkedSystemFormAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.FileJavaScriptLinkedSystemFormAddToSolutionLastCommandId, sourceFile);
+            InstanceFile = new JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.FileJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId, sourceFile);
 
-            InstanceFolder = new JavaScriptLinkedSystemFormAddToSolutionLastCommand(commandService, PackageIds.guidDynamicCommandSet.FolderJavaScriptLinkedSystemFormAddToSolutionLastCommandId, sourceFolder);
+            InstanceFolder = new JavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.FolderJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId, sourceFolder);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

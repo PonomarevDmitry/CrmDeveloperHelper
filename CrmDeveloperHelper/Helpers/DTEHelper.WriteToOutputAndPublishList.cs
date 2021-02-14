@@ -1289,21 +1289,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public IWriteToOutput OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath)
+        public bool TryFindFileByRelativePath(ConnectionData connectionData, string fileRelativePath, out string filePath)
         {
-            return OpenFileInVisualStudioRelativePath(connectionData, filePath, out _);
-        }
+            filePath = string.Empty;
 
-        public IWriteToOutput OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath, out bool success)
-        {
-            success = false;
-
-            if (ApplicationObject == null || string.IsNullOrEmpty(filePath))
+            if (ApplicationObject == null || string.IsNullOrEmpty(fileRelativePath))
             {
-                return this;
+                return false;
             }
 
-            filePath = filePath.Replace("/", "\\").Trim('\\', '/');
+            filePath = fileRelativePath.Replace("/", "\\").Trim('\\', '/');
 
             string solutionPath = ApplicationObject?.Solution?.FullName;
 
@@ -1318,6 +1313,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             if (!File.Exists(filePath))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public IWriteToOutput OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string fileRelativePath)
+        {
+            return OpenFileInVisualStudioRelativePath(connectionData, fileRelativePath, out _);
+        }
+
+        public IWriteToOutput OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string fileRelativePath, out bool success)
+        {
+            success = false;
+
+            if (!TryFindFileByRelativePath(connectionData, fileRelativePath, out string filePath))
             {
                 return this;
             }
@@ -1781,7 +1793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 };
 
                 var arguments = new StringBuilder(commonConfig.CompareArgumentsThreeWayFormat);
-                
+
                 arguments = arguments.Replace(CommonConfiguration.placeholderFileLocalPath, fileLocalPath);
                 arguments = arguments.Replace(CommonConfiguration.placeholderFile1Path, filePath1);
                 arguments = arguments.Replace(CommonConfiguration.placeholderFile2Path, filePath2);

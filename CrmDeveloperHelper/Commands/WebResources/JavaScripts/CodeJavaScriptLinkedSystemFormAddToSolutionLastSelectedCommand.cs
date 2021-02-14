@@ -4,19 +4,18 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
-    internal sealed class CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
+    internal sealed class CodeJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand : AbstractDynamicCommandOnSolutionLastSelected
     {
-        private CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormAddToSolutionLastCommandId)
+        private CodeJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicSolutionLastSelectedCommandSet.CodeJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommandId)
         {
-
         }
 
-        public static CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand Instance { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand(commandService);
+            Instance = new CodeJavaScriptLinkedSystemFormAddToSolutionLastSelectedCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
