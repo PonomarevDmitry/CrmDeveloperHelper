@@ -6235,7 +6235,7 @@
           <ButtonText>CodeWebResourceShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6246,7 +6246,7 @@
           <ButtonText>CodeWebResourceShowDifferenceTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceOneByOneCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceShowDifferenceOneByOneCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6257,7 +6257,7 @@
           <ButtonText>CodeWebResourceShowDifferenceOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6408,7 +6408,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7263,7 +7263,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlSiteMapOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeXmlSiteMapOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7376,7 +7376,7 @@
           <ButtonText>Open SystemForm Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlSystemFormOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeXmlSystemFormOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7479,7 +7479,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlWorkflowOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeXmlWorkflowOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7582,7 +7582,7 @@
           <ButtonText>Open SavedQuery Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlSavedQueryOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeXmlSavedQueryOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7669,7 +7669,7 @@
           <ButtonText>Open Ribbon Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeXmlRibbonOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7865,7 +7865,7 @@
           <ButtonText>Open WebResource Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8038,7 +8038,7 @@
           <ButtonText>CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8049,7 +8049,7 @@
           <ButtonText>CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8060,7 +8060,7 @@
           <ButtonText>CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8103,7 +8103,7 @@
           <ButtonText>CodeReportShowDifferenceBodyTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8114,7 +8114,7 @@
           <ButtonText>CodeReportShowDifferenceBodyTextTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8125,7 +8125,7 @@
           <ButtonText>CodeReportShowDifferenceBodyTextOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9163,7 +9163,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9175,7 +9175,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9187,7 +9187,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9199,7 +9199,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9211,7 +9211,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9223,7 +9223,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9235,7 +9235,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9246,7 +9246,7 @@
           <ButtonText>DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9257,7 +9257,7 @@
           <ButtonText>DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9269,7 +9269,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9280,7 +9280,7 @@
           <ButtonText>DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9291,7 +9291,7 @@
           <ButtonText>DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10097,7 +10097,7 @@
           <ButtonText>FileWebResourceShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10108,7 +10108,7 @@
           <ButtonText>FileWebResourceShowDifferenceTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceOneByOneCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceShowDifferenceOneByOneCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10119,7 +10119,7 @@
           <ButtonText>FileWebResourceShowDifferenceOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10287,7 +10287,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOrganizationComparerCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceOrganizationComparerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10412,7 +10412,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10423,7 +10423,7 @@
           <ButtonText>FileWebResourceOpenFilesByTypeOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10434,7 +10434,7 @@
           <ButtonText>FileWebResourceOpenFilesByTypeWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10446,7 +10446,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10457,7 +10457,7 @@
           <ButtonText>FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10468,7 +10468,7 @@
           <ButtonText>FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10481,7 +10481,7 @@
       </Button>
 
 
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10492,7 +10492,7 @@
           <ButtonText>FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10503,7 +10503,7 @@
           <ButtonText>FileWebResourceMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10517,7 +10517,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10528,7 +10528,7 @@
           <ButtonText>FileWebResourceAddFilesIntoListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10539,7 +10539,7 @@
           <ButtonText>FileWebResourceAddFilesIntoListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10551,7 +10551,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10562,7 +10562,7 @@
           <ButtonText>FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10573,7 +10573,7 @@
           <ButtonText>FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11734,7 +11734,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11745,7 +11745,7 @@
           <ButtonText>FolderWebResourceOpenFilesByTypeOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11756,7 +11756,7 @@
           <ButtonText>FolderWebResourceOpenFilesByTypeWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11768,7 +11768,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11779,7 +11779,7 @@
           <ButtonText>FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11790,7 +11790,7 @@
           <ButtonText>FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11805,7 +11805,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11816,7 +11816,7 @@
           <ButtonText>FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11827,7 +11827,7 @@
           <ButtonText>FolderWebResourceMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11839,7 +11839,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11850,7 +11850,7 @@
           <ButtonText>FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11861,7 +11861,7 @@
           <ButtonText>FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11873,7 +11873,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11884,7 +11884,7 @@
           <ButtonText>FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11895,7 +11895,7 @@
           <ButtonText>FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -12931,7 +12931,7 @@
       </Button>
 
 
-      <Button guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -12942,7 +12942,7 @@
           <ButtonText>ListForPublishOpenFilesByTypeOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -12953,7 +12953,7 @@
           <ButtonText>ListForPublishOpenFilesByTypeWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -12965,7 +12965,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -12976,7 +12976,7 @@
           <ButtonText>ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -12987,7 +12987,7 @@
           <ButtonText>ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -13000,7 +13000,7 @@
       </Button>
 
 
-      <Button guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -13011,7 +13011,7 @@
           <ButtonText>ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -13022,7 +13022,7 @@
           <ButtonText>ListForPublishMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -23185,33 +23185,33 @@
 
 
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishOpenFilesByTypeOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishOpenFilesByTypeWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishOpenFilesByTypeWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId_Group" />
     </CommandPlacement>
 
@@ -23272,21 +23272,21 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceOneByOneCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceOneByOneCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceShowDifferenceOneByOneCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceThreeWayCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23318,7 +23318,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeWebResourceOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeWebResourceOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeWebResourceOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23738,7 +23738,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeXmlSiteMapOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSiteMapOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSiteMapOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeXmlSiteMapOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSiteMapOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23782,7 +23782,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeXmlRibbonOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlRibbonOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeXmlRibbonOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlRibbonOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23842,7 +23842,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeXmlSystemFormOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSystemFormOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSystemFormOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeXmlSystemFormOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSystemFormOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23879,7 +23879,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeXmlSavedQueryOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSavedQueryOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSavedQueryOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeXmlSavedQueryOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSavedQueryOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23918,7 +23918,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeXmlWorkflowOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlWorkflowOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWorkflowOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeXmlWorkflowOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlWorkflowOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23955,7 +23955,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -24033,21 +24033,21 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -24061,21 +24061,21 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -24560,51 +24560,51 @@
 
 
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group" />
     </CommandPlacement>
 
@@ -24907,21 +24907,21 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceOneByOneCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceOneByOneCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceShowDifferenceOneByOneCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceOneByOneCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceThreeWayCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceShowDifferenceThreeWayCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -25033,7 +25033,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="FileWebResourceOrganizationComparerCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOrganizationComparerCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOrganizationComparerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicConnectionPairCommandSet" id="FileWebResourceOrganizationComparerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOrganizationComparerCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -25085,53 +25085,53 @@
 
 
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOpenFilesByTypeOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOpenFilesByTypeWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOpenFilesByTypeWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group" />
     </CommandPlacement>
 
@@ -25557,53 +25557,53 @@
 
 
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceOpenFilesByTypeOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceOpenFilesByTypeWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceOpenFilesByTypeWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicOpenFilesTypeCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId_Group" />
     </CommandPlacement>
 
@@ -29950,6 +29950,150 @@
 
 
 
+    <GuidSymbol name="guidDynamicOpenFilesTypeCommandSet" value="{D45270EA-7F0D-486E-B90E-7D1D8B0BC5A1}">
+
+      <!-- #region DocumentsWebResource Commands Dynamic Definitions -->
+
+      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="200" />
+      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" value="210" />
+      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" value="220" />
+
+      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="230" />
+      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="240" />
+      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="250" />
+
+      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="260" />
+      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="270" />
+      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="280" />
+
+      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="290" />
+      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="300" />
+      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="310" />
+
+      <!-- #endregion DocumentsWebResource Commands Dynamic Definitions -->
+
+      <!-- #region FileWebResource Commands Dynamic Definitions -->
+
+      <IDSymbol name="FileWebResourceOpenFilesByTypeOrdinalCommandId" value="320" />
+      <IDSymbol name="FileWebResourceOpenFilesByTypeWithChangesCommandId" value="330" />
+      <IDSymbol name="FileWebResourceOpenFilesByTypeWithMirrorCommandId" value="340" />
+
+      <IDSymbol name="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="350" />
+      <IDSymbol name="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="360" />
+      <IDSymbol name="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="370" />
+
+      <IDSymbol name="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="380" />
+      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithChangesCommandId" value="390" />
+      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" value="400" />
+
+      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="410" />
+      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="420" />
+      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="430" />
+
+      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="440" />
+      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="450" />
+      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="460" />
+
+      <!-- #endregion FileWebResource Commands Dynamic Definitions -->
+
+      <!-- #region FolderWebResource Commands Dynamic Definitions -->
+
+      <IDSymbol name="FolderWebResourceOpenFilesByTypeOrdinalCommandId" value="470" />
+      <IDSymbol name="FolderWebResourceOpenFilesByTypeWithChangesCommandId" value="480" />
+      <IDSymbol name="FolderWebResourceOpenFilesByTypeWithMirrorCommandId" value="490" />
+
+      <IDSymbol name="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="500" />
+      <IDSymbol name="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="510" />
+      <IDSymbol name="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="520" />
+
+      <IDSymbol name="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="530" />
+      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" value="540" />
+      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" value="550" />
+
+      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="560" />
+      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="570" />
+      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="580" />
+
+      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="590" />
+      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="600" />
+      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="610" />
+
+      <!-- #endregion FolderWebResource Commands Dynamic Definitions -->
+
+      <!-- #region ListForPublish Commands Dynamic Definitions -->
+
+      <IDSymbol name="ListForPublishOpenFilesByTypeOrdinalCommandId" value="620" />
+      <IDSymbol name="ListForPublishOpenFilesByTypeWithChangesCommandId" value="630" />
+      <IDSymbol name="ListForPublishOpenFilesByTypeWithMirrorCommandId" value="640" />
+
+      <IDSymbol name="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" value="650" />
+      <IDSymbol name="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId" value="660" />
+      <IDSymbol name="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId" value="670" />
+
+      <IDSymbol name="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" value="680" />
+      <IDSymbol name="ListForPublishMultiDifferenceFilesWithChangesCommandId" value="690" />
+      <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorCommandId" value="700" />
+
+      <!-- #endregion ListForPublish Commands Dynamic Definitions -->
+
+    </GuidSymbol>
+
+
+
+    <GuidSymbol name="guidDynamicConnectionPairCommandSet" value="{E68A871E-5435-4D30-A8A1-5C54FB685219}">
+
+      <!-- #region CodeWebResource Commands Dynamic Definitions -->
+
+      <IDSymbol name="CodeWebResourceShowDifferenceThreeWayCommandId" value="200" />
+      <IDSymbol name="CodeWebResourceShowDifferenceTwoConnectionsCommandId" value="250" />
+      <IDSymbol name="CodeWebResourceShowDifferenceOneByOneCommandId" value="300" />
+
+      <IDSymbol name="CodeWebResourceOrganizationComparerCommandId" value="350" />
+
+      <!-- #endregion CodeWebResource Commands Dynamic Definitions -->
+
+      <!-- #region CodeReport Commands Dynamic Definitions -->
+
+      <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" value="400" />
+      <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" value="450" />
+      <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId" value="500" />
+
+      <IDSymbol name="CodeReportShowDifferenceBodyTextThreeWayCommandId" value="550" />
+      <IDSymbol name="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId" value="600" />
+      <IDSymbol name="CodeReportShowDifferenceBodyTextOneByOneCommandId" value="650" />
+
+      <!-- #endregion CodeReport Commands Dynamic Definitions -->
+
+      <!-- #region CodeXml Commands Dynamic Definitions -->
+
+      <IDSymbol name="CodeXmlRibbonOrganizationComparerCommandId" value="700" />
+
+      <IDSymbol name="CodeXmlSavedQueryOrganizationComparerCommandId" value="750" />
+
+      <IDSymbol name="CodeXmlSiteMapOrganizationComparerCommandId" value="800" />
+
+      <IDSymbol name="CodeXmlSystemFormOrganizationComparerCommandId" value="850" />
+
+      <IDSymbol name="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId" value="900" />
+
+      <IDSymbol name="CodeXmlWorkflowOrganizationComparerCommandId" value="950" />
+
+      <!-- #endregion CodeXml Commands Dynamic Definitions -->
+
+      <!-- #region FileWebResource Commands Dynamic Definitions -->
+
+      <IDSymbol name="FileWebResourceShowDifferenceThreeWayCommandId" value="1000" />
+      <IDSymbol name="FileWebResourceShowDifferenceTwoConnectionsCommandId" value="1050" />
+      <IDSymbol name="FileWebResourceShowDifferenceOneByOneCommandId" value="1100" />
+
+      <IDSymbol name="FileWebResourceOrganizationComparerCommandId" value="1150" />
+
+      <!-- #endregion FileWebResource Commands Dynamic Definitions -->
+
+    </GuidSymbol>
+
+
+
     <GuidSymbol name="guidDynamicCommandSet" value="{F71CA58C-98FE-4935-A0CB-478A076B9821}">
 
       <!-- #region Common Commands Dynamic Definitions -->
@@ -30050,10 +30194,6 @@
       <IDSymbol name="CodeWebResourceOpenDependentInExplorerInConnectionCommandId" value="950" />
       <IDSymbol name="CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="1000" />
 
-      <IDSymbol name="CodeWebResourceShowDifferenceThreeWayCommandId" value="1750" />
-      <IDSymbol name="CodeWebResourceShowDifferenceTwoConnectionsCommandId" value="1900" />
-      <IDSymbol name="CodeWebResourceShowDifferenceOneByOneCommandId" value="2050" />
-
       <IDSymbol name="CodeWebResourceUpdateContentPublishInConnectionGroupCommandId" value="3650" />
 
       <IDSymbol name="CodeWebResourceGetCurrentContentInConnectionGroupCommandId" value="18600" />
@@ -30066,8 +30206,6 @@
 
       <IDSymbol name="CodeWebResourceCreateEntityDescriptionInConnectionCommandId" value="11400" />
       <IDSymbol name="CodeWebResourceChangeInEditorInConnectionCommandId" value="11450" />
-
-      <IDSymbol name="CodeWebResourceOrganizationComparerCommandId" value="18800" />
 
       <!-- #endregion CodeWebResource Commands Dynamic Definitions -->
 
@@ -30144,8 +30282,6 @@
       <IDSymbol name="CodeXmlRibbonShowDifferenceInConnectionGroupCommandId" value="4900" />
       <IDSymbol name="CodeXmlRibbonGetCurrentInConnectionGroupCommandId" value="12200" />
 
-      <IDSymbol name="CodeXmlRibbonOrganizationComparerCommandId" value="19150" />
-
       <IDSymbol name="CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId" value="18050" />
 
 
@@ -30158,35 +30294,25 @@
       <IDSymbol name="CodeXmlSiteMapOpenInWebInConnectionCommandId" value="10000" />
       <IDSymbol name="CodeXmlSiteMapGetCurrentInConnectionCommandId" value="12100" />
 
-      <IDSymbol name="CodeXmlSiteMapOrganizationComparerCommandId" value="19000" />
-
       <IDSymbol name="CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId" value="6050" />
       <IDSymbol name="CodeXmlSystemFormUpdateInConnectionGroupCommandId" value="6100" />
       <IDSymbol name="CodeXmlSystemFormOpenInWebInConnectionCommandId" value="10050" />
       <IDSymbol name="CodeXmlSystemFormGetCurrentInConnectionCommandId" value="12050" />
-
-      <IDSymbol name="CodeXmlSystemFormOrganizationComparerCommandId" value="18950" />
 
       <IDSymbol name="CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId" value="6150" />
       <IDSymbol name="CodeXmlSavedQueryUpdateInConnectionGroupCommandId" value="6200" />
       <IDSymbol name="CodeXmlSavedQueryOpenInWebInConnectionCommandId" value="10100" />
       <IDSymbol name="CodeXmlSavedQueryGetCurrentInConnectionCommandId" value="12150" />
 
-      <IDSymbol name="CodeXmlSavedQueryOrganizationComparerCommandId" value="19100" />
-
       <IDSymbol name="CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId" value="10450" />
       <IDSymbol name="CodeXmlWorkflowUpdateInConnectionGroupCommandId" value="10500" />
       <IDSymbol name="CodeXmlWorkflowOpenInWebInConnectionCommandId" value="10400" />
       <IDSymbol name="CodeXmlWorkflowGetCurrentInConnectionCommandId" value="12000" />
 
-      <IDSymbol name="CodeXmlWorkflowOrganizationComparerCommandId" value="18900" />
-
       <IDSymbol name="CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId" value="11800" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId" value="11850" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId" value="11900" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId" value="11950" />
-
-      <IDSymbol name="CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId" value="19050" />
 
       <IDSymbol name="CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId" value="17850" />
       <IDSymbol name="CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId" value="17900" />
@@ -30196,20 +30322,12 @@
       <!-- #region CodeReport Commands Dynamic Definitions -->
 
       <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId" value="600" />
+      <IDSymbol name="CodeReportShowDifferenceBodyTextInConnectionGroupCommandId" value="4200" />
 
       <IDSymbol name="CodeReportOpenInWebInConnectionCommandId" value="1250" />
       <IDSymbol name="CodeReportOpenDependentInWebInConnectionCommandId" value="1300" />
       <IDSymbol name="CodeReportOpenDependentInExplorerInConnectionCommandId" value="1350" />
       <IDSymbol name="CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="1400" />
-
-      <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" value="1850" />
-      <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" value="2000" />
-      <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId" value="2150" />
-
-      <IDSymbol name="CodeReportShowDifferenceBodyTextThreeWayCommandId" value="4050" />
-      <IDSymbol name="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId" value="4100" />
-      <IDSymbol name="CodeReportShowDifferenceBodyTextOneByOneCommandId" value="4150" />
-      <IDSymbol name="CodeReportShowDifferenceBodyTextInConnectionGroupCommandId" value="4200" />
 
       <IDSymbol name="CodeReportAddToSolutionInConnectionCommandId" value="7500" />
 
@@ -30291,22 +30409,6 @@
       <IDSymbol name="DocumentsWebResourceCreateEntityDescriptionInConnectionCommandId" value="19450" />
       <IDSymbol name="DocumentsWebResourceOpenDependentInWebInConnectionCommandId" value="19500" />
 
-      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="16755" />
-      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="16761" />
-      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="16765" />
-
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16650" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" value="16655" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16660" />
-
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16710" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16716" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16720" />
-
-      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="16860" />
-      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="16866" />
-      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="16870" />
-
       <!-- #endregion DocumentsWebResource Commands Dynamic Definitions -->
 
       <!-- #region DocumentsJavaScript Commands Dynamic Definitions -->
@@ -30385,10 +30487,6 @@
       <IDSymbol name="FileWebResourceOpenDependentInExplorerInConnectionCommandId" value="1150" />
       <IDSymbol name="FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="1200" />
 
-      <IDSymbol name="FileWebResourceShowDifferenceThreeWayCommandId" value="1800" />
-      <IDSymbol name="FileWebResourceShowDifferenceTwoConnectionsCommandId" value="1950" />
-      <IDSymbol name="FileWebResourceShowDifferenceOneByOneCommandId" value="2100" />
-
       <IDSymbol name="FileWebResourceUpdateContentPublishInConnectionGroupCommandId" value="3750" />
       <IDSymbol name="FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" value="3350" />
 
@@ -30406,28 +30504,6 @@
 
       <IDSymbol name="FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId" value="19850" />
       <IDSymbol name="FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId" value="19900" />
-
-      <IDSymbol name="FileWebResourceOpenFilesByTypeOrdinalCommandId" value="16770" />
-      <IDSymbol name="FileWebResourceOpenFilesByTypeWithChangesCommandId" value="16776" />
-      <IDSymbol name="FileWebResourceOpenFilesByTypeWithMirrorCommandId" value="16780" />
-
-      <IDSymbol name="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="16785" />
-      <IDSymbol name="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="16791" />
-      <IDSymbol name="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="16795" />
-
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16665" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithChangesCommandId" value="16670" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16675" />
-
-      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16725" />
-      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16731" />
-      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16735" />
-
-      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="16875" />
-      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="16881" />
-      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="16885" />
-
-      <IDSymbol name="FileWebResourceOrganizationComparerCommandId" value="18850" />
 
       <!-- #endregion FileWebResource Commands Dynamic Definitions -->
 
@@ -30532,26 +30608,6 @@
       <IDSymbol name="FolderWebResourceCreateEntityDescriptionInConnectionCommandId" value="19600" />
       <IDSymbol name="FolderWebResourceOpenDependentInWebInConnectionCommandId" value="19650" />
 
-      <IDSymbol name="FolderWebResourceOpenFilesByTypeOrdinalCommandId" value="16800" />
-      <IDSymbol name="FolderWebResourceOpenFilesByTypeWithChangesCommandId" value="16806" />
-      <IDSymbol name="FolderWebResourceOpenFilesByTypeWithMirrorCommandId" value="16810" />
-
-      <IDSymbol name="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="16815" />
-      <IDSymbol name="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="16821" />
-      <IDSymbol name="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="16825" />
-
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16680" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" value="16685" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16690" />
-
-      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16740" />
-      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16746" />
-      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16750" />
-
-      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="16890" />
-      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="16896" />
-      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="16900" />
-
       <!-- #endregion FolderWebResource Commands Dynamic Definitions -->
 
       <!-- #region FolderJavaScript Commands Dynamic Definitions -->
@@ -30643,18 +30699,6 @@
       <IDSymbol name="ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" value="18500" />
 
       <IDSymbol name="ListForPublishAddToSolutionInConnectionCommandId" value="7800" />
-
-      <IDSymbol name="ListForPublishOpenFilesByTypeOrdinalCommandId" value="16830" />
-      <IDSymbol name="ListForPublishOpenFilesByTypeWithChangesCommandId" value="16836" />
-      <IDSymbol name="ListForPublishOpenFilesByTypeWithMirrorCommandId" value="16840" />
-
-      <IDSymbol name="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" value="16845" />
-      <IDSymbol name="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId" value="16851" />
-      <IDSymbol name="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId" value="16855" />
-
-      <IDSymbol name="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" value="16695" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithChangesCommandId" value="16700" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorCommandId" value="16705" />
 
       <!-- #endregion ListForPublish Commands Dynamic Definitions -->
 

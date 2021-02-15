@@ -25,9 +25,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceExistsOrHasLink = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink);
-            InstanceChanges = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishMultiDifferenceFilesWithChangesCommandId, _typesChanges);
-            InstanceMirror = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishMultiDifferenceFilesWithMirrorCommandId, _typesMirror);
+            InstanceExistsOrHasLink = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink);
+            InstanceChanges = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishMultiDifferenceFilesWithChangesCommandId, _typesChanges);
+            InstanceMirror = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishMultiDifferenceFilesWithMirrorCommandId, _typesMirror);
         }
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)

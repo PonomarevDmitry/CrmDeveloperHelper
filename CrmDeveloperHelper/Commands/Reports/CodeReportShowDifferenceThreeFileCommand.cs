@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         {
             InstanceOneByOneOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
                 , ShowDifferenceThreeFileType.OneByOne
@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceTwoConnectionsOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
                 , ShowDifferenceThreeFileType.TwoConnections
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceThreeWayOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
                 , ShowDifferenceThreeFileType.ThreeWay
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceOneByOneBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceBodyTextOneByOneCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeReportShowDifferenceBodyTextOneByOneCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
                 , ShowDifferenceThreeFileType.OneByOne
@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceTwoConnectionsBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceBodyTextTwoConnectionsCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeReportShowDifferenceBodyTextTwoConnectionsCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
                 , ShowDifferenceThreeFileType.TwoConnections
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceThreeWayBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceBodyTextThreeWayCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeReportShowDifferenceBodyTextThreeWayCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
                 , ShowDifferenceThreeFileType.ThreeWay

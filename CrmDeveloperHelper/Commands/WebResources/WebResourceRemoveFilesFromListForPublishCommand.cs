@@ -49,17 +49,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceDocumentsOrdinal = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId, _typesOrdinal, sourceDocuments);
-            InstanceDocumentsChanges = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId, _typesChanges, sourceDocuments);
-            InstanceDocumentsMirror = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId, _typesMirror, sourceDocuments);
+            InstanceDocumentsOrdinal = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId, _typesOrdinal, sourceDocuments);
+            InstanceDocumentsChanges = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId, _typesChanges, sourceDocuments);
+            InstanceDocumentsMirror = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId, _typesMirror, sourceDocuments);
 
-            InstanceFileOrdinal = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId, _typesOrdinal, sourceFile);
-            InstanceFileChanges = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId, _typesChanges, sourceFile);
-            InstanceFileMirror = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId, _typesMirror, sourceFile);
+            InstanceFileOrdinal = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId, _typesOrdinal, sourceFile);
+            InstanceFileChanges = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId, _typesChanges, sourceFile);
+            InstanceFileMirror = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId, _typesMirror, sourceFile);
 
-            InstanceFolderOrdinal = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId, _typesOrdinal, sourceFolder);
-            InstanceFolderChanges = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId, _typesChanges, sourceFolder);
-            InstanceFolderMirror = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId, _typesMirror, sourceFolder);
+            InstanceFolderOrdinal = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId, _typesOrdinal, sourceFolder);
+            InstanceFolderChanges = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId, _typesChanges, sourceFolder);
+            InstanceFolderMirror = new WebResourceRemoveFilesFromListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId, _typesMirror, sourceFolder);
         }
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)

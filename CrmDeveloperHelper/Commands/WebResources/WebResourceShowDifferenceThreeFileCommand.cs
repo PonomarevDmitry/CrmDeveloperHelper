@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceCodeOneByOne = new WebResourceShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeWebResourceShowDifferenceOneByOneCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeWebResourceShowDifferenceOneByOneCommandId
                 , Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2
                 , sourceCode
                 , ShowDifferenceThreeFileType.OneByOne
@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceCodeTwoConnections = new WebResourceShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeWebResourceShowDifferenceTwoConnectionsCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeWebResourceShowDifferenceTwoConnectionsCommandId
                 , Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2
                 , sourceCode
                 , ShowDifferenceThreeFileType.TwoConnections
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceCodeThreeWay = new WebResourceShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeWebResourceShowDifferenceThreeWayCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeWebResourceShowDifferenceThreeWayCommandId
                 , Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2
                 , sourceCode
                 , ShowDifferenceThreeFileType.ThreeWay
@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceFileOneByOne = new WebResourceShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.FileWebResourceShowDifferenceOneByOneCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.FileWebResourceShowDifferenceOneByOneCommandId
                 , Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2
                 , sourceFile
                 , ShowDifferenceThreeFileType.OneByOne
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceFileTwoConnections = new WebResourceShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.FileWebResourceShowDifferenceTwoConnectionsCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.FileWebResourceShowDifferenceTwoConnectionsCommandId
                 , Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2
                 , sourceFile
                 , ShowDifferenceThreeFileType.TwoConnections
@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceFileThreeWay = new WebResourceShowDifferenceThreeFileCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.FileWebResourceShowDifferenceThreeWayCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.FileWebResourceShowDifferenceThreeWayCommandId
                 , Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2
                 , sourceFile
                 , ShowDifferenceThreeFileType.ThreeWay

@@ -63,29 +63,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceFileOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeOrdinalCommandId, sourceFile, _typesOrdinal, false);
-            InstanceFileChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeWithChangesCommandId, sourceFile, _typesChanges, false);
-            InstanceFileMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeWithMirrorCommandId, sourceFile, _typesMirror, false);
+            InstanceFileOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceOpenFilesByTypeOrdinalCommandId, sourceFile, _typesOrdinal, false);
+            InstanceFileChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceOpenFilesByTypeWithChangesCommandId, sourceFile, _typesChanges, false);
+            InstanceFileMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceOpenFilesByTypeWithMirrorCommandId, sourceFile, _typesMirror, false);
 
-            InstanceFolderOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceOpenFilesByTypeOrdinalCommandId, sourceFolder, _typesOrdinal, false);
-            InstanceFolderChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceOpenFilesByTypeWithChangesCommandId, sourceFolder, _typesChanges, false);
-            InstanceFolderMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceOpenFilesByTypeWithMirrorCommandId, sourceFolder, _typesMirror, false);
-
-
+            InstanceFolderOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceOpenFilesByTypeOrdinalCommandId, sourceFolder, _typesOrdinal, false);
+            InstanceFolderChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceOpenFilesByTypeWithChangesCommandId, sourceFolder, _typesChanges, false);
+            InstanceFolderMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceOpenFilesByTypeWithMirrorCommandId, sourceFolder, _typesMirror, false);
 
 
 
-            InstanceInTextEditorDocumentsOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId, sourceDocuments, _typesOrdinal, true);
-            InstanceInTextEditorDocumentsChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId, sourceDocuments, _typesChanges, true);
-            InstanceInTextEditorDocumentsMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId, sourceDocuments, _typesMirror, true);
 
-            InstanceInTextEditorFileOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId, sourceFile, _typesOrdinal, true);
-            InstanceInTextEditorFileChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId, sourceFile, _typesChanges, true);
-            InstanceInTextEditorFileMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId, sourceFile, _typesMirror, true);
 
-            InstanceInTextEditorFolderOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId, sourceFolder, _typesOrdinal, true);
-            InstanceInTextEditorFolderChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId, sourceFolder, _typesChanges, true);
-            InstanceInTextEditorFolderMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId, sourceFolder, _typesMirror, true);
+            InstanceInTextEditorDocumentsOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId, sourceDocuments, _typesOrdinal, true);
+            InstanceInTextEditorDocumentsChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId, sourceDocuments, _typesChanges, true);
+            InstanceInTextEditorDocumentsMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId, sourceDocuments, _typesMirror, true);
+
+            InstanceInTextEditorFileOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId, sourceFile, _typesOrdinal, true);
+            InstanceInTextEditorFileChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId, sourceFile, _typesChanges, true);
+            InstanceInTextEditorFileMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId, sourceFile, _typesMirror, true);
+
+            InstanceInTextEditorFolderOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId, sourceFolder, _typesOrdinal, true);
+            InstanceInTextEditorFolderChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId, sourceFolder, _typesChanges, true);
+            InstanceInTextEditorFolderMirror = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId, sourceFolder, _typesMirror, true);
         }
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)

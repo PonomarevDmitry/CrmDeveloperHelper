@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             Instance = new CodeXmlWorkflowOrganizationComparerCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeXmlWorkflowOrganizationComparerCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeXmlWorkflowOrganizationComparerCommandId
                 , Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2
             );
         }

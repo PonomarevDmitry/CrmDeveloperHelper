@@ -48,17 +48,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceDocumentsOrdinal = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId, _typesOrdinal, sourceDocuments);
-            InstanceDocumentsChanges = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId, _typesChanges, sourceDocuments);
-            InstanceDocumentsMirror = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId, _typesMirror, sourceDocuments);
+            InstanceDocumentsOrdinal = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId, _typesOrdinal, sourceDocuments);
+            InstanceDocumentsChanges = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId, _typesChanges, sourceDocuments);
+            InstanceDocumentsMirror = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId, _typesMirror, sourceDocuments);
 
-            InstanceFileOrdinal = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceAddFilesIntoListForPublishOrdinalCommandId, _typesOrdinal, sourceFile);
-            InstanceFileChanges = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceAddFilesIntoListForPublishWithChangesCommandId, _typesChanges, sourceFile);
-            InstanceFileMirror = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId, _typesMirror, sourceFile);
+            InstanceFileOrdinal = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceAddFilesIntoListForPublishOrdinalCommandId, _typesOrdinal, sourceFile);
+            InstanceFileChanges = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceAddFilesIntoListForPublishWithChangesCommandId, _typesChanges, sourceFile);
+            InstanceFileMirror = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId, _typesMirror, sourceFile);
 
-            InstanceFolderOrdinal = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId, _typesOrdinal, sourceFolder);
-            InstanceFolderChanges = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId, _typesChanges, sourceFolder);
-            InstanceFolderMirror = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId, _typesMirror, sourceFolder);
+            InstanceFolderOrdinal = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId, _typesOrdinal, sourceFolder);
+            InstanceFolderChanges = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId, _typesChanges, sourceFolder);
+            InstanceFolderMirror = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId, _typesMirror, sourceFolder);
         }
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)

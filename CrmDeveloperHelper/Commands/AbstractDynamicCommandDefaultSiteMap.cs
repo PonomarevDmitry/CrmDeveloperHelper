@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -22,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         protected AbstractDynamicCommandDefaultSiteMap(
             OleMenuCommandService commandService
             , int baseIdStart
-        ) : base(commandService, PackageGuids.guidDynamicDefaultSiteMapCommandSet, baseIdStart, ConnectionData.CountLastSolutions)
+        ) : base(commandService, PackageGuids.guidDynamicDefaultSiteMapCommandSet, baseIdStart, ListDefaultSiteMaps.Length)
         {
         }
 

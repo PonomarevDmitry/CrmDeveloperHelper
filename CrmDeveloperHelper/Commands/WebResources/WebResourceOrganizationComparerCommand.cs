@@ -31,14 +31,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceCode = new WebResourceOrganizationComparerCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeWebResourceOrganizationComparerCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.CodeWebResourceOrganizationComparerCommandId
                 , Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2
                 , sourceCode
             );
 
             InstanceFile = new WebResourceOrganizationComparerCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.FileWebResourceOrganizationComparerCommandId
+                , PackageIds.guidDynamicConnectionPairCommandSet.FileWebResourceOrganizationComparerCommandId
                 , Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2
                 , sourceFile
             );

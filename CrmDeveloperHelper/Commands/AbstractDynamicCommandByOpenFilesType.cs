@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         private readonly IList<OpenFilesType> _sourceOpenTypes;
 
         protected AbstractDynamicCommandByOpenFilesType(OleMenuCommandService commandService, int baseIdStart, IList<OpenFilesType> sourceOpenTypes)
-            : base(commandService, PackageGuids.guidDynamicCommandSet, baseIdStart, sourceOpenTypes.Count)
+            : base(commandService, PackageGuids.guidDynamicOpenFilesTypeCommandSet, baseIdStart, sourceOpenTypes.Count)
         {
             this._sourceOpenTypes = sourceOpenTypes;
         }

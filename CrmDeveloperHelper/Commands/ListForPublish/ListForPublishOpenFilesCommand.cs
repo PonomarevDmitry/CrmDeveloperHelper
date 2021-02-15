@@ -36,13 +36,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceFileOrdinal = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeOrdinalCommandId, _typesOrdinal, false);
-            InstanceFileChanges = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeWithChangesCommandId, _typesChanges, false);
-            InstanceFileMirror = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeWithMirrorCommandId, _typesMirror, false);
+            InstanceFileOrdinal = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishOpenFilesByTypeOrdinalCommandId, _typesOrdinal, false);
+            InstanceFileChanges = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishOpenFilesByTypeWithChangesCommandId, _typesChanges, false);
+            InstanceFileMirror = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishOpenFilesByTypeWithMirrorCommandId, _typesMirror, false);
 
-            InstanceInTextEditorFileOrdinal = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId, _typesOrdinal, true);
-            InstanceInTextEditorFileChanges = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId, _typesChanges, true);
-            InstanceInTextEditorFileMirror = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId, _typesMirror, true);
+            InstanceInTextEditorFileOrdinal = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId, _typesOrdinal, true);
+            InstanceInTextEditorFileChanges = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId, _typesChanges, true);
+            InstanceInTextEditorFileMirror = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId, _typesMirror, true);
         }
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)

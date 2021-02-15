@@ -22,6 +22,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const string guidDynamicSolutionLastSelectedCommandSetString = "a42b6010-b492-4fec-a4f0-0d76aad80ec7";
         public const string guidDynamicXmlSchemaCommandSetString = "a07f1cee-d561-49d6-ac3d-29c03f79c1d8";
         public const string guidDynamicDefaultSiteMapCommandSetString = "4a075b5a-f840-4282-92f0-910c1ac9937e";
+        public const string guidDynamicOpenFilesTypeCommandSetString = "d45270ea-7f0d-486e-b90e-7d1d8b0bc5a1";
+        public const string guidDynamicConnectionPairCommandSetString = "e68a871e-5435-4d30-a8a1-5c54fb685219";
         public const string guidDynamicCommandSetString = "f71ca58c-98fe-4935-a0cb-478a076b9821";
         public const string guidCommandSetString = "15ffcbd5-0856-4bda-b6c8-e6e0b635761d";
 
@@ -37,6 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public static readonly System.Guid guidDynamicSolutionLastSelectedCommandSet = new System.Guid(guidDynamicSolutionLastSelectedCommandSetString);
         public static readonly System.Guid guidDynamicXmlSchemaCommandSet = new System.Guid(guidDynamicXmlSchemaCommandSetString);
         public static readonly System.Guid guidDynamicDefaultSiteMapCommandSet = new System.Guid(guidDynamicDefaultSiteMapCommandSetString);
+        public static readonly System.Guid guidDynamicOpenFilesTypeCommandSet = new System.Guid(guidDynamicOpenFilesTypeCommandSetString);
+        public static readonly System.Guid guidDynamicConnectionPairCommandSet = new System.Guid(guidDynamicConnectionPairCommandSetString);
         public static readonly System.Guid guidDynamicCommandSet = new System.Guid(guidDynamicCommandSetString);
         public static readonly System.Guid guidCommandSet = new System.Guid(guidCommandSetString);
     }
@@ -3037,6 +3041,154 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlSiteMapShowDifferenceDefaultCommandId = 0x00E1;
         }
 
+        internal static partial class guidDynamicOpenFilesTypeCommandSet
+        {
+            public const int DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x00C8;
+
+            public const int DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId = 0x00D2;
+
+            public const int DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x00DC;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x00E6;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x00F0;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x00FA;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x0104;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x010E;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x0118;
+
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x0122;
+
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x012C;
+
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x0136;
+
+            public const int FileWebResourceOpenFilesByTypeOrdinalCommandId = 0x0140;
+
+            public const int FileWebResourceOpenFilesByTypeWithChangesCommandId = 0x014A;
+
+            public const int FileWebResourceOpenFilesByTypeWithMirrorCommandId = 0x0154;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x015E;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x0168;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x0172;
+
+            public const int FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x017C;
+
+            public const int FileWebResourceMultiDifferenceFilesWithChangesCommandId = 0x0186;
+
+            public const int FileWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x0190;
+
+            public const int FileWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x019A;
+
+            public const int FileWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x01A4;
+
+            public const int FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x01AE;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x01B8;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x01C2;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x01CC;
+
+            public const int FolderWebResourceOpenFilesByTypeOrdinalCommandId = 0x01D6;
+
+            public const int FolderWebResourceOpenFilesByTypeWithChangesCommandId = 0x01E0;
+
+            public const int FolderWebResourceOpenFilesByTypeWithMirrorCommandId = 0x01EA;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x01F4;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x01FE;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x0208;
+
+            public const int FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x0212;
+
+            public const int FolderWebResourceMultiDifferenceFilesWithChangesCommandId = 0x021C;
+
+            public const int FolderWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x0226;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x0230;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x023A;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x0244;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x024E;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x0258;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x0262;
+
+            public const int ListForPublishOpenFilesByTypeOrdinalCommandId = 0x026C;
+
+            public const int ListForPublishOpenFilesByTypeWithChangesCommandId = 0x0276;
+
+            public const int ListForPublishOpenFilesByTypeWithMirrorCommandId = 0x0280;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId = 0x028A;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId = 0x0294;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x029E;
+
+            public const int ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId = 0x02A8;
+
+            public const int ListForPublishMultiDifferenceFilesWithChangesCommandId = 0x02B2;
+
+            public const int ListForPublishMultiDifferenceFilesWithMirrorCommandId = 0x02BC;
+        }
+
+        internal static partial class guidDynamicConnectionPairCommandSet
+        {
+            public const int CodeWebResourceShowDifferenceThreeWayCommandId = 0x00C8;
+
+            public const int CodeWebResourceShowDifferenceTwoConnectionsCommandId = 0x00FA;
+
+            public const int CodeWebResourceShowDifferenceOneByOneCommandId = 0x012C;
+
+            public const int CodeWebResourceOrganizationComparerCommandId = 0x015E;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId = 0x0190;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId = 0x01C2;
+
+            public const int CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId = 0x01F4;
+
+            public const int CodeReportShowDifferenceBodyTextThreeWayCommandId = 0x0226;
+
+            public const int CodeReportShowDifferenceBodyTextTwoConnectionsCommandId = 0x0258;
+
+            public const int CodeReportShowDifferenceBodyTextOneByOneCommandId = 0x028A;
+
+            public const int CodeXmlRibbonOrganizationComparerCommandId = 0x02BC;
+
+            public const int CodeXmlSavedQueryOrganizationComparerCommandId = 0x02EE;
+
+            public const int CodeXmlSiteMapOrganizationComparerCommandId = 0x0320;
+
+            public const int CodeXmlSystemFormOrganizationComparerCommandId = 0x0352;
+
+            public const int CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId = 0x0384;
+
+            public const int CodeXmlWorkflowOrganizationComparerCommandId = 0x03B6;
+
+            public const int FileWebResourceShowDifferenceThreeWayCommandId = 0x03E8;
+
+            public const int FileWebResourceShowDifferenceTwoConnectionsCommandId = 0x041A;
+
+            public const int FileWebResourceShowDifferenceOneByOneCommandId = 0x044C;
+
+            public const int FileWebResourceOrganizationComparerCommandId = 0x047E;
+        }
+
         internal static partial class guidDynamicCommandSet
         {
             public const int CommonOpenCrmWebSiteCommandId = 0x06A4;
@@ -3161,12 +3313,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x03E8;
 
-            public const int CodeWebResourceShowDifferenceThreeWayCommandId = 0x06D6;
-
-            public const int CodeWebResourceShowDifferenceTwoConnectionsCommandId = 0x076C;
-
-            public const int CodeWebResourceShowDifferenceOneByOneCommandId = 0x0802;
-
             public const int CodeWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0E42;
 
             public const int CodeWebResourceGetCurrentContentInConnectionGroupCommandId = 0x48A8;
@@ -3182,8 +3328,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeWebResourceCreateEntityDescriptionInConnectionCommandId = 0x2C88;
 
             public const int CodeWebResourceChangeInEditorInConnectionCommandId = 0x2CBA;
-
-            public const int CodeWebResourceOrganizationComparerCommandId = 0x4970;
 
             public const int CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId = 0x3EE4;
 
@@ -3271,8 +3415,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId = 0x2FA8;
 
-            public const int CodeXmlRibbonOrganizationComparerCommandId = 0x4ACE;
-
             public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId = 0x4682;
 
             public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId = 0x1356;
@@ -3289,8 +3431,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlSiteMapGetCurrentInConnectionCommandId = 0x2F44;
 
-            public const int CodeXmlSiteMapOrganizationComparerCommandId = 0x4A38;
-
             public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId = 0x17A2;
 
             public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId = 0x17D4;
@@ -3298,8 +3438,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlSystemFormOpenInWebInConnectionCommandId = 0x2742;
 
             public const int CodeXmlSystemFormGetCurrentInConnectionCommandId = 0x2F12;
-
-            public const int CodeXmlSystemFormOrganizationComparerCommandId = 0x4A06;
 
             public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId = 0x1806;
 
@@ -3309,8 +3447,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlSavedQueryGetCurrentInConnectionCommandId = 0x2F76;
 
-            public const int CodeXmlSavedQueryOrganizationComparerCommandId = 0x4A9C;
-
             public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId = 0x28D2;
 
             public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId = 0x2904;
@@ -3318,8 +3454,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlWorkflowOpenInWebInConnectionCommandId = 0x28A0;
 
             public const int CodeXmlWorkflowGetCurrentInConnectionCommandId = 0x2EE0;
-
-            public const int CodeXmlWorkflowOrganizationComparerCommandId = 0x49D4;
 
             public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId = 0x2E18;
 
@@ -3329,13 +3463,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
 
-            public const int CodeXmlWebResourceDependencyXmlOrganizationComparerCommandId = 0x4A6A;
-
             public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId = 0x45BA;
 
             public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId = 0x45EC;
 
             public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId = 0x0258;
+
+            public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId = 0x1068;
 
             public const int CodeReportOpenInWebInConnectionCommandId = 0x04E2;
 
@@ -3344,20 +3478,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeReportOpenDependentInExplorerInConnectionCommandId = 0x0546;
 
             public const int CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x0578;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId = 0x073A;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId = 0x07D0;
-
-            public const int CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId = 0x0866;
-
-            public const int CodeReportShowDifferenceBodyTextThreeWayCommandId = 0x0FD2;
-
-            public const int CodeReportShowDifferenceBodyTextTwoConnectionsCommandId = 0x1004;
-
-            public const int CodeReportShowDifferenceBodyTextOneByOneCommandId = 0x1036;
-
-            public const int CodeReportShowDifferenceBodyTextInConnectionGroupCommandId = 0x1068;
 
             public const int CodeReportAddToSolutionInConnectionCommandId = 0x1D4C;
 
@@ -3445,30 +3565,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceOpenDependentInWebInConnectionCommandId = 0x4C2C;
 
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x4173;
-
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x4179;
-
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x417D;
-
-            public const int DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x410A;
-
-            public const int DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId = 0x410F;
-
-            public const int DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x4114;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x4146;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x414C;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x4150;
-
-            public const int DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x41DC;
-
-            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x41E2;
-
-            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x41E6;
-
             public const int DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId = 0x3F16;
 
             public const int DocumentsJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId = 0x3FAC;
@@ -3541,12 +3637,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x04B0;
 
-            public const int FileWebResourceShowDifferenceThreeWayCommandId = 0x0708;
-
-            public const int FileWebResourceShowDifferenceTwoConnectionsCommandId = 0x079E;
-
-            public const int FileWebResourceShowDifferenceOneByOneCommandId = 0x0834;
-
             public const int FileWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0EA6;
 
             public const int FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId = 0x0D16;
@@ -3570,38 +3660,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileJavaScriptCopyToClipboardRibbonCustomRulesInConnectionCommandId = 0x4D8A;
 
             public const int FileJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId = 0x4DBC;
-
-            public const int FileWebResourceOpenFilesByTypeOrdinalCommandId = 0x4182;
-
-            public const int FileWebResourceOpenFilesByTypeWithChangesCommandId = 0x4188;
-
-            public const int FileWebResourceOpenFilesByTypeWithMirrorCommandId = 0x418C;
-
-            public const int FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x4191;
-
-            public const int FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x4197;
-
-            public const int FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x419B;
-
-            public const int FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x4119;
-
-            public const int FileWebResourceMultiDifferenceFilesWithChangesCommandId = 0x411E;
-
-            public const int FileWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x4123;
-
-            public const int FileWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x4155;
-
-            public const int FileWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x415B;
-
-            public const int FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x415F;
-
-            public const int FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x41EB;
-
-            public const int FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x41F1;
-
-            public const int FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x41F5;
-
-            public const int FileWebResourceOrganizationComparerCommandId = 0x49A2;
 
             public const int FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId = 0x3F48;
 
@@ -3705,36 +3763,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderWebResourceOpenDependentInWebInConnectionCommandId = 0x4CC2;
 
-            public const int FolderWebResourceOpenFilesByTypeOrdinalCommandId = 0x41A0;
-
-            public const int FolderWebResourceOpenFilesByTypeWithChangesCommandId = 0x41A6;
-
-            public const int FolderWebResourceOpenFilesByTypeWithMirrorCommandId = 0x41AA;
-
-            public const int FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x41AF;
-
-            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x41B5;
-
-            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x41B9;
-
-            public const int FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x4128;
-
-            public const int FolderWebResourceMultiDifferenceFilesWithChangesCommandId = 0x412D;
-
-            public const int FolderWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x4132;
-
-            public const int FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x4164;
-
-            public const int FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x416A;
-
-            public const int FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x416E;
-
-            public const int FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x41FA;
-
-            public const int FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x4200;
-
-            public const int FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x4204;
-
             public const int FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId = 0x3F7A;
 
             public const int FolderJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommandId = 0x4010;
@@ -3822,24 +3850,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x4844;
 
             public const int ListForPublishAddToSolutionInConnectionCommandId = 0x1E78;
-
-            public const int ListForPublishOpenFilesByTypeOrdinalCommandId = 0x41BE;
-
-            public const int ListForPublishOpenFilesByTypeWithChangesCommandId = 0x41C4;
-
-            public const int ListForPublishOpenFilesByTypeWithMirrorCommandId = 0x41C8;
-
-            public const int ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId = 0x41CD;
-
-            public const int ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId = 0x41D3;
-
-            public const int ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x41D7;
-
-            public const int ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId = 0x4137;
-
-            public const int ListForPublishMultiDifferenceFilesWithChangesCommandId = 0x413C;
-
-            public const int ListForPublishMultiDifferenceFilesWithMirrorCommandId = 0x4141;
 
             public const int ProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId = 0x0320;
 

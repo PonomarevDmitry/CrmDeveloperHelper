@@ -48,17 +48,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceDocumentsExistsOrHasLink = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink, sourceDocuments);
-            InstanceDocumentsChanges = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId, _typesChanges, sourceDocuments);
-            InstanceDocumentsMirror = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId, _typesMirror, sourceDocuments);
+            InstanceDocumentsExistsOrHasLink = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink, sourceDocuments);
+            InstanceDocumentsChanges = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId, _typesChanges, sourceDocuments);
+            InstanceDocumentsMirror = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId, _typesMirror, sourceDocuments);
 
-            InstanceFileExistsOrHasLink = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink, sourceFile);
-            InstanceFileChanges = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceMultiDifferenceFilesWithChangesCommandId, _typesChanges, sourceFile);
-            InstanceFileMirror = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorCommandId, _typesMirror, sourceFile);
+            InstanceFileExistsOrHasLink = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink, sourceFile);
+            InstanceFileChanges = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceMultiDifferenceFilesWithChangesCommandId, _typesChanges, sourceFile);
+            InstanceFileMirror = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorCommandId, _typesMirror, sourceFile);
 
-            InstanceFolderExistsOrHasLink = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink, sourceFolder);
-            InstanceFolderChanges = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceMultiDifferenceFilesWithChangesCommandId, _typesChanges, sourceFolder);
-            InstanceFolderMirror = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceMultiDifferenceFilesWithMirrorCommandId, _typesMirror, sourceFolder);
+            InstanceFolderExistsOrHasLink = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink, sourceFolder);
+            InstanceFolderChanges = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceMultiDifferenceFilesWithChangesCommandId, _typesChanges, sourceFolder);
+            InstanceFolderMirror = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicOpenFilesTypeCommandSet.FolderWebResourceMultiDifferenceFilesWithMirrorCommandId, _typesMirror, sourceFolder);
         }
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)
