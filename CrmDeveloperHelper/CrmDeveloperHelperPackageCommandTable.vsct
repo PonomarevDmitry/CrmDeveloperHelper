@@ -7176,7 +7176,7 @@
           <ButtonText>Set Xsd Schema Proper</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicXmlSchemaCommandSet" id="CodeXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7297,7 +7297,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlSiteMapShowDifferenceDefaultCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicDefaultSiteMapCommandSet" id="CodeXmlSiteMapShowDifferenceDefaultCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9464,7 +9464,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicXmlSchemaCommandSet" id="DocumentsXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10782,7 +10782,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FileXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicXmlSchemaCommandSet" id="FileXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -12089,7 +12089,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FolderXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicXmlSchemaCommandSet" id="FolderXmlCommonXsdSchemaSetCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -13981,7 +13981,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="CommonExportDefaultSiteMapsCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicDefaultSiteMapCommandSet" id="CommonExportDefaultSiteMapsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -13992,7 +13992,7 @@
           <ButtonText>CommonExportDefaultSiteMapsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CommonXsdSchemaExportCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicXmlSchemaCommandSet" id="CommonXsdSchemaExportCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -18722,7 +18722,7 @@
 
     <!-- #region CommandPlacements documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupSet -->
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsXmlCommonXsdSchemaSetCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicXmlSchemaCommandSet" id="DocumentsXmlCommonXsdSchemaSetCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupSet" />
     </CommandPlacement>
 
@@ -20175,7 +20175,7 @@
 
     <!-- #region CommandPlacements fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupSet -->
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileXmlCommonXsdSchemaSetCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicXmlSchemaCommandSet" id="FileXmlCommonXsdSchemaSetCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupSet" />
     </CommandPlacement>
 
@@ -20229,7 +20229,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLastLink" priority="0x060D0">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    
+
     <!-- #endregion CommandPlacements folderMenuWebResource -->
 
     <!-- #region CommandPlacements folderMenuWebResource_GroupPublish -->
@@ -21031,7 +21031,7 @@
 
     <!-- #region CommandPlacements folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupSet -->
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderXmlCommonXsdSchemaSetCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicXmlSchemaCommandSet" id="FolderXmlCommonXsdSchemaSetCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupSet" />
     </CommandPlacement>
 
@@ -22182,7 +22182,7 @@
 
     <!-- #region CommandPlacements commonMenu_GroupExplorers_MenuExportXsdSchemas_GroupSchemas -->
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="CommonXsdSchemaExportCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicXmlSchemaCommandSet" id="CommonXsdSchemaExportCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExplorers_MenuExportXsdSchemas_GroupSchemas" />
     </CommandPlacement>
 
@@ -22655,7 +22655,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CommonExportDefaultSiteMapsCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CommonExportDefaultSiteMapsCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CommonExportDefaultSiteMapsCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicDefaultSiteMapCommandSet" id="CommonExportDefaultSiteMapsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CommonExportDefaultSiteMapsCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -23759,7 +23759,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="CodeXmlSiteMapShowDifferenceDefaultCommandId_MenuDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSiteMapShowDifferenceDefaultCommandId_MenuDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSiteMapShowDifferenceDefaultCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicDefaultSiteMapCommandSet" id="CodeXmlSiteMapShowDifferenceDefaultCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlSiteMapShowDifferenceDefaultCommandId_MenuDyn_Group" />
     </CommandPlacement>
 
@@ -24001,7 +24001,7 @@
 
 
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlCommonXsdSchemaSetCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicXmlSchemaCommandSet" id="CodeXmlCommonXsdSchemaSetCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="CodeXmlCommonXsdSchemaSetCommandId_Group" />
     </CommandPlacement>
 
@@ -29896,6 +29896,60 @@
 
 
 
+    <GuidSymbol name="guidDynamicXmlSchemaCommandSet" value="{A07F1CEE-D561-49D6-AC3D-29C03F79C1D8}">
+
+      <!-- #region Common Commands Dynamic Definitions -->
+
+      <IDSymbol name="CommonXsdSchemaExportCommandId" value="200" />
+
+      <!-- #endregion Common Commands Dynamic Definitions -->
+
+      <!-- #region CodeXml Commands Dynamic Definitions -->
+
+      <IDSymbol name="CodeXmlCommonXsdSchemaSetCommandId" value="250" />
+
+      <!-- #endregion CodeXml Commands Dynamic Definitions -->
+
+      <!-- #region DocumentsXml Commands Dynamic Definitions -->
+
+      <IDSymbol name="DocumentsXmlCommonXsdSchemaSetCommandId" value="300" />
+
+      <!-- #endregion DocumentsXml Commands Dynamic Definitions -->
+
+      <!-- #region FileXml Commands Dynamic Definitions -->
+
+      <IDSymbol name="FileXmlCommonXsdSchemaSetCommandId" value="350" />
+
+      <!-- #endregion FileXml Commands Dynamic Definitions -->
+
+      <!-- #region FolderXml Commands Dynamic Definitions -->
+
+      <IDSymbol name="FolderXmlCommonXsdSchemaSetCommandId" value="400" />
+
+      <!-- #endregion FolderXml Commands Dynamic Definitions -->
+
+    </GuidSymbol>
+
+
+
+    <GuidSymbol name="guidDynamicDefaultSiteMapCommandSet" value="{4A075B5A-F840-4282-92F0-910C1AC9937E}">
+
+      <!-- #region Common Commands Dynamic Definitions -->
+
+      <IDSymbol name="CommonExportDefaultSiteMapsCommandId" value="200" />
+
+      <!-- #endregion Common Commands Dynamic Definitions -->
+
+      <!-- #region CodeXml Commands Dynamic Definitions -->
+
+      <IDSymbol name="CodeXmlSiteMapShowDifferenceDefaultCommandId" value="225" />
+
+      <!-- #endregion CodeXml Commands Dynamic Definitions -->
+
+    </GuidSymbol>
+
+
+
     <GuidSymbol name="guidDynamicCommandSet" value="{F71CA58C-98FE-4935-A0CB-478A076B9821}">
 
       <!-- #region Common Commands Dynamic Definitions -->
@@ -29938,9 +29992,6 @@
       <IDSymbol name="CommonOpenNewsCommandId" value="11050" />
 
       <IDSymbol name="CommonTraceReaderCommandId" value="3300" />
-
-      <IDSymbol name="CommonExportDefaultSiteMapsCommandId" value="4300" />
-      <IDSymbol name="CommonXsdSchemaExportCommandId" value="4325" />
 
       <IDSymbol name="CommonSolutionExplorerInConnectionCommandId" value="6250" />
 
@@ -30088,10 +30139,6 @@
       <!-- #region CodeXml Commands Dynamic Definitions -->
 
       <IDSymbol name="CodeXmlFetchXmlExecuteRequestInConnectionsCommandId" value="4250" />
-
-      <IDSymbol name="CodeXmlCommonXsdSchemaSetCommandId" value="4350" />
-
-      <IDSymbol name="CodeXmlSiteMapShowDifferenceDefaultCommandId" value="4375" />
 
       <IDSymbol name="CodeXmlRibbonOpenInWebInConnectionCommandId" value="10150" />
       <IDSymbol name="CodeXmlRibbonShowDifferenceInConnectionGroupCommandId" value="4900" />
@@ -30280,12 +30327,6 @@
 
       <!-- #endregion DocumentsJavaScript Commands Dynamic Definitions -->
 
-      <!-- #region DocumentsXml Commands Dynamic Definitions -->
-
-      <IDSymbol name="DocumentsXmlCommonXsdSchemaSetCommandId" value="8800" />
-
-      <!-- #endregion DocumentsXml Commands Dynamic Definitions -->
-
       <!-- #region DocumentsReport Commands Dynamic Definitions -->
 
       <IDSymbol name="DocumentsReportAddToSolutionInConnectionCommandId" value="7600" />
@@ -30412,12 +30453,6 @@
 
       <!-- #endregion FileJavaScript Commands Dynamic Definitions -->
 
-      <!-- #region FileXml Commands Dynamic Definitions -->
-
-      <IDSymbol name="FileXmlCommonXsdSchemaSetCommandId" value="8825" />
-
-      <!-- #endregion FileXml Commands Dynamic Definitions -->
-
       <!-- #region FileReport Commands Dynamic Definitions -->
 
       <IDSymbol name="FileReportOpenInWebInConnectionCommandId" value="1450" />
@@ -30536,12 +30571,6 @@
       <IDSymbol name="FolderJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId" value="20700" />
 
       <!-- #endregion FolderJavaScript Commands Dynamic Definitions -->
-
-      <!-- #region FolderXml Commands Dynamic Definitions -->
-
-      <IDSymbol name="FolderXmlCommonXsdSchemaSetCommandId" value="8850" />
-
-      <!-- #endregion FolderXml Commands Dynamic Definitions -->
 
       <!-- #region FolderCSharp Commands Dynamic Definitions -->
 

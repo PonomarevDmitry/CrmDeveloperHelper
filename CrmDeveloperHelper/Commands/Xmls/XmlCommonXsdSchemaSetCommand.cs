@@ -36,13 +36,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceCode = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicCommandSet.CodeXmlCommonXsdSchemaSetCommandId, sourceCode);
+            InstanceCode = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicXmlSchemaCommandSet.CodeXmlCommonXsdSchemaSetCommandId, sourceCode);
 
-            InstanceDocuments = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsXmlCommonXsdSchemaSetCommandId, sourceDocuments);
+            InstanceDocuments = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicXmlSchemaCommandSet.DocumentsXmlCommonXsdSchemaSetCommandId, sourceDocuments);
 
-            InstanceFile = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicCommandSet.FileXmlCommonXsdSchemaSetCommandId, sourceFile);
+            InstanceFile = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicXmlSchemaCommandSet.FileXmlCommonXsdSchemaSetCommandId, sourceFile);
 
-            InstanceFolder = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicCommandSet.FolderXmlCommonXsdSchemaSetCommandId, sourceFolder);
+            InstanceFolder = new XmlCommonXsdSchemaSetCommand(commandService, PackageIds.guidDynamicXmlSchemaCommandSet.FolderXmlCommonXsdSchemaSetCommandId, sourceFolder);
         }
 
         protected override void CommandAction(DTEHelper helper, Tuple<string, string[]> schemas)

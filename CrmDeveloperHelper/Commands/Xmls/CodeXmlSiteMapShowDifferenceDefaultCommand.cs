@@ -7,9 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSiteMapShowDifferenceDefaultCommand : AbstractDynamicCommandDefaultSiteMap
     {
         private CodeXmlSiteMapShowDifferenceDefaultCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlSiteMapShowDifferenceDefaultCommandId)
+            : base(commandService, PackageIds.guidDynamicDefaultSiteMapCommandSet.CodeXmlSiteMapShowDifferenceDefaultCommandId)
         {
-
         }
 
         public static CodeXmlSiteMapShowDifferenceDefaultCommand Instance { get; private set; }

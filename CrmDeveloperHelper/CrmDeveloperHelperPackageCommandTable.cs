@@ -20,6 +20,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const string guidAddString = "d309f791-903f-11d0-9efc-00a0c911004f";
         public const string guidGroupAndMenuSetString = "6a1a85fe-5657-4ae9-80fe-fa1277f6abc6";
         public const string guidDynamicSolutionLastSelectedCommandSetString = "a42b6010-b492-4fec-a4f0-0d76aad80ec7";
+        public const string guidDynamicXmlSchemaCommandSetString = "a07f1cee-d561-49d6-ac3d-29c03f79c1d8";
+        public const string guidDynamicDefaultSiteMapCommandSetString = "4a075b5a-f840-4282-92f0-910c1ac9937e";
         public const string guidDynamicCommandSetString = "f71ca58c-98fe-4935-a0cb-478a076b9821";
         public const string guidCommandSetString = "15ffcbd5-0856-4bda-b6c8-e6e0b635761d";
 
@@ -33,6 +35,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public static readonly System.Guid guidAdd = new System.Guid(guidAddString);
         public static readonly System.Guid guidGroupAndMenuSet = new System.Guid(guidGroupAndMenuSetString);
         public static readonly System.Guid guidDynamicSolutionLastSelectedCommandSet = new System.Guid(guidDynamicSolutionLastSelectedCommandSetString);
+        public static readonly System.Guid guidDynamicXmlSchemaCommandSet = new System.Guid(guidDynamicXmlSchemaCommandSetString);
+        public static readonly System.Guid guidDynamicDefaultSiteMapCommandSet = new System.Guid(guidDynamicDefaultSiteMapCommandSetString);
         public static readonly System.Guid guidDynamicCommandSet = new System.Guid(guidDynamicCommandSetString);
         public static readonly System.Guid guidCommandSet = new System.Guid(guidCommandSetString);
     }
@@ -3013,6 +3017,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputOpenWebResourcesInSolutionLastSelectedInTextEditorCommandId = 0x055F;
         }
 
+        internal static partial class guidDynamicXmlSchemaCommandSet
+        {
+            public const int CommonXsdSchemaExportCommandId = 0x00C8;
+
+            public const int CodeXmlCommonXsdSchemaSetCommandId = 0x00FA;
+
+            public const int DocumentsXmlCommonXsdSchemaSetCommandId = 0x012C;
+
+            public const int FileXmlCommonXsdSchemaSetCommandId = 0x015E;
+
+            public const int FolderXmlCommonXsdSchemaSetCommandId = 0x0190;
+        }
+
+        internal static partial class guidDynamicDefaultSiteMapCommandSet
+        {
+            public const int CommonExportDefaultSiteMapsCommandId = 0x00C8;
+
+            public const int CodeXmlSiteMapShowDifferenceDefaultCommandId = 0x00E1;
+        }
+
         internal static partial class guidDynamicCommandSet
         {
             public const int CommonOpenCrmWebSiteCommandId = 0x06A4;
@@ -3078,10 +3102,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonOpenNewsCommandId = 0x2B2A;
 
             public const int CommonTraceReaderCommandId = 0x0CE4;
-
-            public const int CommonExportDefaultSiteMapsCommandId = 0x10CC;
-
-            public const int CommonXsdSchemaExportCommandId = 0x10E5;
 
             public const int CommonSolutionExplorerInConnectionCommandId = 0x186A;
 
@@ -3244,10 +3264,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptCopyToClipboardRibbonJavaScriptFunctionsInConnectionCommandId = 0x4D58;
 
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
-
-            public const int CodeXmlCommonXsdSchemaSetCommandId = 0x10FE;
-
-            public const int CodeXmlSiteMapShowDifferenceDefaultCommandId = 0x1117;
 
             public const int CodeXmlRibbonOpenInWebInConnectionCommandId = 0x27A6;
 
@@ -3469,8 +3485,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x5014;
 
-            public const int DocumentsXmlCommonXsdSchemaSetCommandId = 0x2260;
-
             public const int DocumentsReportAddToSolutionInConnectionCommandId = 0x1DB0;
 
             public const int DocumentsCSharpProjectUpdatePluginAssemblyInConnectionCommandId = 0x4236;
@@ -3609,8 +3623,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x5078;
 
-            public const int FileXmlCommonXsdSchemaSetCommandId = 0x2279;
-
             public const int FileReportOpenInWebInConnectionCommandId = 0x05AA;
 
             public const int FileReportOpenDependentInWebInConnectionCommandId = 0x05DC;
@@ -3738,8 +3750,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x47E0;
 
             public const int FolderJavaScriptLinkedGlobalOptionSetAddToSolutionInConnectionCommandId = 0x50DC;
-
-            public const int FolderXmlCommonXsdSchemaSetCommandId = 0x2292;
 
             public const int FolderCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId = 0x42FE;
 

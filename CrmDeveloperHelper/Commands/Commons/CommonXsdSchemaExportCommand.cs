@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
     internal sealed class CommonXsdSchemaExportCommand : AbstractDynamicCommandXsdSchemas
     {
         private CommonXsdSchemaExportCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CommonXsdSchemaExportCommandId)
+            : base(commandService, PackageIds.guidDynamicXmlSchemaCommandSet.CommonXsdSchemaExportCommandId)
         {
         }
 

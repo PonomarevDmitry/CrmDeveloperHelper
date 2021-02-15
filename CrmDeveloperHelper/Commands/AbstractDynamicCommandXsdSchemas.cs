@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         };
 
         protected AbstractDynamicCommandXsdSchemas(OleMenuCommandService commandService, int baseIdStart)
-            : base(commandService, PackageGuids.guidDynamicCommandSet, baseIdStart, ListXsdSchemas.Count)
+            : base(commandService, PackageGuids.guidDynamicXmlSchemaCommandSet, baseIdStart, ListXsdSchemas.Count)
         {
         }
 
