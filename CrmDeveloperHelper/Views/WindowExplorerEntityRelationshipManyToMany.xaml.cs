@@ -282,7 +282,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterEntityList(list, textName, selectedTab);
 
-            LoadEntities(list);
+            this.lstVwEntities.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in list
+                    .OrderBy(s => s.IsIntersect)
+                    .ThenBy(s => s.LogicalName)
+                )
+                {
+                    _itemsSourceEntityList.Add(entity);
+                }
+
+                if (this.lstVwEntities.Items.Count == 1)
+                {
+                    this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
+                }
+                else
+                {
+                    var entity = list.FirstOrDefault(e => string.Equals(e.LogicalName, textName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (entity != null)
+                    {
+                        this.lstVwEntities.SelectedItem = entity;
+                    }
+                }
+            });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
 
@@ -334,25 +357,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return list;
-        }
-
-        private void LoadEntities(IEnumerable<EntityMetadataListViewItem> results)
-        {
-            this.lstVwEntities.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results
-                    .OrderBy(s => s.IsIntersect)
-                    .ThenBy(s => s.LogicalName)
-                )
-                {
-                    _itemsSourceEntityList.Add(entity);
-                }
-
-                if (this.lstVwEntities.Items.Count == 1)
-                {
-                    this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
-                }
-            });
         }
 
         private async Task ShowExistingEntityRelationships()
@@ -442,7 +446,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterEntityRelationshipList(list, textName);
 
-            LoadEntityRelationships(list);
+            this.lstVwEntityRelationships.Dispatcher.Invoke(() =>
+            {
+                foreach (var entityRelation in list
+                    .OrderBy(s => s.Entity1LogicalName)
+                    .ThenBy(s => s.Entity2LogicalName)
+                    .ThenBy(s => s.SchemaName)
+                    .ThenBy(s => s.IntersectEntityName)
+                )
+                {
+                    _itemsSourceEntityRelationshipList.Add(entityRelation);
+                }
+
+                if (this.lstVwEntityRelationships.Items.Count == 1)
+                {
+                    this.lstVwEntityRelationships.SelectedItem = this.lstVwEntityRelationships.Items[0];
+                }
+                else
+                {
+                    var entityRelation = list.FirstOrDefault(e => string.Equals(e.SchemaName, textName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (entityRelation != null)
+                    {
+                        this.lstVwEntityRelationships.SelectedItem = entityRelation;
+                    }
+                }
+            });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingManyToManyRelationshipsCompletedFormat1, list.Count());
         }
@@ -512,28 +541,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             return list;
         }
-
-        private void LoadEntityRelationships(IEnumerable<ManyToManyRelationshipMetadataViewItem> results)
-        {
-            this.lstVwEntityRelationships.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results
-                    .OrderBy(s => s.Entity1LogicalName)
-                    .ThenBy(s => s.Entity2LogicalName)
-                    .ThenBy(s => s.SchemaName)
-                    .ThenBy(s => s.IntersectEntityName)
-                )
-                {
-                    _itemsSourceEntityRelationshipList.Add(entity);
-                }
-
-                if (this.lstVwEntityRelationships.Items.Count == 1)
-                {
-                    this.lstVwEntityRelationships.SelectedItem = this.lstVwEntityRelationships.Items[0];
-                }
-            });
-        }
-
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {

@@ -399,7 +399,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterEntityList(list, textName, selectedTab);
 
-            LoadEntities(list);
+            this.lstVwEntities.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in list
+                    .OrderBy(s => s.IsIntersect)
+                    .ThenBy(s => s.LogicalName)
+                )
+                {
+                    _itemsSourceEntityList.Add(entity);
+                }
+
+                if (this.lstVwEntities.Items.Count == 1)
+                {
+                    this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
+                }
+                else
+                {
+                    var entity = list.FirstOrDefault(e => string.Equals(e.LogicalName, textName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (entity != null)
+                    {
+                        this.lstVwEntities.SelectedItem = entity;
+                    }
+                }
+            });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
 
@@ -451,25 +474,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return list;
-        }
-
-        private void LoadEntities(IEnumerable<EntityMetadataListViewItem> results)
-        {
-            this.lstVwEntities.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results
-                    .OrderBy(s => s.IsIntersect)
-                    .ThenBy(s => s.LogicalName)
-                )
-                {
-                    _itemsSourceEntityList.Add(entity);
-                }
-
-                if (this.lstVwEntities.Items.Count == 1)
-                {
-                    this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
-                }
-            });
         }
 
         private async Task ShowEntitySecurityRoles()
@@ -567,7 +571,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
-            LoadSecurityRoles(list);
+            this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in list
+                    .OrderBy(s => s.RoleName)
+                    .ThenBy(s => s.RoleTemplateName)
+                    .ThenBy(s => s.Role.Id)
+                )
+                {
+                    entity.PropertyChanged -= Entity_PropertyChanged;
+                    entity.PropertyChanged -= Entity_PropertyChanged;
+                    entity.PropertyChanged += Entity_PropertyChanged;
+
+                    _itemsSourceSecurityRoleList.Add(entity);
+                }
+
+                if (this.lstVwSecurityRoles.Items.Count == 1)
+                {
+                    this.lstVwSecurityRoles.SelectedItem = this.lstVwSecurityRoles.Items[0];
+                }
+                else
+                {
+                    var role = list.FirstOrDefault(e => string.Equals(e.RoleName, textName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (role != null)
+                    {
+                        this.lstVwSecurityRoles.SelectedItem = role;
+                    }
+                }
+            });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntityPrivilegesCompletedFormat1, list.Count());
         }
@@ -625,30 +657,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 menuSetPrivilege.IsEnabled = _menuItemsSetPrivileges.Values.Any(m => m.IsEnabled);
-            });
-        }
-
-        private void LoadSecurityRoles(IEnumerable<RoleEntityPrivilegesViewItem> results)
-        {
-            this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results
-                    .OrderBy(s => s.RoleName)
-                    .ThenBy(s => s.RoleTemplateName)
-                    .ThenBy(s => s.Role.Id)
-                )
-                {
-                    entity.PropertyChanged -= Entity_PropertyChanged;
-                    entity.PropertyChanged -= Entity_PropertyChanged;
-                    entity.PropertyChanged += Entity_PropertyChanged;
-
-                    _itemsSourceSecurityRoleList.Add(entity);
-                }
-
-                if (this.lstVwSecurityRoles.Items.Count == 1)
-                {
-                    this.lstVwSecurityRoles.SelectedItem = this.lstVwSecurityRoles.Items[0];
-                }
             });
         }
 

@@ -269,7 +269,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterEntityList(list, textName, selectedTab);
 
-            LoadEntities(list);
+            this.lstVwEntities.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in list.OrderBy(s => s.LogicalName))
+                {
+                    _itemsSourceEntityList.Add(entity);
+                }
+
+                if (this.lstVwEntities.Items.Count == 1)
+                {
+                    this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
+                }
+                else
+                {
+                    var entity = list.FirstOrDefault(e => string.Equals(e.LogicalName, textName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (entity != null)
+                    {
+                        this.lstVwEntities.SelectedItem = entity;
+                    }
+                }
+            });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
 
@@ -322,22 +342,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return list;
-        }
-
-        private void LoadEntities(IEnumerable<EntityMetadataAuditViewItem> results)
-        {
-            this.lstVwEntities.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results.OrderBy(s => s.LogicalName))
-                {
-                    _itemsSourceEntityList.Add(entity);
-                }
-
-                if (this.lstVwEntities.Items.Count == 1)
-                {
-                    this.lstVwEntities.SelectedItem = this.lstVwEntities.Items[0];
-                }
-            });
         }
 
         private async Task ShowExistingAttributes()
@@ -423,7 +427,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             list = FilterAttributeList(list, textName);
 
-            LoadAttributes(list);
+            this.lstVwAttributes.Dispatcher.Invoke(() =>
+            {
+                foreach (var entityAttribute in list.OrderBy(s => s.LogicalName))
+                {
+                    _itemsSourceAttributeList.Add(entityAttribute);
+                }
+
+                if (this.lstVwAttributes.Items.Count == 1)
+                {
+                    this.lstVwAttributes.SelectedItem = this.lstVwAttributes.Items[0];
+                }
+                else
+                {
+                    var entityAttribute = list.FirstOrDefault(e => string.Equals(e.LogicalName, textName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (entityAttribute != null)
+                    {
+                        this.lstVwAttributes.SelectedItem = entityAttribute;
+                    }
+                }
+            });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingAttributesCompletedFormat1, list.Count());
         }
@@ -485,23 +509,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             return list;
         }
-
-        private void LoadAttributes(IEnumerable<AttributeMetadataViewItem> results)
-        {
-            this.lstVwAttributes.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results.OrderBy(s => s.LogicalName))
-                {
-                    _itemsSourceAttributeList.Add(entity);
-                }
-
-                if (this.lstVwAttributes.Items.Count == 1)
-                {
-                    this.lstVwAttributes.SelectedItem = this.lstVwAttributes.Items[0];
-                }
-            });
-        }
-
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {

@@ -257,6 +257,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this.lstVwOtherPrivileges.SelectedItem = this.lstVwOtherPrivileges.Items[0];
                 }
+                else
+                {
+                    var otherPriv = listOtherPrivileges.FirstOrDefault(e => string.Equals(e.Name, textName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (otherPriv != null)
+                    {
+                        this.lstVwOtherPrivileges.SelectedItem = otherPriv;
+                    }
+                }
             });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingOtherPrivilegesCompletedFormat1, listOtherPrivileges.Count());
