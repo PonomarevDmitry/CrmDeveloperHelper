@@ -2776,6 +2776,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var repositoryPublisher = new PublisherRepository(service);
+
+            var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
+
             var newSolution = new Solution()
             {
                 FriendlyName = string.Empty,
@@ -2783,6 +2787,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Version = "1.0.0.0",
                 PublisherId = null,
             };
+
+            if (publisherDefault != null)
+            {
+                newSolution.PublisherId = new Microsoft.Xrm.Sdk.EntityReference(publisherDefault.LogicalName, publisherDefault.Id)
+                {
+                    Name = publisherDefault.FriendlyName
+                };
+            }
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Solution.EntityLogicalName, newSolution);
         }

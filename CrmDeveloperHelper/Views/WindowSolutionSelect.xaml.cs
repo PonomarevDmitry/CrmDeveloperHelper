@@ -369,9 +369,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._service.ConnectionData.OpenSolutionCreateInWeb();
         }
 
-        private void mICreateNewSolutionInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mICreateNewSolutionInEditor_Click(object sender, RoutedEventArgs e)
         {
             var commonConfig = CommonConfiguration.Get();
+
+            var repositoryPublisher = new PublisherRepository(_service);
+
+            var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
 
             var newSolution = new Solution()
             {
@@ -380,6 +384,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Version = "1.0.0.0",
                 PublisherId = null,
             };
+
+            if (publisherDefault != null)
+            {
+                newSolution.PublisherId = new Microsoft.Xrm.Sdk.EntityReference(publisherDefault.LogicalName, publisherDefault.Id)
+                {
+                    Name = publisherDefault.FriendlyName
+                };
+            }
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, _service, commonConfig, Solution.EntityLogicalName, newSolution);
         }
