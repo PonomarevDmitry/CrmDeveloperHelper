@@ -1190,7 +1190,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             {
                                 name = entityIntellisenseData.EntityPrimaryNameAttribute,
                             });
+                        }
 
+                        if (entityIntellisenseData.Attributes != null)
+                        {
+                            if (entityIntellisenseData.Attributes.ContainsKey("statecode"))
+                            {
+                                fetchContent.Add(new FetchAttributeType()
+                                {
+                                    name = "statecode",
+                                });
+                            }
+
+                            if (entityIntellisenseData.Attributes.ContainsKey("statuscode"))
+                            {
+                                fetchContent.Add(new FetchAttributeType()
+                                {
+                                    name = "statuscode",
+                                });
+                            }
+
+                            if (entityIntellisenseData.Attributes.ContainsKey("ownerid"))
+                            {
+                                fetchContent.Add(new FetchAttributeType()
+                                {
+                                    name = "ownerid",
+                                });
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(entityIntellisenseData.EntityPrimaryNameAttribute))
+                        {
                             fetchContent.Add(new FetchOrderType()
                             {
                                 attribute = entityIntellisenseData.EntityPrimaryNameAttribute,
