@@ -312,7 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 selection = GetSelectedText();
             }
 
-            HandleExportGlobalOptionSets(connectionData, selection, null);
+            HandleExportGlobalOptionSets(connectionData, selection, selectedItem);
         }
 
         public void HandleExportGlobalOptionSets(ConnectionData connectionData, string selection, EnvDTE.SelectedItem selectedItem)
