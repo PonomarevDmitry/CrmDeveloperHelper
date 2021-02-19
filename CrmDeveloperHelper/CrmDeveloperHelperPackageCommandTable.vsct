@@ -6838,7 +6838,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicSolutionLastSelectedCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6849,7 +6849,7 @@
           <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicSolutionLastSelectedCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6860,7 +6860,7 @@
           <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicSolutionLastSelectedCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -23597,7 +23597,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicSolutionLastSelectedCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" />
     </CommandPlacement>
 
@@ -23613,7 +23613,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicSolutionLastSelectedCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" />
     </CommandPlacement>
 
@@ -23629,7 +23629,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicSolutionLastSelectedCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn_Group" />
     </CommandPlacement>
 
@@ -29760,6 +29760,10 @@
 
       <IDSymbol name="CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId" value="400" />
 
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" value="1400" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" value="1425" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" value="1450" />
+
       <!-- #endregion CodeJavaScript Commands Dynamic Definitions -->
 
       <!-- #region CodeReport Commands Dynamic Definitions -->
@@ -30245,10 +30249,6 @@
       <IDSymbol name="CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId" value="13100" />
       <IDSymbol name="CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId" value="13150" />
       <IDSymbol name="CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="13200" />
-
-      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" value="13250" />
-      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" value="13300" />
-      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" value="13350" />
 
       <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeSubcomponentsCommandId" value="13400" />
       <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionInConnectionDoNotIncludeSubcomponentsCommandId" value="13450" />
@@ -31543,8 +31543,9 @@
     <!-- 0x2295 -->
 
     <!-- Commands Dynamic -->
-    <!-- 21150 -->
-
+    <!-- guidDynamicCommandSet 21150 -->
+    <!-- guidDynamicSolutionLastSelectedCommandSet 1450 -->
+    
     <!-- 16905 - 16950 -->
 
   </Symbols>

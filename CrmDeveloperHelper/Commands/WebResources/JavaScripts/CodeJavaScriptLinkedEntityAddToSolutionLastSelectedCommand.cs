@@ -24,19 +24,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
         {
             InstanceIncludeSubcomponents = new CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId
+                , PackageIds.guidDynamicSolutionLastSelectedCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId
                 , SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
             );
 
             InstanceDoNotIncludeSubcomponents = new CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId
+                , PackageIds.guidDynamicSolutionLastSelectedCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId
                 , SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1
             );
 
             InstanceIncludeAsShellOnly = new CodeJavaScriptLinkedEntityAddToSolutionLastSelectedCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId
+                , PackageIds.guidDynamicSolutionLastSelectedCommandSet.CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId
                 , SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2
             );
         }

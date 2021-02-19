@@ -2942,6 +2942,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedGlobalOptionSetAddToSolutionLastSelectedCommandId = 0x0190;
 
+            public const int CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId = 0x0578;
+
+            public const int CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId = 0x0591;
+
+            public const int CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId = 0x05AA;
+
             public const int CodeReportAddToSolutionLastSelectedCommandId = 0x01A9;
 
             public const int CodeCSharpProjectPluginAssemblyAddToSolutionLastSelectedCommandId = 0x01C2;
@@ -3376,12 +3382,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId = 0x335E;
 
             public const int CodeJavaScriptLinkedEntityOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x3390;
-
-            public const int CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId = 0x33C2;
-
-            public const int CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId = 0x33F4;
-
-            public const int CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId = 0x3426;
 
             public const int CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeSubcomponentsCommandId = 0x3458;
 
