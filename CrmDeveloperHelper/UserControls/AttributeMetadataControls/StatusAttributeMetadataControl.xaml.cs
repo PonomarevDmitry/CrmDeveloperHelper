@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -64,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             ComboBoxItem currentItem = null;
 
-            var statusOptionSetOptions = AttributeMetadata.OptionSet.Options.OfType<StatusOptionMetadata>();
+            IEnumerable<StatusOptionMetadata> statusOptionSetOptions = AttributeMetadata.OptionSet.Options.OfType<StatusOptionMetadata>();
 
             if (_initialValueStatus.HasValue && !statusOptionSetOptions.Any(o => o.Value == _initialValueStatus.Value))
             {
@@ -91,7 +92,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 cmBValue.Items.Add(currentItem);
             }
 
-            statusOptionSetOptions = AttributeMetadata.OptionSet.Options.OfType<StatusOptionMetadata>().Where(o => o.State == _initialValueState);
+            if (_initialValueState.HasValue)
+            {
+                statusOptionSetOptions = AttributeMetadata.OptionSet.Options.OfType<StatusOptionMetadata>().Where(o => o.State == _initialValueState.Value);
+            }
 
             foreach (var item in statusOptionSetOptions.OfType<StatusOptionMetadata>().OrderBy(o => o.Value))
             {
