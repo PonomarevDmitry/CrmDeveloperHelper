@@ -240,6 +240,12 @@
     <value>Include References from JavaScript to Linked SystemForms Libraries and Publish Forms {0} files on
 {1}?</value>
   </data>
+  <data name="PublishSystemFormFormat2" xml:space="preserve">
+    <value>Publish Form
+{0}
+on
+{1}?</value>
+  </data>
   <data name="CannotParseGuid" xml:space="preserve">
     <value>Cannot parse text to valid Guid.</value>
   </data>
@@ -362,6 +368,46 @@
 
   <data name="ConfirmPublishSystemForm" xml:space="preserve">
     <value>Confirm Publish SystemForm</value>
+  </data>
+
+  <data name="ConfirmPublishWorkflow" xml:space="preserve">
+    <value>Confirm Publish Workflow</value>
+  </data>
+  <data name="PublishWorkflowFormat2" xml:space="preserve">
+    <value>Publish Workflow
+{0}
+on
+{1}?</value>
+  </data>
+
+  <data name="ConfirmPublishWebResourceDependencyXml" xml:space="preserve">
+    <value>Confirm Publish WebResource DependencyXml</value>
+  </data>
+  <data name="PublishWebResourceDependencyXmlFormat2" xml:space="preserve">
+    <value>Publish WebResource DependencyXml
+{0}
+on
+{1}?</value>
+  </data>
+
+  <data name="ConfirmPublishSiteMap" xml:space="preserve">
+    <value>Confirm Publish SiteMap</value>
+  </data>
+  <data name="PublishSiteMapFormat2" xml:space="preserve">
+    <value>Publish SiteMap
+{0}
+on
+{1}?</value>
+  </data>
+
+  <data name="ConfirmPublishSavedQuery" xml:space="preserve">
+    <value>Confirm Publish SavedQuery</value>
+  </data>
+  <data name="PublishSavedQueryFormat2" xml:space="preserve">
+    <value>Publish SavedQuery
+{0}
+on
+{1}?</value>
   </data>
 
   <data name="ConfirmGettingWebResourcesContent" xml:space="preserve">

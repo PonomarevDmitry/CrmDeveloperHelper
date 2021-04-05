@@ -33,7 +33,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSavedQueryUpdate(conn, commonConfig, selectedFile));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishSavedQueryFormat2, selectedFile.FilePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishSavedQuery;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartSavedQueryUpdate(conn, commonConfig, selectedFile));
         }
 
         public void HandleSavedQueryUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
@@ -43,7 +46,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSavedQueryUpdate(conn, commonConfig, doc, filePath));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishSavedQueryFormat2, filePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishSavedQuery;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartSavedQueryUpdate(conn, commonConfig, doc, filePath));
         }
 
         public void HandleSavedQueryOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)

@@ -36,7 +36,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSiteMapUpdate(conn, commonConfig, selectedFile));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishSiteMapFormat2, selectedFile.FilePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishSiteMap;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartSiteMapUpdate(conn, commonConfig, selectedFile));
         }
 
         public void HandleSiteMapUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
@@ -46,7 +49,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSiteMapUpdate(conn, commonConfig, doc, filePath));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishSiteMapFormat2, filePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishSiteMap;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartSiteMapUpdate(conn, commonConfig, doc, filePath));
         }
 
         public void HandleSiteMapOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)

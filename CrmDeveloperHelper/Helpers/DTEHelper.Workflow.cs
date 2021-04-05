@@ -34,7 +34,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWorkflowUpdate(conn, commonConfig, selectedFile));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishWorkflowFormat2, selectedFile.FilePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWorkflow;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartWorkflowUpdate(conn, commonConfig, selectedFile));
         }
 
         public void HandleWorkflowUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
@@ -44,7 +47,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWorkflowUpdate(conn, commonConfig, doc, filePath));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishWorkflowFormat2, filePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWorkflow;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartWorkflowUpdate(conn, commonConfig, doc, filePath));
         }
 
         public void HandleWorkflowOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)

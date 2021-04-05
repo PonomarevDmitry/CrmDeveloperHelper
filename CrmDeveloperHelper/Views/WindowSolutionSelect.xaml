@@ -11,17 +11,17 @@
     <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu">
-                <MenuItem Header="Select Solution" VerticalAlignment="Center" Click="btnSelectSolution_Click"/>
+                <MenuItem Header="Select Solution" VerticalAlignment="Center" Click="btnSelectSolution_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Components in Explorer" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click"/>
+                <MenuItem Header="Open Components in Explorer" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open in Browser" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
+                <MenuItem Header="Open in Browser" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Solution List in Browser" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
@@ -30,7 +30,7 @@
                 <MenuItem Header="Open Customization in Browser" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click"/>
+                <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click" />
 
                 <Separator/>
                 <MenuItem Header="Create New Solution in Browser" VerticalAlignment="Center" Click="mICreateNewSolutionInBrowser_Click" />
@@ -66,12 +66,12 @@
         <DataGrid x:Name="lstVwSolutions" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -100,15 +100,17 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnSelectLastSolution1" Grid.Column="0" Content="Select Last Solution" IsEnabled="False" Visibility="Visible" Click="btnSelectLastSolution_Click"/>
+            <Button x:Name="btnSelectLastSolution1" Grid.Column="0" Content="Select Last Solution" IsEnabled="False" Visibility="Visible" Click="btnSelectLastSolution_Click" />
+            
             <ComboBox x:Name="cmBLastSelectedSolution" Grid.Column="1" IsTabStop="True" ItemsSource="{Binding Path=LastSelectedSolutionsUniqueName}" SelectionChanged="cmBLastSelectedSolution_SelectionChanged" />
-            <Button x:Name="btnSelectLastSolution2" Grid.Column="2" Content="Select Last Solution" IsEnabled="False" Visibility="Visible" Click="btnSelectLastSolution_Click"/>
+            
+            <Button x:Name="btnSelectLastSolution2" Grid.Column="2" Content="Select Last Solution" IsEnabled="False" Visibility="Visible" Click="btnSelectLastSolution_Click" />
         </Grid>
 
         <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -121,13 +123,13 @@
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
                     <Button x:Name="btnSelectSolution" Content="Select Solution" Click="btnSelectSolution_Click" />
 
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Button x:Name="btnOpenSolutionInWeb" Content="Open in Browser" Click="btnOpenSolutionInWeb_Click" />
 
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Button Content="Create New Solution in Browser" Click="mICreateNewSolutionInBrowser_Click" />
 
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Button Content="Create New Solution in Editor" Click="mICreateNewSolutionInEditor_Click" />
 
                     <Separator x:Name="sepForAllOther" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" Visibility="Collapsed" IsEnabled="False" />
@@ -135,14 +137,16 @@
 
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="4" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center" />
+            
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
     </Grid>
 </src:WindowWithSingleConnection>

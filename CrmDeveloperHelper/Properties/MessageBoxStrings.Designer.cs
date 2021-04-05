@@ -217,6 +217,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish SavedQuery.
+        /// </summary>
+        internal static string ConfirmPublishSavedQuery {
+            get {
+                return ResourceManager.GetString("ConfirmPublishSavedQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish SiteMap.
+        /// </summary>
+        internal static string ConfirmPublishSiteMap {
+            get {
+                return ResourceManager.GetString("ConfirmPublishSiteMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Publish SystemForm.
         /// </summary>
         internal static string ConfirmPublishSystemForm {
@@ -226,11 +244,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish WebResource DependencyXml.
+        /// </summary>
+        internal static string ConfirmPublishWebResourceDependencyXml {
+            get {
+                return ResourceManager.GetString("ConfirmPublishWebResourceDependencyXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Publish WebResources.
         /// </summary>
         internal static string ConfirmPublishWebResources {
             get {
                 return ResourceManager.GetString("ConfirmPublishWebResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Publish Workflow.
+        /// </summary>
+        internal static string ConfirmPublishWorkflow {
+            get {
+                return ResourceManager.GetString("ConfirmPublishWorkflow", resourceCulture);
             }
         }
         
@@ -610,6 +646,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish SavedQuery
+        ///{0}
+        ///on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishSavedQueryFormat2 {
+            get {
+                return ResourceManager.GetString("PublishSavedQueryFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish SiteMap
+        ///{0}
+        ///on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishSiteMapFormat2 {
+            get {
+                return ResourceManager.GetString("PublishSiteMapFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish Form
+        ///{0}
+        ///on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishSystemFormFormat2 {
+            get {
+                return ResourceManager.GetString("PublishSystemFormFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish WebResource DependencyXml
+        ///{0}
+        ///on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishWebResourceDependencyXmlFormat2 {
+            get {
+                return ResourceManager.GetString("PublishWebResourceDependencyXmlFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seach Equal by Text WebResources among {0} files, Update Content and Publish on
         ///{1}?.
         /// </summary>
@@ -626,6 +710,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishWebResourcesFormat2 {
             get {
                 return ResourceManager.GetString("PublishWebResourcesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish Workflow
+        ///{0}
+        ///on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishWorkflowFormat2 {
+            get {
+                return ResourceManager.GetString("PublishWorkflowFormat2", resourceCulture);
             }
         }
         

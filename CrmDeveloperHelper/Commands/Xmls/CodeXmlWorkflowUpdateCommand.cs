@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -42,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (attribute == null
                 || !Guid.TryParse(attribute.Value, out _)
-                )
+            )
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }

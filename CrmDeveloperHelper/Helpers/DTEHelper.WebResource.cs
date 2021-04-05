@@ -590,7 +590,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, selectedFile));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishWebResourceDependencyXmlFormat2, selectedFile.FilePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWebResourceDependencyXml;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, selectedFile));
         }
 
         public void HandleWebResourceDependencyXmlUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
@@ -600,7 +603,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, doc, filePath));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishWebResourceDependencyXmlFormat2, filePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishWebResourceDependencyXml;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, doc, filePath));
         }
 
         public void HandleWebResourceDependencyXmlOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)

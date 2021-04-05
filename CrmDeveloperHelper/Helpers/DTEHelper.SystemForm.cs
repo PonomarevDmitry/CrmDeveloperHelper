@@ -35,7 +35,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormUpdate(conn, commonConfig, selectedFile));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishSystemFormFormat2, selectedFile.FilePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishSystemForm;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartSystemFormUpdate(conn, commonConfig, selectedFile));
         }
 
         public void HandleSystemFormUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
@@ -45,7 +48,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormUpdate(conn, commonConfig, doc, filePath));
+            Func<ConnectionData, string> message = (conn) => string.Format(Properties.MessageBoxStrings.PublishSystemFormFormat2, filePath, conn.GetDescriptionColumn());
+            string title = Properties.MessageBoxStrings.ConfirmPublishSystemForm;
+
+            GetConnectionConfigConfirmActionAndExecute(connectionData, message, title, (conn, commonConfig) => Controller.StartSystemFormUpdate(conn, commonConfig, doc, filePath));
         }
 
         public void HandleSystemFormOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
