@@ -20,16 +20,16 @@
             </StackPanel>
         </GroupBox>
 
-        <CheckBox x:Name="chBSortRibbonCommandsAndRulesById" IsChecked="{Binding Path=SortRibbonCommandsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" Margin="5"/>
-        <CheckBox x:Name="chBSortFormXmlElements" IsChecked="{Binding Path=SortFormXmlElements}" Content="Sort FormXml Elements" Margin="5"/>
-        <CheckBox x:Name="chBSortXmlAttributes" IsChecked="{Binding Path=SortXmlAttributes}" Content="Sort Xml Attributes" Margin="5"/>
+        <CheckBox x:Name="chBSortRibbonCommandsAndRulesById" IsChecked="{Binding Path=SortRibbonCommandsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" Margin="5" />
+        <CheckBox x:Name="chBSortFormXmlElements" IsChecked="{Binding Path=SortFormXmlElements}" Content="Sort FormXml Elements" Margin="5" />
+        <CheckBox x:Name="chBSortXmlAttributes" IsChecked="{Binding Path=SortXmlAttributes}" Content="Sort Xml Attributes" Margin="5" />
         
-        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" Margin="5"/>
-        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" Margin="5"/>
-        <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding Path=SetIntellisenseContext}" Content="Set Intellisense Context" Margin="5"/>
+        <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" Margin="5" />
+        <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" Margin="5" />
+        <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding Path=SetIntellisenseContext}" Content="Set Intellisense Context" Margin="5" />
 
-        <CheckBox x:Name="chBSolutionComponentWithManagedInfo" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="SolutionComponent with ManagedInfo" Margin="5"/>
-        <CheckBox x:Name="chBSolutionComponentWithSolutionInfo" IsChecked="{Binding Path=SolutionComponentWithSolutionInfo}" Content="SolutionComponent with SolutionInfo" Margin="5"/>
-        <CheckBox x:Name="chBSolutionComponentWithUrl" IsChecked="{Binding Path=SolutionComponentWithUrl}" Content="SolutionComponent with Url" Margin="5"/>
+        <CheckBox x:Name="chBSolutionComponentWithManagedInfo" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="SolutionComponent with ManagedInfo" Margin="5" />
+        <CheckBox x:Name="chBSolutionComponentWithSolutionInfo" IsChecked="{Binding Path=SolutionComponentWithSolutionInfo}" Content="SolutionComponent with SolutionInfo" Margin="5" />
+        <CheckBox x:Name="chBSolutionComponentWithUrl" IsChecked="{Binding Path=SolutionComponentWithUrl}" Content="SolutionComponent with Url" Margin="5" />
     </StackPanel>
 </UserControl>

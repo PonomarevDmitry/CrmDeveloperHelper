@@ -9,7 +9,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImageCss" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_css.ico" />
@@ -35,10 +35,10 @@
                 <MenuItem Header="Content" Click="mIOpenContent_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
-                <MenuItem Header="Change WebResource in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change WebResource in Editor" Click="mIChangeEntityInEditor_Click" />
                 <MenuItem Header="Delete WebResource" Click="mIDeleteWebResource_Click" />
 
                 <Separator/>
@@ -49,7 +49,7 @@
                 <MenuItem Header="Content Json" Click="mIExportWebResourceContentJson_Click" />
                 <MenuItem Header="Dependency Xml" Click="mIExportWebResourceDependencyXml_Click" />
 
-                <Separator x:Uid="controlChangeEntityAttribute"/>
+                <Separator x:Uid="controlChangeEntityAttribute" />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute">
                     <MenuItem Header="Content" Click="mIUpdateWebResourceContent_Click" />
                     <MenuItem Header="Content from File" Click="mIUpdateWebResourceContentFromFile_Click" />
@@ -58,7 +58,7 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Publish WebResource" Click="btnPublishWebResource_Click"/>
+                <MenuItem Header="Publish WebResource" Click="btnPublishWebResource_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -74,7 +74,7 @@
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
                 <Separator/>
-                <MenuItem Header="Export All WebResource Information" Click="btnExportAll_Click"/>
+                <MenuItem Header="Export All WebResource Information" Click="btnExportAll_Click" />
 
             </ContextMenu>
 
@@ -110,7 +110,7 @@
 
         <TextBox x:Name="txtBCurrentFile" Grid.Row="1" Margin="5" Height="50" TextWrapping="Wrap" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
-        <GridSplitter Grid.Row="2" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="2" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
 
         <Grid Grid.Row="3" Margin="5">
             <Grid.ColumnDefinitions>
@@ -182,13 +182,13 @@
 
             <Label Grid.Column="0">
                 <Hyperlink x:Name="hypLinkExpandAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkExpandAll_RequestNavigate">
-                    <Run Text="Expand All"/>
+                    <Run Text="Expand All" />
                 </Hyperlink>
             </Label>
 
             <Label Grid.Column="2">
                 <Hyperlink x:Name="hypLinkCollapseAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkCollapseAll_RequestNavigate" >
-                    <Run Text="Collapse All"/>
+                    <Run Text="Collapse All" />
                 </Hyperlink>
             </Label>
         </Grid>
@@ -215,7 +215,7 @@
                 <Style TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
@@ -237,7 +237,7 @@
         <ToolBar Grid.Row="7">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
 
@@ -251,25 +251,25 @@
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
                     <Button x:Name="btnSelectWebResource" Content="Select WebResource" Click="btnSelectWebResource_Click" />
 
-                    <Separator x:Name="sepCreateNewWebResource" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
-                    <Button x:Name="btnCreateNewWebResource" Content="Create New WebResource" IsEnabled="False" Visibility="Collapsed" Click="btnCreateNewWebResource_Click"/>
+                    <Separator x:Name="sepCreateNewWebResource" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed" />
+                    <Button x:Name="btnCreateNewWebResource" Content="Create New WebResource" IsEnabled="False" Visibility="Collapsed" Click="btnCreateNewWebResource_Click" />
 
-                    <Separator x:Name="sepLastLink" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
-                    <Button x:Name="btnSelectLastLink" Content="Select Last Link" IsEnabled="False" Visibility="Collapsed" Click="btnSelectLastLink_Click"/>
+                    <Separator x:Name="sepLastLink" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed" />
+                    <Button x:Name="btnSelectLastLink" Content="Select Last Link" IsEnabled="False" Visibility="Collapsed" Click="btnSelectLastLink_Click" />
                 </ToolBarPanel>
 
-                <Button Content="Cancel" Click="Button_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Cancel" Click="Button_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" />
 
                 <Separator x:Name="sepSkipFile" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" />
-                <Button x:Name="btnSkipFile" Content="Skip File" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" Click="btnSkipFile_Click"/>
+                <Button x:Name="btnSkipFile" Content="Skip File" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" Click="btnSkipFile_Click" />
 
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="8">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
     </Grid>
 </src:WindowWithSingleConnection>

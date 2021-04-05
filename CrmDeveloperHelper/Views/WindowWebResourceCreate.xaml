@@ -7,7 +7,7 @@
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             
@@ -71,8 +71,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnCreate" Content="Create" Click="btnCreate_Click" Grid.Column="1"/>
-            <Button x:Name="btnCancel" Content="Cancel" Click="btnCancel_Click" Grid.Column="3"/>
+            <Button x:Name="btnCreate" Content="Create" Click="btnCreate_Click" Grid.Column="1" />
+            <Button x:Name="btnCancel" Content="Cancel" Click="btnCancel_Click" Grid.Column="3" />
         </Grid>
         
     </Grid>

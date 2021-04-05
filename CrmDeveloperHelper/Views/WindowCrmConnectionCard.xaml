@@ -7,7 +7,7 @@
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
@@ -27,8 +27,8 @@
                     
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type TextBox}">
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
                         </Style>
                     </StackPanel.Resources>
 
@@ -48,7 +48,7 @@
                         <CheckBox Grid.Column="1" Grid.Row="0" x:Name="chBIsReadOnly" Content="Is Read Only" HorizontalAlignment="Center" />
                         <CheckBox Grid.Column="2" Grid.Row="0" x:Name="chBIsWriteConnectionPoolActionsToOutput" Content="Write ConnectionPool Actions to Output" HorizontalAlignment="Center" />
 
-                        <TextBox x:Name="txtBName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"/>
+                        <TextBox x:Name="txtBName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" />
 
                     </Grid>
 
@@ -76,7 +76,7 @@
                         <Label Content="Discovery Service Url" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
                         
                         <TextBox Grid.Column="0" Grid.Row="1" x:Name="txtBDiscoveryUrl" />
-                        <Button Grid.Column="1" Grid.Row="1" x:Name="btnTemplateDiscovery" Content="Create" Click="btnTemplateDiscovery_Click" IsTabStop="False"/>
+                        <Button Grid.Column="1" Grid.Row="1" x:Name="btnTemplateDiscovery" Content="Create" Click="btnTemplateDiscovery_Click" IsTabStop="False" />
                     </Grid>
 
                     <Grid Margin="5">
@@ -103,7 +103,7 @@
                         <Label Content="Organization Service Url" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
 
                         <TextBox Grid.Column="0" Grid.Row="1" x:Name="txtBOrganizationServiceUrl" />
-                        <Button Grid.Column="1" Grid.Row="1" x:Name="btnTemplateOrganization" Content="Create" Click="btnTemplateOrganization_Click" IsTabStop="False"/>
+                        <Button Grid.Column="1" Grid.Row="1" x:Name="btnTemplateOrganization" Content="Create" Click="btnTemplateOrganization_Click" IsTabStop="False" />
                     </Grid>
 
                     <Grid Margin="5">
@@ -135,7 +135,7 @@
 
                         <Label Grid.Column="0" Grid.Row="0" Content="User for CRM Connection. If empty, Current Windows User Credentials will be used." />
 
-                        <ComboBox Grid.Column="0" Grid.Row="1" x:Name="cmBUser" IsReadOnly="True" SelectionChanged="cmBUser_SelectionChanged"/>
+                        <ComboBox Grid.Column="0" Grid.Row="1" x:Name="cmBUser" IsReadOnly="True" SelectionChanged="cmBUser_SelectionChanged" />
                         <Button Grid.Column="1" Grid.Row="1" x:Name="btnNewUser" Content="New" Click="btnNewUser_Click" />
                         <Button Grid.Column="2" Grid.Row="1" x:Name="btnEditUser" Content="Edit" Click="btnEditUser_Click" />
                     </Grid>
@@ -162,65 +162,65 @@
                 <Grid Margin="5">
                     <Grid.Resources>
                         <Style TargetType="{x:Type TextBox}">
-                            <Setter Property="IsReadOnly" Value="True"/>
-                            <Setter Property="IsTabStop" Value="True"/>
-                            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            <Setter Property="Margin" Value="5"/>
-                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="IsReadOnly" Value="True" />
+                            <Setter Property="IsTabStop" Value="True" />
+                            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="Padding" Value="5" />
                         </Style>
                         <Style TargetType="{x:Type Label}">
-                            <Setter Property="HorizontalAlignment" Value="Left"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            <Setter Property="Margin" Value="5"/>
-                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="Padding" Value="5" />
                         </Style>
                     </Grid.Resources>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="100*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="100*" />
                     </Grid.RowDefinitions>
 
                     <Label Content="Version" Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="txtBVersion" Grid.Row="0" Grid.Column="1"  />
 
-                    <Label Content="FriendlyName" Grid.Row="1" Grid.Column="0"/>
+                    <Label Content="FriendlyName" Grid.Row="1" Grid.Column="0" />
                     <TextBox x:Name="txtBFriendlyName" Grid.Row="1" Grid.Column="1" />
 
-                    <Label Content="OrganizationId" Grid.Row="2" Grid.Column="0"/>
+                    <Label Content="OrganizationId" Grid.Row="2" Grid.Column="0" />
                     <TextBox x:Name="txtBOrganizationId" Grid.Row="2" Grid.Column="1" />
 
-                    <Label Content="OrganizationState" Grid.Row="3" Grid.Column="0"/>
+                    <Label Content="OrganizationState" Grid.Row="3" Grid.Column="0" />
                     <TextBox x:Name="txtBOrganizationState" Grid.Row="3" Grid.Column="1" />
 
-                    <Label Content="UrlName" Grid.Row="4" Grid.Column="0"/>
+                    <Label Content="UrlName" Grid.Row="4" Grid.Column="0" />
                     <TextBox x:Name="txtBUrlName" Grid.Row="4" Grid.Column="1" />
 
-                    <Label Content="Base Currency" Grid.Row="5" Grid.Column="0"/>
+                    <Label Content="Base Currency" Grid.Row="5" Grid.Column="0" />
                     <TextBox x:Name="txtBBaseCurrency" Grid.Row="5" Grid.Column="1" />
 
-                    <Label Content="Default Language" Grid.Row="6" Grid.Column="0"/>
+                    <Label Content="Default Language" Grid.Row="6" Grid.Column="0" />
                     <TextBox x:Name="txtBDefaultLanguage" Grid.Row="6" Grid.Column="1" />
 
-                    <Label Content="Installed LanguagePacks" Grid.Row="7" Grid.Column="0"/>
+                    <Label Content="Installed LanguagePacks" Grid.Row="7" Grid.Column="0" />
                     <TextBox x:Name="txtBInstalledLanguagePacks" Grid.Row="7" Grid.Column="1" />
                 </Grid>
             </TabItem>
@@ -238,7 +238,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="btnTestConnection" Content="Test Connection" Click="btnTestConnection_Click"/>
+            <Button Grid.Column="0" x:Name="btnTestConnection" Content="Test Connection" Click="btnTestConnection_Click" />
 
             <Button Grid.Column="2" x:Name="btnSave" Content="Save" Click="btnSave_Click" />
 
@@ -248,7 +248,7 @@
 
         <StatusBar Grid.Row="2">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <StatusBarItem x:Name="stBIStatus" Content=""/>
+            <StatusBarItem x:Name="stBIStatus" Content="" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

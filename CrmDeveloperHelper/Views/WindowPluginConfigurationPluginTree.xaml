@@ -21,36 +21,36 @@
         <BitmapImage x:Key="ImageStepDisabled" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/stepdisabled.gif" />
     </src:WindowWithConnectionList.Resources>
     <Grid>
-        <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+        <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="txtBFilePath" VerticalContentAlignment="Center" Height="23" Margin="10,26,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         <Grid Margin="10,54,10,0" VerticalAlignment="Top">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Label Content="Entity Name" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"/>
+            <Label Content="Entity Name" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" />
             <TextBox x:Name="txtBEntityName" Height="23" VerticalContentAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" />
-            <Label Content="Plugin Name" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center"/>
+            <Label Content="Plugin Name" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center" />
             <TextBox x:Name="txtBPluginTypeFilter" Height="23" VerticalContentAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" />
-            <Label Content="Message" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" VerticalContentAlignment="Center"/>
+            <Label Content="Message" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" VerticalContentAlignment="Center" />
             <TextBox x:Name="txtBMessageFilter" Height="23" VerticalContentAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" KeyDown="txtBFilter_KeyDown" />
         </Grid>
         <Grid HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <CheckBox x:Name="chBStagePreValidation" Grid.Column="0" Grid.Row="0" Content="10 - Pre Validation" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
             <CheckBox x:Name="chBStagePre" Grid.Column="1" Grid.Row="0" Content="20 - Pre" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
@@ -62,7 +62,7 @@
                 <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
                     <ToolBar.Resources>
                         <Style TargetType="{x:Type ToolBarPanel}">
-                            <Setter Property="Orientation" Value="Vertical"/>
+                            <Setter Property="Orientation" Value="Vertical" />
                         </Style>
                     </ToolBar.Resources>
                     <DockPanel LastChildFill="False">
@@ -87,9 +87,9 @@
                         <ToolBarPanel Orientation="Horizontal">
                             <Menu x:Name="menuView" IsEnabled="False">
                                 <MenuItem Header="View" HorizontalAlignment="Left" >
-                                    <RadioButton x:Name="rBViewByEntity" GroupName="View" Content="Display By Entity" IsChecked="True" Checked="rBViewByEntity_Checked"/>
-                                    <RadioButton x:Name="rBViewByAssembly" GroupName="View" Content="Display By Assembly" Checked="rBViewByAssembly_Checked"/>
-                                    <RadioButton x:Name="rBViewByMessage" GroupName="View" Content="Display By Message" Checked="rBViewByMessage_Checked"/>
+                                    <RadioButton x:Name="rBViewByEntity" GroupName="View" Content="Display By Entity" IsChecked="True" Checked="rBViewByEntity_Checked" />
+                                    <RadioButton x:Name="rBViewByAssembly" GroupName="View" Content="Display By Assembly" Checked="rBViewByAssembly_Checked" />
+                                    <RadioButton x:Name="rBViewByMessage" GroupName="View" Content="Display By Message" Checked="rBViewByMessage_Checked" />
                                 </MenuItem>
                             </Menu>
                             <Button x:Name="tSBCreateDescription" HorizontalAlignment="Left" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False" />
@@ -126,7 +126,7 @@
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -141,18 +141,18 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="tSBLoadPluginConfiguraion" HorizontalAlignment="Left" Content="Load Plugin Configuration" Click="tSBLoadPluginConfiguraion_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" SelectedIndex="0" Width="260" VerticalContentAlignment="Center" VerticalAlignment="Stretch" />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center" />
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
 
     </Grid>

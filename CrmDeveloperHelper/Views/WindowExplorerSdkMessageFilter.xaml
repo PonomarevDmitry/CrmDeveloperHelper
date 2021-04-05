@@ -13,12 +13,12 @@
     <src:WindowWithSolutionComponentDescriptor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -48,7 +48,7 @@
                 <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open MessageRequest Tree" />
 
                 <Separator />
-                <MenuItem Header="Change MessageFilter in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change MessageFilter in Editor" Click="mIChangeEntityInEditor_Click" />
                 <MenuItem Header="Delete MessageFilter" Click="mIDeleteMessageFilter_Click" />
 
                 <Separator/>
@@ -117,10 +117,10 @@
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-            <Label Content="Entity Name" Grid.Row="1" Grid.Column="0"/>
+            <Label Content="Entity Name" Grid.Row="1" Grid.Column="0" />
             <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilterEnitity_KeyDown" />
 
-            <Label Content="Message" Grid.Row="1" Grid.Column="2"/>
+            <Label Content="Message" Grid.Row="1" Grid.Column="2" />
             <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilterEnitity_KeyDown" />
         </Grid>
 
@@ -130,12 +130,12 @@
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                     <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
@@ -212,7 +212,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -226,7 +226,7 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportMessageFilter" Header="Export MessageFilter Information">
 
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
                             <MenuItem x:Name="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
@@ -238,7 +238,7 @@
                             <MenuItem x:Name="mIOpenMessageRequestTree" Header="Open MessageRequest Tree" />
 
                             <Separator />
-                            <MenuItem Header="Change MessageFilter in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Change MessageFilter in Editor" Click="mIChangeEntityInEditor_Click" />
                             <MenuItem Header="Delete MessageFilter" Click="mIDeleteMessageFilter_Click" />
 
                             <Separator/>
@@ -252,16 +252,16 @@
 
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowWithSolutionComponentDescriptor>

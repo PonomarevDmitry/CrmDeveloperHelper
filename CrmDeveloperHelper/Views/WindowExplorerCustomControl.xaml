@@ -13,14 +13,14 @@
     <src:WindowWithSolutionComponentDescriptor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open CustomControl in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
+                <MenuItem Header="Open CustomControl in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -34,7 +34,7 @@
                 </MenuItem>
 
                 <Separator />
-                <MenuItem Header="Change CustomControl in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change CustomControl in Editor" Click="mIChangeEntityInEditor_Click" />
                 <MenuItem Header="Delete CustomControl" Click="mIDeleteCustomControl_Click" />
 
                 <Separator/>
@@ -65,17 +65,17 @@
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
                 <Separator/>
-                <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
+                <MenuItem Header="Export All Form Information" Click="btnExportAll_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -91,7 +91,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
@@ -128,12 +128,12 @@
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -146,7 +146,7 @@
                         <DataTemplate>
                             <Label ToolTip="Manifest" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkManifest_Click">
-                                    <Run Text="M"/>
+                                    <Run Text="M" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -161,7 +161,7 @@
                         <DataTemplate>
                             <Label ToolTip="Client Json" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkClientJson_Click">
-                                    <Run Text="CJ"/>
+                                    <Run Text="CJ" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -199,7 +199,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -215,13 +215,13 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportCustomControl" Header="Export Form Information" VerticalAlignment="Center">
-                            <MenuItem Header="Open CustomControl in Browser" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open CustomControl in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Change CustomControl in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Change CustomControl in Editor" Click="mIChangeEntityInEditor_Click" />
                             <MenuItem Header="Delete CustomControl" Click="mIDeleteCustomControl_Click" />
 
                             <Separator/>
@@ -248,14 +248,14 @@
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
         <StatusBar Grid.Row="4">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

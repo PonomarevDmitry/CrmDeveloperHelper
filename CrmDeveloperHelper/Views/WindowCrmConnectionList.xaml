@@ -6,7 +6,7 @@
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImageAdd" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Add.png" />
@@ -22,26 +22,26 @@
             <ContextMenu x:Key="listContextMenu">
                 <MenuItem Header="Test Connection" Click="tSBTestConnection_Click">
                     <MenuItem.Icon>
-                        <Image Width="16" Height="16" Source="{StaticResource ImageCheck}"/>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageCheck}" />
                     </MenuItem.Icon>
                 </MenuItem>
 
                 <Separator/>
                 <MenuItem Header="Edit" Click="tSBEdit_Click" FontWeight="Bold">
                     <MenuItem.Icon>
-                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"/>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Create Copy" Click="tSBCreateCopy_Click">
                     <MenuItem.Icon>
-                        <Image Source="{StaticResource ImageCopy}"/>
+                        <Image Source="{StaticResource ImageCopy}" />
                     </MenuItem.Icon>
                 </MenuItem>
 
                 <Separator/>
                 <MenuItem Header="Select Connection" Click="tSBSelectConnection_Click">
                     <MenuItem.Icon>
-                        <Image Width="16" Height="16" Source="{StaticResource ImageSelect}"/>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageSelect}" />
                     </MenuItem.Icon>
                 </MenuItem>
 
@@ -56,23 +56,23 @@
                 <Separator/>
                 <MenuItem Header="Move to Archive" Click="tSBMoveToArchive_Click">
                     <MenuItem.Icon>
-                        <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"/>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuArchive">
-                <MenuItem Header="Edit" Click="tSBArchiveEdit_Click" FontWeight="Bold"/>
+                <MenuItem Header="Edit" Click="tSBArchiveEdit_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Test Connection" Click="tSBArchiveTestConnection_Click"/>
+                <MenuItem Header="Test Connection" Click="tSBArchiveTestConnection_Click" />
 
                 <Separator/>
                 <MenuItem Header="Select Connection File in Folder" Click="tSBSelectConnectionFileInFolder_Click" />
                 <MenuItem Header="Copy Connection Id" Click="tSBCopyConnectionId_Click" />
 
                 <Separator/>
-                <MenuItem Header="Return To Connection List" Click="tSBArchiveReturnToConnectionList_Click"/>
+                <MenuItem Header="Return To Connection List" Click="tSBArchiveReturnToConnectionList_Click" />
             </ContextMenu>
 
             <Style x:Key="borderLime" TargetType="Border">
@@ -80,7 +80,7 @@
                     <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <SolidColorBrush Color="Lime"/>
+                                <SolidColorBrush Color="Lime" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
@@ -106,7 +106,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Content="Current Connection" />
-            <TextBox Grid.Column="1" x:Name="txtBCurrentConnection" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+            <TextBox Grid.Column="1" x:Name="txtBCurrentConnection" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         </Grid>
 
         <TabControl Grid.Row="1" Margin="5">
@@ -115,7 +115,7 @@
                     <ToolBar DockPanel.Dock="Top" >
                         <ToolBar.Resources>
                             <Style TargetType="{x:Type ToolBarPanel}">
-                                <Setter Property="Orientation" Value="Vertical"/>
+                                <Setter Property="Orientation" Value="Vertical" />
                             </Style>
                         </ToolBar.Resources>
                         <DockPanel>
@@ -222,9 +222,9 @@
                         </ListView.CommandBindings>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
@@ -247,7 +247,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
-                                                <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -257,7 +257,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
-                                                <TextBlock Text="{Binding GroupName}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding GroupName}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -269,7 +269,7 @@
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
                                                 <Button ToolTip="Select Connection" Margin="6,3" Click="bntSelect_Click" Background="{x:Null}" BorderThickness="0">
                                                     <Button.Content>
-                                                        <Image Width="16" Height="16" Source="{StaticResource ImageSelect}"/>
+                                                        <Image Width="16" Height="16" Source="{StaticResource ImageSelect}" />
                                                     </Button.Content>
                                                 </Button>
                                             </Border>
@@ -281,7 +281,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
-                                                <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -291,7 +291,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -314,7 +314,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding ConnectionPoolCacheTimeSpan}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding ConnectionPoolCacheTimeSpan}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -324,7 +324,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -334,7 +334,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -344,7 +344,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -361,7 +361,7 @@
                     <ToolBar DockPanel.Dock="Top" >
                         <ToolBar.Resources>
                             <Style TargetType="{x:Type ToolBarPanel}">
-                                <Setter Property="Orientation" Value="Vertical"/>
+                                <Setter Property="Orientation" Value="Vertical" />
                             </Style>
                         </ToolBar.Resources>
                         <DockPanel>
@@ -419,8 +419,8 @@
                         </ListView.CommandBindings>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
@@ -429,7 +429,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding Username}" Margin="6,3"/>
+                                                <TextBlock Text="{Binding Username}" Margin="6,3" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -445,7 +445,7 @@
                     <ToolBar DockPanel.Dock="Top" >
                         <ToolBar.Resources>
                             <Style TargetType="{x:Type ToolBarPanel}">
-                                <Setter Property="Orientation" Value="Vertical"/>
+                                <Setter Property="Orientation" Value="Vertical" />
                             </Style>
                         </ToolBar.Resources>
                         <DockPanel>
@@ -511,9 +511,9 @@
                         </ListView.CommandBindings>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuArchive}"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuArchive}" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
@@ -534,7 +534,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -543,7 +543,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -552,7 +552,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -561,7 +561,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -570,7 +570,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -579,7 +579,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                                <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -595,10 +595,10 @@
 
                     <Grid DockPanel.Dock="Top" Margin="5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="50*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="50*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="25*" />
                         </Grid.ColumnDefinitions>
 
                         <Label Content="Discovery Service" Grid.Row="0" Grid.Column="0" />
@@ -619,8 +619,8 @@
                     <ListView x:Name="lstVwOrganizations" SelectionMode="Single" SelectionChanged="lstVwOrganizations_SelectionChanged" DockPanel.Dock="Right" Height="Auto" Width="Auto" MouseDoubleClick="lstVwConnections_MouseDoubleClick"  >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
@@ -631,7 +631,7 @@
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
                                                 <Button ToolTip="Create Connection" Margin="6,3" Click="bntCreateConnectionFromOrganization_Click" Background="{x:Null}" BorderThickness="0">
                                                     <Button.Content>
-                                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"/>
+                                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" />
                                                     </Button.Content>
                                                 </Button>
                                             </Border>
@@ -741,7 +741,7 @@
 
         <StatusBar Grid.Row="3">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <StatusBarItem x:Name="stBIStatus" Content=""/>
+            <StatusBarItem x:Name="stBIStatus" Content="" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

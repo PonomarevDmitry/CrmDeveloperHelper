@@ -13,7 +13,7 @@
     <src:WindowWithMessageFilters.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
@@ -44,13 +44,13 @@
                 <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
 
                 <Separator x:Uid="contMnOpenInWeb" />
-                <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Browser" Click="mIOpenInWeb_Click"/>
+                <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Browser" Click="mIOpenInWeb_Click" />
 
                 <Separator x:Uid="contMnCreateDescription" />
-                <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" Click="mICreateDescription_Click"/>
+                <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" Click="mICreateDescription_Click" />
 
                 <Separator x:Uid="contMnCompareWithLocalAssembly" />
-                <MenuItem x:Uid="contMnCompareWithLocalAssembly" Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click"/>
+                <MenuItem x:Uid="contMnCompareWithLocalAssembly" Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
 
                 <Separator x:Uid="contMnAddPluginStep" />
                 <MenuItem x:Uid="contMnAddPluginStep" Header="Add Plugin Step" Click="mIAddPluginStep_Click" />
@@ -98,7 +98,7 @@
                     </MenuItem>
 
                     <Separator />
-                    <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                    <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Browser" Click="miOpenEntityDependentComponentsInWeb_Click" />
@@ -108,7 +108,7 @@
                     <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
                 </MenuItem>
 
-                <Separator x:Uid="contMnAddToSolution"/>
+                <Separator x:Uid="contMnAddToSolution" />
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
@@ -120,7 +120,7 @@
                 <MenuItem x:Uid="contMnAddPluginAssemblyToSolutionLast" Header="Add PluginAssembly to Last Crm Solution"  />
                 <MenuItem x:Uid="contMnAddPluginAssemblyToSolution" Header="Add PluginAssembly to Crm Solution" Click="AddAssemblyToCrmSolution_Click" />
 
-                <Separator x:Uid="contMnAddPluginAssemblyStepsToSolution"/>
+                <Separator x:Uid="contMnAddPluginAssemblyStepsToSolution" />
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add All Steps for PluginAssembly to Last Crm Solution"  />
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolution" Header="Add All Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
 
@@ -141,7 +141,7 @@
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
-                <Separator x:Uid="contMnDependentComponents"/>
+                <Separator x:Uid="contMnDependentComponents" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions List with Component in Explorer" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
@@ -182,29 +182,29 @@
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Entity Name"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Entity Name" />
             <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
 
-            <Label Grid.Row="0" Grid.Column="2" Content="Plugin Name"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="Plugin Name" />
             <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBPluginTypeFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown" />
 
-            <Label Grid.Row="0" Grid.Column="4" Content="Message"/>
+            <Label Grid.Row="0" Grid.Column="4" Content="Message" />
             <TextBox Grid.Row="0" Grid.Column="5" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown" />
 
             <Label Content="Status" Grid.Row="0" Grid.Column="6" />
@@ -213,15 +213,15 @@
 
         <Grid Grid.Row="2" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <CheckBox x:Name="chBStagePreValidation" Grid.Column="0" Grid.Row="0" Content="10 - Pre Validation"  />
@@ -238,7 +238,7 @@
                 <ToolBar DockPanel.Dock="Top" >
                     <ToolBarPanel Orientation="Horizontal">
                         <ToolBarPanel.Resources>
-                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" />
                             <Style TargetType="{x:Type MenuItem}">
                                 <Setter Property="Background" Value="{x:Null}" />
                                 <Setter Property="Border.Background" Value="{x:Null}" />
@@ -249,7 +249,7 @@
                         </ToolBarPanel.Resources>
 
                         <Menu x:Name="menuView" IsEnabled="False">
-                            <MenuItem x:Name="mIView" Header="View"/>
+                            <MenuItem x:Name="mIView" Header="View" />
                         </Menu>
 
                         <Menu x:Name="menuCustomView" IsEnabled="False">
@@ -292,7 +292,7 @@
                         <Style TargetType="{x:Type TreeViewItem}">
                             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                         </Style>
                     </TreeView.ItemContainerStyle>
                 </TreeView>
@@ -302,7 +302,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -311,13 +311,13 @@
                         <Setter Property="Margin" Value="6,2" />
                         <Setter Property="Padding" Value="3" />
                     </Style>
-                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Static ToolBar.ComboBoxStyleKey}}"/>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Static ToolBar.ComboBoxStyleKey}}" />
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Label Content="Action" />
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Width="260" SelectedIndex="0" />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
@@ -325,7 +325,7 @@
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
 

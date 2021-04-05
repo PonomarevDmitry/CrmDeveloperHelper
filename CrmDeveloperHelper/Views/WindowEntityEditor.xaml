@@ -11,7 +11,7 @@
     <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </src:WindowWithSingleConnection.Resources>
@@ -33,7 +33,7 @@
                 <MenuItem x:Name="mIEntityInformation" Header="Entity Information" VerticalAlignment="Center">
                     <MenuItem x:Uid="mIEntityInstance" Header="Open Entity in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
 
-                    <Separator x:Uid="mIEntityInstance"/>
+                    <Separator x:Uid="mIEntityInstance" />
                     <MenuItem Header="Open Entity List in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
 
                     <Separator/>
@@ -42,7 +42,7 @@
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" VerticalAlignment="Center" Click="mIOpenEntityFetchXmlFile_Click" />
 
-                    <Separator x:Uid="mIEntityInstance"/>
+                    <Separator x:Uid="mIEntityInstance" />
                     <MenuItem x:Uid="mIEntityInstance" Header="Copy Entity Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                     <MenuItem x:Uid="mIEntityInstance" Header="Copy Entity Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
                 </MenuItem>
@@ -82,7 +82,7 @@
         <ToolBar Margin="0" Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -96,7 +96,7 @@
 
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="20"/>
+                <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="20" />
 
                 <Separator DockPanel.Dock="Right" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                 <Button x:Name="btnSaveEntity" Content="Save Entity" Click="btnSaveEntity_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="10" />

@@ -13,11 +13,11 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu">
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" FontWeight="Bold"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -30,27 +30,27 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Default Email Settings" Click="mIExportOrganizationDefaultEmailSettings_Click"/>
-                <MenuItem Header="External Party Correlation Keys" Click="mIExportOrganizationExternalPartyCorrelationKeys_Click"/>
-                <MenuItem Header="External Party Entity Settings" Click="mIExportOrganizationExternalPartyEntitySettings_Click"/>
-                <MenuItem Header="Feature Set" Click="mIExportOrganizationFeatureSet_Click"/>
-                <MenuItem Header="KM Settings" Click="mIExportOrganizationKMSettings_Click"/>
-                <MenuItem Header="Reference SiteMap Xml" Click="mIExportOrganizationReferenceSiteMapXml_Click"/>
-                <MenuItem Header="SiteMap Xml" Click="mIExportOrganizationSiteMapXml_Click"/>
+                <MenuItem Header="Default Email Settings" Click="mIExportOrganizationDefaultEmailSettings_Click" />
+                <MenuItem Header="External Party Correlation Keys" Click="mIExportOrganizationExternalPartyCorrelationKeys_Click" />
+                <MenuItem Header="External Party Entity Settings" Click="mIExportOrganizationExternalPartyEntitySettings_Click" />
+                <MenuItem Header="Feature Set" Click="mIExportOrganizationFeatureSet_Click" />
+                <MenuItem Header="KM Settings" Click="mIExportOrganizationKMSettings_Click" />
+                <MenuItem Header="Reference SiteMap Xml" Click="mIExportOrganizationReferenceSiteMapXml_Click" />
+                <MenuItem Header="SiteMap Xml" Click="mIExportOrganizationSiteMapXml_Click" />
                 <MenuItem Header="Default ThemeData" Click="mIExportOrganizationDefaultThemeData_Click" />
                 <MenuItem Header="High Contrast Theme Data" Click="mIExportOrganizationHighContrastThemeData_Click" />
                 <MenuItem Header="Sla Pause States" Click="mIExportOrganizationSlaPauseStates_Click" />
 
                 <Separator/>
-                <MenuItem Header="Change Organization in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change Organization in Editor" Click="mIChangeEntityInEditor_Click" />
                 <MenuItem Header="Change Organization Attribute">
-                    <MenuItem Header="Default Email Settings" Click="mIUpdateOrganizationDefaultEmailSettings_Click"/>
-                    <MenuItem Header="External Party Correlation Keys" Click="mIUpdateOrganizationExternalPartyCorrelationKeys_Click"/>
-                    <MenuItem Header="External Party Entity Settings" Click="mIUpdateOrganizationExternalPartyEntitySettings_Click"/>
-                    <MenuItem Header="Feature Set" Click="mIUpdateOrganizationFeatureSet_Click"/>
-                    <MenuItem Header="KM Settings" Click="mIUpdateOrganizationKMSettings_Click"/>
-                    <MenuItem Header="Reference SiteMap Xml" Click="mIUpdateOrganizationReferenceSiteMapXml_Click"/>
-                    <MenuItem Header="SiteMap Xml" Click="mIUpdateOrganizationSiteMapXml_Click"/>
+                    <MenuItem Header="Default Email Settings" Click="mIUpdateOrganizationDefaultEmailSettings_Click" />
+                    <MenuItem Header="External Party Correlation Keys" Click="mIUpdateOrganizationExternalPartyCorrelationKeys_Click" />
+                    <MenuItem Header="External Party Entity Settings" Click="mIUpdateOrganizationExternalPartyEntitySettings_Click" />
+                    <MenuItem Header="Feature Set" Click="mIUpdateOrganizationFeatureSet_Click" />
+                    <MenuItem Header="KM Settings" Click="mIUpdateOrganizationKMSettings_Click" />
+                    <MenuItem Header="Reference SiteMap Xml" Click="mIUpdateOrganizationReferenceSiteMapXml_Click" />
+                    <MenuItem Header="SiteMap Xml" Click="mIUpdateOrganizationSiteMapXml_Click" />
                     <MenuItem Header="Default ThemeData" Click="mIUpdateOrganizationDefaultThemeData_Click" />
                     <MenuItem Header="High Contrast Theme Data" Click="mIUpdateOrganizationHighContrastThemeData_Click" />
                     <MenuItem Header="Sla Pause States" Click="mIUpdateOrganizationSlaPauseStates_Click" />
@@ -61,7 +61,7 @@
                 <MenuItem Header="Show Difference Default ThemeData And High Contrast ThemeData" Click="mIExportOrganizationShowDifferenceDefaultThemeDataAndHighContrastThemeData_Click" />
 
                 <Separator/>
-                <MenuItem Header="Export all Organization Information" Click="btnExportAll_Click"/>
+                <MenuItem Header="Export all Organization Information" Click="btnExportAll_Click" />
             </ContextMenu>
 
         </ResourceDictionary>
@@ -80,7 +80,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
@@ -104,12 +104,12 @@
         <DataGrid x:Name="lstVwOrganizations" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -139,7 +139,7 @@
         <ToolBar Grid.Row="4" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -155,29 +155,29 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportOrganization" Header="Export Organization Information">
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Default Email Settings" Click="mIExportOrganizationDefaultEmailSettings_Click"/>
-                            <MenuItem Header="External Party Correlation Keys" Click="mIExportOrganizationExternalPartyCorrelationKeys_Click"/>
-                            <MenuItem Header="External Party Entity Settings" Click="mIExportOrganizationExternalPartyEntitySettings_Click"/>
-                            <MenuItem Header="Feature Set" Click="mIExportOrganizationFeatureSet_Click"/>
-                            <MenuItem Header="KM Settings" Click="mIExportOrganizationKMSettings_Click"/>
-                            <MenuItem Header="Reference SiteMap Xml" Click="mIExportOrganizationReferenceSiteMapXml_Click"/>
-                            <MenuItem Header="SiteMap Xml" Click="mIExportOrganizationSiteMapXml_Click"/>
+                            <MenuItem Header="Default Email Settings" Click="mIExportOrganizationDefaultEmailSettings_Click" />
+                            <MenuItem Header="External Party Correlation Keys" Click="mIExportOrganizationExternalPartyCorrelationKeys_Click" />
+                            <MenuItem Header="External Party Entity Settings" Click="mIExportOrganizationExternalPartyEntitySettings_Click" />
+                            <MenuItem Header="Feature Set" Click="mIExportOrganizationFeatureSet_Click" />
+                            <MenuItem Header="KM Settings" Click="mIExportOrganizationKMSettings_Click" />
+                            <MenuItem Header="Reference SiteMap Xml" Click="mIExportOrganizationReferenceSiteMapXml_Click" />
+                            <MenuItem Header="SiteMap Xml" Click="mIExportOrganizationSiteMapXml_Click" />
                             <MenuItem Header="Default ThemeData" Click="mIExportOrganizationDefaultThemeData_Click" />
                             <MenuItem Header="High Contrast Theme Data" Click="mIExportOrganizationHighContrastThemeData_Click" />
                             <MenuItem Header="Sla Pause States" Click="mIExportOrganizationSlaPauseStates_Click" />
 
                             <Separator/>
                             <MenuItem Header="Change Organization Attribute">
-                                <MenuItem Header="Default Email Settings" Click="mIUpdateOrganizationDefaultEmailSettings_Click"/>
-                                <MenuItem Header="External Party Correlation Keys" Click="mIUpdateOrganizationExternalPartyCorrelationKeys_Click"/>
-                                <MenuItem Header="External Party Entity Settings" Click="mIUpdateOrganizationExternalPartyEntitySettings_Click"/>
-                                <MenuItem Header="Feature Set" Click="mIUpdateOrganizationFeatureSet_Click"/>
-                                <MenuItem Header="KM Settings" Click="mIUpdateOrganizationKMSettings_Click"/>
-                                <MenuItem Header="Reference SiteMap Xml" Click="mIUpdateOrganizationReferenceSiteMapXml_Click"/>
-                                <MenuItem Header="SiteMap Xml" Click="mIUpdateOrganizationSiteMapXml_Click"/>
+                                <MenuItem Header="Default Email Settings" Click="mIUpdateOrganizationDefaultEmailSettings_Click" />
+                                <MenuItem Header="External Party Correlation Keys" Click="mIUpdateOrganizationExternalPartyCorrelationKeys_Click" />
+                                <MenuItem Header="External Party Entity Settings" Click="mIUpdateOrganizationExternalPartyEntitySettings_Click" />
+                                <MenuItem Header="Feature Set" Click="mIUpdateOrganizationFeatureSet_Click" />
+                                <MenuItem Header="KM Settings" Click="mIUpdateOrganizationKMSettings_Click" />
+                                <MenuItem Header="Reference SiteMap Xml" Click="mIUpdateOrganizationReferenceSiteMapXml_Click" />
+                                <MenuItem Header="SiteMap Xml" Click="mIUpdateOrganizationSiteMapXml_Click" />
                                 <MenuItem Header="Default ThemeData" Click="mIUpdateOrganizationDefaultThemeData_Click" />
                                 <MenuItem Header="High Contrast Theme Data" Click="mIUpdateOrganizationHighContrastThemeData_Click" />
                                 <MenuItem Header="Sla Pause States" Click="mIUpdateOrganizationSlaPauseStates_Click" />
@@ -190,15 +190,15 @@
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5" Margin="0">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

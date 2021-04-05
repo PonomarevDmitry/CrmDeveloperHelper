@@ -12,7 +12,7 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
@@ -38,7 +38,7 @@
                 <MenuItem Header="Create JavaScript File Json Object for OptionSet" Click="btnCreateJavaScriptFileForSingleOptionSetJsonObject_Click" />
 
                 <Separator/>
-                <MenuItem Header="Publish OptionSet" Click="btnPublishOptionSet_Click"/>
+                <MenuItem Header="Publish OptionSet" Click="btnPublishOptionSet_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -55,16 +55,16 @@
 
             </ContextMenu>
 
-            <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+            <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -83,7 +83,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
@@ -123,12 +123,12 @@
         <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -141,7 +141,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create C# File for OptionSet" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkCSharp_Click">
-                                    <Run Text="C#"/>
+                                    <Run Text="C#" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -156,7 +156,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create JavaScript File Json Object for OptionSet" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkJavaScript_Click">
-                                    <Run Text="JS"/>
+                                    <Run Text="JS" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -175,7 +175,7 @@
                         <DataTemplate>
                             <Label ToolTip="Publish OptionSet" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkPublishOptionSet_Click">
-                                    <Run Text="Pub"/>
+                                    <Run Text="Pub" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -203,7 +203,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -224,7 +224,7 @@
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right" />
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" DockPanel.Dock="Right" />
                 <Menu Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
@@ -241,8 +241,8 @@
         <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" Content="" />
         </StatusBar>
     </Grid>

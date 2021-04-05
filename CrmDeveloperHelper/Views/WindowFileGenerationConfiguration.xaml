@@ -16,7 +16,7 @@
                 <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
                     <ToolBar.Resources>
                         <Style TargetType="{x:Type ToolBarPanel}">
-                            <Setter Property="Orientation" Value="Vertical"/>
+                            <Setter Property="Orientation" Value="Vertical" />
                         </Style>
                     </ToolBar.Resources>
                     <DockPanel>
@@ -59,8 +59,8 @@
                     </ListView.CommandBindings>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.View>
@@ -70,7 +70,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                            <TextBlock Text="{Binding SolutionFilePath}" Margin="6,3"/>
+                                            <TextBlock Text="{Binding SolutionFilePath}" Margin="6,3" />
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -80,7 +80,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                            <TextBlock Text="{Binding NamespaceClassesCSharp}" Margin="6,3"/>
+                                            <TextBlock Text="{Binding NamespaceClassesCSharp}" Margin="6,3" />
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -90,7 +90,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                            <TextBlock Text="{Binding NamespaceClassesJavaScript}" Margin="6,3"/>
+                                            <TextBlock Text="{Binding NamespaceClassesJavaScript}" Margin="6,3" />
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -100,7 +100,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                            <TextBlock Text="{Binding NamespaceGlobalOptionSetsCSharp}" Margin="6,3"/>
+                                            <TextBlock Text="{Binding NamespaceGlobalOptionSetsCSharp}" Margin="6,3" />
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -110,7 +110,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                            <TextBlock Text="{Binding NamespaceGlobalOptionSetsJavaScript}" Margin="6,3"/>
+                                            <TextBlock Text="{Binding NamespaceGlobalOptionSetsJavaScript}" Margin="6,3" />
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -120,7 +120,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                            <TextBlock Text="{Binding NamespaceSdkMessagesCSharp}" Margin="6,3"/>
+                                            <TextBlock Text="{Binding NamespaceSdkMessagesCSharp}" Margin="6,3" />
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -130,7 +130,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                            <TextBlock Text="{Binding NamespaceSdkMessagesJavaScript}" Margin="6,3"/>
+                                            <TextBlock Text="{Binding NamespaceSdkMessagesJavaScript}" Margin="6,3" />
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -142,12 +142,12 @@
             </DockPanel>
         </GroupBox>
 
-        <Button x:Name="btnOpenConfigFolder" Content="Open Config Folder" Margin="10,0,0,38" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="142" Click="btnOpenConfigFolder_Click"/>
+        <Button x:Name="btnOpenConfigFolder" Content="Open Config Folder" Margin="10,0,0,38" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="142" Click="btnOpenConfigFolder_Click" />
 
-        <Button x:Name="btnClose" Content="Close" Margin="0,0,10,38" Click="btnClose_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89"/>
+        <Button x:Name="btnClose" Content="Close" Margin="0,0,10,38" Click="btnClose_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" />
 
         <StatusBar Height="24" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="stBIStatus" Content="" Height="24" VerticalAlignment="Top"/>
+            <StatusBarItem x:Name="stBIStatus" Content="" Height="24" VerticalAlignment="Top" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

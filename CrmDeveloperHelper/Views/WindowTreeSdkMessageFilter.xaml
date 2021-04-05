@@ -13,7 +13,7 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
@@ -25,7 +25,7 @@
                 <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
 
                 <Separator x:Uid="contMnCreateDescription" />
-                <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" Click="mICreateDescription_Click"/>
+                <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" Click="mICreateDescription_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Entity">
@@ -56,7 +56,7 @@
                     </MenuItem>
 
                     <Separator />
-                    <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                    <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Browser" Click="miOpenEntityDependentComponentsInWeb_Click" />
@@ -66,11 +66,11 @@
                     <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
                 </MenuItem>
 
-                <Separator x:Uid="contMnAddToSolution"/>
+                <Separator x:Uid="contMnAddToSolution" />
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
-                <Separator x:Uid="contMnAddToSolutionMessageFilter"/>
+                <Separator x:Uid="contMnAddToSolutionMessageFilter" />
                 <MenuItem x:Uid="contMnAddToSolutionMessageFilterLast" Header="Add Message Filter to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddToSolutionMessageFilter" Header="Add Message Filter to Crm Solution" Click="AddMessageFilterToCrmSolution_Click" />
 
@@ -86,7 +86,7 @@
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
 
-                <Separator x:Uid="contMnDependentComponents"/>
+                <Separator x:Uid="contMnDependentComponents" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions List with Component in Explorer" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
@@ -126,19 +126,19 @@
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="100*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Entity Name" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Entity Name" Grid.Row="0" Grid.Column="0" />
             <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
 
-            <Label Content="Message" Grid.Row="0" Grid.Column="2"/>
+            <Label Content="Message" Grid.Row="0" Grid.Column="2" />
             <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown" />
         </Grid>
 
@@ -155,8 +155,8 @@
                         </ToolBarPanel.Resources>
                         <Menu x:Name="menuView" IsEnabled="False">
                             <MenuItem Header="View">
-                                <RadioButton x:Name="rBViewByEntity" GroupName="View" Content="Display By Entity" IsChecked="True" Checked="rBViewByEntity_Checked"/>
-                                <RadioButton x:Name="rBViewByMessage" GroupName="View" Content="Display By Message" Checked="rBViewByMessage_Checked"/>
+                                <RadioButton x:Name="rBViewByEntity" GroupName="View" Content="Display By Entity" IsChecked="True" Checked="rBViewByEntity_Checked" />
+                                <RadioButton x:Name="rBViewByMessage" GroupName="View" Content="Display By Message" Checked="rBViewByMessage_Checked" />
                             </MenuItem>
                         </Menu>
 
@@ -189,7 +189,7 @@
                             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Setter Property="ToolTip" Value="{Binding Tooltip}" />
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                         </Style>
                     </TreeView.ItemContainerStyle>
                 </TreeView>
@@ -199,7 +199,7 @@
         <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -212,18 +212,18 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Label Content="Action" Padding="10,0"/>
+                    <Label Content="Action" Padding="10,0" />
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" HorizontalAlignment="Left"  />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="4">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
 

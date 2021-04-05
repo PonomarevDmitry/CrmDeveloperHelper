@@ -13,7 +13,7 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
@@ -23,7 +23,7 @@
                 <MenuItem Header="Open Report List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -44,7 +44,7 @@
                 </MenuItem>
 
                 <Separator />
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report in Editor" Click="mIChangeEntityInEditor_Click" />
                 <MenuItem Header="Delete Report" VerticalAlignment="Center" Click="mIDeleteReport_Click" />
 
                 <Separator/>
@@ -55,20 +55,20 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Body Text" Click="mIExportReportBodyText_Click"/>
-                <MenuItem Header="Original Body Text" Click="mIExportReportOriginalBodyText_Click"/>
-                <MenuItem Header="Default Filter" Click="mIExportReportDefaultFilter_Click"/>
-                <MenuItem Header="Custom Report Xml" Click="mIExportReportCustomReportXml_Click"/>
-                <MenuItem Header="Schedule Xml" Click="mIExportReportScheduleXml_Click"/>
-                <MenuItem Header="Query Info" Click="mIExportReportQueryInfo_Click"/>
+                <MenuItem Header="Body Text" Click="mIExportReportBodyText_Click" />
+                <MenuItem Header="Original Body Text" Click="mIExportReportOriginalBodyText_Click" />
+                <MenuItem Header="Default Filter" Click="mIExportReportDefaultFilter_Click" />
+                <MenuItem Header="Custom Report Xml" Click="mIExportReportCustomReportXml_Click" />
+                <MenuItem Header="Schedule Xml" Click="mIExportReportScheduleXml_Click" />
+                <MenuItem Header="Query Info" Click="mIExportReportQueryInfo_Click" />
 
                 <Separator/>
-                <MenuItem Header="Body Binary" Click="mIExportReportBodyBinary_Click"/>
+                <MenuItem Header="Body Binary" Click="mIExportReportBodyBinary_Click" />
 
-                <Separator x:Uid="controlChangeEntityAttribute"/>
+                <Separator x:Uid="controlChangeEntityAttribute" />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" >
-                    <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click"/>
-                    <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click"/>
+                    <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click" />
+                    <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -85,17 +85,17 @@
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
                 <Separator/>
-                <MenuItem Header="Export All Report Information" Click="btnExportAll_Click"/>
+                <MenuItem Header="Export All Report Information" Click="btnExportAll_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -140,7 +140,7 @@
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-            <Label Content="Filter" Grid.Row="1" Grid.Column="0"/>
+            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
             <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
         </Grid>
 
@@ -150,12 +150,12 @@
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                     <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
@@ -169,7 +169,7 @@
                         <DataTemplate>
                             <Label ToolTip="Body Text" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkBodyText_Click">
-                                    <Run Text="BT"/>
+                                    <Run Text="BT" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -184,7 +184,7 @@
                         <DataTemplate>
                             <Label ToolTip="Original Body Text" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkOriginalBodyText_Click">
-                                    <Run Text="OBT"/>
+                                    <Run Text="OBT" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -215,7 +215,7 @@
                         <DataTemplate>
                             <Label ToolTip="Default Filter" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkDefaultFilter_Click">
-                                    <Run Text="DF"/>
+                                    <Run Text="DF" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -230,7 +230,7 @@
                         <DataTemplate>
                             <Label ToolTip="Custom Report Xml" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkCustomReportXml_Click">
-                                    <Run Text="CRX"/>
+                                    <Run Text="CRX" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -245,7 +245,7 @@
                         <DataTemplate>
                             <Label ToolTip="Schedule Xml" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkScheduleXml_Click">
-                                    <Run Text="SX"/>
+                                    <Run Text="SX" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -260,7 +260,7 @@
                         <DataTemplate>
                             <Label ToolTip="Query Info" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkQueryInfo_Click">
-                                    <Run Text="QI"/>
+                                    <Run Text="QI" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -275,7 +275,7 @@
                         <DataTemplate>
                             <Label ToolTip="Body Binary" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkBodyBinary_Click">
-                                    <Run Text="BB"/>
+                                    <Run Text="BB" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -303,7 +303,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -321,23 +321,23 @@
                             <MenuItem Header="Open Report in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Body Text" Click="mIExportReportBodyText_Click"/>
-                            <MenuItem Header="Original Body Text" Click="mIExportReportOriginalBodyText_Click"/>
-                            <MenuItem Header="Default Filter" Click="mIExportReportDefaultFilter_Click"/>
-                            <MenuItem Header="Custom Report Xml" Click="mIExportReportCustomReportXml_Click"/>
-                            <MenuItem Header="ScheduleXml" Click="mIExportReportScheduleXml_Click"/>
-                            <MenuItem Header="Query Info" Click="mIExportReportQueryInfo_Click"/>
+                            <MenuItem Header="Body Text" Click="mIExportReportBodyText_Click" />
+                            <MenuItem Header="Original Body Text" Click="mIExportReportOriginalBodyText_Click" />
+                            <MenuItem Header="Default Filter" Click="mIExportReportDefaultFilter_Click" />
+                            <MenuItem Header="Custom Report Xml" Click="mIExportReportCustomReportXml_Click" />
+                            <MenuItem Header="ScheduleXml" Click="mIExportReportScheduleXml_Click" />
+                            <MenuItem Header="Query Info" Click="mIExportReportQueryInfo_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Body Binary" Click="mIExportReportBodyBinary_Click"/>
+                            <MenuItem Header="Body Binary" Click="mIExportReportBodyBinary_Click" />
 
-                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <Separator x:Uid="controlChangeEntityAttribute" />
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" >
-                                <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click"/>
-                                <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click"/>
+                                <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click" />
+                                <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click" />
                             </MenuItem>
 
                             <Separator/>
@@ -349,15 +349,15 @@
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

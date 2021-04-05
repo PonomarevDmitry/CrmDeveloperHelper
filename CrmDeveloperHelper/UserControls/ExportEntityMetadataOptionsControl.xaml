@@ -12,51 +12,51 @@
              BorderBrush="Black"
              >
     <UserControl.Resources>
-        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
-        <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter"/>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter" />
 
         <Style TargetType="{x:Type CheckBox}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
 
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
 
         <Style TargetType="{x:Type ComboBox}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
 
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
 
         <Style TargetType="{x:Type RadioButton}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
 
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
 
         <Style TargetType="{x:Type StackPanel}">
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Margin" Value="0" />
         </Style>
 
         <Style TargetType="{x:Type GroupBox}">
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
         </Style>
 
         <Style TargetType="{x:Type TextBox}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
 
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
     </UserControl.Resources>
 

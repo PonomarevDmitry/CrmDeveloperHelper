@@ -12,7 +12,7 @@
     <src:WindowWithSolutionComponentDescriptor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
@@ -24,7 +24,7 @@
             <BitmapImage x:Key="BitmapImageGlobal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_G.gif" />
 
             <helpers:PrivilegeDepthConverter x:Key="privilegeDepthConverter" />
-            <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
+            <BooleanToVisibilityConverter x:Key="boolToVisibility" />
 
             <ContextMenu x:Key="listContextMenuSystemUser">
                 <MenuItem Header="Open User in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
@@ -186,7 +186,7 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -260,9 +260,9 @@
 
         <Grid Grid.Row="1" Margin="5" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="columnSystemUser" Width="600"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition x:Name="columnSystemUser" Width="600" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -275,23 +275,23 @@
 
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                    <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="txtBFilterRole" KeyDown="txtBFilterRole_KeyDown" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuRole}"/>
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuRole}" />
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
@@ -303,9 +303,9 @@
                         <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsCustomizable.Value, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
                             <DataGridCheckBoxColumn.ElementStyle>
                                 <Style TargetType="CheckBox">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="IsEnabled" Value="False" />
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
                             <DataGridCheckBoxColumn.Header>
@@ -317,7 +317,7 @@
                 </DataGrid>
             </Grid>
 
-            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
             <TabControl Grid.Column="2">
 
@@ -341,31 +341,31 @@
                             </Button>
 
                             <Separator Margin="20,0" />
-                            <Button x:Name="btnAssignRoleToUser" Content="Assing Role to User" Click="btnAssignRoleToUser_Click"/>
+                            <Button x:Name="btnAssignRoleToUser" Content="Assing Role to User" Click="btnAssignRoleToUser_Click" />
 
                             <Separator Margin="20,0" />
-                            <Button x:Name="btnRemoveRoleFromUser" IsEnabled="False" Content="Remove Role from User" Click="btnRemoveRoleFromUser_Click"/>
+                            <Button x:Name="btnRemoveRoleFromUser" IsEnabled="False" Content="Remove Role from User" Click="btnRemoveRoleFromUser_Click" />
                         </ToolBar>
 
                         <Grid Grid.Row="1" Margin="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" />
                             <TextBox x:Name="txtBFilterSystemUser" KeyDown="txtBFilterSystemUser_KeyDown" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwSystemUsers" Grid.Row="2" Margin="5" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSystemUsers_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 </Style>
                             </DataGrid.Resources>
                             <DataGrid.ItemContainerStyle>
                                 <Style TargetType="{x:Type DataGridRow}">
-                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuSystemUser}"/>
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuSystemUser}" />
                                 </Style>
                             </DataGrid.ItemContainerStyle>
                             <DataGrid.Columns>
@@ -407,31 +407,31 @@
                             </Button>
 
                             <Separator Margin="20,0" />
-                            <Button x:Name="btnAssignRoleToTeam" Content="Assing Role to Team" Click="btnAssignRoleToTeam_Click"/>
+                            <Button x:Name="btnAssignRoleToTeam" Content="Assing Role to Team" Click="btnAssignRoleToTeam_Click" />
 
                             <Separator Margin="20,0" />
-                            <Button x:Name="btnRemoveRoleFromTeam" IsEnabled="False" Content="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click"/>
+                            <Button x:Name="btnRemoveRoleFromTeam" IsEnabled="False" Content="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click" />
                         </ToolBar>
 
                         <Grid Grid.Row="1" Margin="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" />
                             <TextBox x:Name="txtBFilterTeams" KeyDown="txtBFilterTeams_KeyDown" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwTeams" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="LstVwTeams_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 </Style>
                             </DataGrid.Resources>
                             <DataGrid.ItemContainerStyle>
                                 <Style TargetType="{x:Type DataGridRow}">
-                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuTeam}"/>
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuTeam}" />
                                 </Style>
                             </DataGrid.ItemContainerStyle>
                             <DataGrid.Columns>
@@ -751,28 +751,28 @@
                             </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="100*"/>
-                                <ColumnDefinition Width="30*"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="30*" />
                             </Grid.ColumnDefinitions>
 
                             <Label x:Name="lblEntitiesList" Content="Entities List" Grid.Row="0" Grid.Column="0" />
                             <ComboBox x:Name="cmBRoleEditorLayoutTabsEntities" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
                             <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
 
-                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
                             <TextBox x:Name="txtBEntityFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwEntityPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 </Style>
                             </DataGrid.Resources>
                             <DataGrid.ItemContainerStyle>
                                 <Style TargetType="{x:Type DataGridRow}">
-                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityPrivileges}"/>
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityPrivileges}" />
                                 </Style>
                             </DataGrid.ItemContainerStyle>
                             <DataGrid.Columns>
@@ -780,9 +780,9 @@
                                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
-                                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                                            <Setter Property="IsEnabled" Value="False"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
                                         </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     <DataGridCheckBoxColumn.Header>
@@ -793,9 +793,9 @@
                                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
-                                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                                            <Setter Property="IsEnabled" Value="False"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
                                         </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     <DataGridCheckBoxColumn.Header>
@@ -806,14 +806,14 @@
                                 <DataGridTextColumn x:Name="colEntityName" Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
                                 <DataGridTextColumn x:Name="colDisplayName" Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
@@ -1025,26 +1025,26 @@
                             </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
 
                             <Label Content="Privileges List" Grid.Row="0" Grid.Column="0" />
                             <ComboBox x:Name="cmBRoleEditorLayoutTabsPrivileges" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
 
-                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
                             <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwOtherPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 </Style>
                             </DataGrid.Resources>
                             <DataGrid.ItemContainerStyle>
                                 <Style TargetType="{x:Type DataGridRow}">
-                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuOtherPrivileges}"/>
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuOtherPrivileges}" />
                                 </Style>
                             </DataGrid.ItemContainerStyle>
                             <DataGrid.Columns>
@@ -1052,9 +1052,9 @@
                                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
-                                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                                            <Setter Property="IsEnabled" Value="False"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
                                         </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     <DataGridCheckBoxColumn.Header>
@@ -1065,7 +1065,7 @@
                                 <DataGridTextColumn Header="Privilege Name" Width="200" Binding="{Binding Name, Mode=OneTime}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
@@ -1073,7 +1073,7 @@
                                 <DataGridTextColumn Header="Privilege Type" Width="200" Binding="{Binding PrivilegeType, Mode=OneTime}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
@@ -1081,7 +1081,7 @@
                                 <DataGridTextColumn Header="Linked Entity" Width="200" Binding="{Binding EntityLogicalName, Mode=OneTime}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Center" />
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
@@ -1111,10 +1111,10 @@
         </Grid>
 
         <StatusBar Grid.Row="2">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

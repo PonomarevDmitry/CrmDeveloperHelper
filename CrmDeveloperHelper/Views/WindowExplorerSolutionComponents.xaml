@@ -14,14 +14,14 @@
     <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -41,8 +41,8 @@
 
                 </MenuItem>
 
-                <Separator x:Uid="contMnExplorer"/>
-                <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" Click="mIOpenExplorer_Click"/>
+                <Separator x:Uid="contMnExplorer" />
+                <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" Click="mIOpenExplorer_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToCurrentSolution" Header="Add to Current Solution" Click="AddToCurrentSolution_Click" />
@@ -111,7 +111,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
+            <Button Content="Description Options" Click="miDescriptionOptions_Click" />
 
             <Separator/>
             <Menu Background="{x:Null}">
@@ -133,11 +133,11 @@
                     <MenuItem Header="Solution List" Click="btnOpenInWebSolutionList_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
+                    <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click" />
                 </MenuItem>
             </Menu>
 
-            <Separator x:Name="sepSolutionDescription" Visibility="Collapsed"/>
+            <Separator x:Name="sepSolutionDescription" Visibility="Collapsed" />
             <Button x:Name="miSolutionDescription" Content="Solution Description" Visibility="Collapsed" Click="miSolutionDescription_Click" />
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
@@ -150,14 +150,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="35*" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Filter" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" KeyDown="txtBFilterEnitity_KeyDown" />
 
             <Label Content="Component Type" Grid.Row="1" Grid.Column="0" />
@@ -177,12 +177,12 @@
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -228,7 +228,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -248,14 +248,14 @@
                             <Separator/>
                             <MenuItem Header="Create Current Solution Entity Description" Click="mICreateSolutionEntityDescription_Click" />
 
-                            <Separator x:Name="sepClearUnManagedSolution" Visibility="Collapsed" IsEnabled="False"/>
-                            <MenuItem x:Name="miClearUnManagedSolution" Header="Clear Current UnManaged Solution" Click="miClearUnManagedSolution_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            <Separator x:Name="sepClearUnManagedSolution" Visibility="Collapsed" IsEnabled="False" />
+                            <MenuItem x:Name="miClearUnManagedSolution" Header="Clear Current UnManaged Solution" Click="miClearUnManagedSolution_Click" Visibility="Collapsed" IsEnabled="False" />
 
-                            <Separator x:Name="sepClearUnManagedSolution2" Visibility="Collapsed" IsEnabled="False"/>
-                            <MenuItem x:Name="miSelectAsLastSelected" Header="Select Current Solution as Last Selected" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            <Separator x:Name="sepClearUnManagedSolution2" Visibility="Collapsed" IsEnabled="False" />
+                            <MenuItem x:Name="miSelectAsLastSelected" Header="Select Current Solution as Last Selected" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False" />
 
-                            <Separator x:Name="sepChangeInEditor" Visibility="Collapsed" IsEnabled="False"/>
-                            <MenuItem x:Name="miChangeInEditor" Header="Change Current Solution in Editor" Click="miChangeSolutionInEditor_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            <Separator x:Name="sepChangeInEditor" Visibility="Collapsed" IsEnabled="False" />
+                            <MenuItem x:Name="miChangeInEditor" Header="Change Current Solution in Editor" Click="miChangeSolutionInEditor_Click" Visibility="Collapsed" IsEnabled="False" />
 
                             <Separator/>
                             <MenuItem Header="Used Entities in Workflows" Click="mIUsedEntitiesInWorkflows_Click" />
@@ -297,7 +297,7 @@
                             <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -309,13 +309,13 @@
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

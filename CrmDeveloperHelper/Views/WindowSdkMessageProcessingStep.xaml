@@ -19,9 +19,9 @@
         <Grid Grid.Row="0" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="columnGeneralInfo" Width="450"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition x:Name="columnGeneralInfo" Width="450" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -30,87 +30,87 @@
                     <Grid>
                         <Grid.Resources>
                             <Style TargetType="{x:Type TextBox}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Setter Property="Margin" Value="3"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="1" />
+                                <Setter Property="Margin" Value="3" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
                             </Style>
                             <Style TargetType="{x:Type Label}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Setter Property="Margin" Value="3"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="1" />
+                                <Setter Property="Margin" Value="3" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
                             </Style>
                             <Style TargetType="{x:Type ComboBox}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Setter Property="Margin" Value="3"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="1" />
+                                <Setter Property="Margin" Value="3" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
                             </Style>
                             <Style TargetType="{x:Type Button}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Setter Property="Margin" Value="3"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="1" />
+                                <Setter Property="Margin" Value="3" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
                             </Style>
                             <Style TargetType="{x:Type RadioButton}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Setter Property="Margin" Value="3"/>
-                                <Setter Property="HorizontalAlignment" Value="Left"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="1" />
+                                <Setter Property="Margin" Value="3" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
                             </Style>
                         </Grid.Resources>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Content="EventHandler" Grid.Row="0" Grid.Column="0"/>
+                        <Label Content="EventHandler" Grid.Row="0" Grid.Column="0" />
                         <TextBox x:Name="txtBEventHandler" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" IsReadOnly="true" IsReadOnlyCaretVisible="True" TabIndex="0" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
 
 
-                        <Label Content="Message" Grid.Row="1" Grid.Column="0"/>
+                        <Label Content="Message" Grid.Row="1" Grid.Column="0" />
                         <ComboBox x:Name="cmBMessageName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" TabIndex="1" IsTabStop="True" SelectionChanged="cmBMessageName_SelectionChanged" />
 
 
 
-                        <Label Content="Primary Entity" Grid.Row="2" Grid.Column="0"/>
+                        <Label Content="Primary Entity" Grid.Row="2" Grid.Column="0" />
                         <ComboBox x:Name="cmBPrimaryEntity" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" TabIndex="2" IsTabStop="True" />
 
 
 
-                        <Label Content="Secondary Entity" Grid.Row="3" Grid.Column="0"/>
+                        <Label Content="Secondary Entity" Grid.Row="3" Grid.Column="0" />
                         <ComboBox x:Name="cmBSecondaryEntity" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" TabIndex="3" IsTabStop="True" />
 
 
 
-                        <Label Content="Stage" Grid.Row="4" Grid.Column="0"/>
-                        <Label Content="Mode" Grid.Row="5" Grid.Column="0"/>
+                        <Label Content="Stage" Grid.Row="4" Grid.Column="0" />
+                        <Label Content="Mode" Grid.Row="5" Grid.Column="0" />
 
                         <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" >
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -119,22 +119,22 @@
                             </Grid.RowDefinitions>
 
                             <RadioButton GroupName="Stage" Grid.Row="0" Grid.Column="0" x:Name="rBPreValidation" TabIndex="4" Content="Pre Validation" ToolTip="Pre Validation" Checked="rbStage_Checked" Unchecked="rbStage_Checked" />
-                            <RadioButton GroupName="Stage" Grid.Row="0" Grid.Column="2" x:Name="rBPreOperation" TabIndex="5" Content="Pre" ToolTip="Pre Operation" Checked="rbStage_Checked" Unchecked="rbStage_Checked"/>
-                            <RadioButton GroupName="Stage" Grid.Row="0" Grid.Column="4" x:Name="rBPostOperation" TabIndex="6" Content="Post" ToolTip="Post Operation" Checked="rbStage_Checked" Unchecked="rbStage_Checked"/>
+                            <RadioButton GroupName="Stage" Grid.Row="0" Grid.Column="2" x:Name="rBPreOperation" TabIndex="5" Content="Pre" ToolTip="Pre Operation" Checked="rbStage_Checked" Unchecked="rbStage_Checked" />
+                            <RadioButton GroupName="Stage" Grid.Row="0" Grid.Column="4" x:Name="rBPostOperation" TabIndex="6" Content="Post" ToolTip="Post Operation" Checked="rbStage_Checked" Unchecked="rbStage_Checked" />
 
-                            <RadioButton GroupName="Mode" Grid.Row="1" Grid.Column="0" x:Name="rBSync" TabIndex="7" Content="Synchronous" Checked="rbMode_Checked" Unchecked="rbMode_Checked"/>
-                            <RadioButton GroupName="Mode" Grid.Row="1" Grid.Column="2" x:Name="rBAsync" Grid.ColumnSpan="3" TabIndex="8" Content="Asynchronous" Checked="rbMode_Checked" Unchecked="rbMode_Checked"/>
+                            <RadioButton GroupName="Mode" Grid.Row="1" Grid.Column="0" x:Name="rBSync" TabIndex="7" Content="Synchronous" Checked="rbMode_Checked" Unchecked="rbMode_Checked" />
+                            <RadioButton GroupName="Mode" Grid.Row="1" Grid.Column="2" x:Name="rBAsync" Grid.ColumnSpan="3" TabIndex="8" Content="Asynchronous" Checked="rbMode_Checked" Unchecked="rbMode_Checked" />
                         </Grid>
 
 
 
-                        <Label Content="Name" Grid.Row="6" Grid.Column="0"/>
+                        <Label Content="Name" Grid.Row="6" Grid.Column="0" />
                         <Button Content="Generate" Grid.Row="6" Grid.Column="1" TabIndex="9" Click="btnGenerateName_Click" />
                         <TextBox x:Name="txtBName" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" TabIndex="10" />
 
 
 
-                        <Label Content="Execution Order" Grid.Row="7" Grid.Column="0"/>
+                        <Label Content="Execution Order" Grid.Row="7" Grid.Column="0" />
                         <TextBox x:Name="txtBExecutionOrder" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" TabIndex="11" />
 
 
@@ -148,22 +148,22 @@
 
 
 
-                        <Label Content="Run in User's Context" Grid.Row="9" Grid.Column="0"/>
+                        <Label Content="Run in User's Context" Grid.Row="9" Grid.Column="0" />
                         <TextBox x:Name="txtBRunInUserContext" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" IsReadOnly="true" IsReadOnlyCaretVisible="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
                         <Grid Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3">
 
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Padding" Value="1"/>
-                                    <Setter Property="Margin" Value="10,3"/>
-                                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                    <Setter Property="Padding" Value="1" />
+                                    <Setter Property="Margin" Value="10,3" />
+                                    <Setter Property="VerticalAlignment" Value="Stretch" />
                                 </Style>
                             </Grid.Resources>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
 
                             <Button x:Name="btnSelectUser" Content="Select user" Grid.Row="0" Grid.Column="0" TabIndex="16" Click="btnSelectUser_Click"  />
@@ -179,12 +179,12 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                             <StackPanel.Resources>
                                 <Style TargetType="{x:Type RadioButton}">
-                                    <Setter Property="GroupName" Value="Deployment"/>
-                                    <Setter Property="Padding" Value="5"/>
-                                    <Setter Property="Margin" Value="5"/>
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    <Setter Property="GroupName" Value="Deployment" />
+                                    <Setter Property="Padding" Value="5" />
+                                    <Setter Property="Margin" Value="5" />
+                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
                                 </Style>
                             </StackPanel.Resources>
                             <RadioButton x:Name="rBServer" Content="Server" />
@@ -197,12 +197,12 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                             <StackPanel.Resources>
                                 <Style TargetType="{x:Type RadioButton}">
-                                    <Setter Property="GroupName" Value="TriggeringPipeline"/>
-                                    <Setter Property="Padding" Value="5"/>
-                                    <Setter Property="Margin" Value="5"/>
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    <Setter Property="GroupName" Value="TriggeringPipeline" />
+                                    <Setter Property="Padding" Value="5" />
+                                    <Setter Property="Margin" Value="5" />
+                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
                                 </Style>
                             </StackPanel.Resources>
                             <RadioButton x:Name="rBParent" Content="Parent" />
@@ -212,39 +212,39 @@
 
                 </StackPanel>
 
-                <CheckBox x:Name="chBDeleteAsyncOperationIfSuccessful" Content="Delete AsyncOperation if StatusCode = Successful" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chBDeleteAsyncOperationIfSuccessful" Content="Delete AsyncOperation if StatusCode = Successful" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" />
 
             </StackPanel>
 
-            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*" />
                     
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
                     
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*" />
                     
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
                     
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
 
                 <GroupBox Header="Description" Grid.Row="0">
-                    <TextBox x:Name="txtBDescription" VerticalContentAlignment="Top"/>
+                    <TextBox x:Name="txtBDescription" VerticalContentAlignment="Top" />
                 </GroupBox>
 
-                <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
                 <GroupBox Header="UnSecure Configuration" Grid.Row="2">
-                    <TextBox x:Name="txtBUnSecureConfiguration" VerticalContentAlignment="Top"/>
+                    <TextBox x:Name="txtBUnSecureConfiguration" VerticalContentAlignment="Top" />
                 </GroupBox>
 
-                <GridSplitter Grid.Row="3" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <GridSplitter Grid.Row="3" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
                 <GroupBox Header="Secure Configuration" Grid.Row="4">
-                    <TextBox x:Name="txtBSecureConfiguration" VerticalContentAlignment="Top"/>
+                    <TextBox x:Name="txtBSecureConfiguration" VerticalContentAlignment="Top" />
                 </GroupBox>
             </Grid>
         </Grid>
@@ -252,7 +252,7 @@
         <ToolBar Grid.Row="1" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -268,15 +268,15 @@
 
                 <Button x:Name="btnClose" Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="200" />
 
-                <Separator Margin="20,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Separator Margin="20,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="100" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="2" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
 
     </Grid>

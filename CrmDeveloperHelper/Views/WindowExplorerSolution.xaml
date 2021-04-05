@@ -17,7 +17,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened" />
@@ -39,7 +39,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
-            <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
+            <Button Content="Description Options" Click="miDescriptionOptions_Click" />
 
             <Separator/>
             <Menu Background="{x:Null}" >
@@ -80,17 +80,17 @@
 
         <Grid x:Name="gridExportProfile" Grid.Row="1" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Content="Export Solution Profile" Grid.Column="0" Click="miExportSolutionOptions_Click"/>
+            <Button Content="Export Solution Profile" Grid.Column="0" Click="miExportSolutionOptions_Click" />
             <ComboBox x:Name="cmBExportSolutionProfile" Grid.Column="1" IsTabStop="True" DisplayMemberPath="Name" SelectedIndex="{Binding Path=SelectedItem.ExportSolutionProfileListSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.ExportSolutionProfileList}" />
 
             <Button x:Name="btnNewProfile" Content="New" Grid.Column="2" Click="btnNewProfile_Click" IsTabStop="False" />
@@ -127,7 +127,7 @@
                 <ToolBar Grid.Row="0" Margin="0">
                     <ToolBar.Resources>
                         <Style TargetType="{x:Type ToolBarPanel}">
-                            <Setter Property="Orientation" Value="Vertical"/>
+                            <Setter Property="Orientation" Value="Vertical" />
                         </Style>
                     </ToolBar.Resources>
                     <DockPanel>
@@ -174,24 +174,24 @@
 
                         <Menu Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
                             <MenuItem x:Name="menuItemChangeComponents" Header="Change Solution Components">
-                                <MenuItem x:Name="tSDDBCopyComponents" Header="Copy Components to Selected Solutions" IsEnabled="False"/>
+                                <MenuItem x:Name="tSDDBCopyComponents" Header="Copy Components to Selected Solutions" IsEnabled="False" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSDDBCopyComponentsLastSolution" Header="Copy Components to Last Selected Solutions" IsEnabled="False"/>
+                                <MenuItem x:Name="tSDDBCopyComponentsLastSolution" Header="Copy Components to Last Selected Solutions" IsEnabled="False" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSDDBRemoveComponents" Header="Remove Components from Selected Solutions" IsEnabled="False"/>
+                                <MenuItem x:Name="tSDDBRemoveComponents" Header="Remove Components from Selected Solutions" IsEnabled="False" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSDDBRemoveComponentsLastSolution" Header="Remove Components from Last Selected Solutions" IsEnabled="False"/>
+                                <MenuItem x:Name="tSDDBRemoveComponentsLastSolution" Header="Remove Components from Last Selected Solutions" IsEnabled="False" />
                             </MenuItem>
                         </Menu>
 
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" DockPanel.Dock="Right"/>
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" DockPanel.Dock="Right" />
 
                         <Menu Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
 
-                            <MenuItem x:Name="tSDDBClearUnmanagedSolution" Header="Clear Unmanaged Solution" IsEnabled="False"/>
+                            <MenuItem x:Name="tSDDBClearUnmanagedSolution" Header="Clear Unmanaged Solution" IsEnabled="False" />
 
                         </Menu>
                     </DockPanel>
@@ -200,18 +200,18 @@
                 <DataGrid x:Name="lstVwSolutions" Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" SelectionChanged="lstVwEntities_SelectionChanged" MouseDoubleClick="lstVwSolutions_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" DockPanel.Dock="Right" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                             <Setter Property="ToolTip" Value="{Binding Description}" />
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Solution Name" Width="150" Binding="{Binding SolutionName}"/>
+                        <DataGridTextColumn Header="Solution Name" Width="150" Binding="{Binding SolutionName}" />
 
                         <DataGridTextColumn Header="Display Name" Width="150" Binding="{Binding DisplayName}" />
 
@@ -241,7 +241,7 @@
         <ToolBar Grid.Row="4" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel Margin="0" Height="28" Width="Auto">
@@ -262,15 +262,15 @@
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"  />
 
                 <Separator x:Name="sepClearSolutionComponentFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10,0" />
-                <Button x:Name="btnClearSolutionComponentFilter" Content="Clear Solution Component Filter" Click="btnClearSolutionComponentFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button x:Name="btnClearSolutionComponentFilter" Content="Clear Solution Component Filter" Click="btnClearSolutionComponentFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5" Margin="0">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
 

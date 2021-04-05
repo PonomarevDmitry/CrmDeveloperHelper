@@ -15,7 +15,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
@@ -23,40 +23,40 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Content" Click="mIShowDifferenceContent_Click" FontWeight="Bold"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Content" Click="mIShowDifferenceContent_Click" FontWeight="Bold" />
                 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference ContentJson" Click="mIShowDifferenceContentJson_Click"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Dependency Xml" Click="mIShowDifferenceDependencyXml_Click"/>
-                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference ContentJson" Click="mIShowDifferenceContentJson_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Dependency Xml" Click="mIShowDifferenceDependencyXml_Click" />
+                <Separator x:Uid="menuContextDifference" />
 
                 <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
-                <Separator x:Uid="menuContextDifference"/>
+                <Separator x:Uid="menuContextDifference" />
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open WebResource in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
-                    <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
-                    <MenuItem Header="Content" Click="mIExportWebResource1Content_Click"/>
-                    <MenuItem Header="ContentJson" Click="mIExportWebResource1ContentJson_Click"/>
-                    <MenuItem Header="Dependency Xml" Click="mIExportWebResource1DependencyXml_Click"/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click" />
+                    <MenuItem Header="Content" Click="mIExportWebResource1Content_Click" />
+                    <MenuItem Header="ContentJson" Click="mIExportWebResource1ContentJson_Click" />
+                    <MenuItem Header="Dependency Xml" Click="mIExportWebResource1DependencyXml_Click" />
                     <Separator/>
-                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources1_Click"/>
+                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources1_Click" />
                 </MenuItem>
 
-                <Separator x:Uid="menuContextConnection2"/>
+                <Separator x:Uid="menuContextConnection2" />
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open WebResource in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
-                    <MenuItem Header="Content" Click="mIExportWebResource2Content_Click"/>
-                    <MenuItem Header="ContentJson" Click="mIExportWebResource2ContentJson_Click"/>
-                    <MenuItem Header="Dependency Xml" Click="mIExportWebResource2DependencyXml_Click"/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click" />
+                    <MenuItem Header="Content" Click="mIExportWebResource2Content_Click" />
+                    <MenuItem Header="ContentJson" Click="mIExportWebResource2ContentJson_Click" />
+                    <MenuItem Header="Dependency Xml" Click="mIExportWebResource2DependencyXml_Click" />
 
                     <Separator/>
-                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources2_Click"/>
+                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources2_Click" />
                 </MenuItem>
             </ContextMenu>
 
@@ -77,19 +77,19 @@
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
 
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
 
             <Menu Background="{x:Null}">
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
-                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources1_Click"/>
+                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources1_Click" />
                 </MenuItem>
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
                 <MenuItem Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}">
-                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources2_Click"/>
+                    <MenuItem Header="WebResource Explorer" Click="btnExportWebResources2_Click" />
                 </MenuItem>
             </Menu>
 
@@ -101,16 +101,16 @@
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBCurrentConnection_SelectionChanged"/>
+            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
-            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
+            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2" />
             <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
         </Grid>
 
@@ -173,12 +173,12 @@
         <DataGrid x:Name="lstVwWebResources" Grid.Row="3" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -212,7 +212,7 @@
         <ToolBar Grid.Row="4" >
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -223,51 +223,51 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
+                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click" />
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Content" Click="mIShowDifferenceContent_Click"/>
-                            <MenuItem Header="ContentJson" Click="mIShowDifferenceContentJson_Click"/>
-                            <MenuItem Header="Dependency Xml" Click="mIShowDifferenceDependencyXml_Click"/>
+                            <MenuItem Header="Content" Click="mIShowDifferenceContent_Click" />
+                            <MenuItem Header="ContentJson" Click="mIShowDifferenceContentJson_Click" />
+                            <MenuItem Header="Dependency Xml" Click="mIShowDifferenceDependencyXml_Click" />
                         </MenuItem>
                     </Menu>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Content" Click="mIExportWebResource1Content_Click"/>
-                            <MenuItem Header="ContentJson" Click="mIExportWebResource1ContentJson_Click"/>
-                            <MenuItem Header="Dependency Xml" Click="mIExportWebResource1DependencyXml_Click"/>
+                            <MenuItem Header="Content" Click="mIExportWebResource1Content_Click" />
+                            <MenuItem Header="ContentJson" Click="mIExportWebResource1ContentJson_Click" />
+                            <MenuItem Header="Dependency Xml" Click="mIExportWebResource1DependencyXml_Click" />
                         </MenuItem>
                     </Menu>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Content" Click="mIExportWebResource2Content_Click"/>
-                            <MenuItem Header="ContentJson" Click="mIExportWebResource2ContentJson_Click"/>
-                            <MenuItem Header="Dependency Xml" Click="mIExportWebResource2DependencyXml_Click"/>
+                            <MenuItem Header="Content" Click="mIExportWebResource2Content_Click" />
+                            <MenuItem Header="ContentJson" Click="mIExportWebResource2ContentJson_Click" />
+                            <MenuItem Header="Dependency Xml" Click="mIExportWebResource2DependencyXml_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5">
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <StatusBarItem x:Name="stBIStatus"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowWithConnectionList>

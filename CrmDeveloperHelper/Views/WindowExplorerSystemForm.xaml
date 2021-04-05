@@ -13,17 +13,17 @@
     <src:WindowWithSolutionComponentDescriptor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open SystemForm in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
+                <MenuItem Header="Open SystemForm in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Form Description" Click="mIExportSystemFormDescription_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -42,7 +42,7 @@
                 </MenuItem>
 
                 <Separator />
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click" />
 
                 <Separator />
                 <MenuItem x:Uid="miActivateSystemForms" Header="Activate SystemForms" Click="miActivateSystemForms_Click" />
@@ -68,7 +68,7 @@
                 <Separator/>
                 <MenuItem Header="Publish SystemForm" Click="mIPublishSystemForm_Click" />
 
-                <Separator x:Uid="contMnEntity"/>
+                <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
@@ -76,7 +76,7 @@
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
                 <Separator x:Uid="contMnEntity" />
-                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnAddEntityToSolutionLast" Header="Add Entity to Last Crm Solution">
@@ -94,7 +94,7 @@
                     <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
 
-                <Separator x:Uid="contMnEntity"/>
+                <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File">
                     <MenuItem x:Uid="contMnEntity" Header="JsonObject based on Form" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
                     <MenuItem x:Uid="contMnEntity" Header="AnonymousConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
@@ -118,17 +118,17 @@
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
                 <Separator/>
-                <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
+                <MenuItem Header="Export All Form Information" Click="btnExportAll_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -211,12 +211,12 @@
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -229,7 +229,7 @@
                         <DataTemplate>
                             <Label ToolTip="Form Description" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkFormDescription_Click">
-                                    <Run Text="FD"/>
+                                    <Run Text="FD" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -244,7 +244,7 @@
                         <DataTemplate>
                             <Label ToolTip="Form Xml" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkFormXml_Click">
-                                    <Run Text="FX"/>
+                                    <Run Text="FX" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -259,7 +259,7 @@
                         <DataTemplate>
                             <Label ToolTip="Form Json" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkFormJson_Click">
-                                    <Run Text="FJ"/>
+                                    <Run Text="FJ" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -282,7 +282,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create Entity JavaScript File JsonObject based on Form" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkJavaScriptFileJsonObject_Click">
-                                    <Run Text="Json"/>
+                                    <Run Text="Json" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -297,7 +297,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create Entity JavaScript File AnonymousConstructor based on Form" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkJavaScriptFileAnonymousConstructor_Click">
-                                    <Run Text="Anon"/>
+                                    <Run Text="Anon" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -312,7 +312,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create Entity JavaScript File TypeConstructor based on Form" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkJavaScriptFileTypeConstructor_Click">
-                                    <Run Text="Type"/>
+                                    <Run Text="Type" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -327,7 +327,7 @@
                         <DataTemplate>
                             <Label ToolTip="Publish SystemForm" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkPublishSystemForm_Click">
-                                    <Run Text="PubF"/>
+                                    <Run Text="PubF" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -342,7 +342,7 @@
                         <DataTemplate>
                             <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkPublishEntity_Click">
-                                    <Run Text="PubE"/>
+                                    <Run Text="PubE" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -370,7 +370,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -386,15 +386,15 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
-                            <MenuItem Header="Open SystemForm in Browser" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open SystemForm in Browser" Click="mIOpenInWeb_Click" />
                             <Separator/>
                             <MenuItem Header="Form Description" Click="mIExportSystemFormDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click" />
 
                             <Separator />
                             <MenuItem x:Uid="miActivateSystemForms" Header="Activate SystemForms" Click="miActivateSystemForms_Click" />
@@ -411,7 +411,7 @@
                             <MenuItem Header="Form XML" Click="mIExportSystemFormFormXml_Click" />
                             <MenuItem Header="Form Json" Click="mIExportSystemFormFormJson_Click" />
 
-                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <Separator x:Uid="controlChangeEntityAttribute" />
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute">
                                 <MenuItem Header="Form XML" Click="mIUpdateSystemFormFormXml_Click" />
                                 <MenuItem Header="Form Json" Click="mIUpdateSystemFormFormJson_Click" />
@@ -419,7 +419,7 @@
 
                             <Separator/>
                             <MenuItem Header="Publish SystemForm" Click="mIPublishSystemForm_Click" />
-                            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Entity JavaScript File JsonObject based on Form" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
@@ -439,7 +439,7 @@
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
@@ -447,7 +447,7 @@
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

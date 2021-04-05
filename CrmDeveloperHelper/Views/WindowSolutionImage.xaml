@@ -28,27 +28,27 @@
         </ContextMenu>
     </src:WindowWithSolutionComponentDescriptor.Resources>
     <Grid>
-        <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
+        <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="txtBFilePath" Height="23" Margin="85,10,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="85,38,10,0" VerticalAlignment="Top" />
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="txtBFilter" Height="23" Margin="85,66,381,0" VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
 
-        <Label Content="Component Type" HorizontalAlignment="Right" Margin="0,66,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96"/>
-        <ComboBox x:Name="cmBComponentType" SelectedIndex="0" Height="23" Margin="0,66,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265"/>
+        <Label Content="Component Type" HorizontalAlignment="Right" Margin="0,66,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96" />
+        <ComboBox x:Name="cmBComponentType" SelectedIndex="0" Height="23" Margin="0,66,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265" />
 
         <DataGrid x:Name="lstVwComponents" AutoGenerateColumns="False" Margin="10,94,10,100" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -61,12 +61,12 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53" />
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" Height="26" />
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -79,15 +79,15 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="tSBLoadSolutionImage" Content="Load SolutionImage" Click="tSBLoadSolutionImage_Click" />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center" />
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
     </Grid>
 </src:WindowWithSolutionComponentDescriptor>

@@ -43,13 +43,13 @@
 
                 <Label Grid.Column="5">
                     <Hyperlink x:Name="hypLinkSelectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectAll_RequestNavigate">
-                        <Run Text="Select All"/>
+                        <Run Text="Select All" />
                     </Hyperlink>
                 </Label>
 
                 <Label Grid.Column="6">
                     <Hyperlink x:Name="hypLinkDeselectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectAll_RequestNavigate" >
-                        <Run Text="Deselect All"/>
+                        <Run Text="Deselect All" />
                     </Hyperlink>
                 </Label>
 
@@ -58,7 +58,7 @@
             <ListBox x:Name="lstBValues" SelectionMode="Extended" Grid.Row="1">
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
-                        <CheckBox Content="{Binding Content}" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+                        <CheckBox Content="{Binding Content}" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

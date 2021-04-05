@@ -13,7 +13,7 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
@@ -50,7 +50,7 @@
                     <Separator/>
                     <MenuItem Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
                     <Separator/>
-                    <MenuItem Header="Update Entity RibbonDiffXml" Click="miUpdateEntityRibbonDiffXml_Click"/>
+                    <MenuItem Header="Update Entity RibbonDiffXml" Click="miUpdateEntityRibbonDiffXml_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -70,19 +70,19 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Create New Entity" Click="miCreateNewEntity_Click"/>
+                <MenuItem Header="Create New Entity" Click="miCreateNewEntity_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
+                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click"/>
-                <MenuItem Header="Create C# Proxy Class File" Click="miCreateCSharpFileProxyClass_Click"/>
+                <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click" />
+                <MenuItem Header="Create C# Proxy Class File" Click="miCreateCSharpFileProxyClass_Click" />
                 <Separator/>
-                <MenuItem Header="Create C# Metadata and Proxy Class Files" Click="miCreateCSharpFileSchemaMetadataAndProxyClass_Click"/>
+                <MenuItem Header="Create C# Metadata and Proxy Class Files" Click="miCreateCSharpFileSchemaMetadataAndProxyClass_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
+                <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click" />
 
                 <Separator />
                 <MenuItem Header="Create Empty Entity Form JavaScript File">
@@ -99,16 +99,16 @@
                 </MenuItem>
 
                 <Separator x:Uid="blockNotMetadata" />
-                <MenuItem x:Uid="blockNotMetadata" Header="Create File with Attributes Dependent Components" Click="miCreateFileAttributesDependentComponents_Click"/>
+                <MenuItem x:Uid="blockNotMetadata" Header="Create File with Attributes Dependent Components" Click="miCreateFileAttributesDependentComponents_Click" />
 
                 <Separator x:Uid="blockNotMetadata" />
-                <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
+                <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Xml" Click="miExportEntityXml_Click" />
 
                 <Separator x:Uid="blockNotMetadata" />
-                <MenuItem x:Uid="blockNotMetadata" Header="Export EntityMetadata Xml" Click="miExportEntityMetadataXml_Click"/>
+                <MenuItem x:Uid="blockNotMetadata" Header="Export EntityMetadata Xml" Click="miExportEntityMetadataXml_Click" />
 
                 <Separator/>
-                <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
+                <MenuItem Header="Publish Entity" Click="miPublishEntity_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Browser" Click="miOpenDependentComponentsInWeb_Click" />
@@ -127,12 +127,12 @@
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -202,20 +202,20 @@
 
             <Grid.Resources>
                 <Style TargetType="{x:Type Label}">
-                    <Setter Property="Padding" Value="2"/>
-                    <Setter Property="Margin" Value="0,3,3,3"/>
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="Margin" Value="0,3,3,3" />
 
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
                 </Style>
                 <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="Padding" Value="2"/>
-                    <Setter Property="Margin" Value="3,3,0,3"/>
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="Margin" Value="3,3,0,3" />
 
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
                 </Style>
             </Grid.Resources>
 
@@ -233,12 +233,12 @@
         <DataGrid x:Name="lstVwEntities" Grid.Row="2" AutoGenerateColumns="False" SelectionMode="Extended" Margin="10,5" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -251,7 +251,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create C# Metadata File" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkCSharpMetadata_Click">
-                                    <Run Text="Met"/>
+                                    <Run Text="Met" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -266,7 +266,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create C# Proxy Class File" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkCSharpProxy_Click">
-                                    <Run Text="Prx"/>
+                                    <Run Text="Prx" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -281,7 +281,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create JavaScript File Json Object for OptionSet" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkJavaScript_Click">
-                                    <Run Text="JS"/>
+                                    <Run Text="JS" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -312,7 +312,7 @@
                         <DataTemplate>
                             <Label ToolTip="Create C# Metadata and Proxy Class Files" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkCSharpMetadataAndProxy_Click">
-                                    <Run Text="Met+Prx"/>
+                                    <Run Text="Met+Prx" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -327,7 +327,7 @@
                         <DataTemplate>
                             <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkPublishEntity_Click">
-                                    <Run Text="Pub"/>
+                                    <Run Text="Pub" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -340,7 +340,7 @@
         <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -357,13 +357,13 @@
                         <MenuItem x:Name="miEntityOperations" Header="Entity Operations" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="3" SubmenuOpened="miEntityOperations_SubmenuOpened">
 
                             <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click" />
-                            <MenuItem Header="Create C# Proxy Class File" Click="miCreateCSharpFileProxyClass_Click"/>
+                            <MenuItem Header="Create C# Proxy Class File" Click="miCreateCSharpFileProxyClass_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create JavaScript Metadata File" Click="miCreateCSharpFileSchemaMetadataAndProxyClass_Click"/>
+                            <MenuItem Header="Create JavaScript Metadata File" Click="miCreateCSharpFileSchemaMetadataAndProxyClass_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
+                            <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click" />
 
                             <Separator />
                             <MenuItem Header="Create Empty Entity Form JavaScript File">
@@ -392,33 +392,33 @@
                             <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
 
                             <Separator x:Uid="blockNotMetadata" />
-                            <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
+                            <MenuItem x:Uid="blockNotMetadata" Header="Export Entity Xml" Click="miExportEntityXml_Click" />
 
                             <Separator x:Uid="blockNotMetadata" />
-                            <MenuItem x:Uid="blockNotMetadata" Header="Export EntityMetadata Xml" Click="miExportEntityMetadataXml_Click"/>
+                            <MenuItem x:Uid="blockNotMetadata" Header="Export EntityMetadata Xml" Click="miExportEntityMetadataXml_Click" />
 
                             <Separator x:Uid="blockNotMetadata" />
-                            <MenuItem x:Uid="blockNotMetadata" Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
+                            <MenuItem x:Uid="blockNotMetadata" Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
+                            <MenuItem Header="Publish Entity" Click="miPublishEntity_Click" />
 
                         </MenuItem>
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="4">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
 
     </Grid>

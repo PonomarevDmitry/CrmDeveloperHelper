@@ -5,9 +5,9 @@
         Title="Select Report" Height="510.662" Width="942" WindowStartupLocation="Manual">
     <src:WindowWithSingleConnection.Resources>
         <ContextMenu x:Key="listContextMenu">
-            <MenuItem Header="Select Report" VerticalAlignment="Center" Click="btnSelectReport_Click"/>
+            <MenuItem Header="Select Report" VerticalAlignment="Center" Click="btnSelectReport_Click" />
             <Separator/>
-            <MenuItem Header="Open in Browser" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+            <MenuItem Header="Open in Browser" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
             <MenuItem Header="Create New Report" VerticalAlignment="Center" Click="mICreateNewReport_Click" />
         </ContextMenu>
@@ -15,19 +15,19 @@
     <Grid>
         <TextBox x:Name="txtBCurrentFile" Height="49" Margin="10,10,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top"/>
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" />
         
         <TextBox x:Name="txtBFilter" Height="26" Margin="51,64,10,0" VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
         
         <DataGrid x:Name="lstVwReports" AutoGenerateColumns="False" Margin="10,95,10,93" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                     <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
@@ -51,12 +51,12 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="lblLastLink" Content="Last Link" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom"/>
+        <Label x:Name="lblLastLink" Content="Last Link" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" />
         <TextBox x:Name="txtBLastLink" Height="26" Margin="71,0,10,62" VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -73,13 +73,13 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="70,0,70,0" />
                     <Button x:Name="btnSelectLastLink" Content="Select Last Link" Click="btnSelectLastLink_Click" />                    
                 </ToolBarPanel>
-                <Button Content="Cancel" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Cancel" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
         <StatusBar Height="24" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
     </Grid>
 </src:WindowWithSingleConnection>

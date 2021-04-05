@@ -6,7 +6,7 @@
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
@@ -25,91 +25,91 @@
         </Grid.RowDefinitions>
 
         <ToolBar Margin="0" Height="Auto" Grid.Row="0">
-            <Separator Visibility="Collapsed"/>
+            <Separator Visibility="Collapsed" />
             
             <Menu Background="{x:Null}">
                 <MenuItem Header="Check Only">
-                    <MenuItem Header="Entities" Click="mICheckOnlyEntities_Click"/>
-                    <MenuItem Header="Entities Objects" Click="mICheckOnlyEntitiesObjects_Click"/>
+                    <MenuItem Header="Entities" Click="mICheckOnlyEntities_Click" />
+                    <MenuItem Header="Entities Objects" Click="mICheckOnlyEntitiesObjects_Click" />
 
                     <Separator />
-                    <MenuItem Header="Entities All without Ribbons" Click="mICheckOnlyEntitiesAllWithoutRibbons_Click"/>
+                    <MenuItem Header="Entities All without Ribbons" Click="mICheckOnlyEntitiesAllWithoutRibbons_Click" />
 
                     <Separator />
-                    <MenuItem Header="Entities All" Click="mICheckOnlyEntitiesAll_Click"/>
+                    <MenuItem Header="Entities All" Click="mICheckOnlyEntitiesAll_Click" />
                     
                     <Separator />
-                    <MenuItem Header="Plugin Information" Click="mICheckOnlyPluginInformation_Click"/>
+                    <MenuItem Header="Plugin Information" Click="mICheckOnlyPluginInformation_Click" />
 
                     <Separator />
-                    <MenuItem Header="Templates" Click="mICheckOnlyTemplates_Click"/>
+                    <MenuItem Header="Templates" Click="mICheckOnlyTemplates_Click" />
                     
                     <Separator />
-                    <MenuItem Header="Connection Roles" Click="mICheckOnlyConnectionRoles_Click"/>
+                    <MenuItem Header="Connection Roles" Click="mICheckOnlyConnectionRoles_Click" />
 
                     <Separator />
-                    <MenuItem Header="Security" Click="mICheckOnlySecurity_Click"/>
+                    <MenuItem Header="Security" Click="mICheckOnlySecurity_Click" />
                     
                     <Separator />
-                    <MenuItem Header="Workflows" Click="mICheckOnlyWorkflows_Click"/>
+                    <MenuItem Header="Workflows" Click="mICheckOnlyWorkflows_Click" />
                 </MenuItem>
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
                 <MenuItem Header="Check">
-                    <MenuItem Header="Entities" Click="mICheckEntities_Click"/>
-                    <MenuItem Header="Entities Objects" Click="mICheckEntitiesObjects_Click"/>
+                    <MenuItem Header="Entities" Click="mICheckEntities_Click" />
+                    <MenuItem Header="Entities Objects" Click="mICheckEntitiesObjects_Click" />
 
                     <Separator />
-                    <MenuItem Header="Entities All without Ribbons" Click="mICheckEntitiesAllWithoutRibbons_Click"/>
+                    <MenuItem Header="Entities All without Ribbons" Click="mICheckEntitiesAllWithoutRibbons_Click" />
 
                     <Separator />
-                    <MenuItem Header="Entities All" Click="mICheckEntitiesAll_Click"/>
+                    <MenuItem Header="Entities All" Click="mICheckEntitiesAll_Click" />
 
                     <Separator />
-                    <MenuItem Header="Plugin Information" Click="mICheckPluginInformation_Click"/>
+                    <MenuItem Header="Plugin Information" Click="mICheckPluginInformation_Click" />
 
                     <Separator />
-                    <MenuItem Header="Templates" Click="mICheckTemplates_Click"/>
+                    <MenuItem Header="Templates" Click="mICheckTemplates_Click" />
 
                     <Separator />
-                    <MenuItem Header="Connection Roles" Click="mICheckConnectionRoles_Click"/>
+                    <MenuItem Header="Connection Roles" Click="mICheckConnectionRoles_Click" />
 
                     <Separator />
-                    <MenuItem Header="Security" Click="mICheckSecurity_Click"/>
+                    <MenuItem Header="Security" Click="mICheckSecurity_Click" />
 
                     <Separator />
-                    <MenuItem Header="Workflows" Click="mICheckWorkflows_Click"/>
+                    <MenuItem Header="Workflows" Click="mICheckWorkflows_Click" />
                 </MenuItem>
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
                 <MenuItem Header="Uncheck">
-                    <MenuItem Header="Entities" Click="mIUncheckEntities_Click"/>
-                    <MenuItem Header="Entities Objects" Click="mIUncheckEntitiesObjects_Click"/>
+                    <MenuItem Header="Entities" Click="mIUncheckEntities_Click" />
+                    <MenuItem Header="Entities Objects" Click="mIUncheckEntitiesObjects_Click" />
 
                     <Separator />
-                    <MenuItem Header="Entities All" Click="mIUncheckEntitiesAll_Click"/>
+                    <MenuItem Header="Entities All" Click="mIUncheckEntitiesAll_Click" />
 
                     <Separator />
-                    <MenuItem Header="Plugin Information" Click="mIUncheckPluginInformation_Click"/>
+                    <MenuItem Header="Plugin Information" Click="mIUncheckPluginInformation_Click" />
 
                     <Separator />
-                    <MenuItem Header="Ribbons" Click="mIUncheckRibbons_Click"/>
+                    <MenuItem Header="Ribbons" Click="mIUncheckRibbons_Click" />
 
                     <Separator />
-                    <MenuItem Header="Templates" Click="mIUncheckTemplates_Click"/>
+                    <MenuItem Header="Templates" Click="mIUncheckTemplates_Click" />
 
                     <Separator />
-                    <MenuItem Header="Connection Roles" Click="mIUncheckConnectionRoles_Click"/>
+                    <MenuItem Header="Connection Roles" Click="mIUncheckConnectionRoles_Click" />
 
                     <Separator />
-                    <MenuItem Header="Security" Click="mIUncheckSecurity_Click"/>
+                    <MenuItem Header="Security" Click="mIUncheckSecurity_Click" />
 
                     <Separator />
-                    <MenuItem Header="Workflows" Click="mIUncheckWorkflows_Click"/>
+                    <MenuItem Header="Workflows" Click="mIUncheckWorkflows_Click" />
                 </MenuItem>
             </Menu>
         </ToolBar>
@@ -146,25 +146,25 @@
 
             <Label Grid.Column="1">
                 <Hyperlink x:Name="hypLinkSelectFiltered" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectFiltered_RequestNavigate">
-                    <Run Text="Select All Filtered"/>
+                    <Run Text="Select All Filtered" />
                 </Hyperlink>
             </Label>
 
             <Label Grid.Column="2">
                 <Hyperlink x:Name="hypLinkDeselectFiltered" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectFiltered_RequestNavigate" >
-                    <Run Text="Deselect All Filtered"/>
+                    <Run Text="Deselect All Filtered" />
                 </Hyperlink>
             </Label>
 
             <Label Grid.Column="4">
                 <Hyperlink x:Name="hypLinkSelectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectAll_RequestNavigate">
-                    <Run Text="Select All"/>
+                    <Run Text="Select All" />
                 </Hyperlink>
             </Label>
 
             <Label Grid.Column="5">
                 <Hyperlink x:Name="hypLinkDeselectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectAll_RequestNavigate" >
-                    <Run Text="Deselect All"/>
+                    <Run Text="Deselect All" />
                 </Hyperlink>
             </Label>
         </Grid>
@@ -172,7 +172,7 @@
         <DataGrid x:Name="lstVwAttributes" AutoGenerateColumns="False" Grid.Row="3" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
 
@@ -199,7 +199,7 @@
         <ToolBar Grid.Row="4" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -213,7 +213,7 @@
 
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20" />
 
                 <Separator Margin="10,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 <Button x:Name="btnOk" Content="Ok" Click="btnOk_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="10" />

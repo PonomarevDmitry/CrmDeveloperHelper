@@ -10,7 +10,7 @@
     <src:WindowWithSolutionComponentDescriptor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
@@ -53,7 +53,7 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -101,12 +101,12 @@
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -153,9 +153,9 @@
         <Grid Grid.Row="1" Margin="5" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="columnEntity" Width="600"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition x:Name="columnEntity" Width="600" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -174,7 +174,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width="30*"  />
                     </Grid.ColumnDefinitions>
@@ -183,7 +183,7 @@
                     <ComboBox x:Name="cmBRoleEditorLayoutTabs" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
                     <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
 
-                    <Label Content="Filter" Grid.Row="1" Grid.Column="0"/>
+                    <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
                     <TextBox x:Name="txtBFilterEnitity" KeyDown="txtBFilterEnitity_KeyDown" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
 
                 </Grid>
@@ -191,12 +191,12 @@
                 <DataGrid x:Name="lstVwEntities" Grid.Row="1" Margin="5" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
@@ -225,7 +225,7 @@
                                 <DataTemplate>
                                     <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
                                         <Hyperlink Click="hyperlinkPublishEntity_Click">
-                                            <Run Text="Pub"/>
+                                            <Run Text="Pub" />
                                         </Hyperlink>
                                     </Label>
                                 </DataTemplate>
@@ -236,7 +236,7 @@
                 </DataGrid>
             </Grid>
 
-            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
             <Grid Grid.Column="2">
 
@@ -248,23 +248,23 @@
 
                 <Grid Grid.Row="0" Margin="5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="50*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Filter" Grid.Row="0" Grid.Column="0"/>
+                    <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="txtBFilterEntityKey" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilterEntityKey_KeyDown" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwEntityKeys" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntityKeys_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityKey}"/>
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityKey}" />
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
@@ -283,10 +283,10 @@
         </Grid>
 
         <StatusBar Grid.Row="2" Margin="0">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

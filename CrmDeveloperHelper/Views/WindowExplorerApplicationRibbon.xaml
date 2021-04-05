@@ -13,7 +13,7 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
@@ -38,22 +38,22 @@
             <Menu Background="{x:Null}">
                 <MenuItem Header="ApplicationRibbon" SubmenuOpened="miApplicationRibbon_SubmenuOpened">
 
-                    <MenuItem Header="Export Application Ribbon and RibbonDiffXml" Click="miExportApplicationRibbonAndRibbonDiffXml_Click"/>
+                    <MenuItem Header="Export Application Ribbon and RibbonDiffXml" Click="miExportApplicationRibbonAndRibbonDiffXml_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Export Application Ribbon" Click="miExportApplicationRibbon_Click"/>
+                    <MenuItem Header="Export Application Ribbon" Click="miExportApplicationRibbon_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Export Application RibbonDiffXml" Click="miExportApplicationRibbonDiffXml_Click"/>
+                    <MenuItem Header="Export Application RibbonDiffXml" Click="miExportApplicationRibbonDiffXml_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Export Application Ribbon Archive" Click="miExportApplicationRibbonArchive_Click"/>
+                    <MenuItem Header="Export Application Ribbon Archive" Click="miExportApplicationRibbonArchive_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Publish Application Ribbon" Click="miPublishApplicationRibbon_Click"/>
+                    <MenuItem Header="Publish Application Ribbon" Click="miPublishApplicationRibbon_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Update Application RibbonDiffXml" Click="miUpdateApplicationRibbonDiffXml_Click"/>
+                    <MenuItem Header="Update Application RibbonDiffXml" Click="miUpdateApplicationRibbonDiffXml_Click" />
 
                     <Separator/>
                     <MenuItem x:Name="miAddApplicationTotSolutionLast" x:Uid="miAddApplicationTotSolutionLast" Header="Add Application Ribbon to Last Crm Solution" />
@@ -90,7 +90,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Content="Folder" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
             <Label Content="Action" Grid.Row="1" Grid.Column="0" />
@@ -100,7 +100,7 @@
         <ToolBar Grid.Row="2">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -110,15 +110,15 @@
                         <Setter Property="Padding" Value="3" />
                     </Style>
                 </DockPanel.Resources>
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="3">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

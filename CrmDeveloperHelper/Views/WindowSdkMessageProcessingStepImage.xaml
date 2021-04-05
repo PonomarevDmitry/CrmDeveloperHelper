@@ -22,57 +22,57 @@
             <Grid Margin="0">
                 <Grid.Resources>
                     <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Padding" Value="1"/>
-                        <Setter Property="Margin" Value="3"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="1" />
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
                     <Style TargetType="{x:Type Label}">
-                        <Setter Property="Padding" Value="1"/>
-                        <Setter Property="Margin" Value="3"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="1" />
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
                     <Style TargetType="{x:Type ComboBox}">
-                        <Setter Property="Padding" Value="1"/>
-                        <Setter Property="Margin" Value="3"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="1" />
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Padding" Value="2"/>
-                        <Setter Property="Margin" Value="3"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="2" />
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
                     </Style>
                     <Style TargetType="{x:Type RadioButton}">
-                        <Setter Property="Padding" Value="1"/>
-                        <Setter Property="Margin" Value="3"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="1" />
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
 
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
 
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
 
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10*" />
                 </Grid.ColumnDefinitions>
 
                 <Label Content="Name" Grid.Row="0" Grid.Column="0" />
                 <TextBox x:Name="txtBName" Grid.Row="0" Grid.Column="1" />
 
-                <Label Content="Entity Alias" Grid.Row="1" Grid.Column="0"/>
+                <Label Content="Entity Alias" Grid.Row="1" Grid.Column="0" />
                 <TextBox x:Name="txtBEntityAlias" Grid.Row="1" Grid.Column="1" />
 
                 <Label Content="Plugin Image Type" Grid.Row="2" Grid.Column="0" />
@@ -80,28 +80,28 @@
                 <Grid Grid.Row="2" Grid.Column="1">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <RadioButton Grid.Row="0" Grid.Column="0" x:Name="rBPreImage" GroupName="PluginImageType" Content="PreImage" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="5,0" Padding="5" />
-                    <RadioButton Grid.Row="0" Grid.Column="2" x:Name="rBPostImage" GroupName="PluginImageType" Content="PostImage" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="5,0" Padding="5"/>
-                    <RadioButton Grid.Row="0" Grid.Column="4" x:Name="rBBoth" GroupName="PluginImageType" Content="Both" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="5,0" Padding="5"/>
+                    <RadioButton Grid.Row="0" Grid.Column="2" x:Name="rBPostImage" GroupName="PluginImageType" Content="PostImage" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="5,0" Padding="5" />
+                    <RadioButton Grid.Row="0" Grid.Column="4" x:Name="rBBoth" GroupName="PluginImageType" Content="Both" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="5,0" Padding="5" />
                 </Grid>
 
-                <Label Content="Attributes" Grid.Row="3" Grid.Column="0"/>
+                <Label Content="Attributes" Grid.Row="3" Grid.Column="0" />
 
                 <Grid Grid.Row="3" Grid.Column="1">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="100*" />
                         
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="50" />
                         
-                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="btnSetAllAttributes" Content="Set All" Grid.Column="0" Click="btnSetAllAttributes_Click" />
@@ -110,22 +110,22 @@
 
                 <TextBox x:Name="txtBAttributes" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" IsReadOnly="true" IsReadOnlyCaretVisible="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
-                <Label Content="MessagePropertyName" Grid.Row="5" Grid.Column="0"/>
+                <Label Content="MessagePropertyName" Grid.Row="5" Grid.Column="0" />
                 <ComboBox x:Name="cmBMessagePropertyName" Grid.Row="5" Grid.Column="1" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
 
-                <Label Content="RelatedAttributeName" Grid.Row="6" Grid.Column="0"/>
+                <Label Content="RelatedAttributeName" Grid.Row="6" Grid.Column="0" />
                 <TextBox x:Name="txtBRelatedAttributeName" Grid.Row="6" Grid.Column="1" />
             </Grid>
         </GroupBox>
 
         <GroupBox Grid.Row="1" Margin="5" Header="Description">
-            <TextBox x:Name="txtBDescription" VerticalContentAlignment="Top"/>
+            <TextBox x:Name="txtBDescription" VerticalContentAlignment="Top" />
         </GroupBox>
 
         <ToolBar Grid.Row="2" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -141,17 +141,17 @@
 
                 <Button x:Name="btnCancel" Content="Close" Click="btnCancel_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="200" />
 
-                <Separator Margin="20,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Separator Margin="20,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="100" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="3">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center" />
 
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />
 
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
     </Grid>
 </src:WindowWithSingleConnection>

@@ -14,7 +14,7 @@
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
@@ -42,20 +42,20 @@
 
             <Grid.Resources>
                 <Style TargetType="{x:Type Label}">
-                    <Setter Property="Padding" Value="2"/>
-                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="Margin" Value="3" />
 
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
                 </Style>
                 <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="Padding" Value="2"/>
-                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="Margin" Value="3" />
 
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
                 </Style>
             </Grid.Resources>
 

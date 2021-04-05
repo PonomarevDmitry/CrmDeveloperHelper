@@ -16,11 +16,11 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu">
-                <MenuItem Header="Open Trace File" Click="mIOpenTraceFile_Click"/>
+                <MenuItem Header="Open Trace File" Click="mIOpenTraceFile_Click" />
             </ContextMenu>
 
         </ResourceDictionary>
@@ -129,7 +129,7 @@
                         
 
                         <Label Grid.Row="1" Grid.Column="0" Content="File Date Change From" />
-                        <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dPFileDate" SelectedDateFormat="Long" FirstDayOfWeek="Monday" KeyDown="cmBFilterEnitity_KeyDown"/>
+                        <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dPFileDate" SelectedDateFormat="Long" FirstDayOfWeek="Monday" KeyDown="cmBFilterEnitity_KeyDown" />
 
                         <Label Grid.Row="1" Grid.Column="2" Content="Thread" />
                         <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBThread" KeyDown="cmBFilterEnitity_KeyDown" />
@@ -144,7 +144,7 @@
 
                             <DataGrid.ItemContainerStyle>
                                 <Style TargetType="{x:Type DataGridRow}">
-                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                                 </Style>
                             </DataGrid.ItemContainerStyle>
 
@@ -185,7 +185,7 @@
         <ToolBar Grid.Row="2" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel Margin="0">
@@ -211,7 +211,7 @@
 
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
 
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
 
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>

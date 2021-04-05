@@ -14,7 +14,7 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
@@ -24,35 +24,35 @@
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference All Different" Click="btnShowDifferenceAll_Click" FontWeight="Bold" />
 
-                <Separator x:Uid="menuContextDifference"/>
+                <Separator x:Uid="menuContextDifference" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Xaml" Click="mIShowDifferenceXaml_Click" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference InputParameters" Click="mIShowDifferenceInputParameters_Click" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference ClientData" Click="mIShowDifferenceClientData_Click" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference UIData" Click="mIShowDifferenceUIData_Click" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click" />
-                <Separator x:Uid="menuContextDifference"/>
+                <Separator x:Uid="menuContextDifference" />
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
-                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click" />
+                <Separator x:Uid="menuContextDifference" />
 
                 <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
-                <Separator x:Uid="menuContextDifference"/>
+                <Separator x:Uid="menuContextDifference" />
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open Workflow in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <MenuItem Header="Open Workflow List in Browser" Click="mIConnection1OpenWorkflowListInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
-                    <MenuItem Header="Xaml" Click="mIExportWorkflow1Xaml_Click"/>
-                    <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
-                    <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
-                    <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click"/>
-                    <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click"/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click" />
+                    <MenuItem Header="Xaml" Click="mIExportWorkflow1Xaml_Click" />
+                    <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click" />
+                    <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click" />
+                    <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click" />
+                    <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
+                    <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Browser" Click="miConnection1OpenEntityMetadataInWeb_Click" />
@@ -67,21 +67,21 @@
                 <Separator/>
                 <MenuItem x:Uid="miExplorers1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}" />
 
-                <Separator x:Uid="menuContextConnection2"/>
+                <Separator x:Uid="menuContextConnection2" />
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open Workflow in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
                     <MenuItem Header="Open Workflow List in Browser" Click="mIConnection2OpenWorkflowListInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
-                    <MenuItem Header="Xaml" Click="mIExportWorkflow2Xaml_Click"/>
-                    <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>
-                    <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
-                    <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click"/>
-                    <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click"/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click" />
+                    <MenuItem Header="Xaml" Click="mIExportWorkflow2Xaml_Click" />
+                    <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click" />
+                    <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click" />
+                    <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click" />
+                    <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
+                    <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Browser" Click="miConnection2OpenEntityMetadataInWeb_Click" />
@@ -93,7 +93,7 @@
                     <MenuItem Header="Open Entity List in Browser" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
-                <Separator x:Uid="menuContextConnection2"/>
+                <Separator x:Uid="menuContextConnection2" />
                 <MenuItem x:Uid="miExplorers2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}" />
 
             </ContextMenu>
@@ -115,7 +115,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
@@ -135,11 +135,11 @@
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -147,10 +147,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBCurrentConnection_SelectionChanged"/>
+            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
-            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
+            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2" />
             <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
             <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
@@ -163,14 +163,14 @@
 
         <Grid Grid.Row="2" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -191,12 +191,12 @@
         <DataGrid x:Name="lstVwWorkflows" AutoGenerateColumns="False" Grid.Row="3" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -238,7 +238,7 @@
         <ToolBar Grid.Row="5">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -249,22 +249,22 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All Different" Click="btnShowDifferenceAll_Click"/>
+                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All Different" Click="btnShowDifferenceAll_Click" />
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Xaml" Click="mIShowDifferenceXaml_Click"/>
-                            <MenuItem Header="InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
-                            <MenuItem Header="ClientData" Click="mIShowDifferenceClientData_Click"/>
-                            <MenuItem Header="Difference UIData" Click="mIShowDifferenceUIData_Click"/>
-                            <MenuItem Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click"/>
+                            <MenuItem Header="Xaml" Click="mIShowDifferenceXaml_Click" />
+                            <MenuItem Header="InputParameters" Click="mIShowDifferenceInputParameters_Click" />
+                            <MenuItem Header="ClientData" Click="mIShowDifferenceClientData_Click" />
+                            <MenuItem Header="Difference UIData" Click="mIShowDifferenceUIData_Click" />
+                            <MenuItem Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
+                            <MenuItem Header="Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click" />
                         </MenuItem>
                     </Menu>
 
@@ -275,17 +275,17 @@
                             <MenuItem Header="Open Workflow List in Browser" Click="mIConnection1OpenWorkflowListInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Xaml" Click="mIExportWorkflow1Xaml_Click"/>
-                            <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
-                            <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
-                            <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click"/>
-                            <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click"/>
+                            <MenuItem Header="Xaml" Click="mIExportWorkflow1Xaml_Click" />
+                            <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click" />
+                            <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click" />
+                            <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click" />
+                            <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
+                            <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Entity Customization in Browser" Click="miConnection1OpenEntityMetadataInWeb_Click" />
@@ -305,17 +305,17 @@
                             <MenuItem Header="Open Workflow List in Browser" Click="mIConnection2OpenWorkflowListInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Xaml" Click="mIExportWorkflow2Xaml_Click"/>
-                            <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>
-                            <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
-                            <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click"/>
-                            <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click"/>
+                            <MenuItem Header="Xaml" Click="mIExportWorkflow2Xaml_Click" />
+                            <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click" />
+                            <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click" />
+                            <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click" />
+                            <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
+                            <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Entity Customization in Browser" Click="miConnection2OpenEntityMetadataInWeb_Click" />
@@ -329,7 +329,7 @@
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 

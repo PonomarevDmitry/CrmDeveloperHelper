@@ -13,12 +13,12 @@
     <src:WindowWithSolutionComponentDescriptor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -41,11 +41,11 @@
                 <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
 
                 <Separator />
-                <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click" />
                 <MenuItem Header="Delete Message" Click="mIDeleteMessage_Click" />
 
                 <Separator/>
-                <MenuItem Header="ThrottleSettings Xml" Click="mIExportThrottleSettingsXml_Click"/>
+                <MenuItem Header="ThrottleSettings Xml" Click="mIExportThrottleSettingsXml_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
@@ -118,12 +118,12 @@
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                     <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
@@ -226,7 +226,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -240,7 +240,7 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportMessage" Header="Export Message Information">
 
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
                             <MenuItem x:Name="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
@@ -252,11 +252,11 @@
                             <MenuItem x:Name="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
 
                             <Separator />
-                            <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click" />
                             <MenuItem Header="Delete Message" Click="mIDeleteMessage_Click" />
 
                             <Separator/>
-                            <MenuItem Header="ThrottleSettings Xml" Click="mIExportThrottleSettingsXml_Click"/>
+                            <MenuItem Header="ThrottleSettings Xml" Click="mIExportThrottleSettingsXml_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -269,16 +269,16 @@
 
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowWithSolutionComponentDescriptor>

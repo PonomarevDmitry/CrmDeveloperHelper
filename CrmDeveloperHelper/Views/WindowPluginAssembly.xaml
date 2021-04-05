@@ -8,7 +8,7 @@
     <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BitmapImage x:Key="ImagePluginAssembly" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/assembly.gif" />
@@ -31,17 +31,17 @@
 
         <Grid Grid.Row="0" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="15*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="15*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -49,27 +49,27 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Content="Loaded Assembly Path" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Loaded Assembly Path" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBLoadedAssemblyPath" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
-            <Label Content="Loaded Assembly Name" Grid.Row="1" Grid.Column="0"/>
+            <Label Content="Loaded Assembly Name" Grid.Row="1" Grid.Column="0" />
             <TextBox x:Name="txtBLoadedAssemblyName" Grid.Row="1" Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
-            <Label Content="Version" Grid.Row="1" Grid.Column="2"/>
+            <Label Content="Version" Grid.Row="1" Grid.Column="2" />
             <TextBox x:Name="txtBLoadedAssemblyVersion" Grid.Row="1" Grid.Column="3" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
-            <Label Content="Culture" Grid.Row="1" Grid.Column="4"/>
+            <Label Content="Culture" Grid.Row="1" Grid.Column="4" />
             <TextBox x:Name="txtBLoadedAssemblyCulture" Grid.Row="1" Grid.Column="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
-            <Label Content="PublicKeyToken" Grid.Row="1" Grid.Column="6"/>
+            <Label Content="PublicKeyToken" Grid.Row="1" Grid.Column="6" />
             <TextBox x:Name="txtBLoadedAssemblyPublicKeyToken" Grid.Row="1" Grid.Column="7" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         </Grid>
 
         <Grid Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="columnGeneralInfo" Width="450"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition x:Name="columnGeneralInfo" Width="450" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -87,12 +87,12 @@
                     <StackPanel Orientation="Vertical">
                         <Grid Margin="5">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="10*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <ComboBox x:Name="cmBAssemblyToLoad" Grid.Row="0" Grid.Column="0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" IsTabStop="True" KeyDown="cmBAssemblyToLoad_KeyDown" />
@@ -102,12 +102,12 @@
                         <Grid Margin="5">
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="10*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="10*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Button x:Name="btnBuildProject" Content="Build Project" Grid.Row="0" Grid.Column="0" Visibility="Hidden" IsEnabled="False" Click="btnBuildProject_Click"  />
@@ -128,8 +128,8 @@
                     <GroupBox HorizontalAlignment="Left" Margin="5" Header="Source Type">
                         <StackPanel Orientation="Horizontal">
                             <RadioButton x:Name="rBDatabase" Content="Database" Checked="rbSourceType_Checked" Unchecked="rbSourceType_Checked" />
-                            <RadioButton x:Name="rBDisk" Content="Disk" Checked="rbSourceType_Checked" Unchecked="rbSourceType_Checked"/>
-                            <RadioButton x:Name="rBGAC" Content="GAC" Checked="rbSourceType_Checked" Unchecked="rbSourceType_Checked"/>
+                            <RadioButton x:Name="rBDisk" Content="Disk" Checked="rbSourceType_Checked" Unchecked="rbSourceType_Checked" />
+                            <RadioButton x:Name="rBGAC" Content="GAC" Checked="rbSourceType_Checked" Unchecked="rbSourceType_Checked" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
@@ -139,31 +139,31 @@
                 </GroupBox>
 
                 <GroupBox Grid.Row="3" Margin="5" Header="Description">
-                    <TextBox x:Name="txtBDescription" VerticalContentAlignment="Top"/>
+                    <TextBox x:Name="txtBDescription" VerticalContentAlignment="Top" />
                 </GroupBox>
 
             </Grid>
 
-            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
                     
-                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*" />
                     
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
                     
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Margin="5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Workflow Activity Group Name" Grid.Row="0" Grid.Column="0"/>
+                    <Label Content="Workflow Activity Group Name" Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="txtBWorkflowActivityGroupName" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
@@ -178,13 +178,13 @@
 
                             <Label Grid.Column="0">
                                 <Hyperlink x:Name="hypLinkSelectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectAll_RequestNavigate">
-                                    <Run Text="Select All New Plugins"/>
+                                    <Run Text="Select All New Plugins" />
                                 </Hyperlink>
                             </Label>
 
                             <Label Grid.Column="2">
                                 <Hyperlink x:Name="hypLinkDeselectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectAll_RequestNavigate" >
-                                    <Run Text="Deselect All New Plugins"/>
+                                    <Run Text="Deselect All New Plugins" />
                                 </Hyperlink>
                             </Label>
                         </Grid>
@@ -216,7 +216,7 @@
                     </DockPanel>
                 </GroupBox>
 
-                <GridSplitter Grid.Row="2" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <GridSplitter Grid.Row="2" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
                 <GroupBox Header="Missing Plugins and Workflow Activities" Grid.Row="3">
                     <TreeView x:Name="trVPluginTreeMissing">
@@ -247,7 +247,7 @@
         <ToolBar Grid.Row="2">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -261,15 +261,15 @@
 
                 </ToolBarPanel>
                 
-                <Button x:Name="btnClose" Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button x:Name="btnClose" Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 
-                <Separator Margin="20,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Separator Margin="20,0" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="3">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>

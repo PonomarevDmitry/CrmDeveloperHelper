@@ -15,25 +15,25 @@
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="{x:Type CheckBox}">
-                        <Setter Property="Padding" Value="2"/>
-                        <Setter Property="Margin" Value="3"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="2" />
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <CheckBox x:Name="chBAutoNumbering" IsChecked="{Binding Path=SelectedItem.ExportAutoNumberingSettings}" Grid.Column="0" Grid.Row="0" Content="Auto-numbering" />
@@ -60,20 +60,20 @@
             </Grid>
         </GroupBox>
 
-        <Label Content="Export Folder" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <Label Content="Export Folder" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" />
         <ComboBox x:Name="cmBExportFolder" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" StaysOpenOnEdit="True" IsTabStop="True" Height="23" Margin="85,120,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-        <Label Content="UniqueName" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBUniqueName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.OverrideUniqueName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedItem.LastOverrideUniqueNameSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastOverrideUniqueName}" Height="23" Margin="85,148,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <Label Content="UniqueName" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" />
+        <ComboBox x:Name="cmBUniqueName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.OverrideUniqueName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedItem.LastOverrideUniqueNameSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastOverrideUniqueName}" Height="23" Margin="85,148,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-        <Label Content="DisplayName" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBDisplayName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.OverrideDisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedItem.LastOverrideDisplayNameSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastOverrideDisplayName}" Height="23" Margin="85,176,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <Label Content="DisplayName" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" />
+        <ComboBox x:Name="cmBDisplayName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.OverrideDisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedItem.LastOverrideDisplayNameSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastOverrideDisplayName}" Height="23" Margin="85,176,165,0" VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-        <Label Content="Version" Margin="0,148,120,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="40"/>
-        <ComboBox x:Name="cmBVersion" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.OverrideVersion, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedItem.OverrideVersionSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastOverrideVersion}" Height="23" Margin="0,148,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="105"/>
+        <Label Content="Version" Margin="0,148,120,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="40" />
+        <ComboBox x:Name="cmBVersion" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.OverrideVersion, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedItem.OverrideVersionSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastOverrideVersion}" Height="23" Margin="0,148,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="105" />
 
-        <Label Content="Description" Margin="10,204,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-        <TextBox x:Name="txtBDescription" Text="{Binding SelectedItem.OverrideDescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="85,204,10,10" VerticalContentAlignment="Top"/>
+        <Label Content="Description" Margin="10,204,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
+        <TextBox x:Name="txtBDescription" Text="{Binding SelectedItem.OverrideDescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="85,204,10,10" VerticalContentAlignment="Top" />
 
 
     </Grid>

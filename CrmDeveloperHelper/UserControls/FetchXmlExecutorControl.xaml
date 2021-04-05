@@ -7,7 +7,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Views/StyleWindows.xaml"/>
+                <ResourceDictionary Source="../Views/StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenuEntity" Opened="ContextMenu_Opened">
@@ -21,24 +21,24 @@
                 <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click"/>
+                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
+                <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
+                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
-                    <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
-                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
+                    <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click" />
+                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
+                    <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolution" />
@@ -46,28 +46,28 @@
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click"/>
+                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click" />
 
                 <Separator/>
-                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click" />
 
                 <Separator/>
                 <MenuItem Header="Change Entity">
 
-                    <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
-                    <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
+                    <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click" />
+                    <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
+                    <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
+                    <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click"/>
+                    <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
+                    <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click" />
 
                 </MenuItem>
             </ContextMenu>
@@ -83,27 +83,27 @@
                 <MenuItem Header="Open EntityReference FetchXml File" Click="mIOpenEntityReferenceFetchXmlFile_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open EntityReference List in Browser" Click="mIOpenEntityReferenceListInWeb_Click"/>
+                <MenuItem Header="Open EntityReference List in Browser" Click="mIOpenEntityReferenceListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open EntityReference Explorer" Click="mIOpenEntityReferenceExplorer_Click"/>
+                <MenuItem Header="Open EntityReference Explorer" Click="mIOpenEntityReferenceExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create EntityReference New Instance" Click="miCreateNewEntityReferenceInstance_Click"/>
+                <MenuItem Header="Create EntityReference New Instance" Click="miCreateNewEntityReferenceInstance_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
+                <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard EntityReference">
-                    <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
-                    <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
+                    <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click" />
+                    <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy EntityReference EntityName" Click="mICopyEntityReferenceEntityName_Click"/>
+                    <MenuItem Header="Copy EntityReference EntityName" Click="mICopyEntityReferenceEntityName_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
+                    <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolutionEntityReference" />
@@ -111,10 +111,10 @@
                 <MenuItem x:Uid="contMnAddToSolutionEntityReference" Header="Add EntityReference to Crm Solution" Click="AddToCrmSolutionEntityReference_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create EntityReference Copy in Editor" Click="mICreateEntityReferenceCopyInEditor_Click"/>
+                <MenuItem Header="Create EntityReference Copy in Editor" Click="mICreateEntityReferenceCopyInEditor_Click" />
 
                 <Separator/>
-                <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
+                <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open in Browser" Click="mIOpenInstanceInWeb_Click" />
@@ -123,24 +123,24 @@
                 <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityCustomizationInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click"/>
+                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
+                <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
+                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
-                    <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
-                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
+                    <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click" />
+                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
+                    <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolution" />
@@ -148,28 +148,28 @@
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click"/>
+                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click" />
 
                 <Separator/>
-                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click" />
 
                 <Separator/>
                 <MenuItem Header="Change Entity">
 
-                    <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
-                    <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
+                    <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click" />
+                    <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
+                    <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
+                    <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click"/>
+                    <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
+                    <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click" />
 
                 </MenuItem>
             </ContextMenu>
@@ -197,15 +197,15 @@
                     </Grid.RowDefinitions>
 
                     <ToolBar Grid.Row="0">
-                        <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
+                        <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click" />
 
-                        <Separator Margin="10,0"/>
-                        <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
+                        <Separator Margin="10,0" />
+                        <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click" />
 
-                        <Separator Margin="10,0"/>
-                        <Button Content="Select File in Folder" Click="btnSelectFileInFolder_Click"/>
+                        <Separator Margin="10,0" />
+                        <Button Content="Select File in Folder" Click="btnSelectFileInFolder_Click" />
 
-                        <Separator Margin="10,0"/>
+                        <Separator Margin="10,0" />
                         <Menu Background="{x:Null}">
                             <MenuItem Header="Connection Actions">
 
@@ -215,7 +215,7 @@
                                 <MenuItem Header="Open Connection Information Folder" Click="mIOpenConnectionInformationFolder_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click"/>
+                                <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click" />
 
                                 <Separator/>
                                 <MenuItem Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
@@ -226,22 +226,22 @@
 
                     <Grid Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="columnParameters" Width="50*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition x:Name="columnFetchText" Width="50*"/>
+                            <ColumnDefinition x:Name="columnParameters" Width="50*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition x:Name="columnFetchText" Width="50*" />
                         </Grid.ColumnDefinitions>
 
                         <GroupBox Grid.Column="0" Margin="5" x:Name="grBParameters" Header="Parameters">
                             <DataGrid x:Name="dGrParameters" ColumnHeaderHeight="30" ItemsSource="{Binding Path=SelectedItem.FetchXmlRequestParameterList}" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Name" Width="Auto" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Name" Width="Auto" Binding="{Binding Name}" />
 
                                     <DataGridTextColumn Header="Value" Width="10*" Binding="{Binding Value}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
 
-                        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
                         <GroupBox Grid.Column="2" Margin="5" Header="Fetch Xml Text">
                             <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
@@ -264,15 +264,15 @@
                     </Grid.RowDefinitions>
 
                     <ToolBar Grid.Row="0">
-                        <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
+                        <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click" />
 
-                        <Separator Margin="10,0"/>
-                        <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
+                        <Separator Margin="10,0" />
+                        <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click" />
 
-                        <Separator Margin="10,0"/>
-                        <Button Content="Select File in Folder" Click="btnSelectFileInFolder_Click"/>
+                        <Separator Margin="10,0" />
+                        <Button Content="Select File in Folder" Click="btnSelectFileInFolder_Click" />
 
-                        <Separator Margin="10,0"/>
+                        <Separator Margin="10,0" />
                         <Menu Background="{x:Null}">
                             <MenuItem Header="Connection Actions">
 
@@ -282,7 +282,7 @@
                                 <MenuItem Header="Open Connection Information Folder" Click="mIOpenConnectionInformationFolder_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click"/>
+                                <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click" />
 
                                 <Separator/>
                                 <MenuItem Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
@@ -290,7 +290,7 @@
                             </MenuItem>
                         </Menu>
 
-                        <Separator Margin="10,0"/>
+                        <Separator Margin="10,0" />
                         <Menu Background="{x:Null}">
                             <MenuItem Header="Entity Actions">
 
@@ -300,78 +300,78 @@
                                 <MenuItem x:Name="btnOpenEntityCustomizationInWeb" Header="Open Entity Customization in Browser" Click="btnOpenEntityCustomizationInWeb_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="btnOpenEntityListInWeb" Header="Open Entity List in Browser" Click="btnOpenEntityListInWeb_Click"/>
+                                <MenuItem x:Name="btnOpenEntityListInWeb" Header="Open Entity List in Browser" Click="btnOpenEntityListInWeb_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="btnOpenEntityExplorer" Header="Open Entity Explorer" Click="btnOpenEntityExplorer_Click"/>
+                                <MenuItem x:Name="btnOpenEntityExplorer" Header="Open Entity Explorer" Click="btnOpenEntityExplorer_Click" />
 
                                 <Separator />
-                                <MenuItem x:Name="btnCreateEntityInstance" Header="Create Entity New Instance" Click="btnCreateEntityInstance_Click"/>
+                                <MenuItem x:Name="btnCreateEntityInstance" Header="Create Entity New Instance" Click="btnCreateEntityInstance_Click" />
 
                             </MenuItem>
                         </Menu>
 
-                        <Separator Margin="10,0"/>
+                        <Separator Margin="10,0" />
                         <Menu x:Name="menuSelectedEntities" Background="{x:Null}">
                             <MenuItem Header="Selected Entities" SubmenuOpened="SelectedEntities_SubmenuOpened">
-                                <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntites_Click"/>
+                                <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntites_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Assign Selected Entities to User" Click="miAssignToUserSelectedEntites_Click"/>
-                                <MenuItem Header="Assign Selected Entities to Team" Click="miAssignToTeamSelectedEntites_Click"/>
+                                <MenuItem Header="Assign Selected Entities to User" Click="miAssignToUserSelectedEntites_Click" />
+                                <MenuItem Header="Assign Selected Entities to Team" Click="miAssignToTeamSelectedEntites_Click" />
 
                                 <Separator/>
-                                <MenuItem Header="Set State Selected Entities" Click="mISetStateSelectedEntites_Click"/>
+                                <MenuItem Header="Set State Selected Entities" Click="mISetStateSelectedEntites_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Execute Workflow on Selected Entities" Click="miExecuteWorkflowOnSelectedEntites_Click"/>
+                                <MenuItem Header="Execute Workflow on Selected Entities" Click="miExecuteWorkflowOnSelectedEntites_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Set Business Process Flow on Selected Entities" Click="miSetBusinessProcessFlowOnSelectedEntites_Click"/>
+                                <MenuItem Header="Set Business Process Flow on Selected Entities" Click="miSetBusinessProcessFlowOnSelectedEntites_Click" />
 
                                 <Separator x:Uid="contMnAddToSolution" />
                                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add Selected Entities to Last Crm Solution"  />
                                 <MenuItem x:Uid="contMnAddToSolution" Header="Add Selected Entities to Crm Solution" Click="AddToCrmSolutionSelectedEntities_Click" />
 
                                 <Separator/>
-                                <MenuItem Header="Delete Selected Entities" Click="mIDeleteSelectedEntity_Click"/>
+                                <MenuItem Header="Delete Selected Entities" Click="mIDeleteSelectedEntity_Click" />
                             </MenuItem>
                         </Menu>
 
-                        <Separator Margin="10,0"/>
+                        <Separator Margin="10,0" />
                         <Menu x:Name="menuAllEntities" Background="{x:Null}">
                             <MenuItem Header="All Entities" SubmenuOpened="AllEntities_SubmenuOpened">
-                                <MenuItem Header="Bulk Edit All Entities" Click="miBulkEditAllEntites_Click"/>
+                                <MenuItem Header="Bulk Edit All Entities" Click="miBulkEditAllEntites_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Assign All Entities to User" Click="miAssignToUserAllEntites_Click"/>
-                                <MenuItem Header="Assign All Entities to Team" Click="miAssignToTeamAllEntites_Click"/>
+                                <MenuItem Header="Assign All Entities to User" Click="miAssignToUserAllEntites_Click" />
+                                <MenuItem Header="Assign All Entities to Team" Click="miAssignToTeamAllEntites_Click" />
 
                                 <Separator/>
-                                <MenuItem Header="Set State All Entities" Click="mISetStateAllEntites_Click"/>
+                                <MenuItem Header="Set State All Entities" Click="mISetStateAllEntites_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Execute Workflow on All Entities" Click="miExecuteWorkflowOnAllEntites_Click"/>
+                                <MenuItem Header="Execute Workflow on All Entities" Click="miExecuteWorkflowOnAllEntites_Click" />
 
                                 <Separator />
-                                <MenuItem Header="Set Business Process Flow on All Entities" Click="miSetBusinessProcessFlowOnAllEntites_Click"/>
+                                <MenuItem Header="Set Business Process Flow on All Entities" Click="miSetBusinessProcessFlowOnAllEntites_Click" />
 
                                 <Separator x:Uid="contMnAddToSolution" />
                                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add All Entities to Last Crm Solution"  />
                                 <MenuItem x:Uid="contMnAddToSolution" Header="Add All Entities to Crm Solution" Click="AddToCrmSolutionAllEntities_Click" />
 
                                 <Separator/>
-                                <MenuItem Header="Delete All Entities" Click="mIDeleteAllEntity_Click"/>
+                                <MenuItem Header="Delete All Entities" Click="mIDeleteAllEntity_Click" />
                             </MenuItem>
                         </Menu>
 
-                        <Separator Margin="10,0"/>
+                        <Separator Margin="10,0" />
                         <Menu x:Name="menuTransferToConnection" Background="{x:Null}">
                             <MenuItem x:Name="mITransferToConnection" Header="Transfer to Connection" SubmenuOpened="mITransferToConnection_SubmenuOpened">
                                 <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Transfer Selected Entities to Connection" />
 
                                 <Separator />
-                                <MenuItem x:Name="mITransferAllEntitiesToConnection" Header="Transfer all Entities to Connection"/>
+                                <MenuItem x:Name="mITransferAllEntitiesToConnection" Header="Transfer all Entities to Connection" />
                             </MenuItem>
                         </Menu>
                     </ToolBar>
@@ -379,18 +379,18 @@
                     <DataGrid x:Name="dGrResults" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                         <DataGrid.Resources>
                             <Style TargetType="Hyperlink">
-                                <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click"/>
-                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityReference}"/>
+                                <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click" />
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityReference}" />
                             </Style>
                             <Style TargetType="{x:Type TextBox}">
-                                <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-                                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+                                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.ItemContainerStyle>
                             <Style TargetType="{x:Type DataGridRow}">
-                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntity}"/>
-                                <Setter Property="MaxHeight" Value="50"/>
+                                <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntity}" />
+                                <Setter Property="MaxHeight" Value="50" />
                             </Style>
                         </DataGrid.ItemContainerStyle>
                     </DataGrid>
@@ -400,7 +400,7 @@
         </TabControl>
 
         <StatusBar Grid.Row="1">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
 
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
 
@@ -415,7 +415,7 @@
                     <MenuItem Header="Open Connection Information Folder" Click="mIOpenConnectionInformationFolder_Click" />
 
                     <Separator />
-                    <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click"/>
+                    <MenuItem Header="Open Connection FetchXml Folder" Click="mIOpenConnectionFetchXmlFolder_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="btnOpenEntityFetchXmlFile_Click" />
@@ -423,11 +423,11 @@
                 </MenuItem>
             </Menu>
 
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
 
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
 
-            <StatusBarItem x:Name="stBIStatus" Content=""/>
+            <StatusBarItem x:Name="stBIStatus" Content="" />
         </StatusBar>
     </Grid>
 </UserControl>

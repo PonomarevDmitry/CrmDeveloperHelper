@@ -18,13 +18,13 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
+                <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Open SavedQuery List in Browser" Click="mIOpenSavedQueryInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -44,7 +44,7 @@
                 </MenuItem>
 
                 <Separator x:Uid="controlChangeEntityAttribute" />
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click" />
 
                 <Separator />
                 <MenuItem x:Uid="miActivateSavedQueries" Header="Activate SavedQueries" Click="miActivateSavedQueries_Click" />
@@ -65,7 +65,7 @@
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
                 <Separator x:Uid="contMnEntity" />
-                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnAddEntityToSolutionLast" Header="Add Entity to Last Crm Solution">
@@ -94,21 +94,21 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Fetch Xml and Layout Xml" Click="mIExportSavedQueryFetchXmlAndLayoutXml_Click"/>
+                <MenuItem Header="Fetch Xml and Layout Xml" Click="mIExportSavedQueryFetchXmlAndLayoutXml_Click" />
                 <Separator/>
-                <MenuItem Header="Fetch Xml" Click="mIExportSavedQueryFetchXml_Click"/>
-                <MenuItem Header="Layout Xml" Click="mIExportSavedQueryLayoutXml_Click"/>
-                <MenuItem Header="ColumnSet Xml" Click="mIExportSavedQueryColumnSetXml_Click"/>
-                <MenuItem Header="Layout Json" Click="mIExportSavedQueryLayoutJson_Click"/>
-                <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click"/>
+                <MenuItem Header="Fetch Xml" Click="mIExportSavedQueryFetchXml_Click" />
+                <MenuItem Header="Layout Xml" Click="mIExportSavedQueryLayoutXml_Click" />
+                <MenuItem Header="ColumnSet Xml" Click="mIExportSavedQueryColumnSetXml_Click" />
+                <MenuItem Header="Layout Json" Click="mIExportSavedQueryLayoutJson_Click" />
+                <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click" />
 
-                <Separator x:Uid="controlChangeEntityAttribute"/>
+                <Separator x:Uid="controlChangeEntityAttribute" />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute">
-                    <MenuItem Header="Fetch Xml" Click="mIUpdateSavedQueryFetchXml_Click"/>
-                    <MenuItem Header="Layout Xml" Click="mIUpdateSavedQueryLayoutXml_Click"/>
-                    <MenuItem Header="ColumnSet Xml" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
-                    <MenuItem Header="Layout Json" Click="mIUpdateSavedQueryLayoutJson_Click"/>
-                    <MenuItem Header="Offline Sql Query" Click="mIUpdateSavedQueryOfflineSqlQuery_Click"/>
+                    <MenuItem Header="Fetch Xml" Click="mIUpdateSavedQueryFetchXml_Click" />
+                    <MenuItem Header="Layout Xml" Click="mIUpdateSavedQueryLayoutXml_Click" />
+                    <MenuItem Header="ColumnSet Xml" Click="mIUpdateSavedQueryColumnSetXml_Click" />
+                    <MenuItem Header="Layout Json" Click="mIUpdateSavedQueryLayoutJson_Click" />
+                    <MenuItem Header="Offline Sql Query" Click="mIUpdateSavedQueryOfflineSqlQuery_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -125,17 +125,17 @@
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
                 <Separator/>
-                <MenuItem Header="Export All Saved Query Information" Click="btnExportAll_Click"/>
+                <MenuItem Header="Export All Saved Query Information" Click="btnExportAll_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -152,7 +152,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0" >
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
@@ -201,12 +201,12 @@
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -219,7 +219,7 @@
                         <DataTemplate>
                             <Label ToolTip="Fetch Xml and Layout Xml" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkFetchXmlAndLayoutXml_Click">
-                                    <Run Text="F+LX"/>
+                                    <Run Text="F+LX" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -234,7 +234,7 @@
                         <DataTemplate>
                             <Label ToolTip="Fetch Xml" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkFetchXml_Click">
-                                    <Run Text="F"/>
+                                    <Run Text="F" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -249,7 +249,7 @@
                         <DataTemplate>
                             <Label ToolTip="Layout Xml" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkLayoutXml_Click">
-                                    <Run Text="LX"/>
+                                    <Run Text="LX" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -272,7 +272,7 @@
                         <DataTemplate>
                             <Label ToolTip="ColumnSet Xml" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkColumnSetXml_Click">
-                                    <Run Text="C"/>
+                                    <Run Text="C" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -287,7 +287,7 @@
                         <DataTemplate>
                             <Label ToolTip="Layout Json" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkLayoutJson_Click">
-                                    <Run Text="LJ"/>
+                                    <Run Text="LJ" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -302,7 +302,7 @@
                         <DataTemplate>
                             <Label ToolTip="Offline Sql Query" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkOfflineSqlQuery_Click">
-                                    <Run Text="S"/>
+                                    <Run Text="S" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -317,7 +317,7 @@
                         <DataTemplate>
                             <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkPublishEntity_Click">
-                                    <Run Text="Pub"/>
+                                    <Run Text="Pub" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -345,7 +345,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -361,13 +361,13 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSavedQuery" Header="Export Saved Query Information" SubmenuOpened="tSDDBExportSavedQuery_SubmenuOpened">
 
-                            <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator x:Uid="controlChangeEntityAttribute" />
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click" />
 
                             <Separator />
                             <MenuItem x:Uid="miActivateSavedQueries" Header="Activate SavedQueries" Click="miActivateSavedQueries_Click" />
@@ -384,23 +384,23 @@
                             </MenuItem>
 
                             <Separator/>
-                            <MenuItem Header="Fetch Xml" Click="mIExportSavedQueryFetchXml_Click"/>
-                            <MenuItem Header="Layout Xml" Click="mIExportSavedQueryLayoutXml_Click"/>
-                            <MenuItem Header="ColumnSet Xml" Click="mIExportSavedQueryColumnSetXml_Click"/>
-                            <MenuItem Header="Layout Json" Click="mIExportSavedQueryLayoutJson_Click"/>
-                            <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click"/>
+                            <MenuItem Header="Fetch Xml" Click="mIExportSavedQueryFetchXml_Click" />
+                            <MenuItem Header="Layout Xml" Click="mIExportSavedQueryLayoutXml_Click" />
+                            <MenuItem Header="ColumnSet Xml" Click="mIExportSavedQueryColumnSetXml_Click" />
+                            <MenuItem Header="Layout Json" Click="mIExportSavedQueryLayoutJson_Click" />
+                            <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click" />
 
-                            <Separator x:Uid="controlChangeEntityAttribute"/>
+                            <Separator x:Uid="controlChangeEntityAttribute" />
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute">
-                                <MenuItem Header="Fetch Xml" Click="mIUpdateSavedQueryFetchXml_Click"/>
-                                <MenuItem Header="Layout Xml" Click="mIUpdateSavedQueryLayoutXml_Click"/>
-                                <MenuItem Header="ColumnSet Xml" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
-                                <MenuItem Header="Layout Json" Click="mIUpdateSavedQueryLayoutJson_Click"/>
-                                <MenuItem Header="Offline Sql Query" Click="mIUpdateSavedQueryOfflineSqlQuery_Click"/>
+                                <MenuItem Header="Fetch Xml" Click="mIUpdateSavedQueryFetchXml_Click" />
+                                <MenuItem Header="Layout Xml" Click="mIUpdateSavedQueryLayoutXml_Click" />
+                                <MenuItem Header="ColumnSet Xml" Click="mIUpdateSavedQueryColumnSetXml_Click" />
+                                <MenuItem Header="Layout Json" Click="mIUpdateSavedQueryLayoutJson_Click" />
+                                <MenuItem Header="Offline Sql Query" Click="mIUpdateSavedQueryOfflineSqlQuery_Click" />
                             </MenuItem>
 
                             <Separator/>
-                            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -412,14 +412,14 @@
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
         <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus"  />
         </StatusBar>
     </Grid>

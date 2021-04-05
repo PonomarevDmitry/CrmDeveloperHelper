@@ -44,7 +44,7 @@
         <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -57,16 +57,16 @@
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
 
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="20"/>
+                <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="20" />
                 <Separator DockPanel.Dock="Right" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                 <Button x:Name="btnTransferEntities" Content="Transfer Entities" Click="btnTransferEntities_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="10" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Height="24" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
     </Grid>
 </src:WindowWithSingleConnection>

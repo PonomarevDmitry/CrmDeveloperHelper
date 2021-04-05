@@ -21,26 +21,26 @@
 
             <MenuItem Header="Test Connection" VerticalAlignment="Center" Click="tSBTestConnection_Click">
                 <MenuItem.Icon>
-                    <Image Width="16" Height="16" Source="{StaticResource ImageCheck}"/>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageCheck}" />
                 </MenuItem.Icon>
             </MenuItem>
 
             <Separator/>
             <MenuItem Header="Edit" VerticalAlignment="Center" Click="tSBEdit_Click" FontWeight="Bold">
                 <MenuItem.Icon>
-                    <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"/>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Create Copy" VerticalAlignment="Center" Click="tSBCreateCopy_Click">
                 <MenuItem.Icon>
-                    <Image Width="16" Height="16" Source="{StaticResource ImageCopy}"/>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageCopy}" />
                 </MenuItem.Icon>
             </MenuItem>
 
             <Separator/>
             <MenuItem Header="Select Connection" Click="tSBSelectConnection_Click">
                 <MenuItem.Icon>
-                    <Image Width="16" Height="16" Source="{StaticResource ImageSelect}"/>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageSelect}" />
                 </MenuItem.Icon>
             </MenuItem>
 
@@ -55,7 +55,7 @@
             <Separator/>
             <MenuItem Header="Move to Archive" VerticalAlignment="Center" Click="tSBMoveToArchive_Click">
                 <MenuItem.Icon>
-                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"/>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" />
                 </MenuItem.Icon>
             </MenuItem>
 
@@ -66,7 +66,7 @@
                 <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
                     <Setter Property="Background">
                         <Setter.Value>
-                            <SolidColorBrush Color="Lime"/>
+                            <SolidColorBrush Color="Lime" />
                         </Setter.Value>
                     </Setter>
                 </DataTrigger>
@@ -75,8 +75,8 @@
 
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0" Height="25" Width="123"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="148,12,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
+        <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0" Height="25" Width="123" />
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="148,12,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647" />
 
         <Label Content="Solution Image" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="5,0" />
         <ComboBox x:Name="cmBSolutionImage" IsTabStop="True" Height="23" Margin="148,40,10,0" VerticalAlignment="Top" />
@@ -85,7 +85,7 @@
             <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
                 <ToolBar.Resources>
                     <Style TargetType="{x:Type ToolBarPanel}">
-                        <Setter Property="Orientation" Value="Vertical"/>
+                        <Setter Property="Orientation" Value="Vertical" />
                     </Style>
                 </ToolBar.Resources>
                 <DockPanel>
@@ -215,22 +215,22 @@
                         <Separator/>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                             <MenuItem x:Name="tSDDBTransfer" Header="Transfer">
-                                <MenuItem x:Name="tSMITransferAuditFrom1To2" Header="Audit from 1 to 2" Click="tSMITransferAuditFrom1To2_Click"/>
+                                <MenuItem x:Name="tSMITransferAuditFrom1To2" Header="Audit from 1 to 2" Click="tSMITransferAuditFrom1To2_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSMITransferAuditFrom2To1" Header="Audit from 2 to 1" Click="tSMITransferAuditFrom2To1_Click"/>
+                                <MenuItem x:Name="tSMITransferAuditFrom2To1" Header="Audit from 2 to 1" Click="tSMITransferAuditFrom2To1_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSMITransferWorkflowsStatesFrom1To2" Header="Workflows States from 1 to 2" Click="tSMITransferWorkflowsStatesFrom1To2_Click"/>
+                                <MenuItem x:Name="tSMITransferWorkflowsStatesFrom1To2" Header="Workflows States from 1 to 2" Click="tSMITransferWorkflowsStatesFrom1To2_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSMITransferWorkflowsStatesFrom2To1" Header="Workflows States from 2 to 1" Click="tSMITransferWorkflowsStatesFrom2To1_Click"/>
+                                <MenuItem x:Name="tSMITransferWorkflowsStatesFrom2To1" Header="Workflows States from 2 to 1" Click="tSMITransferWorkflowsStatesFrom2To1_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSMITransferPluginStepsStatesFrom1To2" Header="Plugin Steps States from 1 to 2" Click="tSMITransferPluginStepsStatesFrom1To2_Click"/>
+                                <MenuItem x:Name="tSMITransferPluginStepsStatesFrom1To2" Header="Plugin Steps States from 1 to 2" Click="tSMITransferPluginStepsStatesFrom1To2_Click" />
 
                                 <Separator/>
-                                <MenuItem x:Name="tSMITransferPluginStepsStatesFrom2To1" Header="Plugin Steps States from 2 to 1" Click="tSMITransferPluginStepsStatesFrom2To1_Click"/>
+                                <MenuItem x:Name="tSMITransferPluginStepsStatesFrom2To1" Header="Plugin Steps States from 2 to 1" Click="tSMITransferPluginStepsStatesFrom2To1_Click" />
                             </MenuItem>
                         </Menu>
 
@@ -252,9 +252,9 @@
                 </ListView.CommandBindings>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                        <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                        <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
@@ -274,7 +274,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
-                                        <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -284,7 +284,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
-                                        <TextBlock Text="{Binding GroupName}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding GroupName}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -295,7 +295,7 @@
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
 
-                                        <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -305,7 +305,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                        <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding GetUsername}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -328,7 +328,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                        <TextBlock Text="{Binding ConnectionPoolCacheTimeSpan}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding ConnectionPoolCacheTimeSpan}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -338,7 +338,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                        <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -348,7 +348,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                        <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding DefaultLanguage}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -358,7 +358,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                        <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                        <TextBlock Text="{Binding BaseCurrency}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -368,12 +368,12 @@
                 </ListView.View>
             </ListView>
         </DockPanel>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,32" Height="25" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,32" Height="25" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" />
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,33" Padding="10,0" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" />
-        <Button x:Name="btnClose" Content="Close" Margin="0,0,10,33" Click="btnClose_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btnClose" Content="Close" Margin="0,0,10,33" Click="btnClose_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
         <StatusBar Height="24" VerticalAlignment="Bottom">
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Top"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+            <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Top" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

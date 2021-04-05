@@ -13,14 +13,14 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu">
                 <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -36,20 +36,20 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Data" Click="mIExportImportJobData_Click"/>
+                <MenuItem Header="Data" Click="mIExportImportJobData_Click" />
 
                 <Separator/>
-                <MenuItem Header="FormattedResults" Click="mIExportImportJobFormattedResults_Click"/>
+                <MenuItem Header="FormattedResults" Click="mIExportImportJobFormattedResults_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
 
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -68,7 +68,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
@@ -92,12 +92,12 @@
         <DataGrid x:Name="lstVwImportJobs" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwImportJobs_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -110,7 +110,7 @@
                         <DataTemplate>
                             <Label ToolTip="Data" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkData_Click">
-                                    <Run Text="D"/>
+                                    <Run Text="D" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -125,7 +125,7 @@
                         <DataTemplate>
                             <Label ToolTip="FormattedResults" Style="{StaticResource stLabel}">
                                 <Hyperlink Click="hyperlinkFormattedResults_Click">
-                                    <Run Text="FR"/>
+                                    <Run Text="FR" />
                                 </Hyperlink>
                             </Label>
                         </DataTemplate>
@@ -172,7 +172,7 @@
         <ToolBar Grid.Row="4" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -188,30 +188,30 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportImportJob" Header="Export ImportJob Information">
-                            <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Data" Click="mIExportImportJobData_Click"/>
+                            <MenuItem Header="Data" Click="mIExportImportJobData_Click" />
 
                             <Separator/>
-                            <MenuItem Header="FormattedResults" Click="mIExportImportJobFormattedResults_Click"/>
+                            <MenuItem Header="FormattedResults" Click="mIExportImportJobFormattedResults_Click" />
                         </MenuItem>
                     </Menu>
 
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5" Margin="0">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>

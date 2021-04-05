@@ -6,7 +6,7 @@
     <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
@@ -90,25 +90,25 @@
 
             <Label Grid.Column="1">
                 <Hyperlink x:Name="hypLinkSelectFiltered" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectFiltered_RequestNavigate">
-                    <Run Text="Select All Filtered"/>
+                    <Run Text="Select All Filtered" />
                 </Hyperlink>
             </Label>
 
             <Label Grid.Column="2">
                 <Hyperlink x:Name="hypLinkDeselectFiltered" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectFiltered_RequestNavigate" >
-                    <Run Text="DeSelect All Filtered"/>
+                    <Run Text="DeSelect All Filtered" />
                 </Hyperlink>
             </Label>
 
             <Label Grid.Column="4">
                 <Hyperlink x:Name="hypLinkSelectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectAll_RequestNavigate">
-                    <Run Text="Select All Attributes"/>
+                    <Run Text="Select All Attributes" />
                 </Hyperlink>
             </Label>
 
             <Label Grid.Column="5">
                 <Hyperlink x:Name="hypLinkDeselectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectAll_RequestNavigate" >
-                    <Run Text="DeSelect All Attributes"/>
+                    <Run Text="DeSelect All Attributes" />
                 </Hyperlink>
             </Label>
         </Grid>
@@ -116,12 +116,12 @@
         <DataGrid x:Name="lstVwAttributes" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
 
@@ -150,7 +150,7 @@
         <ToolBar Grid.Row="3" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -164,7 +164,7 @@
 
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20" />
 
                 <Separator Margin="10,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 <Button x:Name="btnOk" Content="Ok" Click="btnOk_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="10" />
@@ -172,7 +172,7 @@
         </ToolBar>
 
         <StatusBar Grid.Row="4" Margin="0">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName"/>
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>

@@ -14,7 +14,7 @@
     <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StyleWindows.xaml"/>
+                <ResourceDictionary Source="StyleWindows.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
@@ -22,21 +22,21 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Data Description" Click="mIShowDifferenceDataDescription_Click"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
-                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Data Description" Click="mIShowDifferenceDataDescription_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Presentation Description" Click="mIShowDifferencePresentationDescription_Click" />
+                <Separator x:Uid="menuContextDifference" />
 
                 <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
-                <Separator x:Uid="menuContextDifference"/>
+                <Separator x:Uid="menuContextDifference" />
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open Chart in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Create Entity Description" Click="mIExportSystemChart1EntityDescription_Click"/>
-                    <MenuItem Header="Data Description" Click="mIExportSystemChart1DataDescription_Click"/>
-                    <MenuItem Header="Presentation Description" Click="mIExportSystemChart1PresentationDescription_Click"/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportSystemChart1EntityDescription_Click" />
+                    <MenuItem Header="Data Description" Click="mIExportSystemChart1DataDescription_Click" />
+                    <MenuItem Header="Presentation Description" Click="mIExportSystemChart1PresentationDescription_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Browser" Click="miConnection1OpenEntityMetadataInWeb_Click" />
@@ -51,14 +51,14 @@
                 <Separator/>
                 <MenuItem x:Uid="miExplorers1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}" />
 
-                <Separator x:Uid="menuContextConnection2"/>
+                <Separator x:Uid="menuContextConnection2" />
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open Chart in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Create Entity Description" Click="mIExportSystemChart2EntityDescription_Click"/>
-                    <MenuItem Header="Data Description" Click="mIExportSystemChart2DataDescription_Click"/>
-                    <MenuItem Header="Presentation Description" Click="mIExportSystemChart2PresentationDescription_Click"/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportSystemChart2EntityDescription_Click" />
+                    <MenuItem Header="Data Description" Click="mIExportSystemChart2DataDescription_Click" />
+                    <MenuItem Header="Presentation Description" Click="mIExportSystemChart2PresentationDescription_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Browser" Click="miConnection2OpenEntityMetadataInWeb_Click" />
@@ -70,7 +70,7 @@
                     <MenuItem Header="Open Entity List in Browser" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
-                <Separator x:Uid="menuContextConnection2"/>
+                <Separator x:Uid="menuContextConnection2" />
                 <MenuItem x:Uid="miExplorers2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}" />
 
             </ContextMenu>
@@ -91,7 +91,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            <Button Content="Options" Click="miOptions_Click"/>
+            <Button Content="Options" Click="miOptions_Click" />
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
@@ -111,11 +111,11 @@
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
 
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -123,10 +123,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0" />
             <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
-            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
+            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2" />
             <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
             <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
@@ -140,12 +140,12 @@
         <DataGrid x:Name="lstVwCharts" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.Resources>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -177,7 +177,7 @@
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
-                    <Setter Property="Orientation" Value="Vertical"/>
+                    <Setter Property="Orientation" Value="Vertical" />
                 </Style>
             </ToolBar.Resources>
             <DockPanel>
@@ -188,49 +188,49 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
+                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click" />
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Data Description" Click="mIShowDifferenceDataDescription_Click"/>
-                            <MenuItem Header="Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
+                            <MenuItem Header="Data Description" Click="mIShowDifferenceDataDescription_Click" />
+                            <MenuItem Header="Presentation Description" Click="mIShowDifferencePresentationDescription_Click" />
                         </MenuItem>
                     </Menu>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Create Entity Description" Click="mIExportSystemChart1EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportSystemChart1EntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Data Description" Click="mIExportSystemChart1DataDescription_Click"/>
-                            <MenuItem Header="Presentation Description" Click="mIExportSystemChart1PresentationDescription_Click"/>
+                            <MenuItem Header="Data Description" Click="mIExportSystemChart1DataDescription_Click" />
+                            <MenuItem Header="Presentation Description" Click="mIExportSystemChart1PresentationDescription_Click" />
                         </MenuItem>
                     </Menu>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Create Entity Description" Click="mIExportSystemChart2EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportSystemChart2EntityDescription_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Data Description" Click="mIExportSystemChart2DataDescription_Click"/>
-                            <MenuItem Header="Presentation Description" Click="mIExportSystemChart2PresentationDescription_Click"/>
+                            <MenuItem Header="Data Description" Click="mIExportSystemChart2DataDescription_Click" />
+                            <MenuItem Header="Presentation Description" Click="mIExportSystemChart2PresentationDescription_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </ToolBar>
 
         <StatusBar Grid.Row="5">
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
-            <StatusBarItem x:Name="stBIStatus"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowWithConnectionList>
