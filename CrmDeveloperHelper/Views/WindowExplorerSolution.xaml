@@ -211,21 +211,21 @@
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Solution Name" Width="150" Binding="{Binding SolutionName}" />
+                        <DataGridTextColumn Header="Solution Name" Width="200" Binding="{Binding SolutionName}" />
 
-                        <DataGridTextColumn Header="Display Name" Width="150" Binding="{Binding DisplayName}" />
+                        <DataGridTextColumn Header="Display Name" Width="330" Binding="{Binding DisplayName}" />
 
-                        <DataGridTextColumn Header="Solution Type" Width="150" Binding="{Binding SolutionType}" />
+                        <DataGridTextColumn Header="Solution Type" Width="130" Binding="{Binding SolutionType}" />
 
-                        <DataGridTextColumn Header="Visible" Width="150" Binding="{Binding Visible}" />
+                        <DataGridTextColumn Header="Visible" Width="60" Binding="{Binding Visible}" />
 
                         <DataGridTextColumn Header="Version" Width="120" Binding="{Binding Version}" />
 
-                        <DataGridTextColumn Header="Installed On" Width="150" Binding="{Binding InstalledOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
+                        <DataGridTextColumn Header="Installed On" Width="130" Binding="{Binding InstalledOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 
-                        <DataGridTextColumn Header="Publisher Name" Width="200" Binding="{Binding PublisherName}" />
+                        <DataGridTextColumn Header="Publisher Name" Width="100" Binding="{Binding PublisherName}" />
 
-                        <DataGridTextColumn Header="Prefix" Width="70" Binding="{Binding Prefix}" />
+                        <DataGridTextColumn Header="Prefix" Width="50" Binding="{Binding Prefix}" />
 
                         <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}" CanUserResize="False">
                             <DataGridCheckBoxColumn.Header>
