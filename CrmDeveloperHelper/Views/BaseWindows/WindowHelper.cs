@@ -99,6 +99,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , IEnumerable<EntityMetadata> entityMetadataList
             , string filterEntityName
+            , EnvDTE.SelectedItem selectedItem
+        )
+        {
+            OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, entityMetadataList, filterEntityName, null, false, selectedItem);
+        }
+
+        public static void OpenEntityMetadataExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<EntityMetadata> entityMetadataList
+            , string filterEntityName
             , string filePath
             , bool isJavaScript
             , EnvDTE.SelectedItem selectedItem

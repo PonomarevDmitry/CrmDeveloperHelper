@@ -212,6 +212,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             miEntityMetadataExplorer.Click += miEntityMetadataExplorer_Click;
 
+            var miEntityMetadataExplorerSelectedItem = new MenuItem()
+            {
+                Header = "Entity Metadata in Addition Mode",
+            };
+            miEntityMetadataExplorerSelectedItem.Click += MiEntityMetadataExplorerSelectedItem_Click;
+
 
             var miEntityAttributeExplorer = new MenuItem()
             {
@@ -422,6 +428,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
 
             miExplorers.Items.Add(miEntityMetadataExplorer);
+            if (_selectedItem != null)
+            {
+                miExplorers.Items.Add(miEntityMetadataExplorerSelectedItem);
+            }
 
             miExplorers.Items.Add(new Separator());
             miExplorers.Items.Add(miEntityAttributeExplorer);
@@ -506,6 +516,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IEnumerable<EntityMetadata> entityMetadataList = GetEntityMetadataList(service.ConnectionData.ConnectionId);
 
             WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entityName);
+        }
+
+        public async void MiEntityMetadataExplorerSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedItem == null)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var entityName = GetEntityName();
+
+            IEnumerable<EntityMetadata> entityMetadataList = GetEntityMetadataList(service.ConnectionData.ConnectionId);
+
+            WindowHelper.OpenEntityMetadataExplorer(
+                this._iWriteToOutput
+                , service
+                , _commonConfig
+                , entityMetadataList
+                , entityName
+                , _selectedItem
+            );
         }
 
         private async void miEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
