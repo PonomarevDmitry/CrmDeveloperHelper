@@ -1694,10 +1694,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var tempService = await QuickConnection.ConnectAsync(connectionData);
 
-                if (tempService == null)
+                if (tempService != null)
                 {
                     WindowHelper.OpenEntityEditor(_iWriteToOutput, tempService, commonConfig, item.LogicalName, item.Id);
-                    return;
                 }
             }
         }
