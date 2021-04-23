@@ -3670,29 +3670,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly completed..
+        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly {1} completed..
         /// </summary>
-        internal static string InConnectionUpdatingPluginAssemblyCompletedFormat1 {
+        internal static string InConnectionUpdatingPluginAssemblyCompletedFormat2 {
             get {
-                return ResourceManager.GetString("InConnectionUpdatingPluginAssemblyCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("InConnectionUpdatingPluginAssemblyCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly failed..
+        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly {1} failed..
         /// </summary>
-        internal static string InConnectionUpdatingPluginAssemblyFailedFormat1 {
+        internal static string InConnectionUpdatingPluginAssemblyFailedFormat2 {
             get {
-                return ResourceManager.GetString("InConnectionUpdatingPluginAssemblyFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("InConnectionUpdatingPluginAssemblyFailedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly....
+        ///   Looks up a localized string similar to {0}. Updating Plugin Assembly {1}....
         /// </summary>
-        internal static string InConnectionUpdatingPluginAssemblyFormat1 {
+        internal static string InConnectionUpdatingPluginAssemblyFormat2 {
             get {
-                return ResourceManager.GetString("InConnectionUpdatingPluginAssemblyFormat1", resourceCulture);
+                return ResourceManager.GetString("InConnectionUpdatingPluginAssemblyFormat2", resourceCulture);
             }
         }
         

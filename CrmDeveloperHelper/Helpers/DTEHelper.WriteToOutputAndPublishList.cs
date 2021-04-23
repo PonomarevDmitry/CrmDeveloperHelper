@@ -260,8 +260,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(connectionData, description);
                 this.WriteToOutput(connectionData, _splitter);
 
-                this.ActivateOutputWindow(connectionData);
-
 #if DEBUG
                 if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif

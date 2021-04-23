@@ -1925,14 +1925,14 @@
   <data name="GettingMessagesCompleted" xml:space="preserve">
     <value>Getting messages completed.</value>
   </data>
-  <data name="InConnectionUpdatingPluginAssemblyCompletedFormat1" xml:space="preserve">
-    <value>{0}. Updating Plugin Assembly completed.</value>
+  <data name="InConnectionUpdatingPluginAssemblyCompletedFormat2" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly {1} completed.</value>
   </data>
-  <data name="InConnectionUpdatingPluginAssemblyFailedFormat1" xml:space="preserve">
-    <value>{0}. Updating Plugin Assembly failed.</value>
+  <data name="InConnectionUpdatingPluginAssemblyFailedFormat2" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly {1} failed.</value>
   </data>
-  <data name="InConnectionUpdatingPluginAssemblyFormat1" xml:space="preserve">
-    <value>{0}. Updating Plugin Assembly...</value>
+  <data name="InConnectionUpdatingPluginAssemblyFormat2" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly {1}...</value>
   </data>
   <data name="InConnectionRegisteringPluginTypeFailedFormat2" xml:space="preserve">
     <value>{0}. Registering PluginType {1} failed.</value>

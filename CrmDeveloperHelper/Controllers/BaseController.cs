@@ -246,7 +246,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                this._iWriteToOutput
+                    .WriteErrorToOutput(connectionData, ex)
+                    .ActivateOutputWindow(connectionData)
+                    ;
             }
             finally
             {
@@ -278,7 +281,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                this._iWriteToOutput
+                    .WriteErrorToOutput(connectionData, ex)
+                    .ActivateOutputWindow(connectionData);
             }
             finally
             {
@@ -298,7 +303,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+                this._iWriteToOutput
+                    .WriteErrorToOutput(null, ex)
+                    .ActivateOutputWindow(null);
             }
             finally
             {
@@ -318,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex).ActivateOutputWindow(null);
             }
             finally
             {

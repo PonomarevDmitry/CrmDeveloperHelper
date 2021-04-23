@@ -798,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             service.ConnectionData.AddAssemblyMapping(assemblyLoad.Name, assemblyLoad.FilePath);
             service.ConnectionData.Save();
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFormat2, service.ConnectionData.Name, pluginAssembly.Name);
 
             pluginAssembly.Content = Convert.ToBase64String(assemblyLoad.Content);
 
@@ -829,7 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFailedFormat1, service.ConnectionData.Name);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFailedFormat2, service.ConnectionData.Name, pluginAssembly.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);

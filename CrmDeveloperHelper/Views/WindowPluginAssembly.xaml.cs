@@ -222,14 +222,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var updateAssembly = new PluginAssembly();
 
+            string pluginAssemblyName = string.Empty;
+
             if (PluginAssembly.PluginAssemblyId.HasValue)
             {
                 updateAssembly.Id = PluginAssembly.PluginAssemblyId.Value;
                 updateAssembly.PluginAssemblyId = PluginAssembly.PluginAssemblyId;
+
+                pluginAssemblyName = PluginAssembly.Name;
             }
             else
             {
-                updateAssembly.Name = _assemblyLoad.Name;
+                pluginAssemblyName = updateAssembly.Name = _assemblyLoad.Name;
             }
 
             updateAssembly.Description = txtBDescription.Text.Trim();
@@ -265,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.AddAssemblyMapping(_assemblyLoad.Name, _assemblyLoad.FilePath);
             _service.ConnectionData.Save();
 
-            ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFormat1, _service.ConnectionData.Name);
+            ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFormat2, _service.ConnectionData.Name, pluginAssemblyName);
 
             try
             {
@@ -311,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ToggleControls(true, Properties.OutputStrings.InConnectionRegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
                 }
 
-                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyCompletedFormat2, _service.ConnectionData.Name, pluginAssemblyName);
 
                 this.DialogResult = true;
 
@@ -319,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFailedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFailedFormat2, _service.ConnectionData.Name, pluginAssemblyName);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
