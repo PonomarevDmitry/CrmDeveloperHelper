@@ -131,5 +131,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return false;
         }
+
+        public static string GetAssemblyName(Project project)
+        {
+            if (TryGetPropertyByName(project.Properties, "AssemblyName", out var propertyAssemblyName))
+            {
+                return propertyAssemblyName.Value.ToString();
+            }
+
+            return project.Name;
+        }
     }
 }

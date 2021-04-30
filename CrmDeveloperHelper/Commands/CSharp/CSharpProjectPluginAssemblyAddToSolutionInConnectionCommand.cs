@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
@@ -55,7 +56,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         {
             var selectedProjects = _sourceSelectedProjects.GetSelectedProjects(helper).ToList();
 
-            helper.HandlePluginAssemblyAddingToSolutionByProjectCommand(connectionData, selectedProjects.Select(p => p.Name), null, true);
+            var selectedProjectsNames = new List<string>();
+
+            foreach (var project in selectedProjects)
+            {
+                selectedProjectsNames.Add(PropertiesHelper.GetAssemblyName(project));
+            }
+
+            helper.HandlePluginAssemblyAddingToSolutionByProjectCommand(connectionData, selectedProjectsNames, null, true);
         }
 
         protected override void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

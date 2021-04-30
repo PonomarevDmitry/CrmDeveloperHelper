@@ -239,16 +239,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 try
                 {
-                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+                    string projectAssemblyName = PropertiesHelper.GetAssemblyName(project);
+
+                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(projectAssemblyName);
 
                     if (pluginAssembly == null)
                     {
-                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectAssemblyName);
                     }
 
                     if (pluginAssembly == null)
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectAssemblyName);
 
                         WindowHelper.OpenPluginAssemblyExplorer(
                             this._iWriteToOutput
@@ -358,16 +360,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 try
                 {
-                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+                    string projectAssemblyName = PropertiesHelper.GetAssemblyName(project);
+
+                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(projectAssemblyName);
 
                     if (pluginAssembly == null)
                     {
-                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectAssemblyName);
                     }
 
                     if (pluginAssembly == null)
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectAssemblyName);
 
                         WindowHelper.OpenPluginAssemblyExplorer(
                             this._iWriteToOutput
@@ -577,16 +581,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var project in projectList)
             {
-                var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+                string projectAssemblyName = PropertiesHelper.GetAssemblyName(project);
+
+                var assembly = await repositoryAssembly.FindAssemblyAsync(projectAssemblyName);
 
                 if (assembly == null)
                 {
-                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectAssemblyName);
                 }
 
                 if (assembly == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectAssemblyName);
 
                     WindowHelper.OpenPluginAssemblyExplorer(
                         this._iWriteToOutput
@@ -687,16 +693,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , bool registerPlugins
         )
         {
-            var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+            string projectAssemblyName = PropertiesHelper.GetAssemblyName(project);
+
+            var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(projectAssemblyName);
 
             if (pluginAssembly == null)
             {
-                pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectAssemblyName);
             }
 
             if (pluginAssembly == null)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectAssemblyName);
 
                 WindowHelper.OpenPluginAssemblyExplorer(
                     this._iWriteToOutput
@@ -976,16 +984,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var project in projectList)
             {
-                var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+                string projectAssemblyName = PropertiesHelper.GetAssemblyName(project);
+
+                var assembly = await repositoryAssembly.FindAssemblyAsync(projectAssemblyName);
 
                 if (assembly == null)
                 {
-                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectAssemblyName);
                 }
 
                 if (assembly == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectAssemblyName);
 
                     WindowHelper.OpenPluginAssemblyExplorer(
                         this._iWriteToOutput
