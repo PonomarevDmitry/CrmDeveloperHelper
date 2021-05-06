@@ -607,6 +607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             , nameof(EntityMetadata.ObjectTypeCode)
             , nameof(EntityMetadata.IsIntersect)
+            , nameof(EntityMetadata.IsActivity)
             , nameof(EntityMetadata.PrimaryIdAttribute)
             , nameof(EntityMetadata.PrimaryNameAttribute)
         };
@@ -622,6 +623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             , nameof(EntityMetadata.ObjectTypeCode)
             , nameof(EntityMetadata.IsIntersect)
+            , nameof(EntityMetadata.IsActivity)
             , nameof(EntityMetadata.PrimaryIdAttribute)
             , nameof(EntityMetadata.PrimaryNameAttribute)
 

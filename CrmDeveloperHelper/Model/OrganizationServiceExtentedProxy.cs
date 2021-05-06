@@ -172,9 +172,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             try
             {
-                var entityData = GetEntityIntellisenseData(entityName);
+                string entityPrimaryIdAttribute = GetEntityPrimaryIdAttribute(entityName);
 
-                if (entityData != null && !string.IsNullOrEmpty(entityData.EntityPrimaryIdAttribute))
+                if (!string.IsNullOrEmpty(entityPrimaryIdAttribute))
                 {
                     var query = new QueryExpression()
                     {
@@ -188,7 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                         {
                             Conditions =
                             {
-                                new ConditionExpression(entityData.EntityPrimaryIdAttribute, ConditionOperator.Equal, id),
+                                new ConditionExpression(entityPrimaryIdAttribute, ConditionOperator.Equal, id),
                             },
                         },
                     };
@@ -295,12 +295,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             Guid entityId = entity.Id;
 
-            var entityData = GetEntityIntellisenseData(entity.LogicalName);
+            string entityPrimaryIdAttribute = GetEntityPrimaryIdAttribute(entity.LogicalName);
 
-            if (!string.IsNullOrEmpty(entityData.EntityPrimaryIdAttribute)
-                && entity.Attributes.ContainsKey(entityData.EntityPrimaryIdAttribute)
-                && entity.Attributes[entityData.EntityPrimaryIdAttribute] != null
-                && entity.Attributes[entityData.EntityPrimaryIdAttribute] is Guid tempId
+            if (!string.IsNullOrEmpty(entityPrimaryIdAttribute)
+                && entity.Attributes.ContainsKey(entityPrimaryIdAttribute)
+                && entity.Attributes[entityPrimaryIdAttribute] != null
+                && entity.Attributes[entityPrimaryIdAttribute] is Guid tempId
             )
             {
                 entityId = tempId;
@@ -793,6 +793,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             );
 
             return this.ConnectionData.GetEntityIntellisenseData(entityName);
+        }
+
+        private string GetEntityPrimaryIdAttribute(string entityName)
+        {
+            EntityIntellisenseData entityData = GetEntityIntellisenseData(entityName);
+
+            if (entityData != null)
+            {
+                if (!string.IsNullOrEmpty(entityData.EntityPrimaryIdAttribute))
+                {
+                    return entityData.EntityPrimaryIdAttribute;
+                }
+
+                if (entityData.IsActivityEntity.GetValueOrDefault())
+                {
+                    return "activityid";
+                }
+            }
+
+            return string.Empty;
         }
 
         private ColumnSet FilterColumns(string entityName, ColumnSet columnSet)

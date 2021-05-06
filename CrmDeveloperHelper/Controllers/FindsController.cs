@@ -1459,6 +1459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , nameof(EntityMetadata.LogicalName)
                     , nameof(EntityMetadata.PrimaryIdAttribute)
                     , nameof(EntityMetadata.IsIntersect)
+                    , nameof(EntityMetadata.IsActivity)
                     , nameof(EntityMetadata.Attributes)
                 );
 
@@ -1561,6 +1562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , nameof(EntityMetadata.LogicalName)
                     , nameof(EntityMetadata.PrimaryIdAttribute)
                     , nameof(EntityMetadata.IsIntersect)
+                    , nameof(EntityMetadata.IsActivity)
                     , nameof(EntityMetadata.Attributes)
                 );
 
@@ -1660,6 +1662,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , nameof(EntityMetadata.LogicalName)
                     , nameof(EntityMetadata.PrimaryIdAttribute)
                     , nameof(EntityMetadata.IsIntersect)
+                    , nameof(EntityMetadata.IsActivity)
                     , nameof(EntityMetadata.Attributes)
                 );
 

@@ -273,7 +273,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                this.PluginAssembly.Id = await _service.UpsertAsync(updateAssembly);
+                if (PluginAssembly.PluginAssemblyId.HasValue)
+                {
+                    await _service.UpdateAsync(updateAssembly);
+                }
+                else
+                {
+                    this.PluginAssembly.Id = await _service.CreateAsync(updateAssembly);
+                }
 
                 if (listToRegister.Any())
                 {

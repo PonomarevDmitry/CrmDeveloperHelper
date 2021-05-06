@@ -394,11 +394,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         continue;
                     }
 
-                    if (connectionData.EntitiesIntellisenseData != null
-                        && connectionData.EntitiesIntellisenseData.Entities != null
-                        && connectionData.EntitiesIntellisenseData.Entities.ContainsKey(entity.LogicalName)
-                        && value is Guid idValue
-                        && string.Equals(connectionData.EntitiesIntellisenseData.Entities[entity.LogicalName].EntityPrimaryIdAttribute, attributeName, StringComparison.InvariantCultureIgnoreCase)
+                    string entityPrimaryIdAttribute = connectionData.GetEntityPrimaryIdAttribute(entity.LogicalName);
+
+                    if (value is Guid idValue
+                        && string.Equals(entityPrimaryIdAttribute, attributeName, StringComparison.InvariantCultureIgnoreCase)
                     )
                     {
                         value = new PrimaryGuidView(connectionData, entity.LogicalName, idValue);
@@ -410,11 +409,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         columnName = string.Format("{0}___{1}___{2}", attributeName.Replace(".", "_"), aliasedValue.EntityLogicalName, aliasedValue.AttributeLogicalName);
 
-                        if (connectionData.EntitiesIntellisenseData != null
-                            && connectionData.EntitiesIntellisenseData.Entities != null
-                            && connectionData.EntitiesIntellisenseData.Entities.ContainsKey(aliasedValue.EntityLogicalName)
-                            && aliasedValue.Value is Guid refIdValue
-                            && string.Equals(connectionData.EntitiesIntellisenseData.Entities[aliasedValue.EntityLogicalName].EntityPrimaryIdAttribute, aliasedValue.AttributeLogicalName, StringComparison.InvariantCultureIgnoreCase)
+                        string aliasedValuePrimaryIdAttribute = connectionData.GetEntityPrimaryIdAttribute(aliasedValue.EntityLogicalName);
+
+                        if (aliasedValue.Value is Guid refIdValue
+                            && string.Equals(aliasedValuePrimaryIdAttribute, aliasedValue.AttributeLogicalName, StringComparison.InvariantCultureIgnoreCase)
                         )
                         {
                             value = new PrimaryGuidView(connectionData, aliasedValue.EntityLogicalName, refIdValue);

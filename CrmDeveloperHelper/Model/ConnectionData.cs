@@ -1390,6 +1390,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return null;
         }
 
+        public string GetEntityPrimaryIdAttribute(string entityName)
+        {
+            EntityIntellisenseData entityData = GetEntityIntellisenseData(entityName);
+
+            if (entityData != null)
+            {
+                if (!string.IsNullOrEmpty(entityData.EntityPrimaryIdAttribute))
+                {
+                    return entityData.EntityPrimaryIdAttribute;
+                }
+
+                if (entityData.IsActivityEntity.GetValueOrDefault())
+                {
+                    return "activityid";
+                }
+            }
+
+            return string.Empty;
+        }
+
         public bool? IsRequestExists(string requestName)
         {
             lock (_syncObjectRequests)

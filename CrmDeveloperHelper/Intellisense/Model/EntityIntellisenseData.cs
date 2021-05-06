@@ -40,6 +40,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public Label Description { get; private set; }
 
         [DataMember]
+        public bool? IsActivityEntity { get; private set; }
+
+        [DataMember]
         public bool? IsIntersectEntity { get; private set; }
 
         [DataMember]
@@ -174,6 +177,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             if (entityMetadata.DisplayCollectionName != null)
             {
                 this.DisplayCollectionName = entityMetadata.DisplayCollectionName;
+            }
+
+            if (entityMetadata.IsActivity.HasValue)
+            {
+                this.IsActivityEntity = entityMetadata.IsActivity.GetValueOrDefault();
             }
 
             if (entityMetadata.IsIntersect.HasValue)

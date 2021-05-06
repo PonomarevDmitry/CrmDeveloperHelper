@@ -190,6 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.OwnershipType)
                 , nameof(EntityMetadata.ObjectTypeCode)
                 , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.IsActivity)
             )
             {
                 AllProperties = false,
@@ -831,6 +832,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.ObjectTypeCode)
                 , nameof(EntityMetadata.Privileges)
                 , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.IsActivity)
             )
             {
                 AllProperties = false,

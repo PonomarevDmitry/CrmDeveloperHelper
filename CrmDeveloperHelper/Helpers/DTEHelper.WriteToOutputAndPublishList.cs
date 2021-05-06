@@ -1177,10 +1177,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (entityIntellisenseData != null)
                     {
-                        fetchContent.Add(new FetchAttributeType()
+                        if (!string.IsNullOrEmpty(entityIntellisenseData.EntityPrimaryIdAttribute))
                         {
-                            name = entityIntellisenseData.EntityPrimaryIdAttribute,
-                        });
+                            fetchContent.Add(new FetchAttributeType()
+                            {
+                                name = entityIntellisenseData.EntityPrimaryIdAttribute,
+                            });
+                        }
 
                         if (!string.IsNullOrEmpty(entityIntellisenseData.EntityPrimaryNameAttribute))
                         {
@@ -1225,7 +1228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 descending = false,
                             });
                         }
-                        else
+                        else if (!string.IsNullOrEmpty(entityIntellisenseData.EntityPrimaryIdAttribute))
                         {
                             fetchContent.Add(new FetchOrderType()
                             {
