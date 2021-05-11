@@ -543,12 +543,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             DateTime date = DateTime.Now;
 
+            string dateString = date.ToString(EntityFileNameFormatter.dateFormatYearMonthDayHourMinuteSecond);
+
             var folder = Path.GetDirectoryName(filePath);
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             var extension = Path.GetExtension(filePath);
 
             {
-                var fileNewName = string.Format("{0} DataContractReadObject Crush at {1:yyyy.MM.dd HH-mm-ss}{2}", fileName, date, extension);
+                var fileNewName = string.Format("{0} DataContractReadObject Crush at {1}{2}", fileName, dateString, extension);
                 var fileNewPath = Path.Combine(folder, fileNewName);
 
                 File.Move(filePath, fileNewPath);
@@ -557,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var description = DTEHelper.GetExceptionDescription(ex);
 
-                var fileNewName = string.Format("{0} DataContractReadObject Crush at {1:yyyy.MM.dd HH-mm-ss} Exception Description.txt", fileName, date);
+                var fileNewName = string.Format("{0} DataContractReadObject Crush at {1} Exception Description.txt", fileName, dateString);
                 var fileNewPath = Path.Combine(folder, fileNewName);
 
                 File.WriteAllText(fileNewPath, description, new UTF8Encoding(false));

@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -206,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -331,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     string fileName = string.Format("{0}.Checking ComponentType Enum at {1}.txt"
                         , connectionData.Name
-                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                        , EntityFileNameFormatter.GetDateString()
                     );
 
                     commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
@@ -432,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string fileName = string.Format(
                         "{0}.Dependency Nodes Description at {1}.txt"
                         , connectionData.Name
-                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                        , EntityFileNameFormatter.GetDateString()
                     );
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -487,7 +487,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -559,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -631,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = string.Format("{0}.Workflows with Entity Field Strings at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = string.Format("{0}.Workflows with Entity Field Strings at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -774,7 +774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     string fileName = string.Format("{0}.Checking Unknown Form Control Types at {1}.txt"
                         , connectionData.Name
-                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                        , EntityFileNameFormatter.GetDateString()
                     );
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -978,7 +978,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string fileName = string.Format("{0}.Creating Missing TeamTemplates in SystemForms at {1}.txt"
                     , connectionData.Name
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                    , EntityFileNameFormatter.GetDateString()
                 );
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1195,7 +1195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string fileName = string.Format("{0}.Checking TeamTemplates at {1}.txt"
                     , connectionData.Name
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                    , EntityFileNameFormatter.GetDateString()
                 );
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));

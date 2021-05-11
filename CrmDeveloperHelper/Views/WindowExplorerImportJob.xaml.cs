@@ -351,7 +351,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string fileName = EntityFileNameFormatter.GetImportJobFileName(connectionData.Name, solutionName, createdOn, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            string name = string.Format("{0} at {1:yyyy.MM.dd HH-mm-ss}", solutionName, createdOn);
+            string createdOnString = createdOn?.ToString(EntityFileNameFormatter.dateFormatYearMonthDayHourMinuteSecond);
+
+            string name = string.Format("{0} at {1}", solutionName, createdOnString);
 
             if (!string.IsNullOrEmpty(xmlContent))
             {
@@ -488,7 +490,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string name = string.Format("{0} at {1:yyyy.MM.dd HH-mm-ss}", solutionName, createdOn);
+            string createdOnString = createdOn?.ToString(EntityFileNameFormatter.dateFormatYearMonthDayHourMinuteSecond);
+
+            string name = string.Format("{0} at {1}", solutionName, createdOnString);
 
             string fieldTitle = "FormattedResults";
 

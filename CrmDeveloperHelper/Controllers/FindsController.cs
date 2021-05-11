@@ -590,7 +590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = string.Format("{0}.CRM Objects names for prefix '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = string.Format("{0}.CRM Objects names for prefix '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, EntityFileNameFormatter.GetDateString());
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -807,7 +807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, deleteMark, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, deleteMark, EntityFileNameFormatter.GetDateString());
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1061,7 +1061,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileName = string.Format("{0}.Finding CRM Objects names for {1} at {2}.txt"
                 , connectionData.Name
                 , name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                , EntityFileNameFormatter.GetDateString()
             );
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1298,7 +1298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileName = string.Format("{0}.Finding CRM Objects names contains {1} at {2}.txt"
                 , connectionData.Name
                 , name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                , EntityFileNameFormatter.GetDateString()
             );
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));

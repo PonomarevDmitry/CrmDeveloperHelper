@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileName = string.Format("{0}.{1} {2}.xml"
                 , connectionData.Name
                 , commonConfig.PluginConfigurationFileName.Trim()
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                , EntityFileNameFormatter.GetDateString()
             );
 
             string filePath = Path.Combine(commonConfig.FolderForExport, fileName);

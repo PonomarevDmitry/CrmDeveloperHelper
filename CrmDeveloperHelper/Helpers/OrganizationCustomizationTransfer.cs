@@ -198,7 +198,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string fileName = string.Format("OrgTransfer Audit from {0} to {1} at {2}.txt"
                 , this.ConnectionSource.Name
                 , this.ConnectionTarget.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                , EntityFileNameFormatter.GetDateString()
+            );
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -465,7 +466,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string fileName = string.Format("OrgTransfer Workflows States from {0} to {1} at {2}.txt"
                 , this.ConnectionSource.Name
                 , this.ConnectionTarget.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                , EntityFileNameFormatter.GetDateString()
+            );
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -723,7 +725,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string fileName = string.Format("OrgTransfer Plugin Steps States from {0} to {1} at {2}.txt"
                 , this.ConnectionSource.Name
                 , this.ConnectionTarget.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                , EntityFileNameFormatter.GetDateString()
+            );
 
             string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
 

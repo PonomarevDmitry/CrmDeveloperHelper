@@ -915,7 +915,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 bool allComponents = _commonConfig.AttributesDependentComponentsAllComponents;
 
-                string fileName = string.Format("{0}.{1} attributes dependent components at {2}.txt", service.ConnectionData.Name, entityMetadata.LogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.{1} attributes dependent components at {2}.txt", service.ConnectionData.Name, entityMetadata.LogicalName, EntityFileNameFormatter.GetDateString());
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var descriptor = new SolutionComponentDescriptor(service);
@@ -984,7 +984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new EntityMetadataRepository(service);
 
-                var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityMetadata.LogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityMetadata.LogicalName, EntityFileNameFormatter.GetDateString());
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 await repository.ExportEntityXmlAsync(entityMetadata.LogicalName, filePath);
@@ -1084,7 +1084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                var fileName = string.Format("{0}.{1} - EntityMetadata at {2}.xml", service.ConnectionData.Name, entityMetadataViewItem.LogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                var fileName = string.Format("{0}.{1} - EntityMetadata at {2}.xml", service.ConnectionData.Name, entityMetadataViewItem.LogicalName, EntityFileNameFormatter.GetDateString());
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 File.WriteAllBytes(filePath, fileBody);

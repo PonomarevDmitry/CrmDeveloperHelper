@@ -540,6 +540,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBLoadedAssemblyCulture.Text = this._assemblyLoad.Culture;
             txtBLoadedAssemblyPublicKeyToken.Text = this._assemblyLoad.PublicKeyToken;
 
+            var fileInfo = new FileInfo(assemblyPath);
+
+            txtBLoadedAssemblyDateModified.Text = fileInfo.LastWriteTime.ToString(EntityFileNameFormatter.dateFormatYearMonthDayHourMinuteSecond);
+
             if (PluginAssembly.Id == Guid.Empty)
             {
                 txtBFileNameOnServer.Text = this._assemblyLoad.FileName;

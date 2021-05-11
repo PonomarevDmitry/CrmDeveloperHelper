@@ -73,9 +73,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             throw new ArgumentOutOfRangeException(extension.ToString());
         }
 
-        private static string GetDateString()
+        public static string dateFormatYearMonthDayHourMinuteSecond = "yyyy.MM.dd HH-mm-ss";
+
+        public static string GetDateString()
         {
-            return DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss");
+            return DateTime.Now.ToString(dateFormatYearMonthDayHourMinuteSecond);
         }
 
         private const string WorkflowFormatFile = "{0}.{1} Workflow {2} - {3} - {4} at {5}.{6}";
@@ -322,7 +324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (createdOn.HasValue)
             {
-                createdOnStr = string.Format(" at {0:yyyy.MM.dd HH-mm-ss}", createdOn.Value);
+                createdOnStr = string.Format(" at {0}", createdOn.Value.ToString(dateFormatYearMonthDayHourMinuteSecond));
             }
 
             return string.Format(ImportJobFormatFileTxt, connectionName, solutionName, createdOnStr, fieldTitle, GetDateString(), extension.ToStr());

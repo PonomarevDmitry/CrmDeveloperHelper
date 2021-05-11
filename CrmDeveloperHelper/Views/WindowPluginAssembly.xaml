@@ -50,7 +50,10 @@
             </Grid.RowDefinitions>
 
             <Label Content="Loaded Assembly Path" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBLoadedAssemblyPath" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+            <TextBox x:Name="txtBLoadedAssemblyPath" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+            <Label Content="Date Modified" Grid.Row="0" Grid.Column="6" />
+            <TextBox x:Name="txtBLoadedAssemblyDateModified" Grid.Row="0" Grid.Column="7" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
             <Label Content="Loaded Assembly Name" Grid.Row="1" Grid.Column="0" />
             <TextBox x:Name="txtBLoadedAssemblyName" Grid.Row="1" Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />

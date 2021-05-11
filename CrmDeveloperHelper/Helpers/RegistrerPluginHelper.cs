@@ -28,8 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
                 , _service.ConnectionData.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+                , EntityFileNameFormatter.GetDateString()
+            );
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -179,8 +179,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
                 , _service.ConnectionData.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+                , EntityFileNameFormatter.GetDateString()
+            );
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -233,8 +233,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string fileName = string.Format("{0}.Plugin Register Operation at {1}.txt"
                 , _service.ConnectionData.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
+                , EntityFileNameFormatter.GetDateString()
+            );
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 

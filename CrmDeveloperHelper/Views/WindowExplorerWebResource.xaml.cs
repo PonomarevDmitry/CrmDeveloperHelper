@@ -825,7 +825,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var array = Convert.FromBase64String(contentWebResource);
 
-                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"), Path.GetExtension(webResourceFileName));
+                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), EntityFileNameFormatter.GetDateString(), Path.GetExtension(webResourceFileName));
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     File.WriteAllBytes(filePath, array);
@@ -980,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var array = Convert.FromBase64String(contentWebResource);
 
-                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"), Path.GetExtension(webResourceFileName));
+                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), EntityFileNameFormatter.GetDateString(), Path.GetExtension(webResourceFileName));
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     File.WriteAllBytes(filePath, array);

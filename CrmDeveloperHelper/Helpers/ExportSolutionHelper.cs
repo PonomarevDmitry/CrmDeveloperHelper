@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 , solutionName
                 , solutionVersion
                 , (config.Managed ? "_managed" : string.Empty)
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                , EntityFileNameFormatter.GetDateString()
             );
 
             string filePath = Path.Combine(config.ExportFolder, FileOperations.RemoveWrongSymbols(fileName));

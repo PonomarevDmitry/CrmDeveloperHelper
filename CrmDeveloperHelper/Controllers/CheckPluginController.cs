@@ -231,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                string fileName = string.Format("{0}.Checking Plugin Images Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Checking Plugin Images Duplicates at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -385,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                string fileName = string.Format("{0}.Checking Plugin Steps Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Checking Plugin Steps Duplicates at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -592,7 +592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                string fileName = string.Format("{0}.Checking Plugin Steps Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Checking Plugin Steps Required Components at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -864,7 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                string fileName = string.Format("{0}.Checking Plugin Images Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Checking Plugin Images Required Components at {1}.txt", connectionData.Name, EntityFileNameFormatter.GetDateString());
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 

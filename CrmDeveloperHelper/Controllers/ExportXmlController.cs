@@ -135,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 string fileName = string.Format("{0}{1} {2}.txt"
                     , (!string.IsNullOrEmpty(connectionDataName) ? connectionDataName + "." : string.Empty)
                     , fileNameFormat.Trim()
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                    , EntityFileNameFormatter.GetDateString()
                 );
 
                 filePath = Path.Combine(fileFolder, FileOperations.RemoveWrongSymbols(fileName));
