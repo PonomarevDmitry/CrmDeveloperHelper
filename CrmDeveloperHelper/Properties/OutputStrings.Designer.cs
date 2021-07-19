@@ -2797,6 +2797,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Associating Entities {1} count {2} Relationship {3} to Entity {4} - {5} completed..
+        /// </summary>
+        internal static string InConnectionAssociatingEntitiesToEntityCompletedFormat6 {
+            get {
+                return ResourceManager.GetString("InConnectionAssociatingEntitiesToEntityCompletedFormat6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Associating Entities {1} count {2} Relationship {3} to Entity {4} - {5}....
+        /// </summary>
+        internal static string InConnectionAssociatingEntitiesToEntityFormat6 {
+            get {
+                return ResourceManager.GetString("InConnectionAssociatingEntitiesToEntityFormat6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Role {1} Changed Privileges exported to file: {2}.
         /// </summary>
         internal static string InConnectionChangedPrivilegesFormat3 {
@@ -2991,6 +3009,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string InConnectionDeletingSdkMessageProcessingStepSecureConfigFormat1 {
             get {
                 return ResourceManager.GetString("InConnectionDeletingSdkMessageProcessingStepSecureConfigFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Disassociating Entities {1} count {2} Relationship {3} to Entity {4} - {5} completed..
+        /// </summary>
+        internal static string InConnectionDisassociatingEntitiesToEntityCompletedFormat6 {
+            get {
+                return ResourceManager.GetString("InConnectionDisassociatingEntitiesToEntityCompletedFormat6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Disassociating Entities {1} count {2} Relationship {3} to Entity {4} - {5}....
+        /// </summary>
+        internal static string InConnectionDisassociatingEntitiesToEntityFormat6 {
+            get {
+                return ResourceManager.GetString("InConnectionDisassociatingEntitiesToEntityFormat6", resourceCulture);
             }
         }
         

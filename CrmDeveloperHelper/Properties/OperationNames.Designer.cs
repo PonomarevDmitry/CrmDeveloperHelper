@@ -268,6 +268,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Associating Entities {1} count {2} Relationship {3} to Entity {4} - {5}.
+        /// </summary>
+        internal static string AssociatingEntitiesToEntityFormat6 {
+            get {
+                return ResourceManager.GetString("AssociatingEntitiesToEntityFormat6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Project {1} - Building Project and Comparing with Crm PluginAssembly.
         /// </summary>
         internal static string BuildingProjectAndComparingCrmPluginAssemblyFormat2 {
@@ -1200,6 +1209,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string DifferenceWorkflowFormat1 {
             get {
                 return ResourceManager.GetString("DifferenceWorkflowFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Disassociating Entities {1} count {2} Relationship {3} to Entity {4} - {5}.
+        /// </summary>
+        internal static string DisassociatingEntitiesToEntityFormat6 {
+            get {
+                return ResourceManager.GetString("DisassociatingEntitiesToEntityFormat6", resourceCulture);
             }
         }
         

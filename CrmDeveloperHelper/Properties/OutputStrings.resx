@@ -2008,6 +2008,7 @@
   <data name="InConnectionAssigningEntitiesToUserFormat4" xml:space="preserve">
     <value>{0}. Assigning Entities {1} count {2} to User {3}...</value>
   </data>
+  
   <data name="ExecutingWorkflowCompletedFormat4" xml:space="preserve">
     <value>Executing Workflow {0} on Entities {2} count {3} completed.</value>
   </data>
@@ -2016,6 +2017,20 @@
   </data>
   <data name="InConnectionExecutingWorkflowFormat4" xml:space="preserve">
     <value>{0}. Executing Workflow {1} on Entities {2} count {3}...</value>
+  </data>
+
+  <data name="InConnectionAssociatingEntitiesToEntityCompletedFormat6" xml:space="preserve">
+    <value>{0}. Associating Entities {1} count {2} Relationship {3} to Entity {4} - {5} completed.</value>
+  </data>
+  <data name="InConnectionAssociatingEntitiesToEntityFormat6" xml:space="preserve">
+    <value>{0}. Associating Entities {1} count {2} Relationship {3} to Entity {4} - {5}...</value>
+  </data>
+
+  <data name="InConnectionDisassociatingEntitiesToEntityCompletedFormat6" xml:space="preserve">
+    <value>{0}. Disassociating Entities {1} count {2} Relationship {3} to Entity {4} - {5} completed.</value>
+  </data>
+  <data name="InConnectionDisassociatingEntitiesToEntityFormat6" xml:space="preserve">
+    <value>{0}. Disassociating Entities {1} count {2} Relationship {3} to Entity {4} - {5}...</value>
   </data>
 
   <data name="SettingBusinessProcessFlowCompletedFormat4" xml:space="preserve">

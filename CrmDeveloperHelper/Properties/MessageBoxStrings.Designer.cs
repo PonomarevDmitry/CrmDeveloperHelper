@@ -762,6 +762,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Relationship Name is empty..
+        /// </summary>
+        internal static string RelationshipNameIsEmpty {
+            get {
+                return ResourceManager.GetString("RelationshipNameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure want to remove components owned by {0} from {1}?.
         /// </summary>
         internal static string RemoveSolutionComponentsFromToFormat2 {

@@ -1,0 +1,88 @@
+﻿<src:WindowBase
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSelectEntityAndRelationshipName"
+        Title="Form Title" 
+        WindowStartupLocation="Manual"
+        Height="170"
+        MinHeight="170"
+        MaxHeight="170"
+        Width="640"
+        SizeToContent="Height"
+    >
+    <src:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </src:WindowBase.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="5" Grid.Row="0">
+
+            <Grid.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="Margin" Value="3" />
+
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="Margin" Value="3" />
+
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Relationship Name" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBRelationshipName" Grid.Row="0" Grid.Column="1" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
+
+            <Label Content="Entity Id" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBEntityId" Grid.Row="1" Grid.Column="1" />
+
+            <Label Content="Entity Name" Grid.Row="2" Grid.Column="0" />
+            <ComboBox x:Name="cmBEntityName" Grid.Row="2" Grid.Column="1" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
+
+        </Grid>
+
+        <Grid Margin="5" Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="100"  />
+                <ColumnDefinition Width="Auto"  />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnOK" Content="OK" Grid.Row="0" Grid.Column="1" Click="btnOK_Click" Height="25" Width="100" Margin="3" />
+            <Button x:Name="btnCancel" Content="Cancel" Grid.Row="0" Grid.Column="3" Click="btnCancel_Click" Height="25" Width="100" Margin="3" />
+
+        </Grid>
+    </Grid>
+</src:WindowBase>

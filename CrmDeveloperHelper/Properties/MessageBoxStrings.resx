@@ -342,6 +342,9 @@ on
   <data name="EntityNameIsEmpty" xml:space="preserve">
     <value>Entity Name is empty.</value>
   </data>
+  <data name="RelationshipNameIsEmpty" xml:space="preserve">
+    <value>Relationship Name is empty.</value>
+  </data>
   <data name="ContinueOperation" xml:space="preserve">
     <value>Continue Operation?</value>
   </data>

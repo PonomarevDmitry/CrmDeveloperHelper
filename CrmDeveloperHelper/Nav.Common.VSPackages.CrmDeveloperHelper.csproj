@@ -1609,6 +1609,9 @@
     <Compile Include="Views\WindowSdkMessageProcessingStepImage.xaml.cs">
       <DependentUpon>WindowSdkMessageProcessingStepImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowSelectEntityAndRelationshipName.xaml.cs">
+      <DependentUpon>WindowSelectEntityAndRelationshipName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowSelectEntityNameAndId.xaml.cs">
       <DependentUpon>WindowSelectEntityNameAndId.xaml</DependentUpon>
     </Compile>
@@ -2463,6 +2466,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSdkMessageProcessingStepImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSelectEntityAndRelationshipName.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -743,6 +743,66 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
+        protected void LoadEntityRelationshipsManyToMany(ComboBox cmBRelationshipName, ComboBox cmBEntityName, ConnectionData connectionData, string entityName)
+        {
+            string textRelationshipName = cmBRelationshipName.Text;
+            string textEntityName = cmBEntityName.Text;
+
+            cmBRelationshipName.Dispatcher.Invoke(() =>
+            {
+                cmBRelationshipName.Items.Clear();
+
+                if (connectionData != null
+                    && connectionData.EntitiesIntellisenseData != null
+                    && connectionData.EntitiesIntellisenseData.Entities != null
+                    && connectionData.EntitiesIntellisenseData.Entities.ContainsKey(entityName)
+                )
+                {
+                    var entityData = connectionData.EntitiesIntellisenseData.Entities[entityName];
+
+                    if (entityData != null && entityData.ManyToManyRelationships != null)
+                    {
+                        var relationshipNamesList = entityData.ManyToManyRelationships.Keys.OrderBy(r => r).ToList();
+
+                        foreach (var relationshipName in relationshipNamesList)
+                        {
+                            cmBRelationshipName.Items.Add(relationshipName);
+                        }
+
+                        var hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                        foreach (var relationship in entityData.ManyToManyRelationships.Values)
+                        {
+                            if (!string.Equals(entityName, relationship.Entity1Name, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                hash.Add(relationship.Entity1Name);
+                            }
+
+                            if (!string.Equals(entityName, relationship.Entity2Name, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                hash.Add(relationship.Entity2Name);
+                            }
+
+                            if (string.Equals(entityName, relationship.Entity1Name, StringComparison.InvariantCultureIgnoreCase) 
+                                && string.Equals(entityName, relationship.Entity2Name, StringComparison.InvariantCultureIgnoreCase)
+                            )
+                            {
+                                hash.Add(entityName);
+                            }
+                        }
+
+                        foreach (var targetEntityName in hash.OrderBy(r => r))
+                        {
+                            cmBEntityName.Items.Add(targetEntityName);
+                        }
+                    }
+                }
+
+                cmBRelationshipName.Text = textRelationshipName;
+                cmBEntityName.Text = textEntityName;
+            });
+        }
+
         protected void LoadEntityNames(ComboBox comboBox, ConnectionData connectionData1, ConnectionData connectionData2)
         {
             string text = comboBox.Text;

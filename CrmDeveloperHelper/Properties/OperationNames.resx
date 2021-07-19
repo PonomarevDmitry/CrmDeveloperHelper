@@ -857,6 +857,15 @@
   <data name="DeletingEntityFormat2" xml:space="preserve">
     <value>{0} - Deleting Entity {1}</value>
   </data>
+  
+  <data name="AssociatingEntitiesToEntityFormat6" xml:space="preserve">
+    <value>{0} - Associating Entities {1} count {2} Relationship {3} to Entity {4} - {5}</value>
+  </data>
+  
+  <data name="DisassociatingEntitiesToEntityFormat6" xml:space="preserve">
+    <value>{0} - Disassociating Entities {1} count {2} Relationship {3} to Entity {4} - {5}</value>
+  </data>
+  
   <data name="DeletingEntitiesSetFormat3" xml:space="preserve">
     <value>{0} - Deleting Entities {1} count {2}</value>
   </data>

@@ -46,9 +46,6 @@
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click" />
-
-                <Separator/>
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click" />
 
                 <Separator/>
@@ -67,9 +64,18 @@
                     <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click" />
 
                     <Separator/>
+                    <MenuItem Header="Associate Entity" Click="mIAssociateEntity_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Disassociate Entity" Click="mIDisassociateEntity_Click" />
+
+                    <Separator/>
                     <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click" />
 
                 </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click" />
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityReference" Opened="ContextMenu_Opened">
@@ -148,9 +154,6 @@
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click" />
-
-                <Separator/>
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click" />
 
                 <Separator/>
@@ -169,9 +172,18 @@
                     <MenuItem Header="Set Business Process Flow" Click="mISetBusinessProcessFlow_Click" />
 
                     <Separator/>
+                    <MenuItem Header="Associate Entity" Click="mIAssociateEntity_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Disassociate Entity" Click="mIDisassociateEntity_Click" />
+
+                    <Separator/>
                     <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click" />
 
                 </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Create Entity Copy in Editor" Click="mICreateEntityCopyInEditor_Click" />
             </ContextMenu>
 
         </ResourceDictionary>
@@ -333,6 +345,12 @@
                                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add Selected Entities to Last Crm Solution"  />
                                 <MenuItem x:Uid="contMnAddToSolution" Header="Add Selected Entities to Crm Solution" Click="AddToCrmSolutionSelectedEntities_Click" />
 
+                                <Separator />
+                                <MenuItem Header="Associate Selected Entities" Click="miAssociateSelectedEntites_Click" />
+
+                                <Separator />
+                                <MenuItem Header="Disassociate Selected Entities" Click="miDisassociateSelectedEntites_Click" />
+
                                 <Separator/>
                                 <MenuItem Header="Delete Selected Entities" Click="mIDeleteSelectedEntity_Click" />
                             </MenuItem>
@@ -359,6 +377,12 @@
                                 <Separator x:Uid="contMnAddToSolution" />
                                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add All Entities to Last Crm Solution"  />
                                 <MenuItem x:Uid="contMnAddToSolution" Header="Add All Entities to Crm Solution" Click="AddToCrmSolutionAllEntities_Click" />
+
+                                <Separator />
+                                <MenuItem Header="Associate All Entities" Click="miAssociateAllEntites_Click" />
+
+                                <Separator />
+                                <MenuItem Header="Disassociate All Entities" Click="miDisassociateAllEntites_Click" />
 
                                 <Separator/>
                                 <MenuItem Header="Delete All Entities" Click="mIDeleteAllEntity_Click" />

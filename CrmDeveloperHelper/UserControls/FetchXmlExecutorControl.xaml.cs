@@ -1797,6 +1797,417 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #endregion Set Business Process Flow
 
+        #region Associate Entities
+
+        private async void mIAssociateEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            try
+            {
+                await AssociateEntities(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miAssociateSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            try
+            {
+                await AssociateEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miAssociateAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            try
+            {
+                await AssociateEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async Task AssociateEntities(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
+            {
+                return;
+            }
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var form = new WindowSelectEntityAndRelationshipName(connectionData, entityName, "Entity and Relationship", string.Empty);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            string targenEntityName = form.EntityName;
+            Guid targenEntityId = form.EntityId;
+            string relationshipName = form.RelationshipName;
+
+            if (string.IsNullOrEmpty(targenEntityName))
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.MessageBoxStrings.EntityNameIsEmpty);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(relationshipName))
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.MessageBoxStrings.RelationshipNameIsEmpty);
+                return;
+            }
+
+            string operationName = string.Format(Properties.OperationNames.AssociatingEntitiesToEntityFormat6
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+
+                , relationshipName
+                , targenEntityName
+                , targenEntityId
+            );
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false
+                , Properties.OutputStrings.InConnectionAssociatingEntitiesToEntityFormat6
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+
+                , relationshipName
+                , targenEntityName
+                , targenEntityId
+            );
+
+            _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, targenEntityName, targenEntityId);
+
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            try
+            {
+                var relatedEntities = listIds.Select(i => new EntityReference(entityName, i)).ToList();
+
+                var request = new AssociateRequest()
+                {
+                    Target = new EntityReference(targenEntityName, targenEntityId),
+                    Relationship =  new Relationship(relationshipName),
+
+                    RelatedEntities = new EntityReferenceCollection(relatedEntities)
+                };
+
+                await service.ExecuteAsync<AssociateResponse>(request);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true
+                , Properties.OutputStrings.InConnectionAssociatingEntitiesToEntityCompletedFormat6
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+
+                , relationshipName
+                , targenEntityName
+                , targenEntityId
+            );
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        #endregion Associate Entities
+
+        #region Disassociate Entities
+
+        private async void mIDisassociateEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            try
+            {
+                await DisassociateEntities(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miDisassociateSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            try
+            {
+                await DisassociateEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miDisassociateAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            try
+            {
+                await DisassociateEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async Task DisassociateEntities(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
+            {
+                return;
+            }
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var form = new WindowSelectEntityAndRelationshipName(connectionData, entityName, "Entity and Relationship", string.Empty);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            string targenEntityName = form.EntityName;
+            Guid targenEntityId = form.EntityId;
+            string relationshipName = form.RelationshipName;
+
+            if (string.IsNullOrEmpty(targenEntityName))
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.MessageBoxStrings.EntityNameIsEmpty);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(relationshipName))
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.MessageBoxStrings.RelationshipNameIsEmpty);
+                return;
+            }
+
+            string operationName = string.Format(Properties.OperationNames.DisassociatingEntitiesToEntityFormat6
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+
+                , relationshipName
+                , targenEntityName
+                , targenEntityId
+            );
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false
+                , Properties.OutputStrings.InConnectionDisassociatingEntitiesToEntityFormat6
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+
+                , relationshipName
+                , targenEntityName
+                , targenEntityId
+            );
+
+            _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, targenEntityName, targenEntityId);
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            try
+            {
+                var relatedEntities = listIds.Select(i => new EntityReference(entityName, i)).ToList();
+
+                var request = new DisassociateRequest()
+                {
+                    Target = new EntityReference(targenEntityName, targenEntityId),
+                    Relationship = new Relationship(relationshipName),
+
+                    RelatedEntities = new EntityReferenceCollection(relatedEntities)
+                };
+
+                await service.ExecuteAsync<DisassociateResponse>(request);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true
+                , Properties.OutputStrings.InConnectionDisassociatingEntitiesToEntityCompletedFormat6
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+
+                , relationshipName
+                , targenEntityName
+                , targenEntityId
+            );
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        #endregion Disassociate Entities
+
         #region Assign to User
 
         private async void mIAssignEntityToUser_Click(object sender, RoutedEventArgs e)
@@ -1953,6 +2364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
+                , Properties.OutputStrings.InConnectionAssigningEntitiesToUserFormat4
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
