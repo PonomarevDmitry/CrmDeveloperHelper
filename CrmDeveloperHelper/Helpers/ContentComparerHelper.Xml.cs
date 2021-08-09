@@ -162,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static ContentCopareResult CompareXML(string xml1, string xml2, bool withDetails = false, Action<XElement> action = null)
+        public static ContentCompareResult CompareXML(string xml1, string xml2, bool withDetails = false, Action<XElement> action = null)
         {
             try
             {
@@ -179,17 +179,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
                 {
-                    return new ContentCopareResult(true, null);
+                    return new ContentCompareResult(true, null);
                 }
 
                 if (string.IsNullOrEmpty(xml1) && !string.IsNullOrEmpty(xml2))
                 {
-                    return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
+                    return new ContentCompareResult(false, match.diff_main(xml1, xml2, false));
                 }
 
                 if (!string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
                 {
-                    return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
+                    return new ContentCompareResult(false, match.diff_main(xml1, xml2, false));
                 }
 
                 if (!TryParseXml(xml1, out XElement doc1) || !TryParseXml(xml2, out XElement doc2))
@@ -198,17 +198,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (isEqual)
                     {
-                        return new ContentCopareResult(true, null);
+                        return new ContentCompareResult(true, null);
                     }
                     else
                     {
                         if (withDetails)
                         {
-                            return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
+                            return new ContentCompareResult(false, match.diff_main(xml1, xml2, false));
                         }
                         else
                         {
-                            return new ContentCopareResult(false, null);
+                            return new ContentCompareResult(false, null);
                         }
                     }
                 }
@@ -236,17 +236,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (isEqual)
                     {
-                        return new ContentCopareResult(true, null);
+                        return new ContentCompareResult(true, null);
                     }
                     else
                     {
                         if (withDetails)
                         {
-                            return new ContentCopareResult(false, match.diff_main(doc1.ToString(), doc2.ToString(), false));
+                            return new ContentCompareResult(false, match.diff_main(doc1.ToString(), doc2.ToString(), false));
                         }
                         else
                         {
-                            return new ContentCopareResult(false, null);
+                            return new ContentCompareResult(false, null);
                         }
                     }
                 }
@@ -263,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static ContentCopareResult CompareWorkflowXAML(string xml1, string xml2, LabelReplacer rep1, LabelReplacer rep2, bool withDetails = false)
+        public static ContentCompareResult CompareWorkflowXAML(string xml1, string xml2, LabelReplacer rep1, LabelReplacer rep2, bool withDetails = false)
         {
             try
             {
@@ -280,17 +280,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
                 {
-                    return new ContentCopareResult(true, null);
+                    return new ContentCompareResult(true, null);
                 }
 
                 if (string.IsNullOrEmpty(xml1) && !string.IsNullOrEmpty(xml2))
                 {
-                    return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
+                    return new ContentCompareResult(false, match.diff_main(xml1, xml2, false));
                 }
 
                 if (!string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
                 {
-                    return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
+                    return new ContentCompareResult(false, match.diff_main(xml1, xml2, false));
                 }
 
                 if (!TryParseXml(xml1, out XElement doc1) || !TryParseXml(xml2, out XElement doc2))
@@ -299,17 +299,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (isEqual)
                     {
-                        return new ContentCopareResult(true, null);
+                        return new ContentCompareResult(true, null);
                     }
                     else
                     {
                         if (withDetails)
                         {
-                            return new ContentCopareResult(false, match.diff_main(xml1, xml2, false));
+                            return new ContentCompareResult(false, match.diff_main(xml1, xml2, false));
                         }
                         else
                         {
-                            return new ContentCopareResult(false, null);
+                            return new ContentCompareResult(false, null);
                         }
                     }
                 }
@@ -338,17 +338,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (isEqual)
                     {
-                        return new ContentCopareResult(true, null);
+                        return new ContentCompareResult(true, null);
                     }
                     else
                     {
                         if (withDetails)
                         {
-                            return new ContentCopareResult(false, match.diff_main(doc1.ToString(), doc2.ToString(), false));
+                            return new ContentCompareResult(false, match.diff_main(doc1.ToString(), doc2.ToString(), false));
                         }
                         else
                         {
-                            return new ContentCopareResult(false, null);
+                            return new ContentCompareResult(false, null);
                         }
                     }
                 }

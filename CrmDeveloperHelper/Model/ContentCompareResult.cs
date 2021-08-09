@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     /// <summary>
     /// Результат сравнения контента текстовых файлов
     /// </summary>
-    public class ContentCopareResult
+    public class ContentCompareResult
     {
         public bool IsEqual { get; private set; }
 
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsMirrorWithComplex { get; private set; }
 
-        public ContentCopareResult(bool isEqual, IList<Diff> differences)
+        public ContentCompareResult(bool isEqual, IList<Diff> differences)
         {
             this.IsEqual = isEqual;
 

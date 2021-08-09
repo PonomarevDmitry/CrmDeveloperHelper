@@ -212,13 +212,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
-        public static ContentCopareResult CompareByteArrays(string ext, byte[] array1, byte[] array2, bool withDetails = false)
+        public static ContentCompareResult CompareByteArrays(string ext, byte[] array1, byte[] array2, bool withDetails = false)
         {
             bool supportExtension = FileOperations.SupportsWebResourceTextType(ext);
 
             if (!supportExtension)
             {
-                return new ContentCopareResult(false, null);
+                return new ContentCompareResult(false, null);
             }
 
             List<string> list1 = GetListString(array1, true);
@@ -228,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (textEqual)
             {
-                return new ContentCopareResult(true, null);
+                return new ContentCompareResult(true, null);
             }
 
             if (withDetails)
@@ -238,11 +238,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 List<Diff> minimalDifference = GetMinimalDifferences(list1, list2);
 
-                return new ContentCopareResult(false, minimalDifference);
+                return new ContentCompareResult(false, minimalDifference);
             }
             else
             {
-                return new ContentCopareResult(false, null);
+                return new ContentCompareResult(false, null);
             }
         }
 
@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return str1 != str2;
         }
 
-        public static ContentCopareResult CompareText(string text1, string text2)
+        public static ContentCompareResult CompareText(string text1, string text2)
         {
             text1 = text1 ?? string.Empty;
             text2 = text2 ?? string.Empty;
@@ -334,28 +334,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (string.IsNullOrEmpty(text1) && string.IsNullOrEmpty(text2))
             {
-                return new ContentCopareResult(true, null);
+                return new ContentCompareResult(true, null);
             }
 
             if (string.IsNullOrEmpty(text1) && !string.IsNullOrEmpty(text2))
             {
-                return new ContentCopareResult(false, match.diff_main(text1, text2, false));
+                return new ContentCompareResult(false, match.diff_main(text1, text2, false));
             }
 
             if (!string.IsNullOrEmpty(text1) && string.IsNullOrEmpty(text2))
             {
-                return new ContentCopareResult(false, match.diff_main(text1, text2, false));
+                return new ContentCompareResult(false, match.diff_main(text1, text2, false));
             }
 
             bool isEqual = string.Equals(text1, text2);
 
             if (isEqual)
             {
-                return new ContentCopareResult(true, null);
+                return new ContentCompareResult(true, null);
             }
             else
             {
-                return new ContentCopareResult(false, match.diff_main(text1, text2, false));
+                return new ContentCompareResult(false, match.diff_main(text1, text2, false));
             }
         }
 

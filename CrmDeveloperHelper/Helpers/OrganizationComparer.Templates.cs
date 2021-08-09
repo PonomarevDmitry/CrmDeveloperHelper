@@ -174,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             string reason = string.Empty;
 
-                            ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                            ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                             if (!compare.IsEqual)
                             {
@@ -684,7 +684,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -943,7 +943,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {

@@ -447,7 +447,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-
         public static bool IsSupportedExtension(string extension)
         {
             return Types.ContainsKey(extension);

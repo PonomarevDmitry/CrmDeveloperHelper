@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSolutionOpeningWebResources(conn, commonConfig, solutionUniqueName, inTextEditor));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSolutionOpeningWebResources(conn, commonConfig, solutionUniqueName, inTextEditor, OpenFilesType.All));
         }
 
         public string GetLastSolutionUniqueName()

@@ -1655,7 +1655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Opening Solution in Browser or Explorer
 
-        public async Task ExecuteOpeningSolutionWebResourcesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool inTextEditor)
+        public async Task ExecuteOpeningSolutionWebResourcesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool inTextEditor, OpenFilesType openFilesType)
         {
             string operation = string.Format(Properties.OperationNames.OpeningSolutionWebResourcesFormat2, connectionData?.Name, solutionUniqueName);
 
@@ -1663,7 +1663,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpeningSolutionWebResourcesAsync(commonConfig, connectionData, solutionUniqueName, inTextEditor);
+                await OpeningSolutionWebResourcesAsync(commonConfig, connectionData, solutionUniqueName, inTextEditor, openFilesType);
             }
             catch (Exception ex)
             {
@@ -1675,7 +1675,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningSolutionWebResourcesAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, bool inTextEditor)
+        private async Task OpeningSolutionWebResourcesAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, bool inTextEditor, OpenFilesType openFilesType)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -1706,25 +1706,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             using (service.Lock())
             {
-                var solutionDesciptor = new SolutionComponentDescriptor(service)
+                var solutionDescriptor = new SolutionComponentDescriptor(service)
                 {
                     WithManagedInfo = true,
                     WithSolutionsInfo = true,
                     WithUrls = true,
                 };
 
-                await OpenSolutionWebResources(this._iWriteToOutput, service, solutionDesciptor, commonConfig, solution.Id, solution.UniqueName, inTextEditor);
+                await OpenSolutionWebResources(this._iWriteToOutput, service, solutionDescriptor, commonConfig, solution.Id, solution.UniqueName, inTextEditor, openFilesType);
             }
         }
 
         public static async Task OpenSolutionWebResources(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
-            , SolutionComponentDescriptor solutionDesciptor
+            , SolutionComponentDescriptor solutionDescriptor
             , CommonConfiguration commonConfig
             , Guid solutionId
             , string solutionUniqueName
             , bool inTextEditor
+            , OpenFilesType openFilesType
         )
         {
             var solutionRep = new SolutionComponentRepository(service);
@@ -1737,7 +1738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(components);
+            var desc = await solutionDescriptor.GetSolutionComponentsDescriptionAsync(components);
 
             if (!string.IsNullOrEmpty(desc))
             {
@@ -1745,23 +1746,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
             }
 
-            var webResourcesList = solutionDesciptor.GetEntities<WebResource>((int)ComponentType.WebResource, components.Select(c => c.ObjectId));
+            var webResourceRepository = new WebResourceRepository(service);
 
-            var openedWebResources = new List<WebResource>();
+            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), new ColumnSet(true));
+
+            var comparedFilesAndWebResources = new List<CompareTuple>();
+
             var unknownedWebResources = new List<WebResource>();
 
             bool isTextEditorProgramExists = commonConfig.TextEditorProgramExists();
 
-            var table = new FormatTextTableHandler();
+            var tableOpenedFiles = new FormatTextTableHandler();
 
             if (isTextEditorProgramExists)
             {
-                table.SetHeader("File Uri", "Open File in Visual Studio", "Open File in TextEditor", "Select File in Folder");
+                tableOpenedFiles.SetHeader("File Uri", "Open File in Visual Studio", "Open File in TextEditor", "Select File in Folder");
             }
             else
             {
-                table.SetHeader("File Uri", "Open File in Visual Studio", "Select File in Folder");
+                tableOpenedFiles.SetHeader("File Uri", "Open File in Visual Studio", "Select File in Folder");
             }
+
+            string solutionDirectoryPath = DTEHelper.Singleton.GetSolutionDirectory();
 
             foreach (var webResource in webResourcesList.OrderBy(w => w.Name))
             {
@@ -1775,13 +1781,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (success)
                 {
-                    openedWebResources.Add(webResource);
+                    comparedFilesAndWebResources.Add(new CompareTuple(new SelectedFile(filePath, solutionDirectoryPath), webResource));
 
                     var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
 
                     if (isTextEditorProgramExists)
                     {
-                        table.AddLine(
+                        tableOpenedFiles.AddLine(
                             uriFile
                             , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
                             , UrlCommandFilter.GetUriOpenInTextEditorByFileUri(uriFile)
@@ -1790,21 +1796,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        table.AddLine(
+                        tableOpenedFiles.AddLine(
                             uriFile
                             , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
                             , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
                         );
                     }
 
-                    if (inTextEditor)
-                    {
-                        iWriteToOutput.OpenFileInTextEditor(service.ConnectionData, filePath);
-                    }
-                    else
-                    {
-                        iWriteToOutput.OpenFileInVisualStudio(service.ConnectionData, filePath);
-                    }
+                    
                 }
                 else
                 {
@@ -1812,34 +1811,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            if (table.Count > 0)
+            if (tableOpenedFiles.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.OpenedFilesFormat1, table.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.OpenedFilesFormat1, tableOpenedFiles.Count);
 
-                foreach (var item in table.GetFormatedLines(false))
+                foreach (var item in tableOpenedFiles.GetFormatedLines(false))
                 {
                     iWriteToOutput.WriteToOutput(service.ConnectionData, item);
                 }
             }
 
-            if (openedWebResources.Any())
-            {
-                desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(openedWebResources.Select(w => new SolutionComponent()
-                {
-                    ObjectId = w.WebResourceId.Value,
-                    ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                }));
-
-                if (!string.IsNullOrEmpty(desc))
-                {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesOpenedFormat2, solutionUniqueName, openedWebResources.Count);
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
-                }
-            }
-
             if (unknownedWebResources.Any())
             {
-                desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(unknownedWebResources.Select(w => new SolutionComponent()
+                desc = await solutionDescriptor.GetSolutionComponentsDescriptionAsync(unknownedWebResources.Select(w => new SolutionComponent()
                 {
                     ObjectId = w.WebResourceId.Value,
                     ComponentType = new OptionSetValue((int)ComponentType.WebResource),
@@ -1849,6 +1833,323 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesNotOpenedFormat2, solutionUniqueName, unknownedWebResources.Count);
                     iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+                }
+            }
+
+            if (comparedFilesAndWebResources.Any())
+            {
+                var listFiles = GetWebResourcesAndFilesWithType(iWriteToOutput, service.ConnectionData, comparedFilesAndWebResources, openFilesType);
+
+                if (!listFiles.Any())
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoFilesToMakeDifference);
+                    return;
+                }
+
+                var orderEnumrator = listFiles.Select(s => s.SelectedFile).OrderBy(s => s.FriendlyFilePath);
+
+                if (inTextEditor)
+                {
+                    foreach (var item in orderEnumrator)
+                    {
+                        iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, item.FilePath);
+                        iWriteToOutput.OpenFileInTextEditor(service.ConnectionData, item.FilePath);
+                    }
+                }
+                else
+                {
+                    foreach (var item in orderEnumrator)
+                    {
+                        iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, item.FilePath);
+                        iWriteToOutput.OpenFileInVisualStudio(service.ConnectionData, item.FilePath);
+                    }
+                }
+            }
+        }
+
+        public static async Task CompareSolutionWebResources(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor solutionDescriptor
+            , CommonConfiguration commonConfig
+            , Guid solutionId
+            , string solutionUniqueName
+            , bool withDetails
+        )
+        {
+            var solutionRep = new SolutionComponentRepository(service);
+
+            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solutionId, ComponentType.WebResource, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+            if (!components.Any())
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionSolutionNotContainsWebResourcesFormat2, service.ConnectionData.Name, solutionUniqueName);
+                return;
+            }
+
+            var desc = await solutionDescriptor.GetSolutionComponentsDescriptionAsync(components);
+
+            if (!string.IsNullOrEmpty(desc))
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourcesToAddToSolutionFormat2, solutionUniqueName, components.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+            }
+
+            var webResourceRepository = new WebResourceRepository(service);
+
+            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), new ColumnSet(true));
+
+            var comparedFilesAndWebResources = new List<CompareTuple>();
+            var unknownedWebResources = new List<WebResource>();
+
+            bool isTextEditorProgramExists = commonConfig.TextEditorProgramExists();
+
+            var tableComparedFiles = new FormatTextTableHandler();
+
+            if (isTextEditorProgramExists)
+            {
+                tableComparedFiles.SetHeader("File Uri", "Open File in Visual Studio", "Open File in TextEditor", "Select File in Folder");
+            }
+            else
+            {
+                tableComparedFiles.SetHeader("File Uri", "Open File in Visual Studio", "Select File in Folder");
+            }
+
+            string solutionDirectoryPath = DTEHelper.Singleton.GetSolutionDirectory();
+
+            foreach (var webResource in webResourcesList.OrderBy(w => w.Name))
+            {
+                bool success = false;
+                string filePath = string.Empty;
+
+                if (service.ConnectionData.TryGetFriendlyPathByGuid(webResource.WebResourceId.Value, out string friendlyPath))
+                {
+                    success = DTEHelper.Singleton.TryFindFileByRelativePath(service.ConnectionData, friendlyPath, out filePath);
+                }
+
+                if (success)
+                {
+                    comparedFilesAndWebResources.Add(new CompareTuple(new SelectedFile(filePath, solutionDirectoryPath), webResource));
+
+                    var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+                    if (isTextEditorProgramExists)
+                    {
+                        tableComparedFiles.AddLine(
+                            uriFile
+                            , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriOpenInTextEditorByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                        );
+                    }
+                    else
+                    {
+                        tableComparedFiles.AddLine(
+                            uriFile
+                            , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                        );
+                    }
+                }
+                else
+                {
+                    unknownedWebResources.Add(webResource);
+                }
+            }
+
+            if (tableComparedFiles.Count > 0)
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ComparedFilesFormat1, tableComparedFiles.Count);
+
+                foreach (var item in tableComparedFiles.GetFormatedLines(false))
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, item);
+                }
+            }
+
+            if (unknownedWebResources.Any())
+            {
+                desc = await solutionDescriptor.GetSolutionComponentsDescriptionAsync(unknownedWebResources.Select(w => new SolutionComponent()
+                {
+                    ObjectId = w.WebResourceId.Value,
+                    ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                }));
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesNotOpenedFormat2, solutionUniqueName, unknownedWebResources.Count);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+                }
+            }
+
+            if (comparedFilesAndWebResources.Any())
+            {
+                CompareTuples(
+                    iWriteToOutput
+                    , service.ConnectionData
+                    , comparedFilesAndWebResources.Count
+                    , withDetails
+                    , Enumerable.Empty<string>()
+                    , Enumerable.Empty<string>()
+                    , comparedFilesAndWebResources
+                    , Enumerable.Empty<CompareTuple>()
+                );
+            }
+        }
+
+        public static async Task ShowDifferenceSolutionWebResources(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor solutionDescriptor
+            , CommonConfiguration commonConfig
+            , Guid solutionId
+            , string solutionUniqueName
+            , OpenFilesType openFilesType
+        )
+        {
+            var solutionRep = new SolutionComponentRepository(service);
+
+            var components = await solutionRep.GetSolutionComponentsByTypeAsync(solutionId, ComponentType.WebResource, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+            if (!components.Any())
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionSolutionNotContainsWebResourcesFormat2, service.ConnectionData.Name, solutionUniqueName);
+                return;
+            }
+
+            var desc = await solutionDescriptor.GetSolutionComponentsDescriptionAsync(components);
+
+            if (!string.IsNullOrEmpty(desc))
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourcesToAddToSolutionFormat2, solutionUniqueName, components.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+            }
+
+            var webResourceRepository = new WebResourceRepository(service);
+
+            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), new ColumnSet(true));
+
+            var comparedFilesAndWebResources = new List<CompareTuple>();
+            var unknownedWebResources = new List<WebResource>();
+
+            bool isTextEditorProgramExists = commonConfig.TextEditorProgramExists();
+
+            var tableComparedFiles = new FormatTextTableHandler();
+
+            if (isTextEditorProgramExists)
+            {
+                tableComparedFiles.SetHeader("File Uri", "Open File in Visual Studio", "Open File in TextEditor", "Select File in Folder");
+            }
+            else
+            {
+                tableComparedFiles.SetHeader("File Uri", "Open File in Visual Studio", "Select File in Folder");
+            }
+
+            string solutionDirectoryPath = DTEHelper.Singleton.GetSolutionDirectory();
+
+            foreach (var webResource in webResourcesList.OrderBy(w => w.Name))
+            {
+                bool success = false;
+                string filePath = string.Empty;
+
+                if (service.ConnectionData.TryGetFriendlyPathByGuid(webResource.WebResourceId.Value, out string friendlyPath))
+                {
+                    success = DTEHelper.Singleton.TryFindFileByRelativePath(service.ConnectionData, friendlyPath, out filePath);
+                }
+
+                if (success)
+                {
+                    comparedFilesAndWebResources.Add(new CompareTuple(new SelectedFile(filePath, solutionDirectoryPath), webResource));
+
+                    var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+                    if (isTextEditorProgramExists)
+                    {
+                        tableComparedFiles.AddLine(
+                            uriFile
+                            , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriOpenInTextEditorByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                        );
+                    }
+                    else
+                    {
+                        tableComparedFiles.AddLine(
+                            uriFile
+                            , UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile)
+                            , UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile)
+                        );
+                    }
+                }
+                else
+                {
+                    unknownedWebResources.Add(webResource);
+                }
+            }
+
+            if (tableComparedFiles.Count > 0)
+            {
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ComparedFilesFormat1, tableComparedFiles.Count);
+
+                foreach (var item in tableComparedFiles.GetFormatedLines(false))
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, item);
+                }
+            }
+
+            if (unknownedWebResources.Any())
+            {
+                desc = await solutionDescriptor.GetSolutionComponentsDescriptionAsync(unknownedWebResources.Select(w => new SolutionComponent()
+                {
+                    ObjectId = w.WebResourceId.Value,
+                    ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                }));
+
+                if (!string.IsNullOrEmpty(desc))
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SolutionWebResourcesNotOpenedFormat2, solutionUniqueName, unknownedWebResources.Count);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, desc);
+                }
+            }
+
+            if (comparedFilesAndWebResources.Any())
+            {
+                var listFilesToDifference = GetWebResourcesAndFilesWithType(iWriteToOutput, service.ConnectionData, comparedFilesAndWebResources, openFilesType);
+
+                if (!listFilesToDifference.Any())
+                {
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoFilesToMakeDifference);
+                    return;
+                }
+
+                iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
+
+                foreach (var item in listFilesToDifference.OrderBy(file => file.SelectedFile.FilePath))
+                {
+                    var selectedFile = item.SelectedFile;
+                    var webresource = item.WebResource;
+
+                    if (webresource != null)
+                    {
+                        var contentWebResource = webresource.Content;
+
+                        var webResourceName = webresource.Name;
+
+                        var array = Convert.FromBase64String(contentWebResource);
+
+                        string tempFilePath = FileOperations.GetNewTempFilePath(webResourceName, selectedFile.Extension);
+
+                        File.WriteAllBytes(tempFilePath, array);
+
+                        string fileLocalPath = selectedFile.FilePath;
+                        string fileLocalTitle = selectedFile.FileName;
+
+                        string filePath2 = tempFilePath;
+                        string fileTitle2 = service.ConnectionData.Name + "." + selectedFile.FileName + " - " + tempFilePath;
+
+                        await iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+                    }
                 }
             }
         }

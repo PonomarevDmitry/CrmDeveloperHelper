@@ -924,8 +924,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSolutionOpening(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionAsync, commonConfig, solutionUniqueName, actionOnComponent);
 
-        public void StartSolutionOpeningWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool inTextEditor)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionWebResourcesAsync, commonConfig, solutionUniqueName, inTextEditor);
+        public void StartSolutionOpeningWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool inTextEditor, OpenFilesType openFilesType)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionWebResourcesAsync, commonConfig, solutionUniqueName, inTextEditor, openFilesType);
 
         #endregion Solutions
 

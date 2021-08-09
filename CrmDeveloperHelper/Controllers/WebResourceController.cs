@@ -385,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private async Task UpdatingContentAndPublishEqualByTextAsync(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> filesToPublish)
+        private async Task UpdatingContentAndPublishEqualByTextAsync(ConnectionData connectionData, IOrganizationServiceExtented service, List<CompareTuple> filesToPublish)
         {
             if (service == null)
             {
@@ -405,9 +405,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var item in filesToPublish)
                 {
-                    if (!elements.ContainsKey(item.Item2.Id))
+                    if (!elements.ContainsKey(item.WebResource.Id))
                     {
-                        elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
+                        elements.Add(item.WebResource.Id, new ElementForPublish(item.SelectedFile, item.WebResource));
                     }
                 }
 
@@ -890,7 +890,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private async Task UpdateEqualByTextContentIncludeReferencesToDependencyXmlAsync(ConnectionData connectionData, IOrganizationServiceExtented service, CommonConfiguration commonConfig, TupleList<SelectedFile, WebResource> filesToPublish)
+        private async Task UpdateEqualByTextContentIncludeReferencesToDependencyXmlAsync(ConnectionData connectionData, IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<CompareTuple> filesToPublish)
         {
             if (service == null)
             {
@@ -910,9 +910,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var item in filesToPublish)
                 {
-                    if (!elements.ContainsKey(item.Item2.Id))
+                    if (!elements.ContainsKey(item.WebResource.Id))
                     {
-                        elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
+                        elements.Add(item.WebResource.Id, new ElementForPublish(item.SelectedFile, item.WebResource));
                     }
                 }
 
@@ -1235,11 +1235,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private void AddingIntoPublishListFilesByType(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
+        private void AddingIntoPublishListFilesByType(ConnectionData connectionData, IOrganizationServiceExtented service, List<CompareTuple> listFilesToDifference)
         {
             if (listFilesToDifference.Any())
             {
-                this._iWriteToOutput.AddToListForPublish(connectionData, listFilesToDifference.Select(f => f.Item1).OrderBy(f => f.FriendlyFilePath));
+                this._iWriteToOutput.AddToListForPublish(connectionData, listFilesToDifference.Select(f => f.SelectedFile).OrderBy(f => f.FriendlyFilePath));
             }
             else
             {
@@ -1258,11 +1258,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private void RemovingIntoPublishListFilesByType(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
+        private void RemovingIntoPublishListFilesByType(ConnectionData connectionData, IOrganizationServiceExtented service, List<CompareTuple> listFilesToDifference)
         {
             if (listFilesToDifference.Any())
             {
-                this._iWriteToOutput.RemoveFromListForPublish(connectionData, listFilesToDifference.Select(f => f.Item1).OrderBy(f => f.FriendlyFilePath));
+                this._iWriteToOutput.RemoveFromListForPublish(connectionData, listFilesToDifference.Select(f => f.SelectedFile).OrderBy(f => f.FriendlyFilePath));
             }
             else
             {
@@ -1845,7 +1845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private async Task MultiDifferenceFilesAsync(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
+        private async Task MultiDifferenceFilesAsync(ConnectionData connectionData, IOrganizationServiceExtented service, List<CompareTuple> listFilesToDifference)
         {
             if (!listFilesToDifference.Any())
             {
@@ -1856,10 +1856,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
 
-            foreach (var item in listFilesToDifference.OrderBy(file => file.Item1.FilePath))
+            foreach (var item in listFilesToDifference.OrderBy(file => file.SelectedFile.FilePath))
             {
-                var selectedFile = item.Item1;
-                var webresource = item.Item2;
+                var selectedFile = item.SelectedFile;
+                var webresource = item.WebResource;
 
                 if (webresource != null)
                 {
@@ -2868,7 +2868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private void OpenFiles(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> filesToOpen, bool inTextEditor)
+        private void OpenFiles(ConnectionData connectionData, IOrganizationServiceExtented service, List<CompareTuple> filesToOpen, bool inTextEditor)
         {
             if (!filesToOpen.Any())
             {
@@ -2877,7 +2877,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var orderEnumrator = filesToOpen.Select(s => s.Item1).OrderBy(s => s.FriendlyFilePath);
+            var orderEnumrator = filesToOpen.Select(s => s.SelectedFile).OrderBy(s => s.FriendlyFilePath);
 
             if (inTextEditor)
             {

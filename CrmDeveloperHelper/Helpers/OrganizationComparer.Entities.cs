@@ -1103,7 +1103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             this._iWriteToOutput.WriteErrorToOutput(null, ex);
                         }
 
-                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1, xml2, withDetails);
+                        ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1, xml2, withDetails);
 
                         if (!compare.IsEqual)
                         {

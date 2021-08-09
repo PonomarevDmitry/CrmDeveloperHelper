@@ -1,7 +1,6 @@
-﻿
-using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
-using System;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using System.IO;
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
     /// <summary>

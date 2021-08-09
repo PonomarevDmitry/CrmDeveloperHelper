@@ -1067,6 +1067,16 @@
   <data name="OpeningSolutionWebResourcesFormat1" xml:space="preserve">
     <value>Opening Solution {0} WebResources...</value>
   </data>
+
+  <data name="ComparingSolutionWebResourcesCompletedFormat1" xml:space="preserve">
+    <value>Comparing Solution {0} WebResources completed.</value>
+  </data>
+  <data name="ComparingSolutionWebResourcesFailedFormat1" xml:space="preserve">
+    <value>Comparing Solution {0} WebResources failed.</value>
+  </data>
+  <data name="ComparingSolutionWebResourcesFormat1" xml:space="preserve">
+    <value>Comparing Solution {0} WebResources...</value>
+  </data>
   
   <data name="DeletingSolutionFormat1" xml:space="preserve">
     <value>Deleting solution {0}...</value>
@@ -2507,6 +2517,10 @@
 
   <data name="OpenedFilesFormat1" xml:space="preserve">
     <value>Opened Files: {0}</value>
+  </data>
+
+  <data name="ComparedFilesFormat1" xml:space="preserve">
+    <value>Compared Files: {0}</value>
   </data>
   
   <!--

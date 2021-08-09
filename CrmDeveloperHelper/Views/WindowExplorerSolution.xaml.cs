@@ -983,24 +983,309 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             {
+                var mIOpenWebResourcesAll = new MenuItem()
+                {
+                    Header = "All",
+                    Tag = Tuple.Create(solution, OpenFilesType.All),
+                };
+                mIOpenWebResourcesAll.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesNotEqualByText = new MenuItem()
+                {
+                    Header = "Not Equal By Text",
+                    Tag = Tuple.Create(solution, OpenFilesType.NotEqualByText),
+                };
+                mIOpenWebResourcesNotEqualByText.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesEqualByText = new MenuItem()
+                {
+                    Header = "Equal By Text",
+                    Tag = Tuple.Create(solution, OpenFilesType.EqualByText),
+                };
+                mIOpenWebResourcesEqualByText.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesWithInserts = new MenuItem()
+                {
+                    Header = "With Inserts",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithInserts),
+                };
+                mIOpenWebResourcesWithInserts.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesWithDeletes = new MenuItem()
+                {
+                    Header = "With Deletes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithDeletes),
+                };
+                mIOpenWebResourcesWithDeletes.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesWithComplexChanges = new MenuItem()
+                {
+                    Header = "With Complex Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithComplexChanges),
+                };
+                mIOpenWebResourcesWithComplexChanges.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesWithMirrorChanges = new MenuItem()
+                {
+                    Header = "With Mirror Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorChanges),
+                };
+                mIOpenWebResourcesWithMirrorChanges.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesWithMirrorInserts = new MenuItem()
+                {
+                    Header = "With Mirror Inserts",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorInserts),
+                };
+                mIOpenWebResourcesWithMirrorInserts.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesWithMirrorDeletes = new MenuItem()
+                {
+                    Header = "With Mirror Deletes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorDeletes),
+                };
+                mIOpenWebResourcesWithMirrorDeletes.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesWithMirrorComplexChanges = new MenuItem()
+                {
+                    Header = "With Mirror Complex Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorComplexChanges),
+                };
+                mIOpenWebResourcesWithMirrorComplexChanges.Click += mIOpenWebResources_Click;
+
+                var mIOpenWebResourcesInTextEditorAll = new MenuItem()
+                {
+                    Header = "All",
+                    Tag = Tuple.Create(solution, OpenFilesType.All),
+                };
+                mIOpenWebResourcesInTextEditorAll.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorNotEqualByText = new MenuItem()
+                {
+                    Header = "Not Equal By Text",
+                    Tag = Tuple.Create(solution, OpenFilesType.NotEqualByText),
+                };
+                mIOpenWebResourcesInTextEditorNotEqualByText.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorEqualByText = new MenuItem()
+                {
+                    Header = "Equal By Text",
+                    Tag = Tuple.Create(solution, OpenFilesType.EqualByText),
+                };
+                mIOpenWebResourcesInTextEditorEqualByText.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorWithInserts = new MenuItem()
+                {
+                    Header = "With Inserts",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithInserts),
+                };
+                mIOpenWebResourcesInTextEditorWithInserts.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorWithDeletes = new MenuItem()
+                {
+                    Header = "With Deletes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithDeletes),
+                };
+                mIOpenWebResourcesInTextEditorWithDeletes.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorWithComplexChanges = new MenuItem()
+                {
+                    Header = "With Complex Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithComplexChanges),
+                };
+                mIOpenWebResourcesInTextEditorWithComplexChanges.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorWithMirrorChanges = new MenuItem()
+                {
+                    Header = "With Mirror Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorChanges),
+                };
+                mIOpenWebResourcesInTextEditorWithMirrorChanges.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorWithMirrorInserts = new MenuItem()
+                {
+                    Header = "With Mirror Inserts",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorInserts),
+                };
+                mIOpenWebResourcesInTextEditorWithMirrorInserts.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorWithMirrorDeletes = new MenuItem()
+                {
+                    Header = "With Mirror Deletes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorDeletes),
+                };
+                mIOpenWebResourcesInTextEditorWithMirrorDeletes.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIOpenWebResourcesInTextEditorWithMirrorComplexChanges = new MenuItem()
+                {
+                    Header = "With Mirror Complex Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorComplexChanges),
+                };
+                mIOpenWebResourcesInTextEditorWithMirrorComplexChanges.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mICompareWebResources = new MenuItem()
+                {
+                    Header = string.Format("Compare WebResources in {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mICompareWebResources.Click += mICompareWebResources_Click;
+
+                var mICompareWithDetailsWebResources = new MenuItem()
+                {
+                    Header = string.Format("Compare with details WebResources in {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mICompareWithDetailsWebResources.Click += mICompareWithDetailsWebResources_Click;
+
+                var mIShowDifferenceWebResourcesNotEqualByText = new MenuItem()
+                {
+                    Header = "Not Equal By Text",
+                    Tag = Tuple.Create(solution, OpenFilesType.NotEqualByText),
+                };
+                mIShowDifferenceWebResourcesNotEqualByText.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesEqualByText = new MenuItem()
+                {
+                    Header = "Equal By Text",
+                    Tag = Tuple.Create(solution, OpenFilesType.EqualByText),
+                };
+                mIShowDifferenceWebResourcesEqualByText.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesWithInserts = new MenuItem()
+                {
+                    Header = "With Inserts",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithInserts),
+                };
+                mIShowDifferenceWebResourcesWithInserts.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesWithDeletes = new MenuItem()
+                {
+                    Header = "With Deletes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithDeletes),
+                };
+                mIShowDifferenceWebResourcesWithDeletes.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesWithComplexChanges = new MenuItem()
+                {
+                    Header = "With Complex Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithComplexChanges),
+                };
+                mIShowDifferenceWebResourcesWithComplexChanges.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesWithMirrorChanges = new MenuItem()
+                {
+                    Header = "With Mirror Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorChanges),
+                };
+                mIShowDifferenceWebResourcesWithMirrorChanges.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesWithMirrorInserts = new MenuItem()
+                {
+                    Header = "With Mirror Inserts",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorInserts),
+                };
+                mIShowDifferenceWebResourcesWithMirrorInserts.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesWithMirrorDeletes = new MenuItem()
+                {
+                    Header = "With Mirror Deletes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorDeletes),
+                };
+                mIShowDifferenceWebResourcesWithMirrorDeletes.Click += mIShowDifferenceWebResources_Click;
+
+                var mIShowDifferenceWebResourcesWithMirrorComplexChanges = new MenuItem()
+                {
+                    Header = "With Mirror Complex Changes",
+                    Tag = Tuple.Create(solution, OpenFilesType.WithMirrorComplexChanges),
+                };
+                mIShowDifferenceWebResourcesWithMirrorComplexChanges.Click += mIShowDifferenceWebResources_Click;
 
                 var mIOpenWebResources = new MenuItem()
                 {
                     Header = string.Format("Open WebResources in {0}", solution.UniqueNameEscapeUnderscore),
-                    Tag = solution,
+
+                    Items =
+                    {
+                        mIOpenWebResourcesAll,
+                        mIOpenWebResourcesNotEqualByText,
+                        mIOpenWebResourcesEqualByText,
+
+                        new Separator(),
+                        mIOpenWebResourcesWithInserts,
+                        mIOpenWebResourcesWithDeletes,
+                        mIOpenWebResourcesWithComplexChanges,
+
+                        new Separator(),
+                        mIOpenWebResourcesWithMirrorChanges,
+                        mIOpenWebResourcesWithMirrorInserts,
+                        mIOpenWebResourcesWithMirrorDeletes,
+                        mIOpenWebResourcesWithMirrorComplexChanges
+                    },
                 };
-                mIOpenWebResources.Click += mIOpenWebResources_Click;
 
                 var mIOpenWebResourcesInTextEditor = new MenuItem()
                 {
                     Header = string.Format("Open WebResources in TextEditor in {0}", solution.UniqueNameEscapeUnderscore),
-                    Tag = solution,
+
+                    Items =
+                    {
+                        mIOpenWebResourcesInTextEditorAll,
+                        mIOpenWebResourcesInTextEditorNotEqualByText,
+                        mIOpenWebResourcesInTextEditorEqualByText,
+
+                        new Separator(),
+                        mIOpenWebResourcesInTextEditorWithInserts,
+                        mIOpenWebResourcesInTextEditorWithDeletes,
+                        mIOpenWebResourcesInTextEditorWithComplexChanges,
+
+                        new Separator(),
+                        mIOpenWebResourcesInTextEditorWithMirrorChanges,
+                        mIOpenWebResourcesInTextEditorWithMirrorInserts,
+                        mIOpenWebResourcesInTextEditorWithMirrorDeletes,
+                        mIOpenWebResourcesInTextEditorWithMirrorComplexChanges
+                    },
                 };
-                mIOpenWebResourcesInTextEditor.Click += mIOpenWebResourcesInTextEditor_Click;
+
+                var mIShowDifferenceWebResources = new MenuItem()
+                {
+                    Header = string.Format("Show Difference WebResources in {0}", solution.UniqueNameEscapeUnderscore),
+
+                    Items =
+                    {
+                        mIShowDifferenceWebResourcesNotEqualByText,
+                        mIShowDifferenceWebResourcesEqualByText,
+
+                        new Separator(),
+                        mIShowDifferenceWebResourcesWithInserts,
+                        mIShowDifferenceWebResourcesWithDeletes,
+                        mIShowDifferenceWebResourcesWithComplexChanges,
+
+                        new Separator(),
+                        mIShowDifferenceWebResourcesWithMirrorChanges,
+                        mIShowDifferenceWebResourcesWithMirrorInserts,
+                        mIShowDifferenceWebResourcesWithMirrorDeletes,
+                        mIShowDifferenceWebResourcesWithMirrorComplexChanges
+                    },
+                };
+
+                var mIWebResources = new MenuItem()
+                {
+                    Header = string.Format("WebResources in {0}", solution.UniqueNameEscapeUnderscore),
+
+                    Items =
+                    {
+                        mICompareWebResources,
+                        mICompareWithDetailsWebResources,
+
+                        new Separator(),
+                        mIShowDifferenceWebResources
+                    },
+                };
 
                 itemCollection.Add(new Separator());
                 itemCollection.Add(mIOpenWebResources);
                 itemCollection.Add(mIOpenWebResourcesInTextEditor);
+                itemCollection.Add(mIWebResources);
             }
 
             {
@@ -1034,27 +1319,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        #region Showing Difference WebResources
+
+        private async void mIShowDifferenceWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Tuple<Solution, OpenFilesType> tupleSolutionType
+            )
+            {
+                await PerformShowingDifferenceSolutionWebResourcesAsync(tupleSolutionType.Item1, tupleSolutionType.Item2);
+            }
+        }
+
+        private async Task PerformShowingDifferenceSolutionWebResourcesAsync(Solution solution, OpenFilesType openFilesType)
+        {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            try
+            {
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingSolutionWebResourcesFormat1, solution.UniqueName);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
+
+                await SolutionController.ShowDifferenceSolutionWebResources(
+                    _iWriteToOutput
+                    , service
+                    , descriptor
+                    , _commonConfig
+                    , solution.Id
+                    , solution.UniqueName
+                    , openFilesType
+                );
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionWebResourcesCompletedFormat1, solution.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionWebResourcesFailedFormat1, solution.UniqueName);
+            }
+        }
+
+        #endregion Showing Difference WebResources
+
+        #region Open WebResources
+
         private async void mIOpenWebResources_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-                && menuItem.Tag is Solution solution
+                && menuItem.Tag is Tuple<Solution, OpenFilesType> solutionWithType
             )
             {
-                await PerformOpeningSolutionWebResourcesAsync(solution, false);
+                await PerformOpeningSolutionWebResourcesAsync(solutionWithType.Item1, false, solutionWithType.Item2);
             }
         }
 
         private async void mIOpenWebResourcesInTextEditor_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-                && menuItem.Tag is Solution solution
+                && menuItem.Tag is Tuple<Solution, OpenFilesType> solutionWithType
             )
             {
-                await PerformOpeningSolutionWebResourcesAsync(solution, true);
+                await PerformOpeningSolutionWebResourcesAsync(solutionWithType.Item1, true, solutionWithType.Item2);
             }
         }
 
-        private async Task PerformOpeningSolutionWebResourcesAsync(Solution solution, bool openInTextEditor)
+        private async Task PerformOpeningSolutionWebResourcesAsync(Solution solution, bool openInTextEditor, OpenFilesType openFilesType)
         {
             var service = await GetService();
 
@@ -1077,6 +1413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , solution.Id
                     , solution.UniqueName
                     , openInTextEditor
+                    , openFilesType
                 );
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.OpeningSolutionWebResourcesCompletedFormat1, solution.UniqueName);
@@ -1088,6 +1425,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.OpeningSolutionWebResourcesFailedFormat1, solution.UniqueName);
             }
         }
+
+        #endregion Open WebResources
+
+        #region Compare WebResources
+
+        private async void mICompareWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                await PerformComparingSolutionWebResourcesAsync(solution, false);
+            }
+        }
+
+        private async void mICompareWithDetailsWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                await PerformComparingSolutionWebResourcesAsync(solution, true);
+            }
+        }
+
+        private async Task PerformComparingSolutionWebResourcesAsync(Solution solution, bool withDetails)
+        {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            try
+            {
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingSolutionWebResourcesFormat1, solution.UniqueName);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
+
+                await SolutionController.CompareSolutionWebResources(
+                    _iWriteToOutput
+                    , service
+                    , descriptor
+                    , _commonConfig
+                    , solution.Id
+                    , solution.UniqueName
+                    , withDetails
+                );
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionWebResourcesCompletedFormat1, solution.UniqueName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionWebResourcesFailedFormat1, solution.UniqueName);
+            }
+        }
+
+        #endregion Compare WebResources
 
         #region Clipboard
 

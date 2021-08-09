@@ -601,6 +601,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compared Files: {0}.
+        /// </summary>
+        internal static string ComparedFilesFormat1 {
+            get {
+                return ResourceManager.GetString("ComparedFilesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comparing Connections {0} and {1} completed..
         /// </summary>
         internal static string ComparingConnectionsCompletedFormat2 {
@@ -687,6 +696,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ComparingSolutionsFormat2 {
             get {
                 return ResourceManager.GetString("ComparingSolutionsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing Solution {0} WebResources completed..
+        /// </summary>
+        internal static string ComparingSolutionWebResourcesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("ComparingSolutionWebResourcesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing Solution {0} WebResources failed..
+        /// </summary>
+        internal static string ComparingSolutionWebResourcesFailedFormat1 {
+            get {
+                return ResourceManager.GetString("ComparingSolutionWebResourcesFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing Solution {0} WebResources....
+        /// </summary>
+        internal static string ComparingSolutionWebResourcesFormat1 {
+            get {
+                return ResourceManager.GetString("ComparingSolutionWebResourcesFormat1", resourceCulture);
             }
         }
         

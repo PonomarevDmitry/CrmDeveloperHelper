@@ -1461,7 +1461,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        private string GetSolutionDirectory()
+        public string GetSolutionDirectory()
         {
             string result = ApplicationObject?.Solution?.FullName;
 

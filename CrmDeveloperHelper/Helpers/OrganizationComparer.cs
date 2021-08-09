@@ -479,7 +479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         string extension = WebResourceRepository.GetTypeMainExtension(type1);
 
-                        ContentCopareResult compare = ContentComparerHelper.CompareByteArrays(extension, array1, array2, withDetails);
+                        ContentCompareResult compare = ContentComparerHelper.CompareByteArrays(extension, array1, array2, withDetails);
 
                         if (compare.IsEqual)
                         {
@@ -836,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -1044,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         string reason = string.Empty;
 
@@ -1477,7 +1477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             string reason = string.Empty;
 
-                            ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                            ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                             if (!compare.IsEqual)
                             {
@@ -1696,7 +1696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             {
                                 string reason = string.Empty;
 
-                                ContentCopareResult compare = ContentComparerHelper.CompareWorkflowXAML(xml1.ToLower(), xml2.ToLower(), labelReplacer1, labelReplacer2, withDetails);
+                                ContentCompareResult compare = ContentComparerHelper.CompareWorkflowXAML(xml1.ToLower(), xml2.ToLower(), labelReplacer1, labelReplacer2, withDetails);
 
                                 if (compare.IsEqual)
                                 {
@@ -2112,7 +2112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
 
-            ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1, xml2, withDetails);
+            ContentCompareResult compare = ContentComparerHelper.CompareXML(xml1, xml2, withDetails);
 
             if (!compare.IsEqual)
             {

@@ -2172,7 +2172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (_solution != null)
             {
-                await PerformOpeningSolutionWebResourcesAsync(false);
+                await PerformOpeningSolutionWebResourcesAsync(false, OpenFilesType.All);
             }
         }
 
@@ -2180,11 +2180,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (_solution != null)
             {
-                await PerformOpeningSolutionWebResourcesAsync(true);
+                await PerformOpeningSolutionWebResourcesAsync(true, OpenFilesType.All);
             }
         }
 
-        private async Task PerformOpeningSolutionWebResourcesAsync(bool openInTextEditor)
+        private async Task PerformOpeningSolutionWebResourcesAsync(bool openInTextEditor, OpenFilesType openFilesType)
         {
             try
             {
@@ -2198,6 +2198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _solution.Id
                     , _solution.UniqueName
                     , openInTextEditor
+                    , openFilesType
                 );
 
                 ToggleControls(true, Properties.OutputStrings.OpeningSolutionWebResourcesCompletedFormat1, _solution.UniqueName);

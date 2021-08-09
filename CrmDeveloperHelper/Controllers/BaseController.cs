@@ -389,7 +389,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , string operationNameFormat
             , IEnumerable<SelectedFile> selectedFiles
             , OpenFilesType openFilesType
-            , Action<ConnectionData, IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> action
+            , Action<ConnectionData, IOrganizationServiceExtented, List<CompareTuple>> action
             , params string[] args
         )
         {
@@ -431,7 +431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , string operationNameFormat
             , IEnumerable<SelectedFile> selectedFiles
             , OpenFilesType openFilesType
-            , Func<ConnectionData, IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>, Task> action
+            , Func<ConnectionData, IOrganizationServiceExtented, List<CompareTuple>, Task> action
             , params string[] args
         )
         {
@@ -646,17 +646,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        protected async Task<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>> GetWebResourcesWithType(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        protected async Task<Tuple<IOrganizationServiceExtented, List<CompareTuple>>> GetWebResourcesWithType(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             IOrganizationServiceExtented service = null;
 
-            TupleList<SelectedFile, WebResource> filesToOpen = new TupleList<SelectedFile, WebResource>();
+            var filesToOpen = new List<CompareTuple>();
 
             if (openFilesType == OpenFilesType.All)
             {
                 foreach (var item in selectedFiles)
                 {
-                    filesToOpen.Add(item, null);
+                    filesToOpen.Add(new CompareTuple(item, null));
                 }
             }
             else if (openFilesType == OpenFilesType.NotExistsInCrmWithoutLink || openFilesType == OpenFilesType.NotExistsInCrmWithLink)
@@ -669,16 +669,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (openFilesType == OpenFilesType.NotExistsInCrmWithoutLink)
                     {
-                        filesToOpen.AddRange(compareResult.Item2.Select(f => Tuple.Create(f, (WebResource)null)));
+                        filesToOpen.AddRange(compareResult.Item2.Select(f => new CompareTuple(f, (WebResource)null)));
                     }
                     else if (openFilesType == OpenFilesType.NotExistsInCrmWithLink)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3);
                     }
                 }
             }
             else if (openFilesType == OpenFilesType.EqualByText
-                    || openFilesType == OpenFilesType.NotEqualByText
+                || openFilesType == OpenFilesType.NotEqualByText
             )
             {
                 var compareResult = await ComparingFilesAndWebResourcesAsync(connectionData, selectedFiles, false);
@@ -693,7 +693,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else if (openFilesType == OpenFilesType.NotEqualByText)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3);
                     }
                 }
             }
@@ -714,31 +714,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (openFilesType == OpenFilesType.WithInserts)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsOnlyInserts).Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.CompareResult.IsOnlyInserts));
                     }
                     else if (openFilesType == OpenFilesType.WithDeletes)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsOnlyDeletes).Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.CompareResult.IsOnlyDeletes));
                     }
                     else if (openFilesType == OpenFilesType.WithComplexChanges)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsComplexChanges).Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.CompareResult.IsComplexChanges));
                     }
                     else if (openFilesType == OpenFilesType.WithMirrorChanges)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsMirror).Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.CompareResult.IsMirror));
                     }
                     else if (openFilesType == OpenFilesType.WithMirrorInserts)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsMirrorWithInserts).Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.CompareResult.IsMirrorWithInserts));
                     }
                     else if (openFilesType == OpenFilesType.WithMirrorDeletes)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsMirrorWithDeletes).Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.CompareResult.IsMirrorWithDeletes));
                     }
                     else if (openFilesType == OpenFilesType.WithMirrorComplexChanges)
                     {
-                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsMirrorWithComplex).Select(f => Tuple.Create(f.Item1, f.Item2)));
+                        filesToOpen.AddRange(compareResult.Item3.Where(s => s.CompareResult.IsMirrorWithComplex));
                     }
                 }
             }
@@ -746,9 +746,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Tuple.Create(service, filesToOpen);
         }
 
+        protected static List<CompareTuple> GetWebResourcesAndFilesWithType(TWriteToOutput iWriteToOutput, ConnectionData connectionData, List<CompareTuple> selectedTuples, OpenFilesType openFilesType)
+        {
+            var filesToOpen = new List<CompareTuple>();
+
+            if (openFilesType == OpenFilesType.All)
+            {
+                filesToOpen.AddRange(selectedTuples);
+            }
+            else if (openFilesType == OpenFilesType.EqualByText
+                || openFilesType == OpenFilesType.NotEqualByText
+            )
+            {
+                var checkFilesAndWebResources = CompareTuples(iWriteToOutput, connectionData, selectedTuples.Count(), false, Enumerable.Empty<string>(), Enumerable.Empty<string>(), selectedTuples, Enumerable.Empty<CompareTuple>());
+
+                List<CompareTuple> listFilesEqualByTextNotContent = checkFilesAndWebResources.Item1;
+                List<CompareTuple> listFilesNotEqualByText = checkFilesAndWebResources.Item2;
+
+                if (openFilesType == OpenFilesType.EqualByText)
+                {
+                    filesToOpen.AddRange(listFilesEqualByTextNotContent);
+                }
+                else if (openFilesType == OpenFilesType.NotEqualByText)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText);
+                }
+            }
+            else if (openFilesType == OpenFilesType.WithInserts
+                    || openFilesType == OpenFilesType.WithDeletes
+                    || openFilesType == OpenFilesType.WithComplexChanges
+                    || openFilesType == OpenFilesType.WithMirrorChanges
+                    || openFilesType == OpenFilesType.WithMirrorInserts
+                    || openFilesType == OpenFilesType.WithMirrorDeletes
+                    || openFilesType == OpenFilesType.WithMirrorComplexChanges
+                )
+            {
+                var checkFilesAndWebResources = CompareTuples(iWriteToOutput, connectionData, selectedTuples.Count(), true, Enumerable.Empty<string>(), Enumerable.Empty<string>(), selectedTuples, Enumerable.Empty<CompareTuple>());
+
+                List<CompareTuple> listFilesNotEqualByText = checkFilesAndWebResources.Item2;
+
+                if (openFilesType == OpenFilesType.WithInserts)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText.Where(s => s.CompareResult.IsOnlyInserts));
+                }
+                else if (openFilesType == OpenFilesType.WithDeletes)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText.Where(s => s.CompareResult.IsOnlyDeletes));
+                }
+                else if (openFilesType == OpenFilesType.WithComplexChanges)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText.Where(s => s.CompareResult.IsComplexChanges));
+                }
+                else if (openFilesType == OpenFilesType.WithMirrorChanges)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText.Where(s => s.CompareResult.IsMirror));
+                }
+                else if (openFilesType == OpenFilesType.WithMirrorInserts)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText.Where(s => s.CompareResult.IsMirrorWithInserts));
+                }
+                else if (openFilesType == OpenFilesType.WithMirrorDeletes)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText.Where(s => s.CompareResult.IsMirrorWithDeletes));
+                }
+                else if (openFilesType == OpenFilesType.WithMirrorComplexChanges)
+                {
+                    filesToOpen.AddRange(listFilesNotEqualByText.Where(s => s.CompareResult.IsMirrorWithComplex));
+                }
+            }
+
+            return filesToOpen;
+        }
+
         private async Task<Tuple<IOrganizationServiceExtented
                 , List<SelectedFile>
-                , List<Tuple<SelectedFile, WebResource>>
+                , List<CompareTuple>
                 >> FindFilesNotExistsInCrmAsync(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles)
         {
             var service = await QuickConnection.ConnectAndWriteToOutputAsync(this._iWriteToOutput, connectionData);
@@ -761,7 +833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             bool isconnectionDataDirty = false;
 
             var listNotFoundedInCrmNoLink = new List<SelectedFile>();
-            var listNotFoundedInCrmWithLink = new List<Tuple<SelectedFile, WebResource>>();
+            var listNotFoundedInCrmWithLink = new List<CompareTuple>();
 
             List<string> listNotExistsOnDisk = new List<string>();
 
@@ -811,7 +883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             if (webresource != null)
                             {
-                                listNotFoundedInCrmWithLink.Add(Tuple.Create(selectedFile, webresource));
+                                listNotFoundedInCrmWithLink.Add(new CompareTuple(selectedFile, webresource));
 
                                 isconnectionDataDirty = true;
                                 connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
@@ -857,7 +929,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 FormatTextTableHandler tableLastLinkDifferent = new FormatTextTableHandler();
                 tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
 
-                listNotFoundedInCrmWithLink.ForEach(i => tableLastLinkDifferent.AddLine(i.Item1.FriendlyFilePath, i.Item2.Name));
+                listNotFoundedInCrmWithLink.ForEach(i => tableLastLinkDifferent.AddLine(i.SelectedFile.FriendlyFilePath, i.WebResource.Name));
 
                 tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
             }
@@ -882,9 +954,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         protected async Task<Tuple<IOrganizationServiceExtented
-                , List<Tuple<SelectedFile, WebResource>>
-                , List<Tuple<SelectedFile, WebResource, ContentCopareResult>>
-                >> ComparingFilesAndWebResourcesAsync(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, bool withDetails)
+            , List<CompareTuple>
+            , List<CompareTuple>
+            >> ComparingFilesAndWebResourcesAsync(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, bool withDetails
+        )
         {
             var service = await QuickConnection.ConnectAndWriteToOutputAsync(this._iWriteToOutput, connectionData);
 
@@ -895,68 +968,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             bool isconnectionDataDirty = false;
 
-            List<string> listNotExistsOnDisk = new List<string>();
+            var listNotExistsOnDisk = new List<string>();
 
-            List<string> listNotFoundedInCRMNoLink = new List<string>();
+            var listNotFoundedInCRMNoLink = new List<string>();
 
-            var dictFilesEqualByTextNotContent = new List<Tuple<SelectedFile, WebResource>>();
-            var dictFilesNotEqualByText = new List<Tuple<SelectedFile, WebResource, ContentCopareResult>>();
-
-            int countEqualByContent = 0;
-
-            FormatTextTableHandler tableEqualByText = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
-
-            FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
-
-            if (withDetails)
-            {
-                tableDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-            }
-            else
-            {
-                tableDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
-            }
-
-            FormatTextTableHandler tableDifferentOnlyInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength);
-
-            FormatTextTableHandler tableDifferentOnlyDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableDifferentComplexChanges = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableDifferentMirror = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableDifferentMirrorWithInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableDifferentMirrorWithDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableLastLinkEqualByContent = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
-
-            FormatTextTableHandler listLastLinkEqualByText = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
-
-            FormatTextTableHandler tableLastLinkDifferent = new FormatTextTableHandler();
-            if (withDetails)
-            {
-                tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-            }
-            else
-            {
-                tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
-            }
-
-            FormatTextTableHandler tableLastLinkDifferentOnlyInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength);
-
-            FormatTextTableHandler tableLastLinkDifferentOnlyDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableLastLinkDifferentComplexChanges = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableLastLinkDifferentMirror = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableLastLinkDifferentMirrorWithInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
-
-            FormatTextTableHandler tableLastLinkDifferentMirrorWithDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+            var listFilesAndWebResourcesToCompare = new List<CompareTuple>();
+            var listFilesAndWebResourcesToCompareByLastLink = new List<CompareTuple>();
 
             // Репозиторий для работы с веб-ресурсами
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+            var webResourceRepository = new WebResourceRepository(service);
 
             var groups = selectedFiles.GroupBy(sel => sel.Extension);
 
@@ -979,8 +999,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         continue;
                     }
 
-                    string urlShowDifference = UrlCommandFilter.GetUrlShowDifference(connectionData.ConnectionId, selectedFile.FilePath);
-
                     string name = selectedFile.FriendlyFilePath.ToLower();
 
                     var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, name, gr.Key);
@@ -989,94 +1007,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         // Запоминается файл
                         isconnectionDataDirty = true;
+
                         connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                        var contentWebResource = webresource.Content ?? string.Empty;
-
-                        var arrayFile = File.ReadAllBytes(selectedFile.FilePath);
-
-                        var contentFile = Convert.ToBase64String(arrayFile);
-
-                        if (string.Equals(contentFile, contentWebResource))
-                        {
-                            countEqualByContent++;
-                        }
-                        else
-                        {
-                            var arrayWebResource = Convert.FromBase64String(contentWebResource);
-
-                            var nameWebResource = webresource.Name;
-
-                            var compare = ContentComparerHelper.CompareByteArrays(selectedFile.Extension, arrayFile, arrayWebResource, withDetails);
-
-                            if (compare.IsEqual)
-                            {
-                                tableEqualByText.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource);
-
-                                dictFilesEqualByTextNotContent.Add(Tuple.Create(selectedFile, webresource));
-                            }
-                            else
-                            {
-                                dictFilesNotEqualByText.Add(Tuple.Create(selectedFile, webresource, compare));
-
-                                if (withDetails)
-                                {
-                                    string[] values = new string[]
-                                    {
-                                        selectedFile.UrlFriendlyFilePath, nameWebResource
-                                        , string.Format(formatWebResourceInserts, compare.Inserts)
-                                        , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
-                                        , string.Format(formatWebResourceDeletes, compare.Deletes)
-                                        , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
-                                        , urlShowDifference
-                                    };
-
-                                    tableDifferent.AddLine(values);
-
-                                    if (compare.IsOnlyInserts)
-                                    {
-                                        tableDifferentOnlyInserts.AddLine(selectedFile.UrlFriendlyFilePath
-                                            , string.Format(formatWebResourceInserts, compare.Inserts)
-                                            , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
-                                            , urlShowDifference
-                                        );
-                                    }
-
-                                    if (compare.IsOnlyDeletes)
-                                    {
-                                        tableDifferentOnlyDeletes.AddLine(selectedFile.UrlFriendlyFilePath
-                                            , string.Format(formatWebResourceDeletes, compare.Deletes)
-                                            , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
-                                            , urlShowDifference
-                                        );
-                                    }
-
-                                    if (compare.IsComplexChanges)
-                                    {
-                                        tableDifferentComplexChanges.AddLine(values);
-                                    }
-
-                                    if (compare.IsMirror)
-                                    {
-                                        tableDifferentMirror.AddLine(values);
-                                    }
-
-                                    if (compare.IsMirrorWithInserts)
-                                    {
-                                        tableDifferentMirrorWithInserts.AddLine(values);
-                                    }
-
-                                    if (compare.IsMirrorWithDeletes)
-                                    {
-                                        tableDifferentMirrorWithDeletes.AddLine(values);
-                                    }
-                                }
-                                else
-                                {
-                                    tableDifferent.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource, urlShowDifference);
-                                }
-                            }
-                        }
+                        listFilesAndWebResourcesToCompare.Add(new CompareTuple(selectedFile, webresource));
                     }
                     else
                     {
@@ -1092,91 +1026,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 isconnectionDataDirty = true;
                                 connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                                var contentWebResource = webresource.Content ?? string.Empty;
-                                var nameWebResource = webresource.Name;
-
-                                var arrayFile = File.ReadAllBytes(selectedFile.FilePath);
-
-                                var contentFile = Convert.ToBase64String(arrayFile);
-
-                                if (string.Equals(contentFile, contentWebResource))
-                                {
-                                    tableLastLinkEqualByContent.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource);
-                                }
-                                else
-                                {
-                                    var arrayWebResource = Convert.FromBase64String(contentWebResource);
-
-                                    var compare = ContentComparerHelper.CompareByteArrays(selectedFile.Extension, arrayFile, arrayWebResource);
-
-                                    if (compare.IsEqual)
-                                    {
-                                        listLastLinkEqualByText.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource);
-
-                                        dictFilesEqualByTextNotContent.Add(Tuple.Create(selectedFile, webresource));
-                                    }
-                                    else
-                                    {
-                                        dictFilesNotEqualByText.Add(Tuple.Create(selectedFile, webresource, compare));
-
-                                        if (withDetails)
-                                        {
-                                            string[] values = new string[]
-                                            {
-                                                selectedFile.UrlFriendlyFilePath, nameWebResource
-                                                , string.Format(formatWebResourceInserts, compare.Inserts)
-                                                , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
-                                                , string.Format(formatWebResourceDeletes, compare.Deletes)
-                                                , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
-                                                , urlShowDifference
-                                            };
-
-                                            tableLastLinkDifferent.AddLine(values);
-
-                                            if (compare.IsOnlyInserts)
-                                            {
-                                                tableLastLinkDifferentOnlyInserts.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource
-                                                    , string.Format(formatWebResourceInserts, compare.Inserts)
-                                                    , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
-                                                    , urlShowDifference
-                                                );
-                                            }
-
-                                            if (compare.IsOnlyDeletes)
-                                            {
-                                                tableLastLinkDifferentOnlyDeletes.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource
-                                                    , string.Format(formatWebResourceDeletes, compare.Deletes)
-                                                    , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
-                                                    , urlShowDifference
-                                                );
-                                            }
-
-                                            if (compare.IsComplexChanges)
-                                            {
-                                                tableLastLinkDifferentComplexChanges.AddLine(values);
-                                            }
-
-                                            if (compare.IsMirror)
-                                            {
-                                                tableLastLinkDifferentMirror.AddLine(values);
-                                            }
-
-                                            if (compare.IsMirrorWithInserts)
-                                            {
-                                                tableLastLinkDifferentMirrorWithInserts.AddLine(values);
-                                            }
-
-                                            if (compare.IsMirrorWithDeletes)
-                                            {
-                                                tableLastLinkDifferentMirrorWithDeletes.AddLine(values);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            tableLastLinkDifferent.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource, urlShowDifference);
-                                        }
-                                    }
-                                }
+                                listFilesAndWebResourcesToCompareByLastLink.Add(new CompareTuple(selectedFile, webresource));
                             }
                             else
                             {
@@ -1199,178 +1049,442 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 connectionData.Save();
             }
 
+            var checkFilesAndWebResources = CompareTuples(_iWriteToOutput, connectionData, selectedFiles.Count(), withDetails, listNotExistsOnDisk, listNotFoundedInCRMNoLink, listFilesAndWebResourcesToCompare, listFilesAndWebResourcesToCompareByLastLink);
+
+            List<CompareTuple> listFilesEqualByTextNotContent = checkFilesAndWebResources.Item1;
+            List<CompareTuple> listFilesNotEqualByText = checkFilesAndWebResources.Item2;
+
+            return Tuple.Create(service, listFilesEqualByTextNotContent, listFilesNotEqualByText);
+        }
+
+        protected static Tuple<List<CompareTuple>, List<CompareTuple>> CompareTuples(
+            TWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+            , int totalFilesCount
+            , bool withDetails
+            , IEnumerable<string> listNotExistsOnDisk
+            , IEnumerable<string> listNotFoundedInCRMNoLink
+            , IEnumerable<CompareTuple> listFilesAndWebResourcesToCompare
+            , IEnumerable<CompareTuple> listFilesAndWebResourcesToCompareByLastLink
+        )
+        {
+            var listFilesEqualByTextNotContent = new List<CompareTuple>();
+            var listFilesNotEqualByText = new List<CompareTuple>();
+
+            int countEqualByContent = 0;
+
+            var tableEqualByText = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
+
+            var tableDifferent = new FormatTextTableHandler();
+
+            if (withDetails)
+            {
+                tableDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+            }
+            else
+            {
+                tableDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
+            }
+
+            var tableDifferentOnlyInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength);
+
+            var tableDifferentOnlyDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableDifferentComplexChanges = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableDifferentMirror = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableDifferentMirrorWithInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableDifferentMirrorWithDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableLastLinkEqualByContent = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
+
+            var listLastLinkEqualByText = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
+
+            var tableLastLinkDifferent = new FormatTextTableHandler();
+            if (withDetails)
+            {
+                tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+            }
+            else
+            {
+                tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
+            }
+
+            var tableLastLinkDifferentOnlyInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength);
+
+            var tableLastLinkDifferentOnlyDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableLastLinkDifferentComplexChanges = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableLastLinkDifferentMirror = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableLastLinkDifferentMirrorWithInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            var tableLastLinkDifferentMirrorWithDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
+
+            foreach (var compareTuple in listFilesAndWebResourcesToCompare)
+            {
+                var contentWebResource = compareTuple.WebResource.Content ?? string.Empty;
+
+                var arrayFile = File.ReadAllBytes(compareTuple.SelectedFile.FilePath);
+
+                var contentFile = Convert.ToBase64String(arrayFile);
+
+                if (string.Equals(contentFile, contentWebResource))
+                {
+                    countEqualByContent++;
+                }
+                else
+                {
+                    var arrayWebResource = Convert.FromBase64String(contentWebResource);
+
+                    var nameWebResource = compareTuple.WebResource.Name;
+
+                    var compare = ContentComparerHelper.CompareByteArrays(compareTuple.SelectedFile.Extension, arrayFile, arrayWebResource, withDetails);
+
+                    if (compare.IsEqual)
+                    {
+                        tableEqualByText.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource);
+
+                        listFilesEqualByTextNotContent.Add(compareTuple);
+                    }
+                    else
+                    {
+                        compareTuple.CompareResult = compare;
+
+                        listFilesNotEqualByText.Add(compareTuple);
+
+                        string urlShowDifference = UrlCommandFilter.GetUrlShowDifference(connectionData.ConnectionId, compareTuple.SelectedFile.FilePath);
+
+                        if (withDetails)
+                        {
+                            string[] values = new string[]
+                            {
+                                compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource
+                                , string.Format(formatWebResourceInserts, compare.Inserts)
+                                , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
+                                , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
+                                , urlShowDifference
+                            };
+
+                            tableDifferent.AddLine(values);
+
+                            if (compare.IsOnlyInserts)
+                            {
+                                tableDifferentOnlyInserts.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath
+                                    , string.Format(formatWebResourceInserts, compare.Inserts)
+                                    , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
+                                    , urlShowDifference
+                                );
+                            }
+
+                            if (compare.IsOnlyDeletes)
+                            {
+                                tableDifferentOnlyDeletes.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath
+                                    , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                    , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
+                                    , urlShowDifference
+                                );
+                            }
+
+                            if (compare.IsComplexChanges)
+                            {
+                                tableDifferentComplexChanges.AddLine(values);
+                            }
+
+                            if (compare.IsMirror)
+                            {
+                                tableDifferentMirror.AddLine(values);
+                            }
+
+                            if (compare.IsMirrorWithInserts)
+                            {
+                                tableDifferentMirrorWithInserts.AddLine(values);
+                            }
+
+                            if (compare.IsMirrorWithDeletes)
+                            {
+                                tableDifferentMirrorWithDeletes.AddLine(values);
+                            }
+                        }
+                        else
+                        {
+                            tableDifferent.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource, urlShowDifference);
+                        }
+                    }
+                }
+            }
+
+            foreach (var compareTuple in listFilesAndWebResourcesToCompareByLastLink)
+            {
+                var contentWebResource = compareTuple.WebResource.Content ?? string.Empty;
+                var nameWebResource = compareTuple.WebResource.Name;
+
+                var arrayFile = File.ReadAllBytes(compareTuple.SelectedFile.FilePath);
+
+                var contentFile = Convert.ToBase64String(arrayFile);
+
+                if (string.Equals(contentFile, contentWebResource))
+                {
+                    tableLastLinkEqualByContent.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource);
+                }
+                else
+                {
+                    var arrayWebResource = Convert.FromBase64String(contentWebResource);
+
+                    var compare = ContentComparerHelper.CompareByteArrays(compareTuple.SelectedFile.Extension, arrayFile, arrayWebResource);
+
+                    if (compare.IsEqual)
+                    {
+                        listLastLinkEqualByText.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource);
+
+                        listFilesEqualByTextNotContent.Add(compareTuple);
+                    }
+                    else
+                    {
+                        compareTuple.CompareResult = compare;
+
+                        listFilesNotEqualByText.Add(compareTuple);
+
+                        string urlShowDifference = UrlCommandFilter.GetUrlShowDifference(connectionData.ConnectionId, compareTuple.SelectedFile.FilePath);
+
+                        if (withDetails)
+                        {
+                            string[] values = new string[]
+                            {
+                                compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource
+                                , string.Format(formatWebResourceInserts, compare.Inserts)
+                                , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
+                                , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
+                                , urlShowDifference
+                            };
+
+                            tableLastLinkDifferent.AddLine(values);
+
+                            if (compare.IsOnlyInserts)
+                            {
+                                tableLastLinkDifferentOnlyInserts.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource
+                                    , string.Format(formatWebResourceInserts, compare.Inserts)
+                                    , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
+                                    , urlShowDifference
+                                );
+                            }
+
+                            if (compare.IsOnlyDeletes)
+                            {
+                                tableLastLinkDifferentOnlyDeletes.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource
+                                    , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                    , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
+                                    , urlShowDifference
+                                );
+                            }
+
+                            if (compare.IsComplexChanges)
+                            {
+                                tableLastLinkDifferentComplexChanges.AddLine(values);
+                            }
+
+                            if (compare.IsMirror)
+                            {
+                                tableLastLinkDifferentMirror.AddLine(values);
+                            }
+
+                            if (compare.IsMirrorWithInserts)
+                            {
+                                tableLastLinkDifferentMirrorWithInserts.AddLine(values);
+                            }
+
+                            if (compare.IsMirrorWithDeletes)
+                            {
+                                tableLastLinkDifferentMirrorWithDeletes.AddLine(values);
+                            }
+                        }
+                        else
+                        {
+                            tableLastLinkDifferent.AddLine(compareTuple.SelectedFile.UrlFriendlyFilePath, nameWebResource, urlShowDifference);
+                        }
+                    }
+                }
+            }
+
             if (tableDifferent.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content: {0}", tableDifferent.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content: {0}", tableDifferent.Count);
 
-                tableDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableDifferent.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentOnlyInserts.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY INSERTS: {0}", tableDifferentOnlyInserts.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY INSERTS: {0}", tableDifferentOnlyInserts.Count);
 
-                tableDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentOnlyDeletes.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY DELETES: {0}", tableDifferentOnlyDeletes.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH ONLY DELETES: {0}", tableDifferentOnlyDeletes.Count);
 
-                tableDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentComplexChanges.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH COMPLEX CHANGES: {0}", tableDifferentComplexChanges.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH COMPLEX CHANGES: {0}", tableDifferentComplexChanges.Count);
 
-                tableDifferentComplexChanges.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableDifferentComplexChanges.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentMirror.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES: {0}", tableDifferentMirror.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES: {0}", tableDifferentMirror.Count);
 
-                tableDifferentMirror.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableDifferentMirror.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentMirrorWithInserts.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND INSERTS: {0}", tableDifferentMirrorWithInserts.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND INSERTS: {0}", tableDifferentMirrorWithInserts.Count);
 
-                tableDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableDifferentMirrorWithDeletes.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND DELETES: {0}", tableDifferentMirrorWithDeletes.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource are DIFFERENT by content WITH MIRROR CHANGES AND DELETES: {0}", tableDifferentMirrorWithDeletes.Count);
 
-                tableDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
-            if (listNotFoundedInCRMNoLink.Count > 0)
+            if (listNotFoundedInCRMNoLink.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUND in CRM: {0}", listNotFoundedInCRMNoLink.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUND in CRM: {0}", listNotFoundedInCRMNoLink.Count());
 
-                listNotFoundedInCRMNoLink.Sort();
-
-                listNotFoundedInCRMNoLink.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                foreach (var item in listNotFoundedInCRMNoLink.OrderBy(s => s))
+                {
+                    iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item);
+                }
             }
 
             if (tableLastLinkDifferent.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT: {0}", tableLastLinkDifferent.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT: {0}", tableLastLinkDifferent.Count);
 
-                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
 
             if (tableLastLinkDifferentOnlyInserts.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH ONLY INSERTS: {0}", tableLastLinkDifferentOnlyInserts.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH ONLY INSERTS: {0}", tableLastLinkDifferentOnlyInserts.Count);
 
-                tableLastLinkDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentOnlyDeletes.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH ONLY DELETES: {0}", tableLastLinkDifferentOnlyDeletes.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH ONLY DELETES: {0}", tableLastLinkDifferentOnlyDeletes.Count);
 
-                tableLastLinkDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentComplexChanges.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH COMPLEX CHANGES: {0}", tableLastLinkDifferentComplexChanges.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH COMPLEX CHANGES: {0}", tableLastLinkDifferentComplexChanges.Count);
 
-                tableLastLinkDifferentComplexChanges.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkDifferentComplexChanges.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirror.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES: {0}", tableLastLinkDifferentMirror.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES: {0}", tableLastLinkDifferentMirror.Count);
 
-                tableLastLinkDifferentMirror.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkDifferentMirror.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirrorWithInserts.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND INSERTS: {0}", tableLastLinkDifferentMirrorWithInserts.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND INSERTS: {0}", tableLastLinkDifferentMirrorWithInserts.Count);
 
-                tableLastLinkDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkDifferentMirrorWithDeletes.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND DELETES: {0}", tableLastLinkDifferentMirrorWithDeletes.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND DELETES: {0}", tableLastLinkDifferentMirrorWithDeletes.Count);
 
-                tableLastLinkDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (listLastLinkEqualByText.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files EQUALS BY TEXT: {0}", listLastLinkEqualByText.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files EQUALS BY TEXT: {0}", listLastLinkEqualByText.Count);
 
-                listLastLinkEqualByText.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                listLastLinkEqualByText.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (tableLastLinkEqualByContent.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files EQUALS BY CONTENT: {0}", tableLastLinkEqualByContent.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files EQUALS BY CONTENT: {0}", tableLastLinkEqualByContent.Count);
 
-                tableLastLinkEqualByContent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableLastLinkEqualByContent.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
-            if (listNotExistsOnDisk.Count > 0)
+            if (listNotExistsOnDisk.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesNotExistsCountFormat1, listNotExistsOnDisk.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesNotExistsCountFormat1, listNotExistsOnDisk.Count());
 
-                listNotExistsOnDisk.Sort();
-
-                listNotExistsOnDisk.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                foreach (var item in listNotExistsOnDisk.OrderBy(s => s))
+                {
+                    iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item);
+                }
             }
 
             if (tableEqualByText.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY TEXT: {0}", tableEqualByText.Count);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY TEXT: {0}", tableEqualByText.Count);
 
-                tableEqualByText.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
+                tableEqualByText.GetFormatedLines(true).ForEach(item => iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (countEqualByContent > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
 
-                if (countEqualByContent == selectedFiles.Count())
+                if (countEqualByContent == totalFilesCount)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "All files and web-resources EQUALS BY CONTENT: {0}", countEqualByContent);
+                    iWriteToOutput.WriteToOutput(connectionData, "All files and web-resources EQUALS BY CONTENT: {0}", countEqualByContent);
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY CONTENT: {0}", countEqualByContent);
+                    iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY CONTENT: {0}", countEqualByContent);
                 }
             }
 
-            return Tuple.Create(service, dictFilesEqualByTextNotContent, dictFilesNotEqualByText);
+            return Tuple.Create(listFilesEqualByTextNotContent, listFilesNotEqualByText);
         }
 
         protected async Task OpenWindowForUnknownPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownPluginTypes)

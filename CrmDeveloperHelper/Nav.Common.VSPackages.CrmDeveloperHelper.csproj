@@ -665,6 +665,7 @@
     <Compile Include="Helpers\AssemblyReaderResult.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Model\CompareTuple.cs" />
     <Compile Include="Model\FormInformation.cs" />
     <Compile Include="Model\FormParameter.cs" />
     <Compile Include="Model\WorkflowEntityFieldString.cs" />
@@ -1096,7 +1097,7 @@
     <Compile Include="Model\ConnectionDataUrlGenerator.cs" />
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
-    <Compile Include="Model\ContentCopareResult.cs" />
+    <Compile Include="Model\ContentCompareResult.cs" />
     <Compile Include="Model\FormGridTeamTemplate.cs" />
     <Compile Include="Model\OrganizationServiceExtentedLocker.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolShowStateCommand.cs" />
