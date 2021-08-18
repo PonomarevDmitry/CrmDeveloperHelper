@@ -848,6 +848,14 @@
   <data name="AssigningEntitiesToUserFormat4" xml:space="preserve">
     <value>{0} - Assigning Entities {1} count {2} to User {3}</value>
   </data>
+
+  <data name="AddingUserToEntitiesAccessTeamsFormat5" xml:space="preserve">
+    <value>{0} - Adding User {1} to AccessTeams {2} Entities {3} count {4}</value>
+  </data>
+
+
+  
+
   <data name="ExecutingWorkflowFormat4" xml:space="preserve">
     <value>{0} - Executing Workflow {1} on Entities {2} count {3}</value>
   </data>

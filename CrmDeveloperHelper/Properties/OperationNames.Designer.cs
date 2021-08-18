@@ -187,6 +187,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding User {1} to AccessTeams {2} Entities {3} count {4}.
+        /// </summary>
+        internal static string AddingUserToEntitiesAccessTeamsFormat5 {
+            get {
+                return ResourceManager.GetString("AddingUserToEntitiesAccessTeamsFormat5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding WebResources to Solution {1}.
         /// </summary>
         internal static string AddingWebResourcesToSolutionFormat2 {

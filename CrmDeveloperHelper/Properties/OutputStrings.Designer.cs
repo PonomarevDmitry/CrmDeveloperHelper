@@ -70,6 +70,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding User {0} to AccessTeam {1} Entity {2} of {3}....
+        /// </summary>
+        internal static string AddingUserToEntityAccessTeamFormat4 {
+            get {
+                return ResourceManager.GetString("AddingUserToEntityAccessTeamFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Files has UTF8 Encoding: {0}.
         /// </summary>
         internal static string AllFilesHasUTF8EncodingFormat1 {
@@ -1618,6 +1627,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity {0} has no AccessTeam Templates..
+        /// </summary>
+        internal static string EntityHasNoAccessTeamTemplatesFormat1 {
+            get {
+                return ResourceManager.GetString("EntityHasNoAccessTeamTemplatesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity {0} has only one AccessTeam Template {1}..
+        /// </summary>
+        internal static string EntityHasOnlyOneAccessTeamTemplateFormat2 {
+            get {
+                return ResourceManager.GetString("EntityHasOnlyOneAccessTeamTemplateFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity {0} has several AccessTeam Templates {1}..
+        /// </summary>
+        internal static string EntityHasSeveralAccessTeamTemplatesFormat2 {
+            get {
+                return ResourceManager.GetString("EntityHasSeveralAccessTeamTemplatesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity names marked to delete by &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string EntityNamesMarkedToDeleteFormat2 {
@@ -2748,6 +2784,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string InConnectionAddingUsersToTeamsFormat3 {
             get {
                 return ResourceManager.GetString("InConnectionAddingUsersToTeamsFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Adding User {1} to AccessTeams {2} Entities {3} count {4} completed..
+        /// </summary>
+        internal static string InConnectionAddingUserToEntitiesAccessTeamsCompletedFormat5 {
+            get {
+                return ResourceManager.GetString("InConnectionAddingUserToEntitiesAccessTeamsCompletedFormat5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Adding User {1} to AccessTeams {2} Entities {3} count {4}....
+        /// </summary>
+        internal static string InConnectionAddingUserToEntitiesAccessTeamsFormat5 {
+            get {
+                return ResourceManager.GetString("InConnectionAddingUserToEntitiesAccessTeamsFormat5", resourceCulture);
             }
         }
         

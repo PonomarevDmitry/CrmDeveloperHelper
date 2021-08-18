@@ -954,5 +954,124 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 var response = (AddMembersTeamResponse)_service.Execute(request);
             }
         }
+
+        private static readonly Dictionary<Guid, Dictionary<Guid, Guid>> _teamTemplateCache = new Dictionary<Guid, Dictionary<Guid, Guid>>();
+
+        private static void StoreRecordAccessGroupCacheValue(Guid idTeamTemplate, Guid idRecord, Guid idTeam)
+        {
+            if (!_teamTemplateCache.ContainsKey(idTeamTemplate))
+            {
+                _teamTemplateCache.Add(idTeamTemplate, new Dictionary<Guid, Guid>());
+            }
+
+            var templateTeams = _teamTemplateCache[idTeamTemplate];
+
+            templateTeams[idRecord] = idTeam;
+        }
+
+        public Task<Guid?> FindRecordAccessTeamIdAsync(Guid idRecord, Guid idTeamTemplate)
+        {
+            return Task.Run(() => FindRecordAccessTeamId(idRecord, idTeamTemplate));
+        }
+
+        private Guid? FindRecordAccessTeamId(Guid idRecord, Guid idTeamTemplate)
+        {
+            if (_teamTemplateCache.ContainsKey(idTeamTemplate))
+            {
+                var templateTeams = _teamTemplateCache[idTeamTemplate];
+
+                if (templateTeams.ContainsKey(idRecord))
+                {
+                    return templateTeams[idRecord];
+                }
+            }
+
+            var query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 1,
+
+                EntityName = Team.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(false),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Team.Schema.Attributes.regardingobjectid, ConditionOperator.Equal, idRecord),
+                        new ConditionExpression(Team.Schema.Attributes.teamtemplateid, ConditionOperator.Equal, idTeamTemplate),
+                    },
+                },
+            };
+
+            var collection = _service.RetrieveMultiple(query);
+
+            if (collection.Entities.Count == 0)
+            {
+                return null;
+            }
+
+            StoreRecordAccessGroupCacheValue(idTeamTemplate, idRecord, collection.Entities[0].Id);
+
+            return collection.Entities[0].Id;
+        }
+
+        public async Task<Guid> AddUserToRecordAccessTeamAsync(Guid idTeamTemplate, EntityReference record, Guid idUser)
+        {
+            var teamId = await this.FindRecordAccessTeamIdAsync(record.Id, idTeamTemplate);
+
+            if (teamId.HasValue)
+            {
+                if (await IsUserTeamMemberAsync(idUser, teamId.Value))
+                {
+                    return teamId.Value;
+                }
+            }
+
+            var request = new AddUserToRecordTeamRequest()
+            {
+                TeamTemplateId = idTeamTemplate,
+                Record = record,
+                SystemUserId = idUser,
+            };
+
+            var response = await _service.ExecuteAsync<AddUserToRecordTeamResponse>(request);
+
+            StoreRecordAccessGroupCacheValue(idTeamTemplate, record.Id, response.AccessTeamId);
+
+            return response.AccessTeamId;
+        }
+
+        public Task<bool> IsUserTeamMemberAsync(Guid idSystemUser, Guid idTeam)
+        {
+            return Task.Run(() => IsUserTeamMember(idSystemUser, idTeam));
+        }
+
+        private bool IsUserTeamMember(Guid idSystemUser, Guid idTeam)
+        {
+            var query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 1,
+
+                EntityName = TeamMembership.EntityLogicalName,
+
+                ColumnSet = ColumnSetInstances.None,
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(TeamMembership.Schema.Attributes.teamid, ConditionOperator.Equal, idTeam),
+                        new ConditionExpression(TeamMembership.Schema.Attributes.systemuserid, ConditionOperator.Equal, idSystemUser),
+                    },
+                },
+            };
+
+            return _service.RetrieveMultiple(query).Entities.Count > 0;
+        }
     }
 }

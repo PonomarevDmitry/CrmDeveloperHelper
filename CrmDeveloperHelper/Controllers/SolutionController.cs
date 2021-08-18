@@ -1748,7 +1748,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var webResourceRepository = new WebResourceRepository(service);
 
-            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), new ColumnSet(true));
+            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), ColumnSetInstances.AllColumns);
 
             var comparedFilesAndWebResources = new List<CompareTuple>();
 
@@ -1897,7 +1897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var webResourceRepository = new WebResourceRepository(service);
 
-            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), new ColumnSet(true));
+            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), ColumnSetInstances.AllColumns);
 
             var comparedFilesAndWebResources = new List<CompareTuple>();
             var unknownedWebResources = new List<WebResource>();
@@ -2027,7 +2027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var webResourceRepository = new WebResourceRepository(service);
 
-            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), new ColumnSet(true));
+            var webResourcesList = await webResourceRepository.GetListByIdListAsync(components.Select(c => c.ObjectId.Value), ColumnSetInstances.AllColumns);
 
             var comparedFilesAndWebResources = new List<CompareTuple>();
             var unknownedWebResources = new List<WebResource>();

@@ -1397,7 +1397,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miExecuteWorkflowOnAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void miExecuteWorkflowOnAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -1425,7 +1425,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miExecuteWorkflowOnSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void miExecuteWorkflowOnSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -1612,7 +1612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miSetBusinessProcessFlowOnSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void miSetBusinessProcessFlowOnSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -1644,7 +1644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miSetBusinessProcessFlowOnAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void miSetBusinessProcessFlowOnAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -1827,7 +1827,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miAssociateSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void miAssociateSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -1859,7 +1859,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miAssociateAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void miAssociateAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -1973,7 +1973,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 var request = new AssociateRequest()
                 {
                     Target = new EntityReference(targenEntityName, targenEntityId),
-                    Relationship =  new Relationship(relationshipName),
+                    Relationship = new Relationship(relationshipName),
 
                     RelatedEntities = new EntityReferenceCollection(relatedEntities)
                 };
@@ -2033,7 +2033,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miDisassociateSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void miDisassociateSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2065,7 +2065,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miDisassociateAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void miDisassociateAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2210,7 +2210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #region Assign to User
 
-        private async void mIAssignEntityToUser_Click(object sender, RoutedEventArgs e)
+        private async void mIAssignToUserEntity_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2238,7 +2238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miAssignToUserAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void miAssignToUserAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2266,7 +2266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miAssignToUserSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void miAssignToUserSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2414,9 +2414,263 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #endregion Assign to User
 
+        #region Add User To Entites Access Teams
+
+        private async void mIAddUserToAccessTeamEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            try
+            {
+                await AddUserToEntitiesAccessTeam(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void mIAddUserToAccessTeamSelectedEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            try
+            {
+                await AddUserToEntitiesAccessTeam(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void mIAddUserToAccessTeamAllEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            try
+            {
+                await AddUserToEntitiesAccessTeam(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async Task AddUserToEntitiesAccessTeam(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
+            {
+                return;
+            }
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repositoryEntityMetadata = new EntityMetadataRepository(service);
+
+            var entityMetadata = await repositoryEntityMetadata.GetEntityMetadataAsync(entityName);
+
+            var repositoryTeamTemplate = new TeamTemplateRepository(service);
+
+            var listTemplates = (await repositoryTeamTemplate.GetListForEntityAsync(entityMetadata.ObjectTypeCode.Value, ColumnSetInstances.AllColumns)).ToList();
+
+            TeamTemplate teamTemplate = null;
+
+            if (listTemplates.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityHasNoAccessTeamTemplatesFormat1, entityName);
+                return;
+            }
+            else if (listTemplates.Count == 1)
+            {
+                teamTemplate = listTemplates[0];
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityHasOnlyOneAccessTeamTemplateFormat2, entityName, teamTemplate.TeamTemplateName);
+            }
+            else
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityHasSeveralAccessTeamTemplatesFormat2, entityName, listTemplates.Count);
+
+                Func<string, Task<IEnumerable<TeamTemplate>>> getterTeamTemplate = (string filter) => repositoryTeamTemplate.GetListForEntityAsync(filter, entityMetadata.ObjectTypeCode.Value, ColumnSetInstances.AllColumns);
+
+                IEnumerable<DataGridColumn> columnsTeamTemplate = TeamTemplateRepository.GetDataGridColumn();
+
+                var formSelectTeamTemplate = new WindowEntitySelect<TeamTemplate>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getterTeamTemplate, columnsTeamTemplate);
+
+                if (!formSelectTeamTemplate.ShowDialog().GetValueOrDefault())
+                {
+                    return;
+                }
+
+                if (formSelectTeamTemplate.SelectedEntity == null)
+                {
+                    return;
+                }
+
+                teamTemplate = formSelectTeamTemplate.SelectedEntity;
+            }
+
+            var repositorySystemUser = new SystemUserRepository(service);
+
+            Func<string, Task<IEnumerable<SystemUser>>> getterSystemUser = (string filter) => repositorySystemUser.GetUsersAsync(filter
+                , new ColumnSet(
+                    SystemUser.Schema.Attributes.domainname
+                    , SystemUser.Schema.Attributes.fullname
+                    , SystemUser.Schema.Attributes.businessunitid
+                    , SystemUser.Schema.Attributes.isdisabled
+                )
+            );
+
+            IEnumerable<DataGridColumn> columnsSystemUser = SystemUserRepository.GetDataGridColumn();
+
+            var formSelectSystemUser = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getterSystemUser, columnsSystemUser);
+
+            if (!formSelectSystemUser.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (formSelectSystemUser.SelectedEntity == null)
+            {
+                return;
+            }
+
+            SystemUser user = formSelectSystemUser.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.AddingUserToEntitiesAccessTeamsFormat5
+                , service.ConnectionData.Name
+                , user.FullName
+                , teamTemplate.TeamTemplateName
+                , entityName
+                , listIds.Count
+            );
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false
+                , Properties.OutputStrings.InConnectionAddingUserToEntitiesAccessTeamsFormat5
+                , service.ConnectionData.Name
+                , user.FullName
+                , teamTemplate.TeamTemplateName
+                , entityName
+                , listIds.Count
+            );
+
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            var teamRepository = new TeamRepository(service);
+
+            int number = 1;
+
+            foreach (var id in listIds)
+            {
+                try
+                {
+
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AddingUserToEntityAccessTeamFormat4, user.FullName, teamTemplate.TeamTemplateName, number, listIds.Count);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
+
+                    await teamRepository.AddUserToRecordAccessTeamAsync(teamTemplate.Id, new EntityReference(entityName, id), user.Id);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                number++;
+            }
+
+            ToggleControls(service.ConnectionData, true
+                , Properties.OutputStrings.InConnectionAddingUserToEntitiesAccessTeamsCompletedFormat5
+                , service.ConnectionData.Name
+                , user.FullName
+                , teamTemplate.TeamTemplateName
+                , entityName
+                , listIds.Count
+            );
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        #endregion Add User To Entites Access Teams
+
+        private void mIRemoveUserFromAccessTeamEntity_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #region Assign to Team
 
-        private async void mIAssignEntityToTeam_Click(object sender, RoutedEventArgs e)
+        private async void mIAssignToTeamEntity_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2444,7 +2698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miAssignToTeamAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void miAssignToTeamAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2472,7 +2726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miAssignToTeamSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void miAssignToTeamSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2881,7 +3135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #region Bulk Edit Entities
 
-        private async void miBulkEditAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void miBulkEditAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2909,7 +3163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miBulkEditSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void miBulkEditSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -3007,7 +3261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void mISetStateSelectedEntites_Click(object sender, RoutedEventArgs e)
+        private async void mISetStateSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -3039,7 +3293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void mISetStateAllEntites_Click(object sender, RoutedEventArgs e)
+        private async void mISetStateAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -3333,7 +3587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             ToggleControls(targetService.ConnectionData, false, Properties.OutputStrings.GettingEntityMetadataFormat1, _entityCollection.EntityName);
 
-            EntityMetadataRepository repository = new EntityMetadataRepository(targetService);
+            var repository = new EntityMetadataRepository(targetService);
 
             var targetEntityMetadata = await repository.GetEntityMetadataAsync(_entityCollection.EntityName);
 

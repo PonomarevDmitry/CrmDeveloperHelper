@@ -465,6 +465,9 @@
   <data name="AssigningEntityToUserFormat3" xml:space="preserve">
     <value>Assigning Entity {0} of {1} to User {2}...</value>
   </data>
+  <data name="AddingUserToEntityAccessTeamFormat4" xml:space="preserve">
+    <value>Adding User {0} to AccessTeam {1} Entity {2} of {3}...</value>
+  </data>
   <data name="AssigningEntityToTeamFormat3" xml:space="preserve">
     <value>Assigning Entity {0} of {1} to Team {2}...</value>
   </data>
@@ -2018,6 +2021,13 @@
   <data name="InConnectionAssigningEntitiesToUserFormat4" xml:space="preserve">
     <value>{0}. Assigning Entities {1} count {2} to User {3}...</value>
   </data>
+
+  <data name="InConnectionAddingUserToEntitiesAccessTeamsCompletedFormat5" xml:space="preserve">
+    <value>{0}. Adding User {1} to AccessTeams {2} Entities {3} count {4} completed.</value>
+  </data>
+  <data name="InConnectionAddingUserToEntitiesAccessTeamsFormat5" xml:space="preserve">
+    <value>{0}. Adding User {1} to AccessTeams {2} Entities {3} count {4}...</value>
+  </data>
   
   <data name="ExecutingWorkflowCompletedFormat4" xml:space="preserve">
     <value>Executing Workflow {0} on Entities {2} count {3} completed.</value>
@@ -2522,14 +2532,17 @@
   <data name="ComparedFilesFormat1" xml:space="preserve">
     <value>Compared Files: {0}</value>
   </data>
+  <data name="EntityHasNoAccessTeamTemplatesFormat1" xml:space="preserve">
+    <value>Entity {0} has no AccessTeam Templates.</value>
+  </data>
+  <data name="EntityHasOnlyOneAccessTeamTemplateFormat2" xml:space="preserve">
+    <value>Entity {0} has only one AccessTeam Template {1}.</value>
+  </data>
+  <data name="EntityHasSeveralAccessTeamTemplatesFormat2" xml:space="preserve">
+    <value>Entity {0} has several AccessTeam Templates {1}.</value>
+  </data>
   
   <!--
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>
