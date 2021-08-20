@@ -14,16 +14,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly string _connectionName1;
         private readonly string _connectionName2;
 
-        private HashSet<string> _notExising;
+        private HashSet<string> _notExisting;
 
         private OptionSetComparer _optionSetComparer;
 
-        public EntityMetadataComparer(string tabSpacer, string connectionName1, string connectionName2, OptionSetComparer optionSetComparer, HashSet<string> notExising)
+        public EntityMetadataComparer(string tabSpacer, string connectionName1, string connectionName2, OptionSetComparer optionSetComparer, HashSet<string> notExisting)
         {
             _tabSpacer = tabSpacer;
             _connectionName1 = connectionName1;
             _connectionName2 = connectionName2;
-            _notExising = notExising;
+            _notExisting = notExisting;
 
             _optionSetComparer = optionSetComparer;
         }
@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (OneToManyRelationshipMetadata rel2 in listRel2.OrderBy(s => s.SchemaName))
             {
-                if (_notExising.Contains(rel2.ReferencedEntity) || _notExising.Contains(rel2.ReferencingEntity))
+                if (_notExisting.Contains(rel2.ReferencedEntity) || _notExisting.Contains(rel2.ReferencingEntity))
                 {
                     continue;
                 }
@@ -165,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (OneToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
-                if (_notExising.Contains(rel1.ReferencedEntity) || _notExising.Contains(rel1.ReferencingEntity))
+                if (_notExisting.Contains(rel1.ReferencedEntity) || _notExisting.Contains(rel1.ReferencingEntity))
                 {
                     continue;
                 }
@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel1.ReferencedAttribute
                     , rel1.IsCustomRelationship.ToString()
                     , rel1.IsManaged.ToString()
-                    );
+                );
 
                 imageBuilder.AddComponentSolution1((int)ComponentType.EntityRelationship, rel1.MetadataId.Value);
             }
@@ -201,12 +201,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     continue;
                 }
 
-                if (_notExising.Contains(rel1.ReferencedEntity) || _notExising.Contains(rel1.ReferencingEntity))
+                if (_notExisting.Contains(rel1.ReferencedEntity) || _notExisting.Contains(rel1.ReferencingEntity))
                 {
                     continue;
                 }
 
-                if (_notExising.Contains(rel2.ReferencedEntity) || _notExising.Contains(rel2.ReferencingEntity))
+                if (_notExisting.Contains(rel2.ReferencedEntity) || _notExisting.Contains(rel2.ReferencingEntity))
                 {
                     continue;
                 }
@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (ManyToManyRelationshipMetadata rel2 in listRel2.OrderBy(s => s.SchemaName))
             {
-                if (_notExising.Contains(rel2.Entity1LogicalName) || _notExising.Contains(rel2.Entity2LogicalName))
+                if (_notExisting.Contains(rel2.Entity1LogicalName) || _notExisting.Contains(rel2.Entity2LogicalName))
                 {
                     continue;
                 }
@@ -378,7 +378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (ManyToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
             {
-                if (_notExising.Contains(rel1.Entity1LogicalName) || _notExising.Contains(rel1.Entity2LogicalName))
+                if (_notExisting.Contains(rel1.Entity1LogicalName) || _notExisting.Contains(rel1.Entity2LogicalName))
                 {
                     continue;
                 }
@@ -415,12 +415,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     continue;
                 }
 
-                if (_notExising.Contains(rel1.Entity1LogicalName) || _notExising.Contains(rel1.Entity2LogicalName))
+                if (_notExisting.Contains(rel1.Entity1LogicalName) || _notExisting.Contains(rel1.Entity2LogicalName))
                 {
                     continue;
                 }
 
-                if (_notExising.Contains(rel2.Entity1LogicalName) || _notExising.Contains(rel2.Entity2LogicalName))
+                if (_notExisting.Contains(rel2.Entity1LogicalName) || _notExisting.Contains(rel2.Entity2LogicalName))
                 {
                     continue;
                 }

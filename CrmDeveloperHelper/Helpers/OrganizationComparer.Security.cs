@@ -21,10 +21,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<string> CheckSecurityRoles()
         {
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             var privilegeComparer = PrivilegeNameComparer.Comparer;
-            var privileteEquality = new PrivilegeEqualityComparer();
+            var privilegeEquality = new PrivilegeEqualityComparer();
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
@@ -32,28 +32,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
-            var task1 = _comparerSource.GetRole1Async();
-            var task2 = _comparerSource.GetRole2Async();
+            var taskRoles1 = _comparerSource.GetRole1Async();
+            var taskRoles2 = _comparerSource.GetRole2Async();
 
-            var list1 = await task1;
+            var listRoles1 = await taskRoles1;
 
             var taskPriv1 = new PrivilegeRepository(_comparerSource.Service1).GetListAsync(null);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection1.Name, listRoles1.Count()));
 
 
 
-            var list2 = await task2;
+            var listRoles2 = await taskRoles2;
 
             var taskPriv2 = new PrivilegeRepository(_comparerSource.Service2).GetListAsync(null);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection2.Name, listRoles2.Count()));
 
 
 
             var dictPrivilege1 = (await taskPriv1).ToDictionary(p => p.Name, StringComparer.InvariantCultureIgnoreCase);
 
-            var taskPrivRole1 = new RolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
+            var taskPrivRole1 = new RolePrivilegesRepository(_comparerSource.Service1).GetListAsync(listRoles1.Select(e => e.RoleId.Value));
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PrivilegesInConnectionFormat2, Connection1.Name, dictPrivilege1.Count()));
 
@@ -62,13 +62,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var dictPrivilege2 = (await taskPriv2).ToDictionary(p => p.Name, StringComparer.InvariantCultureIgnoreCase);
 
-            var taskPrivRole2 = new RolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
+            var taskPrivRole2 = new RolePrivilegesRepository(_comparerSource.Service2).GetListAsync(listRoles2.Select(e => e.RoleId.Value));
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PrivilegesInConnectionFormat2, Connection2.Name, dictPrivilege2.Count()));
 
 
 
-            var commonPrivileges = dictPrivilege1.Values.Intersect(dictPrivilege2.Values, privileteEquality).ToList();
+            var commonPrivileges = dictPrivilege1.Values.Intersect(dictPrivilege2.Values, privilegeEquality).ToList();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Common Privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonPrivileges.Count()));
 
@@ -86,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RolePrivilegesInConnectionFormat2, Connection2.Name, listRolePrivilege2.Count()));
 
-            if (!list1.Any() && !list2.Any())
+            if (!listRoles1.Any() && !listRoles2.Any())
             {
                 _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
                 _iWriteToOutput.WriteToOutputEndOperation(null, operation);
@@ -96,20 +96,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var groupByRole1 = listRolePrivilege1.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
             var groupByRole2 = listRolePrivilege2.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
 
-            FormatTextTableHandler rolesOnlyExistsIn1 = new FormatTextTableHandler();
-            rolesOnlyExistsIn1.SetHeader("Name", "BusinessUnit", "IsManaged");
+            var rolesOnlyExistsIn1 = new FormatTextTableHandler("Name", "BusinessUnit", "IsManaged");
 
-            FormatTextTableHandler rolesOnlyExistsIn2 = new FormatTextTableHandler();
-            rolesOnlyExistsIn2.SetHeader("Name", "BusinessUnit", "IsManaged");
+            var rolesOnlyExistsIn2 = new FormatTextTableHandler("Name", "BusinessUnit", "IsManaged");
 
-            FormatTextTableHandler privilegesOnlyExistsIn1 = new FormatTextTableHandler();
-            privilegesOnlyExistsIn1.SetHeader("PrivilegeName", "PrivilegeType", "Linked Entities");
+            var privilegesOnlyExistsIn1 = new FormatTextTableHandler("PrivilegeName", "PrivilegeType", "Linked Entities");
 
-            FormatTextTableHandler privilegesOnlyExistsIn2 = new FormatTextTableHandler();
-            privilegesOnlyExistsIn2.SetHeader("PrivilegeName", "PrivilegeType", "Linked Entities");
+            var privilegesOnlyExistsIn2 = new FormatTextTableHandler("PrivilegeName", "PrivilegeType", "Linked Entities");
 
             foreach (var item1 in dictPrivilege1.Values
-                .Except(dictPrivilege2.Values, privileteEquality)
+                .Except(dictPrivilege2.Values, privilegeEquality)
                 .ToList()
                 .OrderBy(p => p.LinkedEntitiesSorted)
                 .ThenBy(p => p.Name, privilegeComparer)
@@ -122,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             foreach (var item2 in dictPrivilege2.Values
-                .Except(dictPrivilege1.Values, privileteEquality)
+                .Except(dictPrivilege1.Values, privilegeEquality)
                 .ToList()
                 .OrderBy(p => p.LinkedEntitiesSorted)
                 .ThenBy(p => p.Name, privilegeComparer)
@@ -136,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var commonList = new List<LinkedEntities<Role>>();
 
-            foreach (var role1 in list1)
+            foreach (var role1 in listRoles1)
             {
                 var name1 = role1.Name;
                 var businessUnit1 = role1.BusinessUnitId.Name;
@@ -151,12 +147,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (role2 == null)
                     {
-                        role2 = list2.FirstOrDefault(role => role.Id == role1.Id);
+                        role2 = listRoles2.FirstOrDefault(role => role.Id == role1.Id);
                     }
 
                     if (role2 == null && role1.RoleTemplateId != null)
                     {
-                        role2 = list2.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role1.RoleTemplateId.Id);
+                        role2 = listRoles2.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role1.RoleTemplateId.Id);
                     }
 
                     if (role2 != null)
@@ -173,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.ImageBuilder.AddComponentSolution1((int)ComponentType.Role, role1.Id);
             }
 
-            foreach (var role2 in list2)
+            foreach (var role2 in listRoles2)
             {
                 var name2 = role2.Name;
                 var businessUnit2 = role2.BusinessUnitId.Name;
@@ -188,12 +184,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (role1 == null)
                     {
-                        role1 = list1.FirstOrDefault(role => role.Id == role2.Id);
+                        role1 = listRoles1.FirstOrDefault(role => role.Id == role2.Id);
                     }
 
                     if (role1 == null && role2.RoleTemplateId != null)
                     {
-                        role1 = list1.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role2.RoleTemplateId.Id);
+                        role1 = listRoles1.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role2.RoleTemplateId.Id);
                     }
 
                     if (role1 != null)
@@ -218,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 groupByRole1.TryGetValue(commonRole.Entity1.Id, out IEnumerable<RolePrivileges> enumerable1);
                 groupByRole2.TryGetValue(commonRole.Entity2.Id, out IEnumerable<RolePrivileges> enumerable2);
 
-                List<string> diff = ComparePrivileges(enumerable1, enumerable2, commonPrivileges, dictPrivilege1, dictPrivilege2, privilegeComparer);
+                List<string> diff = CompareRolePrivileges(enumerable1, enumerable2, commonPrivileges, dictPrivilege1, dictPrivilege2, privilegeComparer);
 
                 if (diff.Count > 0)
                 {
@@ -303,8 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 content.AppendLine().AppendLine().AppendFormat("Security Roles DIFFERENT in {0} and {1}: {2}", Connection1.Name, Connection2.Name, dictDifference.Count);
 
                 {
-                    var table = new FormatTextTableHandler();
-                    table.SetHeader("Name", "BusinessUnit");
+                    var table = new FormatTextTableHandler("Name", "BusinessUnit");
 
                     foreach (var item in order)
                     {
@@ -365,7 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return filePath;
         }
 
-        private List<string> ComparePrivileges(
+        private List<string> CompareRolePrivileges(
             IEnumerable<RolePrivileges> enumerableRolePriv1
             , IEnumerable<RolePrivileges> enumerableRolePriv2
             , IEnumerable<Privilege> commonPrivileges
@@ -374,16 +369,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , PrivilegeNameComparer privilegeNameComparer
         )
         {
-            List<string> result = new List<string>();
+            var result = new List<string>();
 
-            FormatTextTableHandler tableOnlyIn1 = new FormatTextTableHandler();
-            tableOnlyIn1.SetHeader("PrivilegeName", "PrivilegeType", "Depth", "Linked Entities");
+            var tableOnlyIn1 = new FormatTextTableHandler("PrivilegeName", "PrivilegeType", "Depth", "Linked Entities");
 
-            FormatTextTableHandler tableOnlyIn2 = new FormatTextTableHandler();
-            tableOnlyIn2.SetHeader("PrivilegeName", "PrivilegeType", "Depth", "Linked Entities");
+            var tableOnlyIn2 = new FormatTextTableHandler("PrivilegeName", "PrivilegeType", "Depth", "Linked Entities");
 
-            FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
-            tableDifferent.SetHeader("PrivilegeName", "PrivilegeType", Connection1.Name, Connection2.Name, "Linked Entities");
+            var tableDifferent = new FormatTextTableHandler("PrivilegeName", "PrivilegeType", Connection1.Name, Connection2.Name, "Linked Entities");
+
+            var tableFullDifferences = new FormatTextTableHandler("PrivilegeName", "PrivilegeType", Connection1.Name, Connection2.Name, "Linked Entities");
 
             foreach (var priv in commonPrivileges.OrderBy(s => s.LinkedEntitiesSorted).OrderBy(s => s.Name, privilegeNameComparer))
             {
@@ -446,8 +440,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             , RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2)
                             , priv.LinkedEntitiesSorted
                         );
+
+                        tableFullDifferences.CalculateLineLengths(priv.Name
+                            , priv.AccessRight.HasValue ? ((Microsoft.Crm.Sdk.Messages.AccessRights)priv.AccessRight.Value).ToString() : string.Empty
+                            , RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask1)
+                            , RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmask2)
+                            , priv.LinkedEntitiesSorted
+                        );
                     }
                 }
+
+                var privilegedepthmaskValue1 = rolePriv1?.PrivilegeDepthMask;
+                var privilegedepthmaskValue2 = rolePriv2?.PrivilegeDepthMask;
+
+                if (privilegedepthmaskValue1 != privilegedepthmaskValue2)
+                {
+                    tableFullDifferences.AddLine(priv.Name
+                        , priv.AccessRight.HasValue ? ((Microsoft.Crm.Sdk.Messages.AccessRights)priv.AccessRight.Value).ToString() : string.Empty
+                        , RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmaskValue1)
+                        , RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmaskValue2)
+                        , priv.LinkedEntitiesSorted
+                    );
+
+                    tableDifferent.CalculateLineLengths(priv.Name
+                        , priv.AccessRight.HasValue ? ((Microsoft.Crm.Sdk.Messages.AccessRights)priv.AccessRight.Value).ToString() : string.Empty
+                        , RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmaskValue1)
+                        , RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmaskValue2)
+                        , priv.LinkedEntitiesSorted
+                    );
+                }
+            }
+
+            if (tableFullDifferences.Count > 0)
+            {
+                if (result.Count > 0) { result.Add(string.Empty); }
+
+                result.Add(string.Format("Full Differences privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableFullDifferences.Count));
+                tableFullDifferences.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
             }
 
             if (tableOnlyIn1.Count > 0)
@@ -484,7 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<string> CheckFieldSecurityProfiles()
         {
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
@@ -524,11 +553,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var group1 = listPermission1.GroupBy(e => e.FieldSecurityProfileId.Id);
             var group2 = listPermission2.GroupBy(e => e.FieldSecurityProfileId.Id);
 
-            FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
-            tableOnlyExistsIn1.SetHeader("Name", "Id");
+            var tableOnlyExistsIn1 = new FormatTextTableHandler("Name", "Id");
 
-            FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
-            tableOnlyExistsIn2.SetHeader("Name", "Id");
+            var tableOnlyExistsIn2 = new FormatTextTableHandler("Name", "Id");
 
             var dictDifference = new Dictionary<Tuple<string, Guid>, List<string>>();
 
@@ -579,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var name1 = profile1.Name;
 
-                List<string> diff = new List<string>();
+                var diff = new List<string>();
 
                 IEnumerable<FieldPermission> enumerable1 = group1.FirstOrDefault(g => g.Key == profile1.Id);
                 IEnumerable<FieldPermission> enumerable2 = group2.FirstOrDefault(g => g.Key == profile2.Id);
@@ -703,28 +730,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void CompareFieldPermissions(List<string> diff, IEnumerable<FieldPermission> enumerable1, IEnumerable<FieldPermission> enumerable2, string tabSpacer)
         {
-            FormatTextTableHandler tableOnlyIn1 = new FormatTextTableHandler();
-            FormatTextTableHandler tableOnlyIn2 = new FormatTextTableHandler();
+            var tableOnlyIn1 = new FormatTextTableHandler("Entity name", "Attribute Name", "Can Create", "Can Read", "Can Update");
+            var tableOnlyIn2 = new FormatTextTableHandler("Entity name", "Attribute Name", "Can Create", "Can Read", "Can Update");
 
-            tableOnlyIn1.SetHeader("Entity name", "Attribute Name", "Can Create", "Can Read", "Can Update");
-            tableOnlyIn2.SetHeader("Entity name", "Attribute Name", "Can Create", "Can Read", "Can Update");
-
-            FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
-            tableDifferent.SetHeader("FieldPermission"
+            var tableDifferent = new FormatTextTableHandler("FieldPermission"
                 , Connection1.Name + " Can Create"
                 , Connection2.Name + " Can Create"
                 , Connection1.Name + " Can Read"
                 , Connection2.Name + " Can Read"
                 , Connection1.Name + " Can Update"
                 , Connection2.Name + " Can Update"
-                );
+            );
 
             if (enumerable1 != null)
             {
                 foreach (var item1 in enumerable1)
                 {
-                    var entityName1 = item1.EntityName;
-                    var attributeName1 = item1.AttributeLogicalName;
+                    string entityName1 = item1.EntityName;
+                    string attributeName1 = item1.AttributeLogicalName;
 
                     if (enumerable2 != null)
                     {
@@ -739,9 +762,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
 
-                    var cancreate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
-                    var canread1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
-                    var canupdate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
+                    string cancreate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
+                    string canread1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
+                    string canupdate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
 
                     tableOnlyIn1.AddLine(entityName1, attributeName1, cancreate1, canread1, canupdate1);
 
@@ -755,15 +778,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var item2 in enumerable2)
                 {
-                    var entityName2 = item2.EntityName;
-                    var attributeName2 = item2.AttributeLogicalName;
+                    string entityName2 = item2.EntityName;
+                    string attributeName2 = item2.AttributeLogicalName;
 
                     if (enumerable1 != null)
                     {
                         var item1 = enumerable1.FirstOrDefault(i =>
                             string.Equals(i.EntityName, entityName2, StringComparison.InvariantCultureIgnoreCase)
                             && string.Equals(i.AttributeLogicalName, attributeName2, StringComparison.InvariantCultureIgnoreCase)
-                            );
+                        );
 
                         if (item1 != null)
                         {
@@ -771,9 +794,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
 
-                    var cancreate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
-                    var canread2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
-                    var canupdate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
+                    string cancreate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
+                    string canread2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
+                    string canupdate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
 
                     tableOnlyIn2.AddLine(entityName2, attributeName2, cancreate2, canread2, canupdate2);
 
@@ -787,26 +810,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var item1 in enumerable1)
                 {
-                    var entityName1 = item1.EntityName;
-                    var attributeName1 = item1.AttributeLogicalName;
+                    string entityName1 = item1.EntityName;
+                    string attributeName1 = item1.AttributeLogicalName;
 
-                    var item2 = enumerable2.FirstOrDefault(i =>
+                    FieldPermission item2 = enumerable2.FirstOrDefault(i =>
                         string.Equals(i.EntityName, entityName1, StringComparison.InvariantCultureIgnoreCase)
                         && string.Equals(i.AttributeLogicalName, attributeName1, StringComparison.InvariantCultureIgnoreCase)
-                        );
+                    );
 
                     if (item2 != null)
                     {
                         continue;
                     }
 
-                    var cancreate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
-                    var canread1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
-                    var canupdate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
+                    string cancreate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
+                    string canread1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
+                    string canupdate1 = item1.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item1.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
 
-                    var cancreate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
-                    var canread2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
-                    var canupdate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
+                    string cancreate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.cancreate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.cancreate] : string.Empty;
+                    string canread2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canread) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canread] : string.Empty;
+                    string canupdate2 = item2.FormattedValues.Contains(FieldPermission.Schema.Attributes.canupdate) ? item2.FormattedValues[FieldPermission.Schema.Attributes.canupdate] : string.Empty;
 
                     if (cancreate1 != cancreate2 || canread1 != canread2 || canupdate1 != canupdate2)
                     {

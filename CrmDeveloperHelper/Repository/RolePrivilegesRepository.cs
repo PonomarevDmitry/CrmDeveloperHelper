@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return _service.RetrieveMultipleAll<RolePrivileges>(query);
         }
 
-        public static string GetPrivilegeDepthMaskName(int mask)
+        public static string GetPrivilegeDepthMaskName(int? mask)
         {
             //Value Scope
             //1 Basic (User)
@@ -106,40 +106,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             //4 Deep (Parent: Child Business Units)
             //8 Global (Organization)
 
+            if (!mask.HasValue || mask == 0)
+            {
+                return "(0) None";
+            }
+
             switch (mask)
             {
                 case 1:
-                    return "Basic (User)";
+                    return "(1) Basic (User)";
 
                 case 2:
-                    return "Local (Business Unit)";
+                    return "(2) Local (Business Unit)";
 
                 case 4:
-                    return "Deep (Parent: Child Business Units)";
+                    return "(3) Deep (Parent: Child Business Units)";
 
                 case 8:
-                    return "Global (Organization)";
+                    return "(4) Global (Organization)";
 
                 default:
                     return string.Format("{0} - Unknown", mask);
             }
         }
 
-        public static string GetPrivilegeDepthMaskName(PrivilegeDepth depth)
+        public static string GetPrivilegeDepthMaskName(PrivilegeDepth? depth)
         {
+            if (!depth.HasValue)
+            {
+                return "(0) None";
+            }
+
             switch (depth)
             {
                 case PrivilegeDepth.Basic:
-                    return "Basic (User)";
+                    return "(1) Basic (User)";
 
                 case PrivilegeDepth.Local:
-                    return "Local (Business Unit)";
+                    return "(2) Local (Business Unit)";
 
                 case PrivilegeDepth.Deep:
-                    return "Deep (Parent: Child Business Units)";
+                    return "(3) Deep (Parent: Child Business Units)";
 
                 case PrivilegeDepth.Global:
-                    return "Global (Organization)";
+                    return "(4) Global (Organization)";
 
                 default:
                     return string.Empty;

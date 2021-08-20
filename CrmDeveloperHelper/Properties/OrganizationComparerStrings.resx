@@ -288,6 +288,9 @@
   <data name="EntitiesFileName" xml:space="preserve">
     <value>Entities</value>
   </data>
+  <data name="EntitiesPrivilegesFileName" xml:space="preserve">
+    <value>Entities Privileges</value>
+  </data>
   <data name="EntitiesInConnectionFormat2" xml:space="preserve">
     <value>Entities in {0}: {1}</value>
   </data>

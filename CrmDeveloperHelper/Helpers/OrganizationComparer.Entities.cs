@@ -14,6 +14,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class OrganizationComparer
     {
+        #region Entities Properties
+
         public Task<string> CheckEntitiesAsync()
         {
             return Task.Run(() => CheckEntities());
@@ -21,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<string> CheckEntities()
         {
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
 
@@ -29,11 +31,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 
-            var listEntityMetadata1 = await _comparerSource.GetEntityMetadataCollection1Async();
+            var taskEntityMetadata1 = _comparerSource.GetEntityMetadataCollection1Async();
+            var taskEntityMetadata2 = _comparerSource.GetEntityMetadataCollection2Async();
+
+            var listEntityMetadata1 = await taskEntityMetadata1;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection1.Name, listEntityMetadata1.Count()));
 
-            var listEntityMetadata2 = await _comparerSource.GetEntityMetadataCollection2Async();
+            var listEntityMetadata2 = await taskEntityMetadata2;
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection2.Name, listEntityMetadata2.Count()));
 
@@ -44,15 +49,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return null;
             }
 
-            FormatTextTableHandler entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
-            entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
+            var entityMetadataOnlyExistsIn1 = new FormatTextTableHandler("EntityName", "IsManaged");
 
-            FormatTextTableHandler entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
-            entityMetadataOnlyExistsIn2.SetHeader("EntityName", "IsManaged");
+            var entityMetadataOnlyExistsIn2 = new FormatTextTableHandler("EntityName", "IsManaged");
 
-            Dictionary<string, List<string>> entityMetadataDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
+            var entityMetadataDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
-            List<LinkedEntities<EntityMetadata>> commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
+            var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 
             foreach (EntityMetadata entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
             {
@@ -91,16 +94,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.ImageBuilder.AddComponentSolution2((int)ComponentType.Entity, entityMetadata2.MetadataId.Value);
             }
 
-            HashSet<string> listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.InvariantCultureIgnoreCase);
+            var listNotExists = new HashSet<string>(
+                listEntityMetadata1.Select(e => e.LogicalName)
+                .Union(listEntityMetadata2.Select(e => e.LogicalName), StringComparer.InvariantCultureIgnoreCase)
+                .Except(commonEntityMetadata.Select(e => e.Entity1.LogicalName), StringComparer.InvariantCultureIgnoreCase
+            ), StringComparer.InvariantCultureIgnoreCase);
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesCommonFormat3, Connection1.Name, Connection2.Name, commonEntityMetadata.Count()));
 
-            OptionSetComparer optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
+            var optionSetComparer = new OptionSetComparer(tabSpacer, Connection1.Name, Connection2.Name, new StringMapRepository(_comparerSource.Service1), new StringMapRepository(_comparerSource.Service2));
 
-            EntityMetadataComparer comparer = new EntityMetadataComparer(tabSpacer, Connection1.Name, Connection2.Name, optionSetComparer, listNotExists);
+            var comparer = new EntityMetadataComparer(tabSpacer, Connection1.Name, Connection2.Name, optionSetComparer, listNotExists);
 
             {
-                ProgressReporter reporter = new ProgressReporter(_iWriteToOutput, commonEntityMetadata.Count, 5, Properties.OrganizationComparerStrings.EntitiesProcessingCommon);
+                var reporter = new ProgressReporter(_iWriteToOutput, commonEntityMetadata.Count, 5, Properties.OrganizationComparerStrings.EntitiesProcessingCommon);
 
                 foreach (LinkedEntities<EntityMetadata> commonEntity in commonEntityMetadata.OrderBy(e => e.Entity1.LogicalName))
                 {
@@ -217,6 +224,467 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return filePath;
         }
 
+        #endregion Entities Properties
+
+        #region Entities Privileges
+
+        public Task<string> CheckEntitiesPrivilegesAsync()
+        {
+            return Task.Run(() => CheckEntitiesPrivileges());
+        }
+
+        private async Task<string> CheckEntitiesPrivileges()
+        {
+            var content = new StringBuilder();
+
+            var privilegeComparer = PrivilegeNameComparer.Comparer;
+
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
+
+            string operation = string.Format(Properties.OperationNames.CheckingEntitiesPrivilegesFormat2, Connection1.Name, Connection2.Name);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
+
+            var taskEntityMetadata1 = _comparerSource.GetEntityMetadataCollection1Async();
+            var taskEntityMetadata2 = _comparerSource.GetEntityMetadataCollection2Async();
+
+            var listEntityMetadata1 = await taskEntityMetadata1;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection1.Name, listEntityMetadata1.Count()));
+
+            var listEntityMetadata2 = await taskEntityMetadata2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection2.Name, listEntityMetadata2.Count()));
+
+            if (!listEntityMetadata1.Any() && !listEntityMetadata2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
+                return null;
+            }
+
+
+
+            var taskRoles1 = _comparerSource.GetRole1Async();
+            var taskRoles2 = _comparerSource.GetRole2Async();
+
+            var listRoles1 = await taskRoles1;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection1.Name, listRoles1.Count()));
+
+            var listRoles2 = await taskRoles2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection2.Name, listRoles2.Count()));
+
+
+
+            var taskPrivRole1 = new RolePrivilegesRepository(_comparerSource.Service1).GetListAsync(listRoles1.Select(e => e.RoleId.Value));
+            var taskPrivRole2 = new RolePrivilegesRepository(_comparerSource.Service2).GetListAsync(listRoles2.Select(e => e.RoleId.Value));
+
+            var listRolePrivilege1 = await taskPrivRole1;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RolePrivilegesInConnectionFormat2, Connection1.Name, listRolePrivilege1.Count()));
+
+            var listRolePrivilege2 = await taskPrivRole2;
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RolePrivilegesInConnectionFormat2, Connection2.Name, listRolePrivilege2.Count()));
+
+            if (!listRoles1.Any() && !listRoles2.Any())
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
+                _iWriteToOutput.WriteToOutputEndOperation(null, operation);
+                return null;
+            }
+
+
+
+            var entityMetadataOnlyExistsIn1 = new FormatTextTableHandler();
+            entityMetadataOnlyExistsIn1.SetHeader("EntityName", "IsManaged");
+
+            var entityMetadataOnlyExistsIn2 = new FormatTextTableHandler();
+            entityMetadataOnlyExistsIn2.SetHeader("EntityName", "IsManaged");
+
+            var entityMetadataDifference = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
+
+            var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
+
+            foreach (EntityMetadata entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
+            {
+                ImageBuilder.Descriptor1.MetadataSource.StoreEntityMetadata(entityMetadata1);
+
+                {
+                    EntityMetadata entityMetadata2 = listEntityMetadata2.FirstOrDefault(e => e.LogicalName == entityMetadata1.LogicalName);
+
+                    if (entityMetadata2 != null)
+                    {
+                        commonEntityMetadata.Add(new LinkedEntities<EntityMetadata>(entityMetadata1, entityMetadata2));
+                        continue;
+                    }
+                }
+
+                entityMetadataOnlyExistsIn1.AddLine(entityMetadata1.LogicalName, entityMetadata1.IsManaged.ToString());
+
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.Entity, entityMetadata1.MetadataId.Value);
+            }
+
+            foreach (EntityMetadata entityMetadata2 in listEntityMetadata2.OrderBy(e => e.LogicalName))
+            {
+                ImageBuilder.Descriptor2.MetadataSource.StoreEntityMetadata(entityMetadata2);
+
+                {
+                    EntityMetadata entityMetadata1 = listEntityMetadata1.FirstOrDefault(e => e.LogicalName == entityMetadata2.LogicalName);
+
+                    if (entityMetadata1 != null)
+                    {
+                        continue;
+                    }
+                }
+
+                entityMetadataOnlyExistsIn2.AddLine(entityMetadata2.LogicalName, entityMetadata2.IsManaged.ToString());
+
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.Entity, entityMetadata2.MetadataId.Value);
+            }
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesCommonFormat3, Connection1.Name, Connection2.Name, commonEntityMetadata.Count()));
+
+
+
+            var groupByRole1 = listRolePrivilege1.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
+            var groupByRole2 = listRolePrivilege2.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
+
+            var rolesOnlyExistsIn1 = new FormatTextTableHandler("Name", "BusinessUnit", "IsManaged");
+
+            var rolesOnlyExistsIn2 = new FormatTextTableHandler("Name", "BusinessUnit", "IsManaged");
+
+            var commonRolesList = new List<LinkedEntities<Role>>();
+
+            foreach (var role1 in listRoles1)
+            {
+                var name1 = role1.Name;
+                var businessUnit1 = role1.BusinessUnitId.Name;
+
+                if (role1.BusinessUnitParentBusinessUnit == null)
+                {
+                    businessUnit1 = "Root Organization";
+                }
+
+                {
+                    Role role2 = null;
+
+                    if (role2 == null)
+                    {
+                        role2 = listRoles2.FirstOrDefault(role => role.Id == role1.Id);
+                    }
+
+                    if (role2 == null && role1.RoleTemplateId != null)
+                    {
+                        role2 = listRoles2.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role1.RoleTemplateId.Id);
+                    }
+
+                    if (role2 != null)
+                    {
+                        commonRolesList.Add(new LinkedEntities<Role>(role1, role2));
+                        continue;
+                    }
+                }
+
+                string state = role1.FormattedValues[Role.Schema.Attributes.ismanaged];
+
+                rolesOnlyExistsIn1.AddLine(name1, businessUnit1, state);
+
+                this.ImageBuilder.AddComponentSolution1((int)ComponentType.Role, role1.Id);
+            }
+
+            foreach (var role2 in listRoles2)
+            {
+                var name2 = role2.Name;
+                var businessUnit2 = role2.BusinessUnitId.Name;
+
+                if (role2.BusinessUnitParentBusinessUnit == null)
+                {
+                    businessUnit2 = "Root Organization";
+                }
+
+                {
+                    Role role1 = null;
+
+                    if (role1 == null)
+                    {
+                        role1 = listRoles1.FirstOrDefault(role => role.Id == role2.Id);
+                    }
+
+                    if (role1 == null && role2.RoleTemplateId != null)
+                    {
+                        role1 = listRoles1.FirstOrDefault(role => role.RoleTemplateId != null && role.RoleTemplateId.Id == role2.RoleTemplateId.Id);
+                    }
+
+                    if (role1 != null)
+                    {
+                        continue;
+                    }
+                }
+
+                string state = role2.FormattedValues[Role.Schema.Attributes.ismanaged];
+
+                rolesOnlyExistsIn2.AddLine(name2, businessUnit2, state);
+
+                this.ImageBuilder.AddComponentSolution2((int)ComponentType.Role, role2.Id);
+            }
+
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RolesCommonFormat3, Connection1.Name, Connection2.Name, commonRolesList.Count()));
+
+
+
+
+            {
+                var reporter = new ProgressReporter(_iWriteToOutput, commonEntityMetadata.Count, 5, Properties.OrganizationComparerStrings.EntitiesProcessingCommon);
+
+                foreach (LinkedEntities<EntityMetadata> commonEntity in commonEntityMetadata.OrderBy(e => e.Entity1.LogicalName))
+                {
+                    reporter.Increase();
+
+                    List<string> strDifference = CompareEntityPrivileges(commonEntity.Entity1, commonEntity.Entity2, commonRolesList, groupByRole1, groupByRole2);
+
+                    if (strDifference.Count > 0)
+                    {
+                        entityMetadataDifference.Add(commonEntity.Entity1.LogicalName, strDifference.Select(s => tabSpacer + s).ToList());
+
+                        this.ImageBuilder.AddComponentDifferent((int)ComponentType.Entity, commonEntity.Entity1.MetadataId.Value, commonEntity.Entity2.MetadataId.Value, string.Join(Environment.NewLine, strDifference));
+                    }
+                }
+            }
+
+
+
+
+
+            if (entityMetadataOnlyExistsIn1.Count > 0)
+            {
+                content
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine(new string('-', 150))
+                     .AppendLine()
+                     .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.EntitiesOnlyExistsInConnectionFormat2, Connection1.Name, entityMetadataOnlyExistsIn1.Count);
+
+                entityMetadataOnlyExistsIn1.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (entityMetadataOnlyExistsIn2.Count > 0)
+            {
+                content
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine(new string('-', 150))
+                    .AppendLine()
+                    .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.EntitiesOnlyExistsInConnectionFormat2, Connection2.Name, entityMetadataOnlyExistsIn2.Count);
+
+                entityMetadataOnlyExistsIn2.GetFormatedLines(false).ForEach(e => content.AppendLine().Append((tabSpacer + e).TrimEnd()));
+            }
+
+            if (rolesOnlyExistsIn1.Count > 0)
+            {
+                content
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine(new string('-', 150))
+                    .AppendLine()
+                    .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat("Security Roles ONLY EXISTS in {0}: {1}", Connection1.Name, rolesOnlyExistsIn1.Count);
+
+                rolesOnlyExistsIn1.GetFormatedLines(true).ForEach(e => content.AppendLine().Append(tabSpacer + e.TrimEnd()));
+            }
+
+            if (rolesOnlyExistsIn2.Count > 0)
+            {
+                content
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine(new string('-', 150))
+                    .AppendLine()
+                    .AppendLine();
+
+                content.AppendLine().AppendLine().AppendFormat("Security Roles ONLY EXISTS in {0}: {1}", Connection2.Name, rolesOnlyExistsIn2.Count);
+
+                rolesOnlyExistsIn2.GetFormatedLines(true).ForEach(e => content.AppendLine().Append(tabSpacer + e.TrimEnd()));
+            }
+
+            if (entityMetadataDifference.Count > 0)
+            {
+                content
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine()
+                     .AppendLine(new string('-', 150))
+                     .AppendLine()
+                     .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.EntitiesDifferentFormat3, Connection1.Name, Connection2.Name, entityMetadataDifference.Count);
+
+                foreach (KeyValuePair<string, List<string>> item in entityMetadataDifference.OrderBy(s => s.Key))
+                {
+                    content
+                        .AppendLine()
+                        .Append((tabSpacer + item.Key).TrimEnd());
+                }
+
+                content
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine(new string('-', 150))
+                    .AppendLine()
+                    .AppendLine();
+
+                content.AppendFormat(Properties.OrganizationComparerStrings.EntitiesDifferentDetailsFormat3, Connection1.Name, Connection2.Name, entityMetadataDifference.Count);
+
+                foreach (KeyValuePair<string, List<string>> item in entityMetadataDifference.OrderBy(s => s.Key))
+                {
+                    content
+                        .AppendLine()
+                        .AppendLine()
+                        .Append((tabSpacer + item.Key).TrimEnd());
+
+                    foreach (string str in item.Value)
+                    {
+                        content.AppendLine().Append((tabSpacer + str).TrimEnd());
+                    }
+
+                    content
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine()
+                        .AppendLine(new string('-', 150));
+                }
+            }
+
+            if (entityMetadataOnlyExistsIn2.Count == 0
+                && entityMetadataOnlyExistsIn1.Count == 0
+                && entityMetadataDifference.Count == 0
+
+                && rolesOnlyExistsIn1.Count == 0
+                && rolesOnlyExistsIn2.Count == 0
+            )
+            {
+                content.AppendLine(Properties.OrganizationComparerStrings.EntitiesNoDifference);
+            }
+
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
+
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, Properties.OrganizationComparerStrings.EntitiesPrivilegesFileName);
+
+            string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            await SaveOrganizationDifferenceImage();
+
+            return filePath;
+        }
+
+        private static readonly PrivilegeType[] _entityPrivilegesOrder = new PrivilegeType[]
+        {
+            PrivilegeType.None
+            , PrivilegeType.Create
+            , PrivilegeType.Read
+            , PrivilegeType.Write
+            , PrivilegeType.Delete
+            , PrivilegeType.Assign
+            , PrivilegeType.Share
+            , PrivilegeType.Append
+            , PrivilegeType.AppendTo
+        };
+
+        private List<string> CompareEntityPrivileges(
+            EntityMetadata entityMetadata1
+            , EntityMetadata entityMetadata2
+            , List<LinkedEntities<Role>> commonRolesList
+            , Dictionary<Guid, IEnumerable<RolePrivileges>> groupByRole1
+            , Dictionary<Guid, IEnumerable<RolePrivileges>> groupByRole2
+        )
+        {
+            var tableFullDifferences = new FormatTextTableHandler(
+                "Role",
+                "BusinessUnit",
+                "PrivilegeName",
+                "PrivilegeType",
+                Connection1.Name,
+                Connection2.Name
+            );
+
+            foreach (var commonRole in commonRolesList)
+            {
+                groupByRole1.TryGetValue(commonRole.Entity1.Id, out IEnumerable<RolePrivileges> enumerable1);
+                groupByRole2.TryGetValue(commonRole.Entity2.Id, out IEnumerable<RolePrivileges> enumerable2);
+
+                for (int index = 0; index < _entityPrivilegesOrder.Length; index++)
+                {
+                    var privilegeType = _entityPrivilegesOrder[index];
+
+                    SecurityPrivilegeMetadata entityPrivilege1 = entityMetadata1?.Privileges?.FirstOrDefault(i => i.PrivilegeType == privilegeType);
+                    SecurityPrivilegeMetadata entityPrivilege2 = entityMetadata2?.Privileges?.FirstOrDefault(i => i.PrivilegeType == privilegeType);
+
+                    if (entityPrivilege1 != null || entityPrivilege2 != null)
+                    {
+                        RolePrivileges rolePriv1 = null;
+                        RolePrivileges rolePriv2 = null;
+
+                        if (entityPrivilege1 != null)
+                        {
+                            rolePriv1 = enumerable1.FirstOrDefault(r => r.PrivilegeId == entityPrivilege1.PrivilegeId);
+                        }
+
+                        if (entityPrivilege2 != null)
+                        {
+                            rolePriv2 = enumerable2.FirstOrDefault(r => r.PrivilegeId == entityPrivilege2.PrivilegeId);
+                        }
+
+                        var privilegedepthmaskValue1 = rolePriv1?.PrivilegeDepthMask;
+                        var privilegedepthmaskValue2 = rolePriv2?.PrivilegeDepthMask;
+
+                        SecurityPrivilegeMetadata entityPrivilege = entityPrivilege1 ?? entityPrivilege2;
+
+                        if (privilegedepthmaskValue1 != privilegedepthmaskValue2)
+                        {
+                            tableFullDifferences.AddLine(
+                                commonRole.Entity1.Name,
+                                commonRole.Entity1.BusinessUnitParentBusinessUnit == null ? "Root Organization" : commonRole.Entity1.BusinessUnitId.Name,
+                                entityPrivilege.Name,
+                                entityPrivilege.PrivilegeType.ToString(),
+                                RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmaskValue1),
+                                RolePrivilegesRepository.GetPrivilegeDepthMaskName(privilegedepthmaskValue2)
+                            );
+                        }
+                    }
+                }
+            }
+
+            var result = new List<string>();
+
+            if (tableFullDifferences.Count > 0)
+            {
+                if (result.Count > 0) { result.Add(string.Empty); }
+
+                result.Add(string.Format("Full Differences privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, tableFullDifferences.Count));
+                tableFullDifferences.GetFormatedLines(false).ForEach(s => result.Add(tabSpacer + s));
+            }
+
+            return result;
+        }
+
+        #endregion Entities Privileges
+
+        #region Entities Audits
+
         public Task<string> CheckEntitiesByAuditAsync()
         {
             return Task.Run(() => CheckEntitiesByAudit());
@@ -261,7 +729,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsCustomizable", Connection2.Name)
                 , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection1.Name)
                 , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection2.Name)
-                );
+            );
 
             FormatTextTableHandler attributeDifference = new FormatTextTableHandler();
             attributeDifference.SetHeader("EntityName", "AttributeName"
@@ -271,9 +739,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsCustomizable", Connection2.Name)
                 , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection1.Name)
                 , string.Format(Properties.OrganizationComparerStrings.AttributeInConnectionFormat2, "IsAuditEnabled", Connection2.Name)
-                );
+            );
 
-            List<LinkedEntities<EntityMetadata>> commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
+            var commonEntityMetadata = new List<LinkedEntities<EntityMetadata>>();
 
             foreach (EntityMetadata entityMetadata1 in listEntityMetadata1.OrderBy(e => e.LogicalName))
             {
@@ -320,7 +788,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.ImageBuilder.AddComponentSolution2((int)ComponentType.Entity, entityMetadata2.MetadataId.Value);
             }
 
-            HashSet<string> listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.InvariantCultureIgnoreCase);
+            var listNotExists = new HashSet<string>(
+                listEntityMetadata1.Select(e => e.LogicalName)
+                .Union(listEntityMetadata2.Select(e => e.LogicalName), StringComparer.InvariantCultureIgnoreCase)
+                .Except(commonEntityMetadata.Select(e => e.Entity1.LogicalName), StringComparer.InvariantCultureIgnoreCase
+            ), StringComparer.InvariantCultureIgnoreCase);
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesCommonFormat3, Connection1.Name, Connection2.Name, commonEntityMetadata.Count()));
 
@@ -452,6 +924,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return filePath;
         }
 
+        #endregion Entities Audits
+
+        #region Entities Labels
+
         public Task<string> CheckEntityLabelsAsync()
         {
             return Task.Run(() => CheckEntityLabels());
@@ -529,7 +1005,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.ImageBuilder.AddComponentSolution2((int)ComponentType.Entity, entityMetadata2.MetadataId.Value);
             }
 
-            HashSet<string> listNotExists = new HashSet<string>(listEntityMetadata1.Select(e => e.LogicalName).Union(listEntityMetadata2.Select(e => e.LogicalName)), StringComparer.InvariantCultureIgnoreCase);
+            var listNotExists = new HashSet<string>(
+                listEntityMetadata1.Select(e => e.LogicalName)
+                .Union(listEntityMetadata2.Select(e => e.LogicalName), StringComparer.InvariantCultureIgnoreCase)
+                .Except(commonEntityMetadata.Select(e => e.Entity1.LogicalName), StringComparer.InvariantCultureIgnoreCase
+            ), StringComparer.InvariantCultureIgnoreCase);
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesCommonFormat3, Connection1.Name, Connection2.Name, commonEntityMetadata.Count()));
 
@@ -652,6 +1132,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return filePath;
         }
+
+        #endregion Entities Labels
+
+        #region EntityMaps
 
         public Task<string> CheckEntityMapsAsync()
         {
@@ -988,6 +1472,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return diff;
         }
 
+        #endregion EntityMaps
+
+        #region Entities Ribbons
+
         public Task<string> CheckEntityRibbonsAsync(bool withDetails)
         {
             return Task.Run(() => CheckEntityRibbons(withDetails));
@@ -1193,5 +1681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return filePath;
         }
+
+        #endregion Entities Ribbons
     }
 }

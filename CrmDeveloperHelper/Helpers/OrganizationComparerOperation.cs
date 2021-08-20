@@ -12,6 +12,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         [System.ComponentModel.DescriptionAttribute("Entity Labels")]
         EntityLabels,
 
+        [System.ComponentModel.DescriptionAttribute("Entities Privileges")]
+        EntitiesPrivileges,
+
         [System.ComponentModel.DescriptionAttribute("Entity Maps")]
         EntityMaps,
 

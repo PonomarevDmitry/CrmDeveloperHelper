@@ -84,6 +84,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 { OrganizationComparerOperation.EntityLabels, AnalizeEntityLabels },
 
+                { OrganizationComparerOperation.EntitiesPrivileges, AnalizeEntitiesPrivileges },
+
                 { OrganizationComparerOperation.EntityMaps, AnalizeEntityMaps },
 
                 { OrganizationComparerOperation.EntityRibbons, AnalizeEntityRibbons },
@@ -715,10 +717,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (MessageBox.Show(Properties.MessageBoxStrings.ExecuteOperations, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
-            {
-                return;
-            }
+            //if (MessageBox.Show(Properties.MessageBoxStrings.ExecuteOperations, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
+            //{
+            //    return;
+            //}
 
             string folder = string.Empty;
             txtBFolder.Dispatcher.Invoke(() =>
@@ -1208,6 +1210,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await comparer.CheckEntitiesAsync();
 
                 this._iWriteToOutput.WriteToOutput(null, "Check Entities in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(null, filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+        }
+
+        private async Task AnalizeEntitiesPrivileges(OrganizationComparer comparer)
+        {
+            try
+            {
+                UpdateStatus(null, Properties.OutputStrings.CheckingEntitiesPrivilegesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+
+                string filePath = await comparer.CheckEntitiesPrivilegesAsync();
+
+                this._iWriteToOutput.WriteToOutput(null, "Check Entities Privileges in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(null, filePath);
             }

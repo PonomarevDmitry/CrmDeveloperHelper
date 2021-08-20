@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
+﻿namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
     public enum PrivilegeDepthExtended : int
     {

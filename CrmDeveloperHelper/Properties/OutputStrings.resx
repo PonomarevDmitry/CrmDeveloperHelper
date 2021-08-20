@@ -767,6 +767,9 @@
   <data name="CheckingEntitiesFormat2" xml:space="preserve">
     <value>Checking Entities in {0} and {1}...</value>
   </data>
+  <data name="CheckingEntitiesPrivilegesFormat2" xml:space="preserve">
+    <value>Checking Entities Privileges in {0} and {1}...</value>
+  </data>
   <data name="CheckingEntityLabelsFormat2" xml:space="preserve">
     <value>Checking Entity Labels in {0} and {1}...</value>
   </data>

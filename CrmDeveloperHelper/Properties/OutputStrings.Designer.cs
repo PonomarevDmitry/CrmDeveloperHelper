@@ -358,6 +358,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking Entities Privileges in {0} and {1}....
+        /// </summary>
+        internal static string CheckingEntitiesPrivilegesFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingEntitiesPrivilegesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking Entity Labels in {0} and {1}....
         /// </summary>
         internal static string CheckingEntityLabelsFormat2 {
