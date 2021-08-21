@@ -338,6 +338,10 @@
                         <Separator Margin="10,0" />
                         <Menu x:Name="menuSelectedEntities" Background="{x:Null}">
                             <MenuItem Header="Selected Entities" SubmenuOpened="SelectedEntities_SubmenuOpened">
+
+                                <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Transfer Selected Entities to Connection" />
+
+                                <Separator />
                                 <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntities_Click" />
 
                                 <Separator />
@@ -374,6 +378,10 @@
                         <Separator Margin="10,0" />
                         <Menu x:Name="menuAllEntities" Background="{x:Null}">
                             <MenuItem Header="All Entities" SubmenuOpened="AllEntities_SubmenuOpened">
+
+                                <MenuItem x:Name="mITransferAllEntitiesToConnection" Header="Transfer all Entities to Connection" />
+                                <Separator />
+                                
                                 <MenuItem Header="Bulk Edit All Entities" Click="miBulkEditAllEntities_Click" />
 
                                 <Separator />
@@ -404,16 +412,6 @@
 
                                 <Separator/>
                                 <MenuItem Header="Delete All Entities" Click="mIDeleteAllEntity_Click" />
-                            </MenuItem>
-                        </Menu>
-
-                        <Separator Margin="10,0" />
-                        <Menu x:Name="menuTransferToConnection" Background="{x:Null}">
-                            <MenuItem x:Name="mITransferToConnection" Header="Transfer to Connection" SubmenuOpened="mITransferToConnection_SubmenuOpened">
-                                <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Transfer Selected Entities to Connection" />
-
-                                <Separator />
-                                <MenuItem x:Name="mITransferAllEntitiesToConnection" Header="Transfer all Entities to Connection" />
                             </MenuItem>
                         </Menu>
                     </ToolBar>

@@ -763,7 +763,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ToggleControl(IsControlsEnabled && _entityCollection != null && _entityCollection.Entities.Any(en => en.Id != Guid.Empty)
                 , this.menuSelectedEntities
                 , this.menuAllEntities
-                , this.menuTransferToConnection
             );
         }
 
@@ -4139,6 +4138,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void SelectedEntities_SubmenuOpened(object sender, RoutedEventArgs e)
         {
+            mITransferSelectedEntitiesToConnection.Items.Clear();
+
             if (!(sender is MenuItem menuItem))
             {
                 return;
@@ -4156,10 +4157,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ConnectionData connectionData = this.GetSelectedConnection();
 
             WindowBase.FillLastSolutionItems(connectionData, items, hasSolutionComponentEntity, AddToCrmSolutionSelectedEntitiesLast_Click, "contMnAddToSolutionLast");
+
+            if (connectionData != null)
+            {
+
+                var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
+
+                if (otherConnections.Any())
+                {
+                    foreach (var connection in otherConnections)
+                    {
+                        var menuItemConnection = new MenuItem()
+                        {
+                            Header = connection.Name,
+                            Tag = connection,
+                        };
+                        menuItemConnection.Click += mITransferSelectedEntitiesToConnection_Click;
+
+                        if (mITransferSelectedEntitiesToConnection.Items.Count > 0)
+                        {
+                            mITransferSelectedEntitiesToConnection.Items.Add(new Separator());
+                        }
+
+                        mITransferSelectedEntitiesToConnection.Items.Add(menuItemConnection);
+                    }
+                }
+            }
         }
 
         private void AllEntities_SubmenuOpened(object sender, RoutedEventArgs e)
         {
+            mITransferAllEntitiesToConnection.Items.Clear();
+
             if (!(sender is MenuItem menuItem))
             {
                 return;
@@ -4177,6 +4206,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ConnectionData connectionData = this.GetSelectedConnection();
 
             WindowBase.FillLastSolutionItems(connectionData, items, hasSolutionComponentEntity, AddToCrmSolutionAllEntitiesLast_Click, "contMnAddToSolutionLast");
+
+            if (connectionData != null)
+            {
+                var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
+
+                if (otherConnections.Any())
+                {
+                    foreach (var connection in otherConnections)
+                    {
+                        var menuItemConnection = new MenuItem()
+                        {
+                            Header = connection.Name,
+                            Tag = connection,
+                        };
+                        menuItemConnection.Click += mITransferAllEntitiesToConnection_Click;
+
+                        if (mITransferAllEntitiesToConnection.Items.Count > 0)
+                        {
+                            mITransferAllEntitiesToConnection.Items.Add(new Separator());
+                        }
+
+                        mITransferAllEntitiesToConnection.Items.Add(menuItemConnection);
+                    }
+                }
+            }
         }
 
         #region Connection Actions
