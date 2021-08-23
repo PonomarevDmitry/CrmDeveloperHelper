@@ -201,6 +201,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             OrganizationComparerOperation.Entities
             , OrganizationComparerOperation.EntitiesByAudit
+            , OrganizationComparerOperation.EntitiesPrivileges
+
             , OrganizationComparerOperation.EntityLabels
             , OrganizationComparerOperation.EntityMaps
         };
@@ -216,6 +218,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             OrganizationComparerOperation.Entities
             , OrganizationComparerOperation.EntitiesByAudit
+            , OrganizationComparerOperation.EntitiesPrivileges
+
             , OrganizationComparerOperation.EntityLabels
             , OrganizationComparerOperation.EntityMaps
 
@@ -233,6 +237,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             OrganizationComparerOperation.Entities
             , OrganizationComparerOperation.EntitiesByAudit
+            , OrganizationComparerOperation.EntitiesPrivileges
+
             , OrganizationComparerOperation.EntityLabels
             , OrganizationComparerOperation.EntityMaps
 
