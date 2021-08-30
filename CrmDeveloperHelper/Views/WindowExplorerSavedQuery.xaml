@@ -41,6 +41,14 @@
                     <Separator/>
                     <MenuItem Header="Copy to Clipboard SavedQuery Id" Click="mIClipboardCopySavedQueryId_Click" />
 
+                    <Separator/>
+                    <MenuItem Header="Copy Fetch Xml in JavaScript to Clipboard" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
+                    <MenuItem Header="Copy Layout Xml in JavaScript to Clipboard" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
+                    <MenuItem Header="Copy ColumnSet Xml in JavaScript to Clipboard" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+
+                    <MenuItem Header="Copy Layout Json to Clipboard" Click="mICopyToClipboardLayoutJson_Click" />
+                    <MenuItem Header="Copy Offline Sql Query to Clipboard" Click="mICopyToClipboardOfflineSqlQuery_Click" />
+
                 </MenuItem>
 
                 <Separator x:Uid="controlChangeEntityAttribute" />
@@ -84,14 +92,6 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Clipboard">
-                    <MenuItem Header="Copy Fetch Xml in JavaScript to Clipboard" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
-                    <MenuItem Header="Copy Layout Xml in JavaScript to Clipboard" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
-                    <MenuItem Header="Copy ColumnSet Xml in JavaScript to Clipboard" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
-
-                    <MenuItem Header="Copy Layout Json to Clipboard" Click="mICopyToClipboardLayoutJson_Click" />
-                    <MenuItem Header="Copy Offline Sql Query to Clipboard" Click="mICopyToClipboardOfflineSqlQuery_Click" />
-                </MenuItem>
 
                 <Separator/>
                 <MenuItem Header="Fetch Xml and Layout Xml" Click="mIExportSavedQueryFetchXmlAndLayoutXml_Click" />
