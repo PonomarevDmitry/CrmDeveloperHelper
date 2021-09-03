@@ -36,8 +36,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<Team> _itemsSourceTeams;
         private readonly ObservableCollection<Role> _itemsSourceRoles;
 
-        private readonly ObservableCollection<EntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
-        private readonly ObservableCollection<OtherPrivilegeViewItem> _itemsSourceOtherPrivileges;
+        private readonly ObservableCollection<RoleEntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
+        private readonly ObservableCollection<RoleOtherPrivilegeViewItem> _itemsSourceOtherPrivileges;
 
         private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
         private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
@@ -100,8 +100,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwTeams.ItemsSource = _itemsSourceTeams = new ObservableCollection<Team>();
             lstVwSecurityRoles.ItemsSource = _itemsSourceRoles = new ObservableCollection<Role>();
-            lstVwEntityPrivileges.ItemsSource = _itemsSourceEntityPrivileges = new ObservableCollection<EntityPrivilegeViewItem>();
-            lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<OtherPrivilegeViewItem>();
+            lstVwEntityPrivileges.ItemsSource = _itemsSourceEntityPrivileges = new ObservableCollection<RoleEntityPrivilegeViewItem>();
+            lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<RoleOtherPrivilegeViewItem>();
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
@@ -534,9 +534,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IEnumerable<EntityMetadata> entityMetadataList = Enumerable.Empty<EntityMetadata>();
 
-            IEnumerable<EntityPrivilegeViewItem> listEntityPrivileges = Enumerable.Empty<EntityPrivilegeViewItem>();
+            IEnumerable<RoleEntityPrivilegeViewItem> listEntityPrivileges = Enumerable.Empty<RoleEntityPrivilegeViewItem>();
 
-            IEnumerable<OtherPrivilegeViewItem> listOtherPrivileges = Enumerable.Empty<OtherPrivilegeViewItem>();
+            IEnumerable<RoleOtherPrivilegeViewItem> listOtherPrivileges = Enumerable.Empty<RoleOtherPrivilegeViewItem>();
 
             try
             {
@@ -574,9 +574,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             var userPrivileges = await repository.GetTeamPrivilegesAsync(team.Id);
 
-                            listEntityPrivileges = entityMetadataList.Select(e => new EntityPrivilegeViewItem(e, userPrivileges));
+                            listEntityPrivileges = entityMetadataList.Select(e => new RoleEntityPrivilegeViewItem(e, userPrivileges));
 
-                            listOtherPrivileges = otherPrivileges.Select(e => new OtherPrivilegeViewItem(e, userPrivileges));
+                            listOtherPrivileges = otherPrivileges.Select(e => new RoleOtherPrivilegeViewItem(e, userPrivileges));
                         }
                     }
                 }
@@ -823,26 +823,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private EntityPrivilegeViewItem GetSelectedEntity()
+        private RoleEntityPrivilegeViewItem GetSelectedEntity()
         {
-            EntityPrivilegeViewItem result = null;
+            RoleEntityPrivilegeViewItem result = null;
 
             lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().Count() == 1
-                     ? this.lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().SingleOrDefault() : null;
+                result = this.lstVwEntityPrivileges.SelectedItems.OfType<RoleEntityPrivilegeViewItem>().Count() == 1
+                     ? this.lstVwEntityPrivileges.SelectedItems.OfType<RoleEntityPrivilegeViewItem>().SingleOrDefault() : null;
             });
 
             return result;
         }
 
-        private List<EntityPrivilegeViewItem> GetSelectedEntities()
+        private List<RoleEntityPrivilegeViewItem> GetSelectedEntities()
         {
-            List<EntityPrivilegeViewItem> result = null;
+            List<RoleEntityPrivilegeViewItem> result = null;
 
             lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().ToList();
+                result = this.lstVwEntityPrivileges.SelectedItems.OfType<RoleEntityPrivilegeViewItem>().ToList();
             });
 
             return result;
@@ -899,7 +899,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                EntityPrivilegeViewItem item = GetItemFromRoutedDataContext<EntityPrivilegeViewItem>(e);
+                RoleEntityPrivilegeViewItem item = GetItemFromRoutedDataContext<RoleEntityPrivilegeViewItem>(e);
 
                 if (item != null)
                 {
@@ -2127,15 +2127,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Other Privilege
 
-        private OtherPrivilegeViewItem GetSelectedOtherPrivilege()
+        private RoleOtherPrivilegeViewItem GetSelectedOtherPrivilege()
         {
-            return this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().Count() == 1
-                ? this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().SingleOrDefault() : null;
+            return this.lstVwOtherPrivileges.SelectedItems.OfType<RoleOtherPrivilegeViewItem>().Count() == 1
+                ? this.lstVwOtherPrivileges.SelectedItems.OfType<RoleOtherPrivilegeViewItem>().SingleOrDefault() : null;
         }
 
-        private List<OtherPrivilegeViewItem> GetSelectedOtherPrivileges()
+        private List<RoleOtherPrivilegeViewItem> GetSelectedOtherPrivileges()
         {
-            var result = this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().ToList();
+            var result = this.lstVwOtherPrivileges.SelectedItems.OfType<RoleOtherPrivilegeViewItem>().ToList();
 
             return result;
         }
@@ -2274,22 +2274,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIClipboardPrivilegeCopyName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.Name);
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.Name);
         }
 
         private void mIClipboardPrivilegeCopyType_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.PrivilegeType);
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.PrivilegeType);
         }
 
         private void mIClipboardPrivilegeCopyLinkedEntity_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.EntityLogicalName);
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.EntityLogicalName);
         }
 
         private void mIClipboardPrivilegeCopyPrivilegeId_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.Privilege.Id.ToString());
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.Privilege.Id.ToString());
         }
 
         #endregion Clipboard Other Privilege
@@ -2298,22 +2298,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIClipboardEntityCopyName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.LogicalName);
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.LogicalName);
         }
 
         private void mIClipboardEntityCopyDisplayName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.DisplayName);
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.DisplayName);
         }
 
         private void mIClipboardEntityCopyObjectTypeCode_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.ObjectTypeCode.ToString());
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.ObjectTypeCode.ToString());
         }
 
         private void mIClipboardEntityCopyEntityMetadataId_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
         }
 
         #endregion Clipboard Entity

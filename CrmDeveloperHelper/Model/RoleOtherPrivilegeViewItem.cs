@@ -1,95 +1,46 @@
-using Microsoft.Crm.Sdk.Messages;
+﻿using Microsoft.Crm.Sdk.Messages;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class RoleOtherPrivilegeViewItem : INotifyPropertyChanging, INotifyPropertyChanged
+    public class RoleOtherPrivilegeViewItem : SinglePrivilegeViewItem
     {
-        private static readonly string[] _names =
-        {
-            nameof(IsChanged)
-            , nameof(Right)
-        };
-
         public Privilege Privilege { get; private set; }
 
-        public Role Role { get; private set; }
+        public string Name => Privilege.Name;
 
-        public string RoleName => Role.Name;
+        public string EntityLogicalName => Privilege.LinkedEntitiesSorted;
 
-        public string BusinessUnitName => Role.BusinessUnitId?.Name;
+        public AccessRights? PrivilegeAccessRights { get; private set; }
 
-        public string RoleTemplateName => Role.RoleTemplateName;
+        public string PrivilegeType => PrivilegeAccessRights.ToString();
 
-        public bool IsManaged => (Role?.IsManaged).GetValueOrDefault();
+        public bool IsCustomizable { get; private set; }
 
-        public bool IsCustomizable => (Role?.IsCustomizable?.Value).GetValueOrDefault();
+        private readonly PrivilegeDepthExtended _initialRight;
 
-        public bool IsCustomizableCanBeChanged => (Role?.IsCustomizable?.CanBeChanged).GetValueOrDefault();
-
-        private PrivilegeDepthExtended _initialRight;
-
-        public RoleOtherPrivilegeViewItem(Role role, IEnumerable<RolePrivileges> rolePrivileges, Privilege privilege)
+        public RoleOtherPrivilegeViewItem(Privilege privilege, IEnumerable<RolePrivilege> rolePrivileges, bool isCustomizable = false)
         {
-            LoadData(role, rolePrivileges, privilege);
-        }
-
-        public void LoadData(Role role, IEnumerable<RolePrivileges> rolePrivileges, Privilege privilege)
-        {
-            this.Role = role;
+            this.IsCustomizable = isCustomizable;
             this.Privilege = privilege;
 
-            this._Right = this._initialRight = GetPrivilegeLevel(rolePrivileges);
+            this._Right = this._initialRight = GetPrivilegeLevel(this.Privilege.PrivilegeId.Value, rolePrivileges);
+
+            if (privilege.AccessRight.HasValue
+                && Enum.IsDefined(typeof(AccessRights), privilege.AccessRight.Value)
+            )
+            {
+                this.PrivilegeAccessRights = (AccessRights)privilege.AccessRight.Value;
+            }
 
             this.OnPropertyChanging(nameof(IsChanged));
             this.IsChanged = false;
             this.OnPropertyChanged(nameof(IsChanged));
         }
 
-        private PrivilegeDepthExtended GetPrivilegeLevel(IEnumerable<RolePrivileges> rolePrivileges)
-        {
-            var rolePrivilege = rolePrivileges.FirstOrDefault(p => p.PrivilegeId == this.Privilege.PrivilegeId);
-
-            if (rolePrivilege != null && rolePrivilege.PrivilegeDepthMask.HasValue)
-            {
-                var privilegeDepth = RolePrivilegesRepository.ConvertMaskToPrivilegeDepth(rolePrivilege.PrivilegeDepthMask.Value);
-
-                if (privilegeDepth.HasValue)
-                {
-                    return (PrivilegeDepthExtended)privilegeDepth.Value;
-                }
-            }
-
-            return PrivilegeDepthExtended.None;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-            if (!string.Equals(propertyName, nameof(IsChanged)))
-            {
-                var val = CalculateIsChanged();
-
-                if (val != this.IsChanged)
-                {
-                    this.OnPropertyChanging(nameof(IsChanged));
-                    this.IsChanged = val;
-                    this.OnPropertyChanged(nameof(IsChanged));
-                }
-            }
-        }
-
-        private bool CalculateIsChanged()
+        protected override bool CalculateIsChanged()
         {
             if (_initialRight != _Right)
             {
@@ -98,13 +49,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             return false;
         }
-
-        private void OnPropertyChanging(string propertyName)
-        {
-            this.PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-        }
-
-        public bool IsChanged { get; private set; }
 
         private PrivilegeDepthExtended _Right;
         public PrivilegeDepthExtended Right
@@ -123,74 +67,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public IEnumerable<PrivilegeDepthExtended> RightOptions => EntityPrivilegeViewItem.GetPrivilegeDepthsByAvailability(Privilege.CanBeBasic.GetValueOrDefault(), Privilege.CanBeLocal.GetValueOrDefault(), Privilege.CanBeDeep.GetValueOrDefault(), Privilege.CanBeGlobal.GetValueOrDefault());
-
-        private static PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
-
-        public List<RolePrivilege> GetAddRolePrivilege()
+        public void FillChangedPrivileges(Dictionary<Guid, PrivilegeDepth> privilegesAdd, HashSet<Guid> privilegesRemove)
         {
-            Dictionary<Guid, PrivilegeDepth> privilegesAdd = new Dictionary<Guid, PrivilegeDepth>();
-
-            FillAddPrivilege(this._initialRight, this._Right, privilegesAdd);
-
-            return privilegesAdd.Select(d => new RolePrivilege()
-            {
-                PrivilegeId = d.Key,
-                Depth = d.Value,
-            }).ToList();
-        }
-
-        private void FillAddPrivilege(
-            PrivilegeDepthExtended initialValue
-            , PrivilegeDepthExtended currentValue
-            , Dictionary<Guid, PrivilegeDepth> privilegesAdd
-        )
-        {
-            if (currentValue == initialValue || this.Privilege == null)
+            if (this._Right == this._initialRight)
             {
                 return;
             }
 
-            if (currentValue != PrivilegeDepthExtended.None)
+            if (this._Right == PrivilegeDepthExtended.None)
             {
-                if (privilegesAdd.ContainsKey(this.Privilege.Id))
+                privilegesRemove.Add(Privilege.PrivilegeId.Value);
+            }
+            else
+            {
+                if (privilegesAdd.ContainsKey(Privilege.PrivilegeId.Value))
                 {
-                    privilegesAdd[this.Privilege.Id] = (PrivilegeDepth)Math.Max((int)currentValue, (int)privilegesAdd[this.Privilege.Id]);
+                    privilegesAdd[Privilege.PrivilegeId.Value] = (PrivilegeDepth)Math.Max((int)this._Right, (int)privilegesAdd[Privilege.PrivilegeId.Value]);
                 }
                 else
                 {
-                    privilegesAdd.Add(this.Privilege.Id, (PrivilegeDepth)currentValue);
+                    privilegesAdd.Add(Privilege.PrivilegeId.Value, (PrivilegeDepth)this._Right);
                 }
             }
         }
 
-        public List<RolePrivilege> GetRemoveRolePrivilege()
-        {
-            HashSet<Guid> privilegesRemove = new HashSet<Guid>();
-
-            FillRemovePrivilege(this._initialRight, this._Right, privilegesRemove);
-
-            return privilegesRemove.Select(p => new RolePrivilege()
-            {
-                PrivilegeId = p,
-            }).ToList();
-        }
-
-        private void FillRemovePrivilege(
-            PrivilegeDepthExtended initialValue
-            , PrivilegeDepthExtended currentValue
-            , HashSet<Guid> privilegesRemove
-            )
-        {
-            if (currentValue == initialValue || this.Privilege == null)
-            {
-                return;
-            }
-
-            if (currentValue == PrivilegeDepthExtended.None)
-            {
-                privilegesRemove.Add(this.Privilege.Id);
-            }
-        }
+        public IEnumerable<PrivilegeDepthExtended> RightOptions => GetPrivilegeDepthsByAvailability(
+            Privilege.CanBeBasic.GetValueOrDefault()
+            , Privilege.CanBeLocal.GetValueOrDefault()
+            , Privilege.CanBeDeep.GetValueOrDefault()
+            , Privilege.CanBeGlobal.GetValueOrDefault()
+        );
     }
 }

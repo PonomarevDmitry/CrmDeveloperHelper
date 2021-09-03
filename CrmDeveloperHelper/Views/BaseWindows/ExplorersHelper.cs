@@ -43,6 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getOtherPrivilegeName = null
             , Func<string> getMessageName = null
             , Func<string> getPluginTypeName = null
+            , Func<string> getRoleName = null
             , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
             , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
             , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
@@ -60,6 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , getOtherPrivilegeName
             , getMessageName
             , getPluginTypeName
+            , getRoleName
             , getEntityMetadataList
             , getOtherPrivilegesList
             , getGlobalOptionSetMetadataList
@@ -85,6 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getOtherPrivilegeName = null
             , Func<string> getMessageName = null
             , Func<string> getPluginTypeName = null
+            , Func<string> getRoleName = null
             , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
             , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
             , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
@@ -99,6 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , getReportName
             , getWebResourceName
             , getPluginAssemblyName
+            , getRoleName
         )
         {
             this.GetService = getService;
@@ -659,9 +663,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IEnumerable<Privilege> privilegesList = GetOtherPrivilegesList(service.ConnectionData.ConnectionId);
 
+            var roleName = GetRoleName();
+
             _commonConfig.Save();
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entityMetadataList, privilegesList);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, roleName, entityMetadataList, privilegesList);
         }
 
         private async void miGlobalOptionSets_Click(object sender, RoutedEventArgs e)

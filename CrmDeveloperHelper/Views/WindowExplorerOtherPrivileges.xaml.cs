@@ -25,11 +25,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly ObservableCollection<OtherPrivilegeListViewItem> _itemsSourceOtherPrivileges;
 
-        private readonly ObservableCollection<RoleOtherPrivilegeViewItem> _itemsSourceSecurityRoleList;
+        private readonly ObservableCollection<OtherPrivilegeRolePrivilegeViewItem> _itemsSourceSecurityRoleList;
 
         private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
 
-        private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).OfType<PrivilegeType>().ToList();
+        private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).Cast<PrivilegeType>().ToList();
 
         private readonly Dictionary<PrivilegeDepth, MenuItem> _menuItemsSetPrivilegeDepths;
 
@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<OtherPrivilegeListViewItem>();
 
-            _itemsSourceSecurityRoleList = new ObservableCollection<RoleOtherPrivilegeViewItem>();
+            _itemsSourceSecurityRoleList = new ObservableCollection<OtherPrivilegeRolePrivilegeViewItem>();
             lstVwSecurityRoles.ItemsSource = _itemsSourceSecurityRoleList;
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
@@ -372,7 +372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 textName = txtBFilterSecurityRole.Text.Trim().ToLower();
             });
 
-            IEnumerable<RoleOtherPrivilegeViewItem> list = Enumerable.Empty<RoleOtherPrivilegeViewItem>();
+            IEnumerable<OtherPrivilegeRolePrivilegeViewItem> list = Enumerable.Empty<OtherPrivilegeRolePrivilegeViewItem>();
 
             try
             {
@@ -398,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var listRolePrivilege = await task;
 
-                    list = roles.Select(r => new RoleOtherPrivilegeViewItem(r, listRolePrivilege.Where(rp => rp.RoleId == r.RoleId), privilege)).ToList();
+                    list = roles.Select(r => new OtherPrivilegeRolePrivilegeViewItem(r, listRolePrivilege.Where(rp => rp.RoleId == r.RoleId), privilege)).ToList();
                 }
             }
             catch (Exception ex)
@@ -443,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void LoadSecurityRoles(IEnumerable<RoleOtherPrivilegeViewItem> results)
+        private void LoadSecurityRoles(IEnumerable<OtherPrivilegeRolePrivilegeViewItem> results)
         {
             this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
             {
@@ -469,7 +469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void rolePrivilege_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (string.Equals(e.PropertyName, "IsChanged", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(e.PropertyName, nameof(SinglePrivilegeViewItem.IsChanged), StringComparison.InvariantCultureIgnoreCase))
             {
                 UpdateRoleButtons();
             }
@@ -559,15 +559,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private RoleOtherPrivilegeViewItem GetSelectedSecurityRole()
+        private OtherPrivilegeRolePrivilegeViewItem GetSelectedSecurityRole()
         {
-            return this.lstVwSecurityRoles.SelectedItems.OfType<RoleOtherPrivilegeViewItem>().Count() == 1
-                ? this.lstVwSecurityRoles.SelectedItems.OfType<RoleOtherPrivilegeViewItem>().SingleOrDefault() : null;
+            return this.lstVwSecurityRoles.SelectedItems.Cast<OtherPrivilegeRolePrivilegeViewItem>().Count() == 1
+                ? this.lstVwSecurityRoles.SelectedItems.Cast<OtherPrivilegeRolePrivilegeViewItem>().SingleOrDefault() : null;
         }
 
-        private List<RoleOtherPrivilegeViewItem> GetSelectedSecurityRoles()
+        private List<OtherPrivilegeRolePrivilegeViewItem> GetSelectedSecurityRoles()
         {
-            List<RoleOtherPrivilegeViewItem> result = this.lstVwSecurityRoles.SelectedItems.OfType<RoleOtherPrivilegeViewItem>().ToList();
+            List<OtherPrivilegeRolePrivilegeViewItem> result = this.lstVwSecurityRoles.SelectedItems.Cast<OtherPrivilegeRolePrivilegeViewItem>().ToList();
 
             return result;
         }
@@ -864,7 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         || cell.Column == colRoleTemplate
                         )
                     {
-                        RoleOtherPrivilegeViewItem item = GetItemFromRoutedDataContext<RoleOtherPrivilegeViewItem>(e);
+                        OtherPrivilegeRolePrivilegeViewItem item = GetItemFromRoutedDataContext<OtherPrivilegeRolePrivilegeViewItem>(e);
 
                         if (item != null)
                         {
@@ -888,7 +888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             if (menuItem.DataContext == null
-                || !(menuItem.DataContext is RoleOtherPrivilegeViewItem role)
+                || !(menuItem.DataContext is OtherPrivilegeRolePrivilegeViewItem role)
             )
             {
                 return;
@@ -919,7 +919,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             if (menuItem.DataContext == null
-                || !(menuItem.DataContext is RoleOtherPrivilegeViewItem role)
+                || !(menuItem.DataContext is OtherPrivilegeRolePrivilegeViewItem role)
             )
             {
                 return;
@@ -1051,6 +1051,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
+        #region Set Attribute
+
+        private void mISetAttributeOtherPrivilegeRight_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRolesPrivilege(privilegeDepth);
+            }
+        }
+
         private void SetSelectedRolesPrivilege(PrivilegeDepthExtended privilegeDepth)
         {
             Privilege privilege = GetSelectedOtherPrivilege()?.Privilege;
@@ -1060,7 +1073,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var list = lstVwSecurityRoles.SelectedItems.OfType<RoleOtherPrivilegeViewItem>().ToList();
+            var list = lstVwSecurityRoles.SelectedItems.Cast<OtherPrivilegeRolePrivilegeViewItem>().ToList();
 
             if (!list.Any())
             {
@@ -1104,46 +1117,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        #region Set Attribute
-
-        private void mISetAttributeOtherPrivilegeRightNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRolesPrivilege(PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Global);
-        }
-
         #endregion Set Attribute
 
         #region Other Privilege
 
         private OtherPrivilegeListViewItem GetSelectedOtherPrivilege()
         {
-            return this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().Count() == 1
-                ? this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().SingleOrDefault() : null;
+            return this.lstVwOtherPrivileges.SelectedItems.Cast<OtherPrivilegeListViewItem>().Count() == 1
+                ? this.lstVwOtherPrivileges.SelectedItems.Cast<OtherPrivilegeListViewItem>().SingleOrDefault() : null;
         }
 
         private List<OtherPrivilegeListViewItem> GetSelectedOtherPrivileges()
         {
-            List<OtherPrivilegeListViewItem> result = this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().ToList();
+            List<OtherPrivilegeListViewItem> result = this.lstVwOtherPrivileges.SelectedItems.Cast<OtherPrivilegeListViewItem>().ToList();
 
             return result;
         }

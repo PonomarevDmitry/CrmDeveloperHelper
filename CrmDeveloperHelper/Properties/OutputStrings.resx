@@ -1302,6 +1302,15 @@
   <data name="LoadingEntities" xml:space="preserve">
     <value>Loading entities...</value>
   </data>
+  <data name="FilteringEntitiesCompletedFormat1" xml:space="preserve">
+    <value>{0} entities filtered.</value>
+  </data>
+  <data name="FilteringEntities" xml:space="preserve">
+    <value>Filtering entities...</value>
+  </data>
+  
+    
+  
   <data name="LoadingEntityKeys" xml:space="preserve">
     <value>Loading entity keys...</value>
   </data>
@@ -2300,6 +2309,13 @@
   </data>
   <data name="LoadingOtherPrivileges" xml:space="preserve">
     <value>Loading Other Privileges...</value>
+  </data>
+  
+  <data name="FilteringOtherPrivilegesCompletedFormat1" xml:space="preserve">
+    <value>{0} Other Privileges filtered.</value>
+  </data>
+  <data name="FilteringOtherPrivileges" xml:space="preserve">
+    <value>Filtering Other Privileges...</value>
   </data>
 
   <data name="GettingClassTypeFullNameFromFileFormat2" xml:space="preserve">

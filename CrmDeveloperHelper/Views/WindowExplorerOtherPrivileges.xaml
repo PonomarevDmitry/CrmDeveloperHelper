@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerOtherPrivileges"
     Title="Other Privileges Explorer"
     Height="540"
@@ -220,30 +221,45 @@
                     <Menu x:Name="menuSetPrivilege" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
 
                         <MenuItem Header="Set Privilege">
-                            <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRightNone_Click">
+                            <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                 </MenuItem.Icon>
+                                <MenuItem.Tag>
+                                    <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Basic" x:Name="mISetAttributeOtherPrivilegeRightBasic" Click="mISetAttributeOtherPrivilegeRightBasic_Click">
+                            <MenuItem Header="Basic" x:Name="mISetAttributeOtherPrivilegeRightBasic" Click="mISetAttributeOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                 </MenuItem.Icon>
+                                <MenuItem.Tag>
+                                    <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Local" x:Name="mISetAttributeOtherPrivilegeRightLocal" Click="mISetAttributeOtherPrivilegeRightLocal_Click">
+                            <MenuItem Header="Local" x:Name="mISetAttributeOtherPrivilegeRightLocal" Click="mISetAttributeOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                 </MenuItem.Icon>
+                                <MenuItem.Tag>
+                                    <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Deep" x:Name="mISetAttributeOtherPrivilegeRightDeep" Click="mISetAttributeOtherPrivilegeRightDeep_Click">
+                            <MenuItem Header="Deep" x:Name="mISetAttributeOtherPrivilegeRightDeep" Click="mISetAttributeOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                 </MenuItem.Icon>
+                                <MenuItem.Tag>
+                                    <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Global" x:Name="mISetAttributeOtherPrivilegeRightGlobal" Click="mISetAttributeOtherPrivilegeRightGlobal_Click">
+                            <MenuItem Header="Global" x:Name="mISetAttributeOtherPrivilegeRightGlobal" Click="mISetAttributeOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                 </MenuItem.Icon>
+                                <MenuItem.Tag>
+                                    <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                </MenuItem.Tag>
                             </MenuItem>
 
                         </MenuItem>

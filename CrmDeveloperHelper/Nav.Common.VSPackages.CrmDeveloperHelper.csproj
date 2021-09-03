@@ -668,6 +668,11 @@
     <Compile Include="Model\CompareTuple.cs" />
     <Compile Include="Model\FormInformation.cs" />
     <Compile Include="Model\FormParameter.cs" />
+    <Compile Include="Model\LinkedPrivilegeViewItem.cs" />
+    <Compile Include="Model\RoleLinkedEntitiesPrivilegeViewItem.cs" />
+    <Compile Include="Model\BasePrivilegeViewItem.cs" />
+    <Compile Include="Model\RoleLinkedOtherPrivilegeViewItem.cs" />
+    <Compile Include="Model\SinglePrivilegeViewItem.cs" />
     <Compile Include="Model\WorkflowEntityFieldString.cs" />
     <Compile Include="Repository\ColumnSetInstances.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
@@ -1109,7 +1114,7 @@
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataAuditViewItem.cs" />
     <Compile Include="Model\EntityMetadataPropertiesViewItem.cs" />
-    <Compile Include="Model\EntityPrivilegeViewItem.cs" />
+    <Compile Include="Model\RoleEntityPrivilegeViewItem.cs" />
     <Compile Include="Model\EntityReferenceView.cs" />
     <Compile Include="Model\EntityTreeViewItem.cs" />
     <Compile Include="Model\ExportSolutionConfig.cs" />
@@ -1167,7 +1172,7 @@
     <Compile Include="Model\OrganizationDifferenceImageComponent.cs" />
     <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
     <Compile Include="Model\OtherPrivilegeListViewItem.cs" />
-    <Compile Include="Model\OtherPrivilegeViewItem.cs" />
+    <Compile Include="Model\RoleOtherPrivilegeViewItem.cs" />
     <Compile Include="Model\PluginStage.cs" />
     <Compile Include="Model\PluginTreeViewItem.cs" />
     <Compile Include="Model\PrimaryGuidView.cs" />
@@ -1177,8 +1182,8 @@
     <Compile Include="Model\RoleEditorLayoutEntity.cs" />
     <Compile Include="Model\RoleEditorLayoutPrivilege.cs" />
     <Compile Include="Model\RoleEditorLayoutTab.cs" />
-    <Compile Include="Model\RoleOtherPrivilegeViewItem.cs" />
-    <Compile Include="Model\RoleEntityPrivilegesViewItem.cs" />
+    <Compile Include="Model\OtherPrivilegeRolePrivilegeViewItem.cs" />
+    <Compile Include="Model\EntityRolePrivilegeViewItem.cs" />
     <Compile Include="Model\SdkMessageRequestTreeViewItem.cs" />
     <Compile Include="Model\SdkMessageSearchResult.cs" />
     <Compile Include="Model\SelectedFile.cs" />
@@ -1561,6 +1566,9 @@
     </Compile>
     <Compile Include="Views\WindowOrganizationComparerApplicationRibbon.xaml.cs">
       <DependentUpon>WindowOrganizationComparerApplicationRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerRole.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerRole.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowOrganizationComparerSavedQuery.xaml.cs">
       <DependentUpon>WindowOrganizationComparerSavedQuery.xaml</DependentUpon>
@@ -2403,6 +2411,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowOrganizationComparerApplicationRibbon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerRole.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1528,6 +1528,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
+        public static void OpenOrganizationComparerSecurityRoleWindow(
+            IWriteToOutput iWriteToOutput
+            , CommonConfiguration commonConfig
+            , ConnectionData connection1
+            , ConnectionData connection2
+            , string filter = null
+        )
+        {
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerRole
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filter
+                )
+            );
+        }
+
         #endregion Compare Organizations
 
         public static void OpenCrmConnectionCard(

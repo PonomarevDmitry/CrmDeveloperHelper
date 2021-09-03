@@ -26,6 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getReportName = null
             , Func<string> getWebResourceName = null
             , Func<string> getPluginAssemblyName = null
+            , Func<string> getRoleName = null
         ) : base(iWriteToOutput, commonConfig
             , getEntityName
             , getGlobalOptionSetName
@@ -37,6 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , getReportName
             , getWebResourceName
             , getPluginAssemblyName
+            , getRoleName
         )
         {
             this.GetConnections = getConnections;
@@ -118,6 +120,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             miCompareSavedChart.Click += miCompareSavedChart_Click;
 
+
+            var miCompareSecurityRoles = new MenuItem()
+            {
+                Header = "Security Roles",
+            };
+            miCompareSecurityRoles.Click += miCompareSecurityRoles_Click;
+
             var miCompareWorkflows = new MenuItem()
             {
                 Header = "Workflows",
@@ -177,6 +186,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             miCompareOrganizations.Items.Add(miCompareSystemForms);
             miCompareOrganizations.Items.Add(miCompareSavedQuery);
             miCompareOrganizations.Items.Add(miCompareSavedChart);
+
+            miCompareOrganizations.Items.Add(new Separator());
+            miCompareOrganizations.Items.Add(miCompareSecurityRoles);
 
             miCompareOrganizations.Items.Add(new Separator());
             miCompareOrganizations.Items.Add(miCompareWorkflows);
@@ -325,6 +337,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var connectionTuple = GetConnections();
 
             WindowHelper.OpenOrganizationComparerPluginAssemblyWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, pluginAssemblyName);
+        }
+
+        private void miCompareSecurityRoles_Click(object sender, RoutedEventArgs e)
+        {
+            var roleName = GetRoleName();
+
+            _commonConfig.Save();
+
+            var connectionTuple = GetConnections();
+
+            WindowHelper.OpenOrganizationComparerSecurityRoleWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, roleName);
         }
     }
 }

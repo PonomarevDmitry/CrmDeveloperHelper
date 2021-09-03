@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityPrivileges"
     Title="Entity Privileges Explorer"
     Height="540"
@@ -251,256 +252,391 @@
 
                         <MenuItem Header="Set Privilege">
 
-                            <MenuItem x:Name="mISetPrivilegeAll" Header="All">
-                                <MenuItem x:Name="mISetAttributeAllNone" Header="None" Click="mISetAttributeAllNone_Click">
+                            <MenuItem Header="All">
+                                <MenuItem x:Name="mISetAttributeAllNone" Header="None" Click="mISetAttributeAll_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAllBasic" Header="Basic" Click="mISetAttributeAllBasic_Click">
+                                <MenuItem x:Name="mISetAttributeAllBasic" Header="Basic" Click="mISetAttributeAll_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAllLocal" Header="Local" Click="mISetAttributeAllLocal_Click">
+                                <MenuItem x:Name="mISetAttributeAllLocal" Header="Local" Click="mISetAttributeAll_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAllDeep" Header="Deep" Click="mISetAttributeAllDeep_Click">
+                                <MenuItem x:Name="mISetAttributeAllDeep" Header="Deep" Click="mISetAttributeAll_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAllGlobal" Header="Global" Click="mISetAttributeAllGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeAllGlobal" Header="Global" Click="mISetAttributeAll_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
                             <Separator />
 
                             <MenuItem x:Name="mISetPrivilegeCreate" Header="Create">
-                                <MenuItem x:Name="mISetAttributeCreateNone" Header="None" Click="mISetAttributeCreateNone_Click">
+                                <MenuItem x:Name="mISetAttributeCreateNone" Header="None" Click="mISetAttributeCreate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeCreateBasic" Header="Basic" Click="mISetAttributeCreateBasic_Click">
+                                <MenuItem x:Name="mISetAttributeCreateBasic" Header="Basic" Click="mISetAttributeCreate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeCreateLocal" Header="Local" Click="mISetAttributeCreateLocal_Click">
+                                <MenuItem x:Name="mISetAttributeCreateLocal" Header="Local" Click="mISetAttributeCreate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeCreateDeep" Header="Deep" Click="mISetAttributeCreateDeep_Click">
+                                <MenuItem x:Name="mISetAttributeCreateDeep" Header="Deep" Click="mISetAttributeCreate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeCreateGlobal" Header="Global" Click="mISetAttributeCreateGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeCreateGlobal" Header="Global" Click="mISetAttributeCreate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 
                             <MenuItem x:Name="mISetPrivilegeRead" Header="Read">
-                                <MenuItem x:Name="mISetAttributeReadNone" Header="None" Click="mISetAttributeReadNone_Click">
+                                <MenuItem x:Name="mISetAttributeReadNone" Header="None" Click="mISetAttributeRead_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeReadBasic" Header="Basic" Click="mISetAttributeReadBasic_Click">
+                                <MenuItem x:Name="mISetAttributeReadBasic" Header="Basic" Click="mISetAttributeRead_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeReadLocal" Header="Local" Click="mISetAttributeReadLocal_Click">
+                                <MenuItem x:Name="mISetAttributeReadLocal" Header="Local" Click="mISetAttributeRead_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeReadDeep" Header="Deep" Click="mISetAttributeReadDeep_Click">
+                                <MenuItem x:Name="mISetAttributeReadDeep" Header="Deep" Click="mISetAttributeRead_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeReadGlobal" Header="Global" Click="mISetAttributeReadGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeReadGlobal" Header="Global" Click="mISetAttributeRead_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 
                             <MenuItem x:Name="mISetPrivilegeUpdate" Header="Update">
-                                <MenuItem x:Name="mISetAttributeUpdateNone" Header="None" Click="mISetAttributeUpdateNone_Click">
+                                <MenuItem x:Name="mISetAttributeUpdateNone" Header="None" Click="mISetAttributeUpdate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeUpdateBasic" Header="Basic" Click="mISetAttributeUpdateBasic_Click">
+                                <MenuItem x:Name="mISetAttributeUpdateBasic" Header="Basic" Click="mISetAttributeUpdate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeUpdateLocal" Header="Local" Click="mISetAttributeUpdateLocal_Click">
+                                <MenuItem x:Name="mISetAttributeUpdateLocal" Header="Local" Click="mISetAttributeUpdate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeUpdateDeep" Header="Deep" Click="mISetAttributeUpdateDeep_Click">
+                                <MenuItem x:Name="mISetAttributeUpdateDeep" Header="Deep" Click="mISetAttributeUpdate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeUpdateGlobal" Header="Global" Click="mISetAttributeUpdateGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeUpdateGlobal" Header="Global" Click="mISetAttributeUpdate_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 
                             <MenuItem x:Name="mISetPrivilegeDelete" Header="Delete">
-                                <MenuItem x:Name="mISetAttributeDeleteNone" Header="None" Click="mISetAttributeDeleteNone_Click">
+                                <MenuItem x:Name="mISetAttributeDeleteNone" Header="None" Click="mISetAttributeDelete_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeDeleteBasic" Header="Basic" Click="mISetAttributeDeleteBasic_Click">
+                                <MenuItem x:Name="mISetAttributeDeleteBasic" Header="Basic" Click="mISetAttributeDelete_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeDeleteLocal" Header="Local" Click="mISetAttributeDeleteLocal_Click">
+                                <MenuItem x:Name="mISetAttributeDeleteLocal" Header="Local" Click="mISetAttributeDelete_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeDeleteDeep" Header="Deep" Click="mISetAttributeDeleteDeep_Click">
+                                <MenuItem x:Name="mISetAttributeDeleteDeep" Header="Deep" Click="mISetAttributeDelete_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeDeleteGlobal" Header="Global" Click="mISetAttributeDeleteGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeDeleteGlobal" Header="Global" Click="mISetAttributeDelete_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 
                             <MenuItem x:Name="mISetPrivilegeAppend" Header="Append">
-                                <MenuItem x:Name="mISetAttributeAppendNone" Header="None" Click="mISetAttributeAppendNone_Click">
+                                <MenuItem x:Name="mISetAttributeAppendNone" Header="None" Click="mISetAttributeAppend_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendBasic" Header="Basic" Click="mISetAttributeAppendBasic_Click">
+                                <MenuItem x:Name="mISetAttributeAppendBasic" Header="Basic" Click="mISetAttributeAppend_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendLocal" Header="Local" Click="mISetAttributeAppendLocal_Click">
+                                <MenuItem x:Name="mISetAttributeAppendLocal" Header="Local" Click="mISetAttributeAppend_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendDeep" Header="Deep" Click="mISetAttributeAppendDeep_Click">
+                                <MenuItem x:Name="mISetAttributeAppendDeep" Header="Deep" Click="mISetAttributeAppend_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendGlobal" Header="Global" Click="mISetAttributeAppendGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeAppendGlobal" Header="Global" Click="mISetAttributeAppend_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 
                             <MenuItem x:Name="mISetPrivilegeAppendTo" Header="AppendTo">
-                                <MenuItem x:Name="mISetAttributeAppendToNone" Header="None" Click="mISetAttributeAppendToNone_Click">
+                                <MenuItem x:Name="mISetAttributeAppendToNone" Header="None" Click="mISetAttributeAppendTo_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendToBasic" Header="Basic" Click="mISetAttributeAppendToBasic_Click">
+                                <MenuItem x:Name="mISetAttributeAppendToBasic" Header="Basic" Click="mISetAttributeAppendTo_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendToLocal" Header="Local" Click="mISetAttributeAppendToLocal_Click">
+                                <MenuItem x:Name="mISetAttributeAppendToLocal" Header="Local" Click="mISetAttributeAppendTo_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendToDeep" Header="Deep" Click="mISetAttributeAppendToDeep_Click">
+                                <MenuItem x:Name="mISetAttributeAppendToDeep" Header="Deep" Click="mISetAttributeAppendTo_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAppendToGlobal" Header="Global" Click="mISetAttributeAppendToGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeAppendToGlobal" Header="Global" Click="mISetAttributeAppendTo_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 
                             <MenuItem x:Name="mISetPrivilegeAssign" Header="Assign">
-                                <MenuItem x:Name="mISetAttributeAssignNone" Header="None" Click="mISetAttributeAssignNone_Click">
+                                <MenuItem x:Name="mISetAttributeAssignNone" Header="None" Click="mISetAttributeAssign_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAssignBasic" Header="Basic" Click="mISetAttributeAssignBasic_Click">
+                                <MenuItem x:Name="mISetAttributeAssignBasic" Header="Basic" Click="mISetAttributeAssign_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAssignLocal" Header="Local" Click="mISetAttributeAssignLocal_Click">
+                                <MenuItem x:Name="mISetAttributeAssignLocal" Header="Local" Click="mISetAttributeAssign_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAssignDeep" Header="Deep" Click="mISetAttributeAssignDeep_Click">
+                                <MenuItem x:Name="mISetAttributeAssignDeep" Header="Deep" Click="mISetAttributeAssign_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeAssignGlobal" Header="Global" Click="mISetAttributeAssignGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeAssignGlobal" Header="Global" Click="mISetAttributeAssign_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 
                             <MenuItem x:Name="mISetPrivilegeShare" Header="Share">
-                                <MenuItem x:Name="mISetAttributeShareNone" Header="None" Click="mISetAttributeShareNone_Click">
+                                <MenuItem x:Name="mISetAttributeShareNone" Header="None" Click="mISetAttributeShare_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeShareBasic" Header="Basic" Click="mISetAttributeShareBasic_Click">
+                                <MenuItem x:Name="mISetAttributeShareBasic" Header="Basic" Click="mISetAttributeShare_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeShareLocal" Header="Local" Click="mISetAttributeShareLocal_Click">
+                                <MenuItem x:Name="mISetAttributeShareLocal" Header="Local" Click="mISetAttributeShare_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeShareDeep" Header="Deep" Click="mISetAttributeShareDeep_Click">
+                                <MenuItem x:Name="mISetAttributeShareDeep" Header="Deep" Click="mISetAttributeShare_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
-                                <MenuItem x:Name="mISetAttributeShareGlobal" Header="Global" Click="mISetAttributeShareGlobal_Click">
+                                <MenuItem x:Name="mISetAttributeShareGlobal" Header="Global" Click="mISetAttributeShare_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                     </MenuItem.Icon>
+                                    <MenuItem.Tag>
+                                        <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                    </MenuItem.Tag>
                                 </MenuItem>
                             </MenuItem>
 

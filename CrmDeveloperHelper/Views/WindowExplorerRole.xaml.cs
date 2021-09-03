@@ -37,13 +37,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<Team> _itemsSourceTeams;
         private readonly ObservableCollection<Role> _itemsSourceRoles;
 
-        private readonly ObservableCollection<EntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
-        private readonly ObservableCollection<OtherPrivilegeViewItem> _itemsSourceOtherPrivileges;
+        private readonly ObservableCollection<RoleEntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
+        private readonly ObservableCollection<RoleOtherPrivilegeViewItem> _itemsSourceOtherPrivileges;
 
         private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
         private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
 
-        private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).OfType<PrivilegeType>().ToList();
+        private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).Cast<PrivilegeType>().ToList();
 
         public WindowExplorerRole(
             IWriteToOutput iWriteToOutput
@@ -93,12 +93,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBFilterRole.Focus();
 
-            lstVwSystemUsers.ItemsSource = _itemsSourceSystemUsers = new ObservableCollection<SystemUser>();
-
-            lstVwTeams.ItemsSource = _itemsSourceTeams = new ObservableCollection<Team>();
             lstVwSecurityRoles.ItemsSource = _itemsSourceRoles = new ObservableCollection<Role>();
-            lstVwEntityPrivileges.ItemsSource = _itemsSourceEntityPrivileges = new ObservableCollection<EntityPrivilegeViewItem>();
-            lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<OtherPrivilegeViewItem>();
+
+            lstVwSystemUsers.ItemsSource = _itemsSourceSystemUsers = new ObservableCollection<SystemUser>();
+            lstVwTeams.ItemsSource = _itemsSourceTeams = new ObservableCollection<Team>();
+
+            lstVwEntityPrivileges.ItemsSource = _itemsSourceEntityPrivileges = new ObservableCollection<RoleEntityPrivilegeViewItem>();
+            lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<RoleOtherPrivilegeViewItem>();
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
@@ -243,13 +244,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadFormSettings(winConfig);
         }
 
-        private const string paramColumnSystemUserWidth = "ColumnSystemUserWidth";
+        private const string paramColumnRoleWidth = "ColumnRoleWidth";
 
         private void LoadFormSettings(WindowSettings winConfig)
         {
-            if (winConfig.DictDouble.ContainsKey(paramColumnSystemUserWidth))
+            if (winConfig.DictDouble.ContainsKey(paramColumnRoleWidth))
             {
-                columnSystemUser.Width = new GridLength(winConfig.DictDouble[paramColumnSystemUserWidth]);
+                columnRole.Width = new GridLength(winConfig.DictDouble[paramColumnRoleWidth]);
             }
         }
 
@@ -257,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             base.SaveConfigurationInternal(winConfig);
 
-            winConfig.DictDouble[paramColumnSystemUserWidth] = columnSystemUser.Width.Value;
+            winConfig.DictDouble[paramColumnRoleWidth] = columnRole.Width.Value;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -502,9 +503,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IEnumerable<EntityMetadata> entityMetadataList = Enumerable.Empty<EntityMetadata>();
 
-            IEnumerable<EntityPrivilegeViewItem> listEntityPrivileges = Enumerable.Empty<EntityPrivilegeViewItem>();
+            IEnumerable<RoleEntityPrivilegeViewItem> listEntityPrivileges = Enumerable.Empty<RoleEntityPrivilegeViewItem>();
 
-            IEnumerable<OtherPrivilegeViewItem> listOtherPrivileges = Enumerable.Empty<OtherPrivilegeViewItem>();
+            IEnumerable<RoleOtherPrivilegeViewItem> listOtherPrivileges = Enumerable.Empty<RoleOtherPrivilegeViewItem>();
 
             try
             {
@@ -543,9 +544,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             var rolePrivileges = await repository.GetRolePrivilegesAsync(role.Id);
 
-                            listEntityPrivileges = entityMetadataList.Select(e => new EntityPrivilegeViewItem(e, rolePrivileges, (role.IsCustomizable?.Value).GetValueOrDefault()));
+                            listEntityPrivileges = entityMetadataList.Select(e => new RoleEntityPrivilegeViewItem(e, rolePrivileges, (role.IsCustomizable?.Value).GetValueOrDefault()));
 
-                            listOtherPrivileges = otherPrivileges.Select(e => new OtherPrivilegeViewItem(e, rolePrivileges, (role.IsCustomizable?.Value).GetValueOrDefault()));
+                            listOtherPrivileges = otherPrivileges.Select(e => new RoleOtherPrivilegeViewItem(e, rolePrivileges, (role.IsCustomizable?.Value).GetValueOrDefault()));
                         }
                     }
                 }
@@ -640,7 +641,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void rolePrivilege_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (string.Equals(e.PropertyName, "IsChanged", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(e.PropertyName, nameof(SinglePrivilegeViewItem.IsChanged), StringComparison.InvariantCultureIgnoreCase))
             {
                 UpdateSaveRoleChangesButtons();
             }
@@ -798,33 +799,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwSecurityRoles.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwSecurityRoles.SelectedItems.OfType<Role>().Count() == 1
-                    ? this.lstVwSecurityRoles.SelectedItems.OfType<Role>().SingleOrDefault() : null;
+                result = this.lstVwSecurityRoles.SelectedItems.Cast<Role>().Count() == 1
+                    ? this.lstVwSecurityRoles.SelectedItems.Cast<Role>().SingleOrDefault() : null;
             });
 
             return result;
         }
 
-        private EntityPrivilegeViewItem GetSelectedEntity()
+        private RoleEntityPrivilegeViewItem GetSelectedEntity()
         {
-            EntityPrivilegeViewItem result = null;
+            RoleEntityPrivilegeViewItem result = null;
 
             lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().Count() == 1
-                     ? this.lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().SingleOrDefault() : null;
+                result = this.lstVwEntityPrivileges.SelectedItems.Cast<RoleEntityPrivilegeViewItem>().Count() == 1
+                     ? this.lstVwEntityPrivileges.SelectedItems.Cast<RoleEntityPrivilegeViewItem>().SingleOrDefault() : null;
             });
 
             return result;
         }
 
-        private List<EntityPrivilegeViewItem> GetSelectedEntities()
+        private List<RoleEntityPrivilegeViewItem> GetSelectedEntities()
         {
-            List<EntityPrivilegeViewItem> result = null;
+            List<RoleEntityPrivilegeViewItem> result = null;
 
             lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().ToList();
+                result = this.lstVwEntityPrivileges.SelectedItems.Cast<RoleEntityPrivilegeViewItem>().ToList();
             });
 
             return result;
@@ -836,7 +837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwSecurityRoles.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwSecurityRoles.SelectedItems.OfType<Role>().ToList();
+                result = this.lstVwSecurityRoles.SelectedItems.Cast<Role>().ToList();
             });
 
             return result;
@@ -848,7 +849,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwSystemUsers.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwSystemUsers.SelectedItems.OfType<SystemUser>().ToList();
+                result = this.lstVwSystemUsers.SelectedItems.Cast<SystemUser>().ToList();
             });
 
             return result;
@@ -860,7 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwTeams.Dispatcher.Invoke(() =>
             {
-                result = this.lstVwTeams.SelectedItems.OfType<Team>().ToList();
+                result = this.lstVwTeams.SelectedItems.Cast<Team>().ToList();
             });
 
             return result;
@@ -907,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         || cell.Column == colDisplayName
                         )
                     {
-                        EntityPrivilegeViewItem item = GetItemFromRoutedDataContext<EntityPrivilegeViewItem>(e);
+                        RoleEntityPrivilegeViewItem item = GetItemFromRoutedDataContext<RoleEntityPrivilegeViewItem>(e);
 
                         if (item != null)
                         {
@@ -1858,7 +1859,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = this.IsControlsEnabled
                         && this.lstVwTeams != null
-                        && this.lstVwTeams.SelectedItems.OfType<Team>().Any();
+                        && this.lstVwTeams.SelectedItems.Cast<Team>().Any();
 
                     UIElement[] list = { btnRemoveRoleFromTeam };
 
@@ -2729,254 +2730,231 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Set Attribute
 
-        private void mISetAttributeAllNone_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeAll_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.None);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(privilegeDepth);
+            }
         }
 
-        private void mISetAttributeAllBasic_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeCreate_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Basic);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.Create, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeAllLocal_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeRead_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Local);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.Read, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeAllDeep_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeUpdate_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Deep);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.Write, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeAllGlobal_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeDelete_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Global);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.Delete, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeCreateNone_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeAppend_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Create, PrivilegeDepthExtended.None);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.Append, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeCreateBasic_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeAppendTo_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Create, PrivilegeDepthExtended.Basic);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.AppendTo, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeCreateLocal_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeAssign_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Create, PrivilegeDepthExtended.Local);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.Assign, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeCreateDeep_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeEntityPrivilegeShare_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Create, PrivilegeDepthExtended.Deep);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleEntityPrivileges(PrivilegeType.Share, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeCreateGlobal_Click(object sender, RoutedEventArgs e)
+        private void SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended privilegeDepth)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Create, PrivilegeDepthExtended.Global);
+            var list = lstVwEntityPrivileges.SelectedItems.Cast<RoleEntityPrivilegeViewItem>().ToList();
+
+            if (!list.Any())
+            {
+                return;
+            }
+
+            foreach (var privilegeType in _privielgeTypesAll)
+            {
+                foreach (var item in list)
+                {
+                    SetSelectedRoleEntityPrivileges(item, privilegeType, privilegeDepth);
+                }
+            }
         }
 
-        private void mISetAttributeReadNone_Click(object sender, RoutedEventArgs e)
+        private void SetSelectedRoleEntityPrivileges(PrivilegeType privilegeType, PrivilegeDepthExtended privilegeDepth)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Read, PrivilegeDepthExtended.None);
+            var list = lstVwEntityPrivileges.SelectedItems.Cast<RoleEntityPrivilegeViewItem>().ToList();
+
+            if (!list.Any())
+            {
+                return;
+            }
+
+            foreach (var item in list)
+            {
+                SetSelectedRoleEntityPrivileges(item, privilegeType, privilegeDepth);
+            }
         }
 
-        private void mISetAttributeReadBasic_Click(object sender, RoutedEventArgs e)
+        private static void SetSelectedRoleEntityPrivileges(RoleEntityPrivilegeViewItem item, PrivilegeType privilegeType, PrivilegeDepthExtended privilegeDepth)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Read, PrivilegeDepthExtended.Basic);
+            switch (privilegeType)
+            {
+                case PrivilegeType.Create:
+                    if (item.AvailableCreate && item.CreateOptions.Contains(privilegeDepth))
+                    {
+                        item.CreateRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.Read:
+                    if (item.AvailableRead && item.ReadOptions.Contains(privilegeDepth))
+                    {
+                        item.ReadRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.Write:
+                    if (item.AvailableUpdate && item.UpdateOptions.Contains(privilegeDepth))
+                    {
+                        item.UpdateRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.Delete:
+                    if (item.AvailableDelete && item.DeleteOptions.Contains(privilegeDepth))
+                    {
+                        item.DeleteRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.Assign:
+                    if (item.AvailableAssign && item.AssignOptions.Contains(privilegeDepth))
+                    {
+                        item.AssignRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.Share:
+                    if (item.AvailableShare && item.ShareOptions.Contains(privilegeDepth))
+                    {
+                        item.ShareRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.Append:
+                    if (item.AvailableAppend && item.AppendOptions.Contains(privilegeDepth))
+                    {
+                        item.AppendRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.AppendTo:
+                    if (item.AvailableAppendTo && item.AppendToOptions.Contains(privilegeDepth))
+                    {
+                        item.AppendToRight = privilegeDepth;
+                    }
+                    break;
+
+                case PrivilegeType.None:
+                default:
+                    break;
+            }
         }
 
-        private void mISetAttributeReadLocal_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributeOtherPrivilegeRight_Click(object sender, RoutedEventArgs e)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Read, PrivilegeDepthExtended.Local);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is PrivilegeDepthExtended privilegeDepth
+            )
+            {
+                SetSelectedRoleOtherPrivileges(privilegeDepth);
+            }
         }
 
-        private void mISetAttributeReadDeep_Click(object sender, RoutedEventArgs e)
+        private void SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended privilegeDepth)
         {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Read, PrivilegeDepthExtended.Deep);
-        }
+            var list = lstVwOtherPrivileges.SelectedItems.Cast<RoleOtherPrivilegeViewItem>().ToList();
 
-        private void mISetAttributeReadGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Read, PrivilegeDepthExtended.Global);
-        }
+            if (!list.Any())
+            {
+                return;
+            }
 
-        private void mISetAttributeUpdateNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Write, PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeUpdateBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Write, PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeUpdateLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Write, PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeUpdateDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Write, PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeUpdateGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Write, PrivilegeDepthExtended.Global);
-        }
-
-        private void mISetAttributeDeleteNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Delete, PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeDeleteBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Delete, PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeDeleteLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Delete, PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeDeleteDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Delete, PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeDeleteGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Delete, PrivilegeDepthExtended.Global);
-        }
-
-        private void mISetAttributeAppendNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Append, PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeAppendBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Append, PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeAppendLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Append, PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeAppendDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Append, PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeAppendGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Append, PrivilegeDepthExtended.Global);
-        }
-
-        private void mISetAttributeAppendToNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.AppendTo, PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeAppendToBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.AppendTo, PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeAppendToLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.AppendTo, PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeAppendToDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.AppendTo, PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeAppendToGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.AppendTo, PrivilegeDepthExtended.Global);
-        }
-
-        private void mISetAttributeAssignNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Assign, PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeAssignBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Assign, PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeAssignLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Assign, PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeAssignDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Assign, PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeAssignGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Assign, PrivilegeDepthExtended.Global);
-        }
-
-        private void mISetAttributeShareNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Share, PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeShareBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Share, PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeShareLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Share, PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeShareDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Share, PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeShareGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleEntityPrivileges(PrivilegeType.Share, PrivilegeDepthExtended.Global);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightNone_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended.None);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightBasic_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended.Basic);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightLocal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended.Local);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightDeep_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended.Deep);
-        }
-
-        private void mISetAttributeOtherPrivilegeRightGlobal_Click(object sender, RoutedEventArgs e)
-        {
-            SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended.Global);
+            foreach (var item in list)
+            {
+                if (item.RightOptions.Contains(privilegeDepth))
+                {
+                    item.Right = privilegeDepth;
+                }
+            }
         }
 
         #endregion Set Attribute
@@ -3277,15 +3255,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Other Privilege
 
-        private OtherPrivilegeViewItem GetSelectedOtherPrivilege()
+        private RoleOtherPrivilegeViewItem GetSelectedOtherPrivilege()
         {
-            return this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().Count() == 1
-                ? this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().SingleOrDefault() : null;
+            return this.lstVwOtherPrivileges.SelectedItems.Cast<RoleOtherPrivilegeViewItem>().Count() == 1
+                ? this.lstVwOtherPrivileges.SelectedItems.Cast<RoleOtherPrivilegeViewItem>().SingleOrDefault() : null;
         }
 
-        private List<OtherPrivilegeViewItem> GetSelectedOtherPrivileges()
+        private List<RoleOtherPrivilegeViewItem> GetSelectedOtherPrivileges()
         {
-            var result = this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().ToList();
+            var result = this.lstVwOtherPrivileges.SelectedItems.Cast<RoleOtherPrivilegeViewItem>().ToList();
 
             return result;
         }
@@ -3424,22 +3402,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIClipboardPrivilegeCopyName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.Name);
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.Name);
         }
 
         private void mIClipboardPrivilegeCopyType_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.PrivilegeType);
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.PrivilegeType);
         }
 
         private void mIClipboardPrivilegeCopyLinkedEntity_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.EntityLogicalName);
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.EntityLogicalName);
         }
 
         private void mIClipboardPrivilegeCopyPrivilegeId_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.Privilege.Id.ToString());
+            GetEntityViewItemAndCopyToClipboard<RoleOtherPrivilegeViewItem>(e, ent => ent.Privilege.Id.ToString());
         }
 
         #endregion Clipboard Other Privilege
@@ -3474,199 +3452,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended privilegeDepth)
-        {
-            var list = lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().ToList();
-
-            if (!list.Any())
-            {
-                return;
-            }
-
-            foreach (var privilegeType in _privielgeTypesAll)
-            {
-                foreach (var item in list)
-                {
-                    switch (privilegeType)
-                    {
-                        case PrivilegeType.Create:
-                            if (item.AvailableCreate && item.CreateOptions.Contains(privilegeDepth))
-                            {
-                                item.CreateRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.Read:
-                            if (item.AvailableRead && item.ReadOptions.Contains(privilegeDepth))
-                            {
-                                item.ReadRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.Write:
-                            if (item.AvailableUpdate && item.UpdateOptions.Contains(privilegeDepth))
-                            {
-                                item.UpdateRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.Delete:
-                            if (item.AvailableDelete && item.DeleteOptions.Contains(privilegeDepth))
-                            {
-                                item.DeleteRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.Assign:
-                            if (item.AvailableAssign && item.AssignOptions.Contains(privilegeDepth))
-                            {
-                                item.AssignRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.Share:
-                            if (item.AvailableShare && item.ShareOptions.Contains(privilegeDepth))
-                            {
-                                item.ShareRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.Append:
-                            if (item.AvailableAppend && item.AppendOptions.Contains(privilegeDepth))
-                            {
-                                item.AppendRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.AppendTo:
-                            if (item.AvailableAppendTo && item.AppendToOptions.Contains(privilegeDepth))
-                            {
-                                item.AppendToRight = privilegeDepth;
-                            }
-                            break;
-
-                        case PrivilegeType.None:
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-
-        private void SetSelectedRoleEntityPrivileges(PrivilegeType privilegeType, PrivilegeDepthExtended privilegeDepth)
-        {
-            var list = lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().ToList();
-
-            if (!list.Any())
-            {
-                return;
-            }
-
-            foreach (var item in list)
-            {
-                switch (privilegeType)
-                {
-                    case PrivilegeType.Create:
-                        if (item.AvailableCreate && item.CreateOptions.Contains(privilegeDepth))
-                        {
-                            item.CreateRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Read:
-                        if (item.AvailableRead && item.ReadOptions.Contains(privilegeDepth))
-                        {
-                            item.ReadRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Write:
-                        if (item.AvailableUpdate && item.UpdateOptions.Contains(privilegeDepth))
-                        {
-                            item.UpdateRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Delete:
-                        if (item.AvailableDelete && item.DeleteOptions.Contains(privilegeDepth))
-                        {
-                            item.DeleteRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Assign:
-                        if (item.AvailableAssign && item.AssignOptions.Contains(privilegeDepth))
-                        {
-                            item.AssignRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Share:
-                        if (item.AvailableShare && item.ShareOptions.Contains(privilegeDepth))
-                        {
-                            item.ShareRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Append:
-                        if (item.AvailableAppend && item.AppendOptions.Contains(privilegeDepth))
-                        {
-                            item.AppendRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.AppendTo:
-                        if (item.AvailableAppendTo && item.AppendToOptions.Contains(privilegeDepth))
-                        {
-                            item.AppendToRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.None:
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private void SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended privilegeDepth)
-        {
-            var list = lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().ToList();
-
-            if (!list.Any())
-            {
-                return;
-            }
-
-            foreach (var item in list)
-            {
-                if (item.RightOptions.Contains(privilegeDepth))
-                {
-                    item.Right = privilegeDepth;
-                }
-            }
-        }
-
         #region Clipboard Entity
 
         private void mIClipboardEntityCopyName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.LogicalName);
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.LogicalName);
         }
 
         private void mIClipboardEntityCopyDisplayName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.DisplayName);
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.DisplayName);
         }
 
         private void mIClipboardEntityCopyObjectTypeCode_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.ObjectTypeCode.ToString());
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.ObjectTypeCode.ToString());
         }
 
         private void mIClipboardEntityCopyEntityMetadataId_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
+            GetEntityViewItemAndCopyToClipboard<RoleEntityPrivilegeViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
         }
 
         #endregion Clipboard Entity

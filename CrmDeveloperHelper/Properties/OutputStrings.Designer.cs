@@ -2302,6 +2302,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtering entities....
+        /// </summary>
+        internal static string FilteringEntities {
+            get {
+                return ResourceManager.GetString("FilteringEntities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} entities filtered..
+        /// </summary>
+        internal static string FilteringEntitiesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("FilteringEntitiesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filtering Entity {0} Instance {1} Attributes completed..
         /// </summary>
         internal static string FilteringEntityInstanceAttributesCompletedFormat2 {
@@ -2334,6 +2352,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FilteringOrganizationDifferenceImageComponentsCompletedFormat1 {
             get {
                 return ResourceManager.GetString("FilteringOrganizationDifferenceImageComponentsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering Other Privileges....
+        /// </summary>
+        internal static string FilteringOtherPrivileges {
+            get {
+                return ResourceManager.GetString("FilteringOtherPrivileges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Other Privileges filtered..
+        /// </summary>
+        internal static string FilteringOtherPrivilegesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("FilteringOtherPrivilegesCompletedFormat1", resourceCulture);
             }
         }
         

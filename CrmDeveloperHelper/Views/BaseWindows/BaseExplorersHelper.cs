@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected readonly Func<string> _getReportName;
         protected readonly Func<string> _getWebResourceName;
         protected readonly Func<string> _getPluginAssemblyName;
+        protected readonly Func<string> _getRoleName;
 
         protected BaseExplorersHelper(
             IWriteToOutput iWriteToOutput
@@ -33,6 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getReportName
             , Func<string> getWebResourceName
             , Func<string> getPluginAssemblyName
+            , Func<string> getRoleName
         )
         {
             this._iWriteToOutput = iWriteToOutput;
@@ -47,6 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._getReportName = getReportName;
             this._getWebResourceName = getWebResourceName;
             this._getPluginAssemblyName = getPluginAssemblyName;
+            this._getRoleName = getRoleName;
         }
 
         protected string GetEntityName()
@@ -64,6 +67,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_getGlobalOptionSetName != null)
             {
                 return _getGlobalOptionSetName();
+            }
+
+            return string.Empty;
+        }
+
+        protected string GetRoleName()
+        {
+            if (_getRoleName != null)
+            {
+                return _getRoleName();
             }
 
             return string.Empty;

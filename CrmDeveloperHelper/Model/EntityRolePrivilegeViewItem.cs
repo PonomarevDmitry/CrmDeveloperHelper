@@ -1,30 +1,14 @@
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class RoleEntityPrivilegesViewItem : INotifyPropertyChanging, INotifyPropertyChanged
+    public class EntityRolePrivilegeViewItem : SinglePrivilegeViewItem
     {
-        private static readonly string[] _names =
-        {
-            nameof(IsChanged)
-            , nameof(CreateRight)
-            , nameof(ReadRight)
-            , nameof(UpdateRight)
-            , nameof(DeleteRight)
-            , nameof(AppendRight)
-            , nameof(AppendToRight)
-            , nameof(ShareRight)
-            , nameof(AssignRight)
-        };
-
         public Role Role { get; private set; }
 
         public string RoleName => Role.Name;
@@ -48,95 +32,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private PrivilegeDepthExtended _initialShare;
         private PrivilegeDepthExtended _initialAssign;
 
-        public bool AvailableCreate => _availablePrivilegesTypes.Contains(PrivilegeType.Create);
-        public bool AvailableRead => _availablePrivilegesTypes.Contains(PrivilegeType.Read);
-        public bool AvailableUpdate => _availablePrivilegesTypes.Contains(PrivilegeType.Write);
-        public bool AvailableDelete => _availablePrivilegesTypes.Contains(PrivilegeType.Delete);
-        public bool AvailableAppend => _availablePrivilegesTypes.Contains(PrivilegeType.Append);
-        public bool AvailableAppendTo => _availablePrivilegesTypes.Contains(PrivilegeType.AppendTo);
-        public bool AvailableShare => _availablePrivilegesTypes.Contains(PrivilegeType.Share);
-        public bool AvailableAssign => _availablePrivilegesTypes.Contains(PrivilegeType.Assign);
+        public bool AvailableCreate => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Create);
+        public bool AvailableRead => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Read);
+        public bool AvailableUpdate => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Write);
+        public bool AvailableDelete => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Delete);
+        public bool AvailableAppend => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Append);
+        public bool AvailableAppendTo => _availablePrivilegesTypes.ContainsKey(PrivilegeType.AppendTo);
+        public bool AvailableShare => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Share);
+        public bool AvailableAssign => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Assign);
 
-        public RoleEntityPrivilegesViewItem(Role role, IEnumerable<RolePrivileges> rolePrivileges, IEnumerable<SecurityPrivilegeMetadata> entityPrivileges)
+        public EntityRolePrivilegeViewItem(Role role, IEnumerable<RolePrivileges> rolePrivileges, IEnumerable<SecurityPrivilegeMetadata> entityPrivileges)
         {
             LoadData(role, rolePrivileges, entityPrivileges);
         }
 
         public IEnumerable<SecurityPrivilegeMetadata> EntityPrivileges { get; private set; }
 
-        private HashSet<PrivilegeType> _availablePrivilegesTypes = new HashSet<PrivilegeType>();
+        private Dictionary<PrivilegeType, SecurityPrivilegeMetadata> _availablePrivilegesTypes = new Dictionary<PrivilegeType, SecurityPrivilegeMetadata>();
 
         public void LoadData(Role role, IEnumerable<RolePrivileges> rolePrivileges, IEnumerable<SecurityPrivilegeMetadata> entityPrivileges)
         {
             this.Role = role;
+
             this.EntityPrivileges = entityPrivileges.ToArray();
+
             this._availablePrivilegesTypes.Clear();
 
-            this._CreateRight = this._initialCreate = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.Create);
-            this._ReadRight = this._initialRead = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.Read);
-            this._UpdateRight = this._initialUpdate = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.Write);
-            this._DeleteRight = this._initialDelete = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.Delete);
+            this._CreateRight = this._initialCreate = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.Create);
+            this._ReadRight = this._initialRead = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.Read);
+            this._UpdateRight = this._initialUpdate = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.Write);
+            this._DeleteRight = this._initialDelete = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.Delete);
 
-            this._AppendRight = this._initialAppend = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.Append);
-            this._AppendToRight = this._initialAppendTo = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.AppendTo);
+            this._AppendRight = this._initialAppend = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.Append);
+            this._AppendToRight = this._initialAppendTo = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.AppendTo);
 
-            this._ShareRight = this._initialShare = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.Share);
-            this._AssignRight = this._initialAssign = GetPrivilegeLevel(rolePrivileges, entityPrivileges, PrivilegeType.Assign);
+            this._ShareRight = this._initialShare = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.Share);
+            this._AssignRight = this._initialAssign = GetPrivilegeLevel(entityPrivileges, rolePrivileges, _availablePrivilegesTypes, PrivilegeType.Assign);
 
             this.OnPropertyChanging(nameof(IsChanged));
             this.IsChanged = false;
             this.OnPropertyChanged(nameof(IsChanged));
         }
 
-        private PrivilegeDepthExtended GetPrivilegeLevel(IEnumerable<RolePrivileges> rolePrivileges, IEnumerable<SecurityPrivilegeMetadata> entityPrivileges, PrivilegeType privilegeType)
-        {
-            if (privilegeType != PrivilegeType.None)
-            {
-                var privilege = entityPrivileges.FirstOrDefault(p => p.PrivilegeType == privilegeType);
-
-                if (privilege != null)
-                {
-                    this._availablePrivilegesTypes.Add(privilegeType);
-
-                    var rolePrivilege = rolePrivileges.FirstOrDefault(p => p.PrivilegeId == privilege.PrivilegeId);
-
-                    if (rolePrivilege != null && rolePrivilege.PrivilegeDepthMask.HasValue)
-                    {
-                        var privilegeDepth = RolePrivilegesRepository.ConvertMaskToPrivilegeDepth(rolePrivilege.PrivilegeDepthMask.Value);
-
-                        if (privilegeDepth.HasValue)
-                        {
-                            return (PrivilegeDepthExtended)privilegeDepth.Value;
-                        }
-                    }
-                }
-            }
-
-            return PrivilegeDepthExtended.None;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-            if (!string.Equals(propertyName, nameof(IsChanged)))
-            {
-                var val = CalculateIsChanged();
-
-                if (val != this.IsChanged)
-                {
-                    this.OnPropertyChanging(nameof(IsChanged));
-                    this.IsChanged = val;
-                    this.OnPropertyChanged(nameof(IsChanged));
-                }
-            }
-        }
-
-        private bool CalculateIsChanged()
+        protected override bool CalculateIsChanged()
         {
             if (_initialCreate != _CreateRight)
             {
@@ -180,13 +118,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             return false;
         }
-
-        private void OnPropertyChanging(string propertyName)
-        {
-            this.PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-        }
-
-        public bool IsChanged { get; private set; }
 
         private PrivilegeDepthExtended _CreateRight;
         public PrivilegeDepthExtended CreateRight
@@ -325,78 +256,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public IEnumerable<PrivilegeDepthExtended> CreateOptions => ReturnOptions(PrivilegeType.Create);
+        public IEnumerable<PrivilegeDepthExtended> CreateOptions => ReturnOptions(PrivilegeType.Create, this.EntityPrivileges);
 
-        public IEnumerable<PrivilegeDepthExtended> ReadOptions => ReturnOptions(PrivilegeType.Read);
+        public IEnumerable<PrivilegeDepthExtended> ReadOptions => ReturnOptions(PrivilegeType.Read, this.EntityPrivileges);
 
-        public IEnumerable<PrivilegeDepthExtended> UpdateOptions => ReturnOptions(PrivilegeType.Write);
+        public IEnumerable<PrivilegeDepthExtended> UpdateOptions => ReturnOptions(PrivilegeType.Write, this.EntityPrivileges);
 
-        public IEnumerable<PrivilegeDepthExtended> DeleteOptions => ReturnOptions(PrivilegeType.Delete);
+        public IEnumerable<PrivilegeDepthExtended> DeleteOptions => ReturnOptions(PrivilegeType.Delete, this.EntityPrivileges);
 
-        public IEnumerable<PrivilegeDepthExtended> AppendOptions => ReturnOptions(PrivilegeType.Append);
+        public IEnumerable<PrivilegeDepthExtended> AppendOptions => ReturnOptions(PrivilegeType.Append, this.EntityPrivileges);
 
-        public IEnumerable<PrivilegeDepthExtended> AppendToOptions => ReturnOptions(PrivilegeType.AppendTo);
+        public IEnumerable<PrivilegeDepthExtended> AppendToOptions => ReturnOptions(PrivilegeType.AppendTo, this.EntityPrivileges);
 
-        public IEnumerable<PrivilegeDepthExtended> AssignOptions => ReturnOptions(PrivilegeType.Assign);
+        public IEnumerable<PrivilegeDepthExtended> AssignOptions => ReturnOptions(PrivilegeType.Assign, this.EntityPrivileges);
 
-        public IEnumerable<PrivilegeDepthExtended> ShareOptions => ReturnOptions(PrivilegeType.Share);
-
-        private static readonly PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
-
-        private static ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]> _optionsCache = new ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]>();
-
-        private PrivilegeDepthExtended[] ReturnOptions(PrivilegeType privilegeType)
-        {
-            if (privilegeType != PrivilegeType.None && this.EntityPrivileges != null)
-            {
-                var privilege = this.EntityPrivileges.FirstOrDefault(p => p.PrivilegeType == privilegeType);
-
-                if (privilege != null)
-                {
-                    var key = Tuple.Create(privilege.CanBeBasic, privilege.CanBeLocal, privilege.CanBeDeep, privilege.CanBeGlobal);
-
-                    if (_optionsCache.ContainsKey(key))
-                    {
-                        return _optionsCache[key];
-                    }
-
-                    PrivilegeDepthExtended[] result = ConstructNewArray(privilege.CanBeBasic, privilege.CanBeLocal, privilege.CanBeDeep, privilege.CanBeGlobal);
-
-                    _optionsCache.TryAdd(key, result);
-
-                    return result;
-                }
-            }
-
-            return _optionsDefault;
-        }
-
-        private static PrivilegeDepthExtended[] ConstructNewArray(bool canBeBasic, bool canBeLocal, bool canBeDeep, bool canBeGlobal)
-        {
-            List<PrivilegeDepthExtended> result = new List<PrivilegeDepthExtended>() { PrivilegeDepthExtended.None };
-
-            if (canBeBasic)
-            {
-                result.Add(PrivilegeDepthExtended.Basic);
-            }
-
-            if (canBeLocal)
-            {
-                result.Add(PrivilegeDepthExtended.Local);
-            }
-
-            if (canBeDeep)
-            {
-                result.Add(PrivilegeDepthExtended.Deep);
-            }
-
-            if (canBeGlobal)
-            {
-                result.Add(PrivilegeDepthExtended.Global);
-            }
-
-            return result.ToArray();
-        }
+        public IEnumerable<PrivilegeDepthExtended> ShareOptions => ReturnOptions(PrivilegeType.Share, this.EntityPrivileges);
 
         public List<RolePrivilege> GetAddRolePrivilege()
         {
@@ -432,7 +306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (privilegeType == PrivilegeType.None
                 || EntityPrivileges == null
                 || !EntityPrivileges.Any()
-                )
+            )
             {
                 return;
             }
@@ -480,7 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             , PrivilegeDepthExtended currentValue
             , PrivilegeType privilegeType
             , HashSet<Guid> privilegesRemove
-            )
+        )
         {
             if (currentValue == initialValue)
             {

@@ -1,0 +1,1901 @@
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerRole"
+    Title="Security Roles Comparer"
+    Height="540"
+    Width="1347"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
+            <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
+
+            <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+
+            <BitmapImage x:Key="BitmapImageNone" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_X.gif" />
+            <BitmapImage x:Key="BitmapImageBasic" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_B.gif" />
+            <BitmapImage x:Key="BitmapImageLocal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_L.gif" />
+            <BitmapImage x:Key="BitmapImageDeep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_D.gif" />
+            <BitmapImage x:Key="BitmapImageGlobal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_G.gif" />
+
+            <helpers:PrivilegeDepthConverter x:Key="privilegeDepthConverter" />
+            <BooleanToVisibilityConverter x:Key="boolToVisibility" />
+
+            <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenu_Opened">
+
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Role Description" Click="mIShowDifferenceRoleDescription_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
+                <Separator x:Uid="menuContextDifference" />
+
+                <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
+                <Separator x:Uid="menuContextDifference" />
+
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
+                    <MenuItem Header="Create Entity Description" Click="mIExportRole1EntityDescription_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Role Explorer" Click="btnExplorerRole1_Click" />
+                </MenuItem>
+
+                <Separator x:Uid="menuContextConnection2" />
+                <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
+                    <MenuItem Header="Create Entity Description" Click="mIExportRole2EntityDescription_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Role Explorer" Click="btnExplorerRole2_Click" />
+                </MenuItem>
+
+            </ContextMenu>
+
+            <ContextMenu x:Key="listContextMenuEntityPrivileges">
+
+                <!--<MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+
+                <Separator/>
+                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardEntityCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardEntityCopyDisplayName_Click" />
+                    <MenuItem Header="Copy to Clipboard Object Type Code" Click="mIClipboardEntityCopyObjectTypeCode_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Entity Metadata Id" Click="mIClipboardEntityCopyEntityMetadataId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem x:Uid="miEntityPrivilegesExplorer" Header="Entity Privileges Explorer" />
+
+                <Separator/>
+                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click" />-->
+
+            </ContextMenu>
+
+            <ContextMenu x:Key="listContextMenuOtherPrivileges">
+
+                <!--<MenuItem x:Uid="mIOpenOtherPrivilegeExplorer1" Header="Open Other Privilege Explorer 1" />
+
+                <MenuItem x:Uid="mIOpenOtherPrivilegeExplorer2" Header="Open Other Privilege Explorer 2" />-->
+
+                <MenuItem Header="Clipboard">
+
+                    <!--<MenuItem Header="Copy to Clipboard Privilege Name" Click="mIClipboardPrivilegeCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Privilege Type" Click="mIClipboardPrivilegeCopyType_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Privilege Linked Entity" Click="mIClipboardPrivilegeCopyLinkedEntity_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Privilege Id" Click="mIClipboardPrivilegeCopyPrivilegeId_Click" />-->
+
+                </MenuItem>
+
+                <Separator/>
+            </ContextMenu>
+
+        </ResourceDictionary>
+    </src:WindowWithConnectionList.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0" Margin="0">
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
+                    <MenuItem Header="Role Explorer" Click="btnExplorerRole1_Click" />
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}">
+                    <MenuItem Header="Role Explorer" Click="btnExplorerRole2_Click" />
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miCompareOrganizations" Header="Organization Comparer" />
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0" />
+            <Button x:Name="btnSaveRoleChanges1" Content="Save Role Changes 1" Click="mISaveRoleChanges1_Click" />
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Button x:Name="btnSaveRoleChanges2" Content="Save Role Changes 2" Click="mISaveRoleChanges2_Click" />
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Button Content="Clear Cache" Click="mIClearEntityCacheAndRefresh_Click" />
+        </ToolBar>
+
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+
+            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2" />
+            <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="5" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="columnRole" Width="600" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
+                    <TextBox x:Name="txtBFilterRole" KeyDown="txtBFilterRole_KeyDown" Grid.Row="0" Grid.Column="1" />
+                </Grid>
+
+                <DataGrid x:Name="lstVwSecurityRoles" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwSecurityRoles_MouseDoubleClick" SelectionChanged="lstVwSecurityRoles_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuRole}" />
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Role Name 1" Width="250" Binding="{Binding Name1}" />
+
+                        <DataGridTextColumn Header="Role Name 2" Width="250" Binding="{Binding Name2}" />
+
+                        <DataGridTextColumn Header="BusinessUnit" Width="140" Binding="{Binding BusinessUnitName}" />
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsCustomizable1, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Cust 1" Margin="0" Padding="0" ToolTip="Is Customizable 1" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsCustomizable2, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Cust 2" Margin="0" Padding="0" ToolTip="Is Customizable 2" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+            <TabControl Grid.Column="2">
+
+                <TabItem Header="Entity Privileges">
+                    <Grid Margin="0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="100*" />
+                        </Grid.RowDefinitions>
+
+                        <ToolBar Grid.Row="0" Margin="0">
+                            <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                                    <TextBlock>Refresh Entity Privileges</TextBlock>
+                                </StackPanel>
+                            </Button>
+
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                            <Menu Background="{x:Null}">
+
+                                <MenuItem Header="Set Privilege 1">
+                                    <MenuItem Header="All">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+                                    <Separator />
+
+                                    <MenuItem Header="Create">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Read">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Update">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Delete">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Append">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="AppendTo">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Assign">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Share">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                </MenuItem>
+                            </Menu>
+
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                            <Menu Background="{x:Null}">
+
+                                <MenuItem Header="Set Privilege 2">
+                                    <MenuItem Header="All">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+                                    <Separator />
+
+                                    <MenuItem Header="Create">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Read">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Update">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Delete">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Append">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="AppendTo">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Assign">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Share">
+                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                            <MenuItem.Tag>
+                                                <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                            </MenuItem.Tag>
+                                        </MenuItem>
+                                    </MenuItem>
+
+                                </MenuItem>
+                            </Menu>
+                        </ToolBar>
+
+                        <Grid Grid.Row="1" Margin="0">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="30*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label x:Name="lblEntitiesList" Content="Entities List" Grid.Row="0" Grid.Column="0" />
+                            <ComboBox x:Name="cmBRoleEditorLayoutTabsEntities" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabsEntities_SelectionChanged" />
+                            <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
+
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
+                            <TextBox x:Name="txtBEntityFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+                        </Grid>
+
+                        <DataGrid x:Name="lstVwEntityPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityPrivileges}" />
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
+                            <DataGrid.Columns>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding AnyRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DAR" Margin="0" Padding="0" ToolTip="Different Any Right" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged1, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="Ch1" Margin="0" Padding="0" ToolTip="Is Changed 1" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged2, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="Ch2" Margin="0" Padding="0" ToolTip="Is Changed 2" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTextColumn x:Name="colEntityName" Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn x:Name="colDisplayName" Header="Display Name" Width="200" Binding="{Binding DisplayName1, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect1, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="I1" Margin="0" Padding="0" ToolTip="IsIntersect 1" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect2, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="I2" Margin="0" Padding="0" ToolTip="IsIntersect 2" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode1}" CanUserResize="False">
+                                    <DataGridTextColumn.Header>
+                                        <Label Content="OBT1" Margin="0" Padding="0" ToolTip="Object Type Code 1" />
+                                    </DataGridTextColumn.Header>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode2}" CanUserResize="False">
+                                    <DataGridTextColumn.Header>
+                                        <Label Content="OBT2" Margin="0" Padding="0" ToolTip="Object Type Code 2" />
+                                    </DataGridTextColumn.Header>
+                                </DataGridTextColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding CreateRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DC" Margin="0" Padding="0" ToolTip="Different Create" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="C1" Margin="0" Padding="0" ToolTip="Create1" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=CreateRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableCreate2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=CreateOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="C2" Margin="0" Padding="0" ToolTip="Create2" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=CreateRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableCreate2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=CreateOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding ReadRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DR" Margin="0" Padding="0" ToolTip="Different Read" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="R1" Margin="0" Padding="0" ToolTip="Read1" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=ReadRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableRead1, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=ReadOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="R2" Margin="0" Padding="0" ToolTip="Read2" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=ReadRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableRead2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=ReadOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding UpdateRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DU" Margin="0" Padding="0" ToolTip="Different Update" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="U1" Margin="0" Padding="0" ToolTip="Update1" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=UpdateRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableUpdate1, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=UpdateOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="U2" Margin="0" Padding="0" ToolTip="Update2" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=UpdateRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableUpdate2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=UpdateOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding DeleteRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DD" Margin="0" Padding="0" ToolTip="Different Delete" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="D1" Margin="0" Padding="0" ToolTip="Delete1" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=DeleteRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableDelete1, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=DeleteOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="D2" Margin="0" Padding="0" ToolTip="Delete2" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=DeleteRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableDelete2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=DeleteOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding AppendRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DA" Margin="0" Padding="0" ToolTip="Different Append" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="App1" Margin="0" Padding="0" ToolTip="Append1" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=AppendRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppend1, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=AppendOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="App2" Margin="0" Padding="0" ToolTip="Append2" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=AppendRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppend2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=AppendOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding AppendToRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DAT" Margin="0" Padding="0" ToolTip="Different AppendTo" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="AppTo1" Margin="0" Padding="0" ToolTip="AppendTo1" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=AppendToRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppendTo1, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=AppendToOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="AppTo2" Margin="0" Padding="0" ToolTip="AppendTo2" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=AppendToRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAppendTo2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=AppendToOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding AssignRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DA" Margin="0" Padding="0" ToolTip="Different Assign" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="As1" Margin="0" Padding="0" ToolTip="Assign" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=AssignRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAssign1, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=AssignOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="As2" Margin="0" Padding="0" ToolTip="Assign" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=AssignRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableAssign2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=AssignOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding ShareRightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DS" Margin="0" Padding="0" ToolTip="Different Share" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="Sh1" Margin="0" Padding="0" ToolTip="Share" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=ShareRight1, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableShare1, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=ShareOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="Sh2" Margin="0" Padding="0" ToolTip="Share" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=ShareRight2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=AvailableShare2, Converter={StaticResource ResourceKey=boolToVisibility}}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=ShareOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Other Privileges">
+                    <Grid Margin="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="100*" />
+                        </Grid.RowDefinitions>
+
+                        <ToolBar Grid.Row="0" Margin="0">
+                            <Button x:Name="btnRefreshOtherPrivileges" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                                    <TextBlock>Refresh Other Privileges</TextBlock>
+                                </StackPanel>
+                            </Button>
+
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                            <Menu Background="{x:Null}">
+                                <MenuItem Header="Set Privilege 1">
+                                    <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Basic" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Local" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Deep" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Global" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+
+                                </MenuItem>
+                            </Menu>
+
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                            <Menu Background="{x:Null}">
+                                <MenuItem Header="Set Privilege 2">
+                                    <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Basic" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Local" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Deep" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+                                    <MenuItem Header="Global" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                        <MenuItem.Icon>
+                                            <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem.Tag>
+                                            <model:PrivilegeDepthExtended>Global</model:PrivilegeDepthExtended>
+                                        </MenuItem.Tag>
+                                    </MenuItem>
+
+                                </MenuItem>
+                            </Menu>
+                        </ToolBar>
+
+                        <Grid Grid.Row="1" Margin="0">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="50*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Privileges List" Grid.Row="0" Grid.Column="0" />
+                            <ComboBox x:Name="cmBRoleEditorLayoutTabsPrivileges" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabsPrivileges_SelectionChanged" />
+
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
+                            <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBOtherPrivilegesFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
+                        </Grid>
+
+                        <DataGrid x:Name="lstVwOtherPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenuOtherPrivileges}" />
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
+                            <DataGrid.Columns>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged1, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="Ch1" Margin="0" Padding="0" ToolTip="Is Changed 1" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged2, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="Ch2" Margin="0" Padding="0" ToolTip="Is Changed 2" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTextColumn Header="Privilege Name" Width="200" Binding="{Binding Name, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Privilege Type 1" Width="200" Binding="{Binding PrivilegeType1, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Privilege Type 2" Width="200" Binding="{Binding PrivilegeType2, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding RightDifferent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="DR" Margin="0" Padding="0" ToolTip="Different Right" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="Right1" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="R1" Margin="0" Padding="0" ToolTip="Right 1" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=Right1, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=IsCustomizable1}" ItemsSource="{Binding Path=RightOptions1}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="Right2" CanUserResize="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="R2" Margin="0" Padding="0" ToolTip="Right 2" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox SelectedItem="{Binding Path=Right2, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=IsCustomizable2}" ItemsSource="{Binding Path=RightOptions2}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Height="16" Width="16" MaxHeight="16" MaxWidth="16" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="Linked Entity 1" Width="200" Binding="{Binding EntityLogicalName1, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Linked Entity 2" Width="200" Binding="{Binding EntityLogicalName2, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="4" Margin="0">
+            <ToolBar.Resources>
+                <Style TargetType="{x:Type ToolBarPanel}">
+                    <Setter Property="Orientation" Value="Vertical" />
+                </Style>
+            </ToolBar.Resources>
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        <Setter Property="Margin" Value="6,2" />
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                </DockPanel.Resources>
+                <ToolBarPanel Orientation="Horizontal" >
+                    <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click" />
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
+                            <MenuItem Header="Role Description" Click="mIShowDifferenceRoleDescription_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
+
+                            <MenuItem Header="Create Entity Description" Click="mIExportRole1EntityDescription_Click" />
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
+
+                            <MenuItem Header="Create Entity Description" Click="mIExportRole2EntityDescription_Click" />
+                        </MenuItem>
+                    </Menu>
+                </ToolBarPanel>
+
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            </DockPanel>
+        </ToolBar>
+
+        <StatusBar Grid.Row="5" Margin="0">
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
+        </StatusBar>
+    </Grid>
+</src:WindowWithConnectionList>

@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private TupleList<Func<EntityMetadata, bool>, bool> GetFilters()
         {
-            TupleList<Func<EntityMetadata, bool>, bool> funcs = new TupleList<Func<EntityMetadata, bool>, bool>();
+            var funcs = new TupleList<Func<EntityMetadata, bool>, bool>();
 
             this.Dispatcher.Invoke(() =>
             {
@@ -197,6 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     }
                 }
             });
+
             return funcs;
         }
 
