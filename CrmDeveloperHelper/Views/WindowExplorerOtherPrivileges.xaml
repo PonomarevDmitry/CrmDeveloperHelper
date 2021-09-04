@@ -144,19 +144,18 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="30*"  />
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Privileges List" Grid.Row="0" Grid.Column="0" />
-                    <ComboBox x:Name="cmBRoleEditorLayoutTabsPrivileges" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
-
-                    <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
+                    <Label x:Name="lblFilterOtherPrivileges" Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
                     <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBOtherPrivilegesFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
+
+                    <Button x:Name="btnPrivilegeFilter" Grid.Row="1" Grid.Column="2" Content="Privilege Filter" Click="btnPrivilegeFilter_Click" IsTabStop="False" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwOtherPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top" SelectionChanged="lstVwOtherPrivileges_SelectionChanged">

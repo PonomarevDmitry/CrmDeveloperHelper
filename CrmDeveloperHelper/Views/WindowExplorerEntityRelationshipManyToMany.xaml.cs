@@ -49,19 +49,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetInputLanguageEnglish();
 
             _entityMetadataFilter = new EntityMetadataFilter();
-            _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;
+            _entityMetadataFilter.CloseClicked += this.entityMetadataFilter_CloseClicked;
             this._popupEntityMetadataFilter = new Popup
             {
                 Child = _entityMetadataFilter,
 
-                PlacementTarget = lblEntitiesList,
+                PlacementTarget = lblFilterEnitity,
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
                 Focusable = true,
             };
-            _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
-
-            FillRoleEditorLayoutTabs();
+            _popupEntityMetadataFilter.Closed += this.popupEntityMetadataFilter_Closed;
 
             LoadFromConfig();
 
@@ -143,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private async void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private async void popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
@@ -151,29 +149,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void _entityMetadataFilter_CloseClicked(object sender, EventArgs e)
+        private void entityMetadataFilter_CloseClicked(object sender, EventArgs e)
         {
             if (_popupEntityMetadataFilter.IsOpen)
             {
                 _popupEntityMetadataFilter.IsOpen = false;
                 this.Focus();
             }
-        }
-
-        private void FillRoleEditorLayoutTabs()
-        {
-            cmBRoleEditorLayoutTabs.Items.Clear();
-
-            cmBRoleEditorLayoutTabs.Items.Add("All");
-
-            var tabs = RoleEditorLayoutTab.GetTabs();
-
-            foreach (var tab in tabs)
-            {
-                cmBRoleEditorLayoutTabs.Items.Add(tab);
-            }
-
-            cmBRoleEditorLayoutTabs.SelectedIndex = 0;
         }
 
         protected override void LoadConfigurationInternal(WindowSettings winConfig)
@@ -272,15 +254,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             string textName = string.Empty;
-            RoleEditorLayoutTab selectedTab = null;
 
             this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilterEnitity.Text.Trim().ToLower();
-                selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
             });
 
-            list = FilterEntityList(list, textName, selectedTab);
+            list = FilterEntityList(list, textName);
 
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
@@ -312,14 +292,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await ShowExistingEntityRelationships();
         }
 
-        private IEnumerable<EntityMetadataListViewItem> FilterEntityList(IEnumerable<EntityMetadataListViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<EntityMetadataListViewItem> FilterEntityList(IEnumerable<EntityMetadataListViewItem> list, string textName)
         {
             list = _entityMetadataFilter.FilterList(list, i => i.EntityMetadata);
-
-            if (selectedTab != null)
-            {
-                list = list.Where(ent => ent.EntityMetadata.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(ent.EntityMetadata.ObjectTypeCode.Value));
-            }
 
             if (!string.IsNullOrEmpty(textName))
             {
@@ -597,11 +572,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowExistingEntities();
             }
-        }
-
-        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            await ShowExistingEntities();
         }
 
         private async void txtBFilterEntityRelationship_KeyDown(object sender, KeyEventArgs e)

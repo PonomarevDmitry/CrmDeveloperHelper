@@ -31,6 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _popupEntityMetadataFilter;
         private readonly EntityMetadataFilter _entityMetadataFilter;
 
+        private readonly Popup _popupPrivilegeFilter;
+        private readonly PrivilegeFilter _privilegeFilter;
+
         private readonly ObservableCollection<SystemUser> _itemsSourceSystemUsers;
 
         private readonly ObservableCollection<Team> _itemsSourceTeams;
@@ -38,6 +41,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<RoleEntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
         private readonly ObservableCollection<RoleOtherPrivilegeViewItem> _itemsSourceOtherPrivileges;
+
+        private readonly List<RoleEntityPrivilegeViewItem> _currentRoleEntityPrivileges;
+        private readonly List<RoleOtherPrivilegeViewItem> _currentRoleOtherPrivileges;
 
         private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
         private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
@@ -68,21 +74,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             _entityMetadataFilter = new EntityMetadataFilter();
-            _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;
+            _entityMetadataFilter.CloseClicked += this.entityMetadataFilter_CloseClicked;
             this._popupEntityMetadataFilter = new Popup
             {
                 Child = _entityMetadataFilter,
 
-                PlacementTarget = lblEntitiesList,
+                PlacementTarget = lblFilterEntity,
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
                 Focusable = true,
             };
-            _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
+            _popupEntityMetadataFilter.Closed += this.popupEntityMetadataFilter_Closed;
+
+            _privilegeFilter = new PrivilegeFilter();
+            _privilegeFilter.CloseClicked += this.privilegeFilter_CloseClicked;
+            this._popupPrivilegeFilter = new Popup
+            {
+                Child = _privilegeFilter,
+
+                PlacementTarget = lblFilterOtherPrivileges,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+            _popupPrivilegeFilter.Closed += this.popupPrivilegeFilter_Closed;
 
             cmBTeamType.ItemsSource = new EnumBindingSourceExtension(typeof(Team.Schema.OptionSets.teamtype?)).ProvideValue(null) as IEnumerable;
 
-            FillRoleEditorLayoutTabs();
             FillComboBoxTrueFalse(cmBIsDefault);
             FillComboBoxTrueFalse(cmBIsTeamTemplate);
             cmBIsDefault.SelectedItem = false;
@@ -102,6 +120,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             lstVwSecurityRoles.ItemsSource = _itemsSourceRoles = new ObservableCollection<Role>();
             lstVwEntityPrivileges.ItemsSource = _itemsSourceEntityPrivileges = new ObservableCollection<RoleEntityPrivilegeViewItem>();
             lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<RoleOtherPrivilegeViewItem>();
+
+            _currentRoleEntityPrivileges = new List<RoleEntityPrivilegeViewItem>();
+            _currentRoleOtherPrivileges = new List<RoleOtherPrivilegeViewItem>();
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
@@ -195,15 +216,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private async void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private void popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
-                await ShowTeamEntityPrivileges();
+                PerformFilterEntityPrivileges();
             }
         }
 
-        private void _entityMetadataFilter_CloseClicked(object sender, EventArgs e)
+        private void entityMetadataFilter_CloseClicked(object sender, EventArgs e)
         {
             if (_popupEntityMetadataFilter.IsOpen)
             {
@@ -212,31 +233,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void FillRoleEditorLayoutTabs()
+        private void btnPrivilegeFilter_Click(object sender, RoutedEventArgs e)
         {
-            var tabs = RoleEditorLayoutTab.GetTabs();
+            _popupPrivilegeFilter.IsOpen = true;
+            _popupPrivilegeFilter.Child.Focus();
+        }
 
-            cmBRoleEditorLayoutTabsEntities.Items.Clear();
-
-            cmBRoleEditorLayoutTabsEntities.Items.Add("All");
-
-            foreach (var tab in tabs)
+        private void popupPrivilegeFilter_Closed(object sender, EventArgs e)
+        {
+            if (_privilegeFilter.FilterChanged)
             {
-                cmBRoleEditorLayoutTabsEntities.Items.Add(tab);
+                PerformFilterOtherPrivileges();
             }
+        }
 
-            cmBRoleEditorLayoutTabsEntities.SelectedIndex = 0;
-
-            cmBRoleEditorLayoutTabsPrivileges.Items.Clear();
-
-            cmBRoleEditorLayoutTabsPrivileges.Items.Add("All");
-
-            foreach (var tab in tabs)
+        private void privilegeFilter_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupPrivilegeFilter.IsOpen)
             {
-                cmBRoleEditorLayoutTabsPrivileges.Items.Add(tab);
+                _popupPrivilegeFilter.IsOpen = false;
+                this.Focus();
             }
-
-            cmBRoleEditorLayoutTabsPrivileges.SelectedIndex = 0;
         }
 
         protected override void LoadConfigurationInternal(WindowSettings winConfig)
@@ -439,6 +456,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSourceEntityPrivileges.Clear();
                 _itemsSourceOtherPrivileges.Clear();
 
+                _currentRoleEntityPrivileges.Clear();
+                _currentRoleOtherPrivileges.Clear();
+
                 filterTeam = txtBFilterTeams.Text.Trim().ToLower();
 
                 {
@@ -528,15 +548,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _itemsSourceEntityPrivileges.Clear();
                 _itemsSourceOtherPrivileges.Clear();
+
+                _currentRoleEntityPrivileges.Clear();
+                _currentRoleOtherPrivileges.Clear();
             });
 
             var team = GetSelectedTeam();
-
-            IEnumerable<EntityMetadata> entityMetadataList = Enumerable.Empty<EntityMetadata>();
-
-            IEnumerable<RoleEntityPrivilegeViewItem> listEntityPrivileges = Enumerable.Empty<RoleEntityPrivilegeViewItem>();
-
-            IEnumerable<RoleOtherPrivilegeViewItem> listOtherPrivileges = Enumerable.Empty<RoleOtherPrivilegeViewItem>();
 
             try
             {
@@ -545,38 +562,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var otherPrivileges = await GetPrivileges(service);
-                    entityMetadataList = await GetEntityMetadataEnumerable(service);
+                    var entityMetadataList = await GetEntityMetadataEnumerable(service);
 
                     entityMetadataList = entityMetadataList.Where(e => e.Privileges != null && e.Privileges.Any(p => p.PrivilegeType != PrivilegeType.None));
 
                     if (team != null && team.TeamType?.Value != (int)Team.Schema.OptionSets.teamtype.Access_1)
                     {
-                        string filterEntity = string.Empty;
-                        string filterOtherPrivilege = string.Empty;
-                        RoleEditorLayoutTab selectedTabEntities = null;
-                        RoleEditorLayoutTab selectedTabPrivileges = null;
-
-                        this.Dispatcher.Invoke(() =>
-                        {
-                            filterEntity = txtBEntityFilter.Text.Trim().ToLower();
-                            filterOtherPrivilege = txtBOtherPrivilegesFilter.Text.Trim().ToLower();
-
-                            selectedTabEntities = cmBRoleEditorLayoutTabsEntities.SelectedItem as RoleEditorLayoutTab;
-                            selectedTabPrivileges = cmBRoleEditorLayoutTabsPrivileges.SelectedItem as RoleEditorLayoutTab;
-                        });
-
-                        entityMetadataList = FilterEntityList(entityMetadataList, filterEntity, selectedTabEntities);
-                        otherPrivileges = FilterPrivilegeList(otherPrivileges, filterOtherPrivilege, selectedTabPrivileges);
-
                         if (entityMetadataList.Any() || otherPrivileges.Any())
                         {
                             var repository = new RolePrivilegesRepository(service);
 
                             var userPrivileges = await repository.GetTeamPrivilegesAsync(team.Id);
 
-                            listEntityPrivileges = entityMetadataList.Select(e => new RoleEntityPrivilegeViewItem(e, userPrivileges));
+                            _currentRoleEntityPrivileges.AddRange(entityMetadataList.Select(e => new RoleEntityPrivilegeViewItem(e, userPrivileges)));
 
-                            listOtherPrivileges = otherPrivileges.Select(e => new RoleOtherPrivilegeViewItem(e, userPrivileges));
+                            _currentRoleOtherPrivileges.AddRange(otherPrivileges.Select(e => new RoleOtherPrivilegeViewItem(e, userPrivileges)));
                         }
                     }
                 }
@@ -585,6 +585,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
+
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, _currentRoleEntityPrivileges.Count);
+
+            PerformFilterEntityPrivileges();
+
+            PerformFilterOtherPrivileges();
+        }
+
+        private async Task PerformFilterEntityPrivileges()
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = GetSelectedConnection();
+
+            ToggleControls(connectionData, false, Properties.OutputStrings.FilteringEntities);
+
+            string filterEntity = string.Empty;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                filterEntity = txtBEntityFilter.Text.Trim().ToLower();
+                _itemsSourceEntityPrivileges.Clear();
+            });
+
+            IEnumerable<RoleEntityPrivilegeViewItem> listEntityPrivileges = FilterEntityList(_currentRoleEntityPrivileges, filterEntity);
 
             this.lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
@@ -602,6 +630,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
+            ToggleControls(connectionData, true, Properties.OutputStrings.FilteringEntitiesCompletedFormat1, listEntityPrivileges.Count());
+        }
+
+        private async Task PerformFilterOtherPrivileges()
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = GetSelectedConnection();
+
+            ToggleControls(connectionData, false, Properties.OutputStrings.FilteringOtherPrivileges);
+
+            string filterOtherPrivilege = string.Empty;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                filterOtherPrivilege = txtBOtherPrivilegesFilter.Text.Trim().ToLower();
+                _itemsSourceOtherPrivileges.Clear();
+            });
+
+            IEnumerable<RoleOtherPrivilegeViewItem> listOtherPrivileges = FilterPrivilegeList(_currentRoleOtherPrivileges, filterOtherPrivilege);
+
             this.lstVwOtherPrivileges.Dispatcher.Invoke(() =>
             {
                 foreach (var otherPriv in listOtherPrivileges
@@ -618,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, entityMetadataList.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.FilteringOtherPrivilegesCompletedFormat1, listOtherPrivileges.Count());
         }
 
         private async Task<IEnumerable<Privilege>> GetPrivileges(IOrganizationServiceExtented service)
@@ -661,14 +713,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return _cacheEntityMetadata[service.ConnectionData.ConnectionId];
         }
 
-        private IEnumerable<EntityMetadata> FilterEntityList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<RoleEntityPrivilegeViewItem> FilterEntityList(IEnumerable<RoleEntityPrivilegeViewItem> list, string textName)
         {
-            list = _entityMetadataFilter.FilterList(list);
-
-            if (selectedTab != null)
-            {
-                list = list.Where(e => e.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(e.ObjectTypeCode.Value));
-            }
+            list = _entityMetadataFilter.FilterList(list, ent => ent.EntityMetadata);
 
             if (!string.IsNullOrEmpty(textName))
             {
@@ -680,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else if (Guid.TryParse(textName, out Guid tempGuid))
                 {
-                    list = list.Where(ent => ent.MetadataId == tempGuid);
+                    list = list.Where(ent => ent.EntityMetadata.MetadataId == tempGuid);
                 }
                 else
                 {
@@ -688,8 +735,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
                         ||
                         (
-                            ent.DisplayName != null
-                            && ent.DisplayName.LocalizedLabels
+                            ent.EntityMetadata != null
+                            && ent.EntityMetadata.DisplayName != null
+                            && ent.EntityMetadata.DisplayName.LocalizedLabels != null
+                            && ent.EntityMetadata.DisplayName.LocalizedLabels
                                 .Where(l => !string.IsNullOrEmpty(l.Label))
                                 .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                         )
@@ -700,12 +749,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private static IEnumerable<Privilege> FilterPrivilegeList(IEnumerable<Privilege> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<RoleOtherPrivilegeViewItem> FilterPrivilegeList(IEnumerable<RoleOtherPrivilegeViewItem> list, string textName)
         {
-            if (selectedTab != null)
-            {
-                list = list.Where(p => p.PrivilegeId.HasValue && selectedTab.PrivilegesHash.Contains(p.PrivilegeId.Value));
-            }
+            list = _privilegeFilter.FilterList(list, p => p.Privilege);
 
             if (!string.IsNullOrEmpty(textName))
             {
@@ -713,7 +759,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (Guid.TryParse(textName, out Guid tempGuid))
                 {
-                    list = list.Where(ent => ent.Id == tempGuid);
+                    list = list.Where(ent => ent.Privilege.Id == tempGuid);
                 }
                 else
                 {
@@ -764,17 +810,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void txtBEntityFilter_KeyDown(object sender, KeyEventArgs e)
+        private void txtBEntityFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                await ShowTeamEntityPrivileges();
+                PerformFilterEntityPrivileges();
             }
         }
 
-        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void txtBOtherPrivilegesFilter_KeyDown(object sender, KeyEventArgs e)
         {
-            await ShowTeamEntityPrivileges();
+            if (e.Key == Key.Enter)
+            {
+                PerformFilterOtherPrivileges();
+            }
         }
 
         private async void txtBFilterTeams_KeyDown(object sender, KeyEventArgs e)

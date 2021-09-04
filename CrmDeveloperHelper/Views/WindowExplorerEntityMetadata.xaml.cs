@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             _optionsControlEntityMetadata = new FileGenerationEntityMetadataCSharpOptionsControl();
-            _optionsControlEntityMetadata.CloseClicked += this._optionsControlFileGeneration_CloseClicked;
+            _optionsControlEntityMetadata.CloseClicked += this.optionsControlFileGeneration_CloseClicked;
             this._popupFileGenerationEntityMetadataOptions = new Popup
             {
                 Child = _optionsControlEntityMetadata,
@@ -102,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             _optionsControlJavaScript = new FileGenerationEntityMetadataJavaScriptOptionsControl();
-            _optionsControlJavaScript.CloseClicked += this._optionsControlJavaScript_CloseClicked;
+            _optionsControlJavaScript.CloseClicked += this.optionsControlJavaScript_CloseClicked;
             this._popupFileGenerationJavaScriptOptions = new Popup
             {
                 Child = _optionsControlJavaScript,
@@ -114,19 +114,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             _entityMetadataFilter = new EntityMetadataFilter();
-            _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;
+            _entityMetadataFilter.CloseClicked += this.entityMetadataFilter_CloseClicked;
             this._popupEntityMetadataFilter = new Popup
             {
                 Child = _entityMetadataFilter,
 
-                PlacementTarget = lblEntitiesList,
+                PlacementTarget = lblFilterEnitity,
                 Placement = PlacementMode.Bottom,
                 StaysOpen = false,
                 Focusable = true,
             };
-            _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
-
-            FillRoleEditorLayoutTabs();
+            _popupEntityMetadataFilter.Closed += this.popupEntityMetadataFilter_Closed;
 
             LoadFromConfig();
 
@@ -198,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var list = allEntities.AsEnumerable();
 
-                list = FilterList(list, filterEntity, null);
+                list = FilterList(list, filterEntity);
 
                 LoadEntities(list);
             }
@@ -249,22 +247,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private void FillRoleEditorLayoutTabs()
-        {
-            cmBRoleEditorLayoutTabs.Items.Clear();
-
-            cmBRoleEditorLayoutTabs.Items.Add("All");
-
-            var tabs = RoleEditorLayoutTab.GetTabs();
-
-            foreach (var tab in tabs)
-            {
-                cmBRoleEditorLayoutTabs.Items.Add(tab);
-            }
-
-            cmBRoleEditorLayoutTabs.SelectedIndex = 0;
-        }
-
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
@@ -303,7 +285,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             string textName = string.Empty;
-            RoleEditorLayoutTab selectedTab = null;
 
             IEnumerable<EntityMetadata> list = Enumerable.Empty<EntityMetadata>();
 
@@ -328,7 +309,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.Dispatcher.Invoke(() =>
                 {
                     textName = txtBFilterEnitity.Text.Trim().ToLower();
-                    selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
                 });
             }
             catch (Exception ex)
@@ -336,21 +316,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
-            list = FilterList(list, textName, selectedTab);
+            list = FilterList(list, textName);
 
             LoadEntities(list);
 
             ToggleControls(connectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
         }
 
-        private IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName)
         {
             list = _entityMetadataFilter.FilterList(list);
-
-            if (selectedTab != null)
-            {
-                list = list.Where(ent => ent.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(ent.ObjectTypeCode.Value));
-            }
 
             if (!string.IsNullOrEmpty(textName))
             {
@@ -1418,7 +1393,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupFileGenerationEntityMetadataOptions.Child.Focus();
         }
 
-        private void _optionsControlFileGeneration_CloseClicked(object sender, EventArgs e)
+        private void optionsControlFileGeneration_CloseClicked(object sender, EventArgs e)
         {
             if (_popupFileGenerationEntityMetadataOptions.IsOpen)
             {
@@ -1437,7 +1412,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupFileGenerationJavaScriptOptions.Child.Focus();
         }
 
-        private void _optionsControlJavaScript_CloseClicked(object sender, EventArgs e)
+        private void optionsControlJavaScript_CloseClicked(object sender, EventArgs e)
         {
             if (_popupFileGenerationJavaScriptOptions.IsOpen)
             {
@@ -1452,7 +1427,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private async void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private async void popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
@@ -1460,7 +1435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void _entityMetadataFilter_CloseClicked(object sender, EventArgs e)
+        private void entityMetadataFilter_CloseClicked(object sender, EventArgs e)
         {
             if (_popupEntityMetadataFilter.IsOpen)
             {
@@ -2067,11 +2042,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await ShowExistingEntities();
             }
-        }
-
-        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            await ShowExistingEntities();
         }
 
         #region Clipboard Entity

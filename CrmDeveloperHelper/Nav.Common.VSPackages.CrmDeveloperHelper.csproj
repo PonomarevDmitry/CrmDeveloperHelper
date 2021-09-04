@@ -1395,6 +1395,9 @@
     <Compile Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml.cs">
       <DependentUpon>FileGenerationSdkMessageRequestsOptionsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PrivilegeFilter.xaml.cs">
+      <DependentUpon>PrivilegeFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BaseWindows\BaseExplorersHelper.cs" />
     <Compile Include="Views\BaseWindows\CompareWindowsHelper.cs" />
     <Compile Include="Views\BaseWindows\ExplorersHelper.cs" />
@@ -2195,6 +2198,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PrivilegeFilter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

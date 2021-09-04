@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<Privilege> GetList(ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<PrivilegeObjectTypeCodes> GetPrivilegeObjectTypeCodes()
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             FillPrivilegesWithNoneAccessType(columnSet, result);
 
-            var hashPrivilegeIds = new HashSet<Guid>();
+            var hashPrivilegeIds = new HashSet<Guid>(result.Select(e => e.Id));
 
             FillPrivilegesWithNoneEntity(columnSet, result, hashPrivilegeIds);
 
@@ -103,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void FillPrivilegesWithNoneAccessType(ColumnSet columnSet, List<Privilege> result)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void FillPrivilegesWithNoneEntity(ColumnSet columnSet, List<Privilege> result, HashSet<Guid> hashPrivilegeIds)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -188,7 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<Privilege> GetListForRole(Guid idRole)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 EntityName = Privilege.EntityLogicalName,
 
@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<Privilege> GetListByIds(IEnumerable<Guid> idPrivilegeArr)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 

@@ -7,15 +7,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -29,9 +30,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
 
-        private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).Cast<PrivilegeType>().ToList();
+        //private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).Cast<PrivilegeType>().ToList();
 
         private readonly Dictionary<PrivilegeDepth, MenuItem> _menuItemsSetPrivilegeDepths;
+
+        private readonly Popup _popupPrivilegeFilter;
+        private readonly PrivilegeFilter _privilegeFilter;
 
         public WindowExplorerOtherPrivileges(
             IWriteToOutput iWriteToOutput
@@ -52,8 +56,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _cachePrivileges[service.ConnectionData.ConnectionId] = privileges;
             }
 
-            FillRoleEditorLayoutTabs();
-
             LoadFromConfig();
 
             txtBOtherPrivilegesFilter.Text = filter;
@@ -69,6 +71,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , { PrivilegeDepth.Deep, mISetAttributeOtherPrivilegeRightDeep }
                 , { PrivilegeDepth.Global, mISetAttributeOtherPrivilegeRightGlobal }
             };
+
+            _privilegeFilter = new PrivilegeFilter();
+            _privilegeFilter.CloseClicked += this.privilegeFilter_CloseClicked;
+            this._popupPrivilegeFilter = new Popup
+            {
+                Child = _privilegeFilter,
+
+                PlacementTarget = lblFilterOtherPrivileges,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+            _popupPrivilegeFilter.Closed += this.popupPrivilegeFilter_Closed;
 
             lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<OtherPrivilegeListViewItem>();
 
@@ -121,22 +136,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowSettings winConfig = GetWindowsSettings();
 
             LoadFormSettings(winConfig);
-        }
-
-        private void FillRoleEditorLayoutTabs()
-        {
-            var tabs = RoleEditorLayoutTab.GetTabs();
-
-            cmBRoleEditorLayoutTabsPrivileges.Items.Clear();
-
-            cmBRoleEditorLayoutTabsPrivileges.Items.Add("All");
-
-            foreach (var tab in tabs)
-            {
-                cmBRoleEditorLayoutTabsPrivileges.Items.Add(tab);
-            }
-
-            cmBRoleEditorLayoutTabsPrivileges.SelectedIndex = 0;
         }
 
         protected override void LoadConfigurationInternal(WindowSettings winConfig)
@@ -220,15 +219,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var otherPrivileges = await GetOtherPrivileges(service);
 
                     string filterOtherPrivilege = string.Empty;
-                    RoleEditorLayoutTab selectedTabPrivileges = null;
 
                     this.Dispatcher.Invoke(() =>
                     {
                         filterOtherPrivilege = txtBOtherPrivilegesFilter.Text.Trim().ToLower();
-                        selectedTabPrivileges = cmBRoleEditorLayoutTabsPrivileges.SelectedItem as RoleEditorLayoutTab;
                     });
 
-                    otherPrivileges = FilterPrivilegeList(otherPrivileges, filterOtherPrivilege, selectedTabPrivileges);
+                    otherPrivileges = FilterPrivilegeList(otherPrivileges, filterOtherPrivilege);
 
                     if (otherPrivileges.Any())
                     {
@@ -273,12 +270,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await ShowExistingSecurityRoles();
         }
 
-        private static IEnumerable<Privilege> FilterPrivilegeList(IEnumerable<Privilege> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<Privilege> FilterPrivilegeList(IEnumerable<Privilege> list, string textName)
         {
-            if (selectedTab != null)
-            {
-                list = list.Where(p => p.PrivilegeId.HasValue && selectedTab.PrivilegesHash.Contains(p.PrivilegeId.Value));
-            }
+            list = _privilegeFilter.FilterList(list);
 
             if (!string.IsNullOrEmpty(textName))
             {
@@ -301,7 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (!_cachePrivileges.ContainsKey(service.ConnectionData.ConnectionId))
             {
-                PrivilegeRepository repository = new PrivilegeRepository(service);
+                var repository = new PrivilegeRepository(service);
 
                 var temp = await repository.GetListOtherPrivilegeAsync(new ColumnSet(
                     Privilege.Schema.Attributes.privilegeid
@@ -378,7 +372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    RoleRepository repositoryRole = new RoleRepository(service);
+                    var repositoryRole = new RoleRepository(service);
 
                     var roles = await repositoryRole.GetListAsync(textName
                         , new ColumnSet
@@ -390,9 +384,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         )
                     );
 
-                    var repository = new RolePrivilegesRepository(service);
+                    var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
-                    var task = repository.GetEntityPrivilegesAsync(roles.Select(r => r.RoleId.Value), new[] { privilege.Id });
+                    var task = repositoryRolePrivileges.GetEntityPrivilegesAsync(roles.Select(r => r.RoleId.Value), new[] { privilege.Id });
 
                     ActivateMenuItemsSetPrivileges(privilege);
 
@@ -544,11 +538,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowExistingOtherPrivileges();
             }
-        }
-
-        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            await ShowExistingOtherPrivileges();
         }
 
         private async void txtBFilterSecurityRole_KeyDown(object sender, KeyEventArgs e)
@@ -960,7 +949,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            Model.Backup.Role roleBackup = new Model.Backup.Role()
+            var roleBackup = new Model.Backup.Role()
             {
                 Id = role.Role.Id,
                 TemplateId = role.Role.RoleTemplateId?.Id,
@@ -1019,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionSavingChangesInRolesFormat1, service.ConnectionData.Name);
 
-            var rolePrivileges = new RolePrivilegesRepository(service);
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
             foreach (var role in changedRoles)
             {
@@ -1031,7 +1020,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SavingChangesInRoleFormat1, role.RoleName);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, role.Role);
 
-                    await rolePrivileges.ModifyRolePrivilegesAsync(role.Role.Id, privilegesAdd, privilegesRemove);
+                    await repositoryRolePrivileges.ModifyRolePrivilegesAsync(role.Role.Id, privilegesAdd, privilegesRemove);
                 }
                 catch (Exception ex)
                 {
@@ -1285,5 +1274,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard Other Privilege
+
+        private void btnPrivilegeFilter_Click(object sender, RoutedEventArgs e)
+        {
+            _popupPrivilegeFilter.IsOpen = true;
+            _popupPrivilegeFilter.Child.Focus();
+        }
+
+        private async void popupPrivilegeFilter_Closed(object sender, EventArgs e)
+        {
+            if (_privilegeFilter.FilterChanged)
+            {
+                await ShowExistingOtherPrivileges();
+            }
+        }
+
+        private void privilegeFilter_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupPrivilegeFilter.IsOpen)
+            {
+                _popupPrivilegeFilter.IsOpen = false;
+                this.Focus();
+            }
+        }
     }
 }

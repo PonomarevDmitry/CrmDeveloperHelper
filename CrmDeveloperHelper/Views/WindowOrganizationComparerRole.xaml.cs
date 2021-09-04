@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName2"] = connection2.Name;
 
             _entityMetadataFilter = new EntityMetadataFilter();
-            _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;
+            _entityMetadataFilter.CloseClicked += this.entityMetadataFilter_CloseClicked;
             this._popupEntityMetadataFilter = new Popup
             {
                 Child = _entityMetadataFilter,
@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 StaysOpen = false,
                 Focusable = true,
             };
-            _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
+            _popupEntityMetadataFilter.Closed += this.popupEntityMetadataFilter_Closed;
 
             FillRoleEditorLayoutTabs();
 
@@ -640,7 +640,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (selectedTab != null)
             {
-                list = list.Where(e => selectedTab.EntitiesHash.Contains(e.ObjectTypeCode1) || (e.ObjectTypeCode2.HasValue && selectedTab.EntitiesHash.Contains(e.ObjectTypeCode2.Value))
+                list = list.Where(e => selectedTab.EntitiesHash.Contains(e.ObjectTypeCode1)
+                    || (e.ObjectTypeCode2.HasValue && selectedTab.EntitiesHash.Contains(e.ObjectTypeCode2.Value))
                 );
             }
 
@@ -1816,7 +1817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private void popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
@@ -1824,7 +1825,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void _entityMetadataFilter_CloseClicked(object sender, EventArgs e)
+        private void entityMetadataFilter_CloseClicked(object sender, EventArgs e)
         {
             if (_popupEntityMetadataFilter.IsOpen)
             {

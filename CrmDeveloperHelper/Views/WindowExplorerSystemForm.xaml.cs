@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             _optionsControlJavaScript = new FileGenerationEntityMetadataJavaScriptOptionsControl();
-            _optionsControlJavaScript.CloseClicked += this._optionsControlJavaScript_CloseClicked;
+            _optionsControlJavaScript.CloseClicked += this.optionsControlJavaScript_CloseClicked;
             this._popupFileGenerationJavaScriptOptions = new Popup
             {
                 Child = _optionsControlJavaScript,
@@ -1877,7 +1877,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupFileGenerationJavaScriptOptions.Child.Focus();
         }
 
-        private void _optionsControlJavaScript_CloseClicked(object sender, EventArgs e)
+        private void optionsControlJavaScript_CloseClicked(object sender, EventArgs e)
         {
             if (_popupFileGenerationJavaScriptOptions.IsOpen)
             {

@@ -92,6 +92,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             InitializeComponent();
 
+            FillRoleEditorLayoutTabs();
+
             panelFilters.Children.Clear();
 
             StackPanel panel = null;
@@ -127,9 +129,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 panel.Children.Add(checkBox);
             }
+
+            this.FilterChanged = false;
+        }
+
+        private void FillRoleEditorLayoutTabs()
+        {
+            var tabs = RoleEditorLayoutTab.GetTabs();
+
+            cmBRoleEditorLayoutTabs.Items.Clear();
+
+            cmBRoleEditorLayoutTabs.Items.Add("All");
+
+            foreach (var tab in tabs)
+            {
+                cmBRoleEditorLayoutTabs.Items.Add(tab);
+            }
+
+            cmBRoleEditorLayoutTabs.SelectedIndex = 0;
         }
 
         private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.FilterChanged = true;
+        }
+
+        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.FilterChanged = true;
         }
@@ -169,16 +194,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             this.FilterChanged = false;
 
+            RoleEditorLayoutTab selectedTab = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
+            });
+
             var funcs = GetFilters();
 
             var result = list;
 
-            //foreach (var func in funcs)
-            //{
-            //    result = result.Where(e => func.Item1(selector(e)) == func.Item2);
-            //}
-
             result = result.Where(e => funcs.All(f => f.Item1(selector(e)) == f.Item2));
+
+            if (selectedTab != null)
+            {
+                result = result.Where(ent => selector(ent) != null && selector(ent).ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(selector(ent).ObjectTypeCode.Value));
+            }
 
             return result;
         }

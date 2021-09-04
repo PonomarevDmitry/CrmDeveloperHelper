@@ -191,7 +191,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -222,12 +221,10 @@
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
 
-            <Label Content="Entities List" Grid.Row="1" Grid.Column="0" x:Name="lblEntitiesList" />
-            <ComboBox x:Name="cmBRoleEditorLayoutTabs" IsReadOnly="True" Grid.Row="1" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
-            <Button x:Name="btnEntityMetadataFilter" Grid.Row="1" Grid.Column="2" Content="Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
+            <Label x:Name="lblFilterEnitity" Content="Filter" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBFilterEnitity" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
 
-            <Label Content="Filter" Grid.Row="2" Grid.Column="0" />
-            <TextBox x:Name="txtBFilterEnitity" Grid.Row="2" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" Grid.ColumnSpan="2" />
+            <Button x:Name="btnEntityMetadataFilter" Grid.Row="1" Grid.Column="2" Content="EntityMetadata Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
         </Grid>
 
         <DataGrid x:Name="lstVwEntities" Grid.Row="2" AutoGenerateColumns="False" SelectionMode="Extended" Margin="10,5" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">

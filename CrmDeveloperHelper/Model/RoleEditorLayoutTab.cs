@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public HashSet<Guid> PrivilegesHash { get; private set; }
 
-        public RoleEditorLayoutTab(string id, string name, string locId, List<RoleEditorLayoutEntity> entities, List<RoleEditorLayoutPrivilege> privileges)
+        private RoleEditorLayoutTab(string id, string name, string locId, List<RoleEditorLayoutEntity> entities, List<RoleEditorLayoutPrivilege> privileges)
         {
             this.id = id;
             this.Name = name;

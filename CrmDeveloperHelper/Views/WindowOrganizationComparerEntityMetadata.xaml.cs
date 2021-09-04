@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             _optionsControlFileGeneration = new FileGenerationEntityMetadataCSharpOptionsControl();
-            _optionsControlFileGeneration.CloseClicked += this._optionsControlFileGeneration_CloseClicked;
+            _optionsControlFileGeneration.CloseClicked += this.optionsControlFileGeneration_CloseClicked;
             this._popupFileGenerationEntityMetadataOptions = new Popup
             {
                 Child = _optionsControlFileGeneration,
@@ -1695,7 +1695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupFileGenerationEntityMetadataOptions.Child.Focus();
         }
 
-        private void _optionsControlFileGeneration_CloseClicked(object sender, EventArgs e)
+        private void optionsControlFileGeneration_CloseClicked(object sender, EventArgs e)
         {
             if (_popupFileGenerationEntityMetadataOptions.IsOpen)
             {

@@ -91,8 +91,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private T GetSelectedEntity()
         {
-            return this.lstVwEntities.SelectedItems.OfType<T>().Count() == 1
-                ? this.lstVwEntities.SelectedItems.OfType<T>().SingleOrDefault() : null;
+            return this.lstVwEntities.SelectedItems.Cast<T>().Count() == 1
+                ? this.lstVwEntities.SelectedItems.Cast<T>().SingleOrDefault() : null;
         }
 
         protected override void SelectEntityAction(Entity Entity)
