@@ -479,7 +479,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static List<string> GetColumnsFromFetch(ConnectionData connectionData, XElement fetchXml)
         {
-            List<string> result = new List<string>();
+            var hashColumns = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+            var result = new List<string>();
 
             var linkElements = fetchXml.DescendantsAndSelf().Where(n => IsLinkElement(n)).ToList();
 
@@ -494,7 +495,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (attrAlias != null && !string.IsNullOrEmpty(attrAlias.Value))
                         {
-                            result.Add(attrAlias.Value);
+                            if (hashColumns.Add(attrAlias.Value))
+                            {
+                                result.Add(attrAlias.Value);
+                            }
                         }
                         else
                         {
@@ -521,7 +525,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 }
                             }
 
-                            result.Add(name);
+                            if (hashColumns.Add(name))
+                            {
+                                result.Add(name);
+                            }
                         }
                     }
                     else if (IsAllAttributesElement(attributeNode))
@@ -557,11 +564,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 && intellisenseData.Entities[parentEntityName.Value].Attributes != null
                             )
                             {
-                                foreach (var attrName in intellisenseData.Entities[parentEntityName.Value].Attributes.Keys)
+                                foreach (var attrName in intellisenseData.Entities[parentEntityName.Value].Attributes.Keys.OrderBy(s => s))
                                 {
                                     string name = parentPrefixName + attrName;
 
-                                    result.Add(name);
+                                    if (hashColumns.Add(name))
+                                    {
+                                        result.Add(name);
+                                    }
                                 }
                             }
                         }
