@@ -3535,5 +3535,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, entity.LogicalName, entity.Id);
         }
+
+        private void mICopySystemUserDomainNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.DomainName);
+        }
+
+        private void mICopySystemUserFullNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.FullName);
+        }
+
+        private void mICopySystemUserBusinessUnitNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.BusinessUnitId?.Name);
+        }
+
+        private void mICopySystemUserBusinessUnitIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.BusinessUnitId?.Id.ToString());
+        }
     }
 }

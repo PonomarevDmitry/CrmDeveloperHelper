@@ -32,6 +32,12 @@
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard User DomainName" Click="mICopySystemUserDomainNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard User FullName" Click="mICopySystemUserFullNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard User BusinessUnit Name" Click="mICopySystemUserBusinessUnitNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard User BusinessUnit Id" Click="mICopySystemUserBusinessUnitIdToClipboard_Click" />
             </MenuItem>
 
             <Separator/>
