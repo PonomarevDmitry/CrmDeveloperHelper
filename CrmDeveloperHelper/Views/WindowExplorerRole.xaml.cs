@@ -810,6 +810,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void txtBEntityFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                PerformFilterEntityPrivileges();
+            }
+        }
+
         private void txtBOtherPrivilegesFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

@@ -897,10 +897,8 @@
                                 <ColumnDefinition Width="30*" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Entities List" Grid.Row="0" Grid.Column="0" />
-
                             <Label x:Name="lblEntityFilter" Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
-                            <TextBox x:Name="txtBEntityFilter" KeyDown="txtBOtherPrivilegesFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
+                            <TextBox x:Name="txtBEntityFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
                             <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="EntityMetadata Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
                         </Grid>
 

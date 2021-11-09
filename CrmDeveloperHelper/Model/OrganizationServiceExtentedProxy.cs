@@ -87,26 +87,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(entity.GetType());
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, entity);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, entity);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Create{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Create{Environment.NewLine}{serializeString}");
                 throw;
             }
+        }
+
+        private static string GetSerializedString(DataContractSerializer serializer, object objectToWrite)
+        {
+            var serializeStringBuilder = new StringBuilder();
+
+            var settings = new XmlWriterSettings
+            {
+                Indent = true,
+                Encoding = Encoding.UTF8,
+            };
+
+            using (var xmlWriter = XmlWriter.Create(serializeStringBuilder, settings))
+            {
+                serializer.WriteObject(xmlWriter, objectToWrite);
+                xmlWriter.Flush();
+            }
+
+            return serializeStringBuilder.ToString();
         }
 
         public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
@@ -123,24 +127,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(typeof(ColumnSet));
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, columnSet);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, columnSet);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Retrieve({entityName}, {id}{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Retrieve({entityName}, {id}{Environment.NewLine}{serializeString}");
                 throw;
             }
         }
@@ -200,24 +189,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(typeof(ColumnSet));
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, columnSet);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, columnSet);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveByQuery({entityName}, {id}{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveByQuery({entityName}, {id}{Environment.NewLine}{serializeString}");
                 throw;
             }
 
@@ -245,24 +219,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(entity.GetType());
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, entity);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, entity);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Update{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Update{Environment.NewLine}{serializeString}");
                 throw;
             }
         }
@@ -375,24 +334,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(request.GetType());
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, request);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, request);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Execute{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Execute{Environment.NewLine}{serializeString}");
                 throw;
             }
         }
@@ -436,24 +380,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(request.GetType());
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, request);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, request);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.ExecuteWithSyncMetadataHandling{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.ExecuteWithSyncMetadataHandling{Environment.NewLine}{serializeString}");
                 throw;
             }
         }
@@ -513,24 +442,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(queryBase.GetType());
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, queryBase);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, queryBase);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultiple{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultiple{Environment.NewLine}{serializeString}");
                 throw;
             }
         }
@@ -602,24 +516,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var serializer = new DataContractSerializer(query.GetType());
 
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
+                string serializeString = GetSerializedString(serializer, query);
 
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, query);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultipleAll{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultipleAll{Environment.NewLine}{serializeString}");
                 Helpers.DTEHelper.WriteExceptionToOutput(ConnectionData, ex);
             }
 
