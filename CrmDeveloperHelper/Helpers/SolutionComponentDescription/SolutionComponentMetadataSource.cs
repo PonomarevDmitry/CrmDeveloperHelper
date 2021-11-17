@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-            entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.In, entityNames));
+            entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.In, entityNames));
 
             var entityQueryExpression = new EntityQueryExpression()
             {
@@ -164,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-            entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.In, entityNames));
+            entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.In, entityNames));
 
             var entityQueryExpression = new EntityQueryExpression()
             {
@@ -432,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public EntityMetadata GetEntityMetadata(string entityName, string[] columnNames)
+        public EntityMetadata GetEntityMetadata(string entityName, params string[] columnNames)
         {
             EntityMetadata metadata = null;
 
@@ -451,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 }
 
                 MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-                entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+                entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, entityName));
 
                 var entityQueryExpression = new EntityQueryExpression()
                 {

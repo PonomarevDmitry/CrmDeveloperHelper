@@ -2204,7 +2204,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         foreach (var target in lookupAttrib.Targets)
                         {
-                            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(target, new[] { "LogicalName", "DisplayName", "DisplayCollectionName", "Description", "PrimaryIdAttribute", "PrimaryNameAttribute" });
+                            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(target,
+                                nameof(EntityMetadata.LogicalName)
+                                , nameof(EntityMetadata.DisplayName)
+                                , nameof(EntityMetadata.DisplayCollectionName)
+                                , nameof(EntityMetadata.Description)
+                                , nameof(EntityMetadata.PrimaryIdAttribute)
+                                , nameof(EntityMetadata.PrimaryNameAttribute)
+                            );
 
                             if (entityMetadata != null)
                             {

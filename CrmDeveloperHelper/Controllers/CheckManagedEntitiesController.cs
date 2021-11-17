@@ -378,7 +378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     .AppendLine(new string('-', 150))
                     .AppendLine();
 
-                string[] headers = { "LogicalName", "IsCustomEntity", "IsManaged" };
+                string[] headers = { nameof(EntityMetadata.LogicalName), nameof(EntityMetadata.IsCustomEntity), nameof(EntityMetadata.IsManaged) };
 
                 {
                     var table = new FormatTextTableHandler(true);
@@ -390,7 +390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             entity.LogicalName
                             , entity.IsCustomEntity.ToString()
                             , entity.IsManaged.ToString()
-                            );
+                        );
                     }
 
                     content.AppendLine();
@@ -467,7 +467,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (wrongEntityAttributes.Any())
             {
-                string[] headers = { "LogicalName", "TypeName", "AttributeType", "IsCustomAttribute", "IsManaged", "Target" };
+                string[] headers = { 
+                    nameof(AttributeMetadata.LogicalName)
+                    , "TypeName"
+                    , nameof(AttributeMetadata.AttributeType)
+                    , nameof(AttributeMetadata.IsCustomAttribute)
+                    , nameof(AttributeMetadata.IsManaged)
+                    , "Target" 
+                };
 
                 {
                     var table = new FormatTextTableHandler(true);
@@ -751,7 +758,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (wrongEntityKeys.Any())
             {
-                string[] headers = { "LogicalName", "SchemaName", "IsManaged", "KeyAttributes" };
+                string[] headers = { 
+                    nameof(EntityKeyMetadata.LogicalName)
+                    , nameof(EntityKeyMetadata.SchemaName)
+                    , nameof(EntityKeyMetadata.IsManaged)
+                    , nameof(EntityKeyMetadata.KeyAttributes) 
+                };
 
                 {
                     var table = new FormatTextTableHandler(true);
@@ -764,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , key.SchemaName
                             , key.IsManaged.ToString()
                             , string.Join(",", key.KeyAttributes.OrderBy(s => s))
-                            );
+                        );
                     }
 
                     if (result.Count > 0) { result.Add(string.Empty); }

@@ -359,11 +359,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (dictUsedEntities.Count == 0)
             {
                 strFile
-                       .AppendLine()
-                       .AppendLine()
-                       .AppendLine()
-                       .AppendLine(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "No used entities in workflows."))
-                       ;
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine(this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "No used entities in workflows."))
+                    ;
+
                 return;
             }
 
@@ -376,8 +377,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var orderedList = dictUsedEntities.Keys.OrderBy(i => i.LogicalName).ThenBy(i => i.Name).ThenBy(i => i.Id);
 
             {
-                FormatTextTableHandler table = new FormatTextTableHandler();
-                table.SetHeader("LogicalName", "Name", "Id", "Url");
+                var table = new FormatTextTableHandler(
+                    nameof(EntityReference.LogicalName)
+                    , nameof(EntityReference.Name)
+                    , nameof(EntityReference.Id)
+                    , "Url"
+                );
 
                 foreach (var item in orderedList)
                 {
@@ -413,10 +418,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 strFile
                     .AppendLine()
                     .AppendLine()
-                    .AppendLine();
+                    .AppendLine()
+                    ;
 
-                FormatTextTableHandler table = new FormatTextTableHandler();
-                table.SetHeader("LogicalName", "Name", "Id");
+                var table = new FormatTextTableHandler();
+                table.SetHeader(nameof(EntityReference.LogicalName), nameof(EntityReference.Name), nameof(EntityReference.Id));
+
                 table.AddLine(item.LogicalName, item.Name, item.Id.ToString());
                 table.GetFormatedLines(false).ForEach(s => strFile.AppendLine(s));
 
@@ -462,11 +469,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     else
                     {
                         strFile
-                                .AppendFormat("Entity with name '{0}' Does Not Exists", item.LogicalName).AppendLine()
-                                .AppendFormat("{0} With Id = {1} Does Not Exists", item.LogicalName, item.Id).AppendLine()
-                                .AppendLine()
-                                .AppendLine()
-                                ;
+                            .AppendFormat("Entity with name '{0}' Does Not Exists", item.LogicalName).AppendLine()
+                            .AppendFormat("{0} With Id = {1} Does Not Exists", item.LogicalName, item.Id).AppendLine()
+                            .AppendLine()
+                            .AppendLine()
+                            ;
                     }
                 }
                 catch (Exception ex)
@@ -499,14 +506,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (workflowsWithEntities.Any())
             {
                 strFile
-                        .AppendLine()
-                        .AppendLine()
-                        .AppendLine()
-                        .AppendLine()
-                        .AppendLine()
-                        .AppendLine()
-                        .AppendLine("These entities Used By Workflows:")
-                        ;
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine("These entities Used By Workflows:")
+                    ;
 
                 message = await _descriptor.GetSolutionComponentsDescriptionAsync(workflowsWithEntities.Select(id => new SolutionComponent()
                 {
@@ -791,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             {
                 FormatTextTableHandler table = new FormatTextTableHandler();
-                table.SetHeader("LogicalName", "Name", "Id", "Url");
+                table.SetHeader(nameof(EntityReference.LogicalName), nameof(EntityReference.Name), nameof(EntityReference.Id), "Url");
 
                 foreach (var item in orderedList)
                 {
@@ -830,7 +837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .AppendLine();
 
                 FormatTextTableHandler table = new FormatTextTableHandler();
-                table.SetHeader("LogicalName", "Name", "Id");
+                table.SetHeader(nameof(EntityReference.LogicalName), nameof(EntityReference.Name), nameof(EntityReference.Id));
                 table.AddLine(item.LogicalName, item.Name, item.Id.ToString());
                 table.GetFormatedLines(false).ForEach(s => strFile.AppendLine(s));
 

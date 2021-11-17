@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
-using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -162,19 +161,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
             handler.SetHeader(
-                "LogicalName"
-                , "DisplayName"
-                , "Description"
-                , "EnablesEntityName"
-                , "EnablesAttributeName"
-                , "ErrorCode"
-                , "EvaluationPriority"
-                , "IsPrivate"
-                , "IsGlobalForOperation"
-                , "ManagedPropertyType"
-                , "Operation"
+                nameof(ManagedPropertyMetadata.LogicalName)
+                , nameof(ManagedPropertyMetadata.DisplayName)
+                , nameof(ManagedPropertyMetadata.Description)
+                , nameof(ManagedPropertyMetadata.EnablesEntityName)
+                , nameof(ManagedPropertyMetadata.EnablesAttributeName)
+                , nameof(ManagedPropertyMetadata.ErrorCode)
+                , nameof(ManagedPropertyMetadata.EvaluationPriority)
+                , nameof(ManagedPropertyMetadata.IsPrivate)
+                , nameof(ManagedPropertyMetadata.IsGlobalForOperation)
+                , nameof(ManagedPropertyMetadata.ManagedPropertyType)
+                , nameof(ManagedPropertyMetadata.Operation)
                 , "Behavior"
-                );
+            );
 
             //public Label Description { get; }
             //public Label DisplayName { get; }
@@ -210,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , managedProperty.ManagedPropertyType.ToString()
                         , managedProperty.Operation.ToString()
                         , behavior
-                        );
+                    );
                 }
                 else
                 {
@@ -233,18 +232,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     FormatTextTableHandler handler = new FormatTextTableHandler();
                     handler.SetHeader(
-                        "LogicalName"
-                        , "DisplayName"
-                        , "Description"
-                        , "EnablesEntityName"
-                        , "EnablesAttributeName"
-                        , "ErrorCode"
-                        , "EvaluationPriority"
-                        , "IsPrivate"
-                        , "IsGlobalForOperation"
-                        , "ManagedPropertyType"
-                        , "Operation"
-                        );
+                        nameof(ManagedPropertyMetadata.LogicalName)
+                        , nameof(ManagedPropertyMetadata.DisplayName)
+                        , nameof(ManagedPropertyMetadata.Description)
+                        , nameof(ManagedPropertyMetadata.EnablesEntityName)
+                        , nameof(ManagedPropertyMetadata.EnablesAttributeName)
+                        , nameof(ManagedPropertyMetadata.ErrorCode)
+                        , nameof(ManagedPropertyMetadata.EvaluationPriority)
+                        , nameof(ManagedPropertyMetadata.IsPrivate)
+                        , nameof(ManagedPropertyMetadata.IsGlobalForOperation)
+                        , nameof(ManagedPropertyMetadata.ManagedPropertyType)
+                        , nameof(ManagedPropertyMetadata.Operation)
+                    );
 
                     handler.AddLine(
                         managedProperty.LogicalName
@@ -258,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , managedProperty.IsGlobalForOperation.ToString()
                         , managedProperty.ManagedPropertyType.ToString()
                         , managedProperty.Operation.ToString()
-                        );
+                    );
 
                     var str = handler.GetFormatedLinesWithHeadersInLine(false).FirstOrDefault();
 
