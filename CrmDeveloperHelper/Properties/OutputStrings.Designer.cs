@@ -5605,20 +5605,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Published All in {0} Successfully..
+        ///   Looks up a localized string similar to Published All in {0} Successfully at {1}..
         /// </summary>
-        internal static string PublishingAllCompletedFormat1 {
+        internal static string PublishingAllCompletedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingAllCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingAllCompletedFormat2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing All in {0} FAILED..
+        ///   Looks up a localized string similar to Publishing All in {0} FAILED at {1}..
         /// </summary>
-        internal static string PublishingAllFailedFormat1 {
+        internal static string PublishingAllFailedFormat2 {
             get {
-                return ResourceManager.GetString("PublishingAllFailedFormat1", resourceCulture);
+                return ResourceManager.GetString("PublishingAllFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing All in {0} at {1}....
+        /// </summary>
+        internal static string PublishingAllFormat2 {
+            get {
+                return ResourceManager.GetString("PublishingAllFormat2", resourceCulture);
             }
         }
         

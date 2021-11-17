@@ -254,11 +254,13 @@
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="30*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
+                    <Label x:Name="lblFilterEntityRelationship" Content="Filter" Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="txtBFilterEntityRelationship" KeyDown="txtBFilterEntityRelationship_KeyDown" Grid.Row="0" Grid.Column="1" />
+                    <Button x:Name="btnEntityRelationshipMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Relationship Filter" Padding="0" Margin="5" Click="btnEntityRelationshipMetadataFilter_Click" IsTabStop="False" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwEntityRelationships" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" MouseDoubleClick="lstVwEntityRelationships_MouseDoubleClick" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

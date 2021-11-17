@@ -36,17 +36,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData
+                        , Properties.OutputStrings.PublishingAllFormat2
+                        , service.ConnectionData.Name
+                        , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
+                    );
+
                     var repository = new PublishActionsRepository(service);
 
                     await repository.PublishAllXmlAsync();
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, service.ConnectionData.Name);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData
+                        , Properties.OutputStrings.PublishingAllCompletedFormat2
+                        , service.ConnectionData.Name
+                        , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
+                    );
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllFailedFormat1, service.ConnectionData.Name);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData
+                        , Properties.OutputStrings.PublishingAllFailedFormat2
+                        , service.ConnectionData.Name
+                        , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
+                    );
                 }
             }
         }

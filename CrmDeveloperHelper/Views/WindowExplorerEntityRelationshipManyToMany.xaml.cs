@@ -25,6 +25,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _popupEntityMetadataFilter;
         private readonly EntityMetadataFilter _entityMetadataFilter;
 
+        private readonly Popup _popupEntityRelationshipMetadataFilter;
+        private readonly ManyToManyRelationshipMetadataFilter _entityRelationshipMetadataFilter;
+
         private readonly ObservableCollection<EntityMetadataListViewItem> _itemsSourceEntityList;
 
         private readonly ObservableCollection<ManyToManyRelationshipMetadataViewItem> _itemsSourceEntityRelationshipList;
@@ -60,6 +63,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
             _popupEntityMetadataFilter.Closed += this.popupEntityMetadataFilter_Closed;
+
+            _entityRelationshipMetadataFilter = new ManyToManyRelationshipMetadataFilter();
+            _entityRelationshipMetadataFilter.CloseClicked += this.entityRelationshipMetadataFilter_CloseClicked;
+            this._popupEntityRelationshipMetadataFilter = new Popup
+            {
+                Child = _entityRelationshipMetadataFilter,
+
+                PlacementTarget = lblFilterEntityRelationship,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+            _popupEntityRelationshipMetadataFilter.Closed += this.popupEntityRelationshipMetadataFilter_Closed;
 
             LoadFromConfig();
 
@@ -471,8 +487,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private static IEnumerable<ManyToManyRelationshipMetadataViewItem> FilterEntityRelationshipList(IEnumerable<ManyToManyRelationshipMetadataViewItem> list, string textName)
+        private IEnumerable<ManyToManyRelationshipMetadataViewItem> FilterEntityRelationshipList(IEnumerable<ManyToManyRelationshipMetadataViewItem> list, string textName)
         {
+            list = _entityRelationshipMetadataFilter.FilterList(list, e => e.ManyToManyRelationshipMetadata);
+
             if (!string.IsNullOrEmpty(textName))
             {
                 textName = textName.ToLower();
@@ -1155,5 +1173,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard Entity
+
+        private void btnEntityRelationshipMetadataFilter_Click(object sender, RoutedEventArgs e)
+        {
+            _popupEntityRelationshipMetadataFilter.IsOpen = true;
+            _popupEntityRelationshipMetadataFilter.Child.Focus();
+        }
+
+        private async void popupEntityRelationshipMetadataFilter_Closed(object sender, EventArgs e)
+        {
+            if (_entityRelationshipMetadataFilter.FilterChanged)
+            {
+                await ShowExistingEntityRelationships();
+            }
+        }
+
+        private void entityRelationshipMetadataFilter_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupEntityRelationshipMetadataFilter.IsOpen)
+            {
+                _popupEntityRelationshipMetadataFilter.IsOpen = false;
+                this.Focus();
+            }
+        }
     }
 }

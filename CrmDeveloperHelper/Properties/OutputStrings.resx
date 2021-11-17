@@ -273,11 +273,14 @@
   <data name="ObjectsInCRMWereExportedToFormat1" xml:space="preserve">
     <value>Objects in CRM were exported to {0}</value>
   </data>
-  <data name="PublishingAllCompletedFormat1" xml:space="preserve">
-    <value>Published All in {0} Successfully.</value>
+  <data name="PublishingAllFormat2" xml:space="preserve">
+    <value>Publishing All in {0} at {1}...</value>
   </data>
-  <data name="PublishingAllFailedFormat1" xml:space="preserve">
-    <value>Publishing All in {0} FAILED.</value>
+  <data name="PublishingAllCompletedFormat2" xml:space="preserve">
+    <value>Published All in {0} Successfully at {1}.</value>
+  </data>
+  <data name="PublishingAllFailedFormat2" xml:space="preserve">
+    <value>Publishing All in {0} FAILED at {1}.</value>
   </data>
   <data name="PublishListIsEmpty" xml:space="preserve">
     <value>Publish List is empty.</value>

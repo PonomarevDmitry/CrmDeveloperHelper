@@ -1365,6 +1365,9 @@
     <Compile Include="UserControls\AttributeMetadataControls\StringAttributeMetadataControl.xaml.cs">
       <DependentUpon>StringAttributeMetadataControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AttributeMetadataFilter.xaml.cs">
+      <DependentUpon>AttributeMetadataFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DateTimePicker.xaml.cs">
       <DependentUpon>DateTimePicker.xaml</DependentUpon>
     </Compile>
@@ -1394,6 +1397,12 @@
     </Compile>
     <Compile Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml.cs">
       <DependentUpon>FileGenerationSdkMessageRequestsOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ManyToManyRelationshipMetadataFilter.xaml.cs">
+      <DependentUpon>ManyToManyRelationshipMetadataFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OneToManyRelationshipMetadataFilter.xaml.cs">
+      <DependentUpon>OneToManyRelationshipMetadataFilter.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PrivilegeFilter.xaml.cs">
       <DependentUpon>PrivilegeFilter.xaml</DependentUpon>
@@ -2161,6 +2170,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AttributeMetadataFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\DateTimePicker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2198,6 +2211,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ManyToManyRelationshipMetadataFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\OneToManyRelationshipMetadataFilter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

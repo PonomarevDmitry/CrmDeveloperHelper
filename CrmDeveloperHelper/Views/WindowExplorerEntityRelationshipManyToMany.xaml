@@ -234,11 +234,13 @@
                 <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="30*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0" />
+                    <Label x:Name="lblFilterEntityRelationship" Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="txtBFilterEntityRelationship" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterEntityRelationship_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                    <Button x:Name="btnEntityRelationshipMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Relationship Filter" Padding="0" Margin="5" Click="btnEntityRelationshipMetadataFilter_Click" IsTabStop="False" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwEntityRelationships" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" MouseDoubleClick="LstVwEntityRelationships_MouseDoubleClick" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

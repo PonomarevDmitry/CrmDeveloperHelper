@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls"
+             xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+             xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+             mc:Ignorable="d" 
+             Focusable="True" 
+             BorderThickness="1"
+             BorderBrush="Black"
+             >
+    <UserControl.Resources>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter" />
+
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
+
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
+
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
+
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
+
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical" Background="White">
+
+        <GroupBox Margin="5" Header="AttributeMetadata Filters" HorizontalAlignment="Stretch">
+
+            <StackPanel x:Name="panelFilters" Orientation="Horizontal" >
+            </StackPanel>
+            
+        </GroupBox>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="2">
+                <Hyperlink x:Name="hypLinkClear" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkClear_RequestNavigate" >
+                    <Run Text="Clear" />
+                </Hyperlink>
+            </Label>
+        </Grid>
+        
+    </StackPanel>
+
+</UserControl>

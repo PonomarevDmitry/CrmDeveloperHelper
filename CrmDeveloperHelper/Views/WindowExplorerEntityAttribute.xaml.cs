@@ -27,6 +27,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _popupEntityMetadataFilter;
         private readonly EntityMetadataFilter _entityMetadataFilter;
 
+        private readonly Popup _popupAttributeMetadataFilter;
+        private readonly AttributeMetadataFilter _attributeMetadataFilter;
+
         private readonly ObservableCollection<EntityMetadataAuditViewItem> _itemsSourceEntityList;
 
         private readonly ObservableCollection<AttributeMetadataViewItem> _itemsSourceAttributeList;
@@ -64,6 +67,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
             _popupEntityMetadataFilter.Closed += this.popupEntityMetadataFilter_Closed;
+
+            _attributeMetadataFilter = new AttributeMetadataFilter();
+            _attributeMetadataFilter.CloseClicked += this.attributeMetadataFilter_CloseClicked;
+            this._popupAttributeMetadataFilter = new Popup
+            {
+                Child = _attributeMetadataFilter,
+
+                PlacementTarget = lblFilterAttribute,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+            _popupAttributeMetadataFilter.Closed += this.popupAttributeMetadataFilter_Closed;
 
             txtBFilterEnitity.Text = filterEntity;
             txtBFilterEnitity.SelectionLength = 0;
@@ -447,8 +463,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private static IEnumerable<AttributeMetadataViewItem> FilterAttributeList(IEnumerable<AttributeMetadataViewItem> list, string textName)
+        private IEnumerable<AttributeMetadataViewItem> FilterAttributeList(IEnumerable<AttributeMetadataViewItem> list, string textName)
         {
+            list = _attributeMetadataFilter.FilterList(list, i => i.AttributeMetadata);
+
             if (!string.IsNullOrEmpty(textName))
             {
                 textName = textName.ToLower();
@@ -1704,5 +1722,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard Entity
+
+        private void btnAttributeMetadataFilter_Click(object sender, RoutedEventArgs e)
+        {
+            _popupAttributeMetadataFilter.IsOpen = true;
+            _popupAttributeMetadataFilter.Child.Focus();
+        }
+
+        private async void popupAttributeMetadataFilter_Closed(object sender, EventArgs e)
+        {
+            if (_attributeMetadataFilter.FilterChanged)
+            {
+                await ShowExistingAttributes();
+            }
+        }
+
+        private void attributeMetadataFilter_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupAttributeMetadataFilter.IsOpen)
+            {
+                _popupAttributeMetadataFilter.IsOpen = false;
+                this.Focus();
+            }
+        }
     }
 }
