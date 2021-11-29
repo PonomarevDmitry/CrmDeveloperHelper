@@ -548,6 +548,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
+            foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
+            }
+
             try
             {
                 await UpdatingPluginAssembliesInWindow(connectionData, commonConfig, projectList);
@@ -558,6 +563,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
+                foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
+                }
+
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
@@ -579,7 +589,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositoryAssembly = new PluginAssemblyRepository(service);
 
-            foreach (var project in projectList)
+            foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
             {
                 string projectAssemblyName = PropertiesHelper.GetAssemblyName(project);
 
@@ -619,11 +629,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteBuildingProjectAndUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, bool registerPlugins)
         {
-            string operation = string.Format(registerPlugins ? Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat1 : Properties.OperationNames.BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1
-                , connectionData?.Name
-            );
+            string formatOperation = registerPlugins ? Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat1 : Properties.OperationNames.BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1;
+
+            string operation = string.Format(formatOperation, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
+            }
 
             try
             {
@@ -635,6 +650,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
+                foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
+                }
+
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }

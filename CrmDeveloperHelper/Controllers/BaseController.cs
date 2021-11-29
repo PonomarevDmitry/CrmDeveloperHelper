@@ -500,14 +500,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             List<string> listNotExistsOnDisk = new List<string>();
 
-            //List<string> listNotHaveBOM = new List<string>();
-
-            //List<string> listWrongEncoding = new List<string>();
-
-            //List<string> listMultipleEncodingHasUTF8 = new List<string>();
-
-            //List<string> listMultipleEncodingHasNotUTF8 = new List<string>();
-
             var tableNotHaveBOM = new FormatTextTableHandler(headerFileFriendlyPath, "Open in Visual Studio");
 
             var tableWrongEncoding = new FormatTextTableHandler(headerFileFriendlyPath, "Encoding", "Open in Visual Studio");
@@ -626,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 listNotExistsOnDisk.Sort();
 
-                listNotExistsOnDisk.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, item));
+                listNotExistsOnDisk.ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
 
             if (countWithUTF8Encoding > 0)

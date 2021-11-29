@@ -1963,7 +1963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var item in tableComparedFiles.GetFormatedLines(false))
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, item);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, _tabSpacer + item);
                 }
             }
 
