@@ -183,15 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             // Формируем значения
             foreach (var item in options.OrderBy(o => o.Value))
             {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    Write(",");
-                    WriteLine();
-                }
+                WriteCommaIfNotFirstLine(ref first);
 
                 Write(item.MakeStringJS());
             }

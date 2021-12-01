@@ -170,14 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     && attributeMetadata.IsPrimaryId.GetValueOrDefault()
                 )
                 {
-                    if (firstLine)
-                    {
-                        firstLine = false;
-                    }
-                    else
-                    {
-                        WriteLine(",");
-                    }
+                    WriteCommaIfNotFirstLine(ref firstLine);
 
                     Write("'{0}': '{0}'", attributeMetadata.LogicalName.ToLower());
                 }
@@ -191,14 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     && attributeMetadata.IsPrimaryName.GetValueOrDefault()
                 )
                 {
-                    if (firstLine)
-                    {
-                        firstLine = false;
-                    }
-                    else
-                    {
-                        WriteLine(",");
-                    }
+                    WriteCommaIfNotFirstLine(ref firstLine);
 
                     Write("'{0}': '{0}'", attributeMetadata.LogicalName.ToLower());
                 }
@@ -212,14 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (oobAttributes.Any())
             {
-                if (firstLine)
-                {
-                    firstLine = false;
-                }
-                else
-                {
-                    WriteLine(",");
-                }
+                WriteCommaIfNotFirstLine(ref firstLine);
 
                 WriteLine();
 
@@ -227,14 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (AttributeMetadata attrib in oobAttributes.OrderBy(attr => attr.LogicalName))
                 {
-                    if (firstLineOOB)
-                    {
-                        firstLineOOB = false;
-                    }
-                    else
-                    {
-                        WriteLine(",");
-                    }
+                    WriteCommaIfNotFirstLine(ref firstLineOOB);
 
                     Write("'{0}': '{0}'", attrib.LogicalName.ToLower());
                 }
@@ -253,14 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (AttributeMetadata attrib in customAttributes.OrderBy(attr => attr.LogicalName))
                 {
-                    if (firstLineCustom)
-                    {
-                        firstLineCustom = false;
-                    }
-                    else
-                    {
-                        WriteLine(",");
-                    }
+                    WriteCommaIfNotFirstLine(ref firstLineCustom);
 
                     Write("'{0}': '{0}'", attrib.LogicalName.ToLower());
                 }
@@ -337,14 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             // Формируем значения
             foreach (var item in options.OrderBy(op => op.LinkedStateCode).ThenBy(op => op.Value))
             {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    WriteLine(",");
-                }
+                WriteCommaIfNotFirstLine(ref first);
 
                 Write(item.MakeStringJS());
             }
@@ -368,15 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             // Формируем значения
             foreach (var item in options)
             {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    Write(",");
-                    WriteLine();
-                }
+                WriteCommaIfNotFirstLine(ref first);
 
                 Write(item.MakeStringJS());
             }
@@ -448,15 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             // Формируем значения
             foreach (var item in options.OrderBy(o => o.Value))
             {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    Write(",");
-                    WriteLine();
-                }
+                WriteCommaIfNotFirstLine(ref first);
 
                 Write(item.MakeStringJS());
             }

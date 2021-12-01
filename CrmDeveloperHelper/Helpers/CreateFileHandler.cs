@@ -1124,5 +1124,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine(attributeValue);
         }
+
+        protected void WriteCommaIfNotFirstLine(ref bool firstLine)
+        {
+            if (firstLine)
+            {
+                firstLine = false;
+            }
+            else
+            {
+                WriteLine(",");
+            }
+        }
     }
 }

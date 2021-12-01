@@ -448,15 +448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var tab in tabs)
             {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    Write(",");
-                    WriteLine();
-                }
+                WriteCommaIfNotFirstLine(ref first);
 
                 WriteLine();
                 WriteLine("'{0}': {{", tab.Name);
@@ -519,15 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 foreach (var section in tab.Sections)
                 {
-                    if (first)
-                    {
-                        first = false;
-                    }
-                    else
-                    {
-                        Write(",");
-                        WriteLine();
-                    }
+                    WriteCommaIfNotFirstLine(ref first);
 
                     WriteLine();
                     WriteLine("'{0}': {{", section.Name);

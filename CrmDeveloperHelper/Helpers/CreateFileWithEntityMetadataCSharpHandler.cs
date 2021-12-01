@@ -406,7 +406,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             bool first = true;
 
             var primaryAttributes = _entityMetadata.Attributes.Where(a => string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
-                     || string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+                || string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
+            );
 
             if (primaryAttributes.Any())
             {
