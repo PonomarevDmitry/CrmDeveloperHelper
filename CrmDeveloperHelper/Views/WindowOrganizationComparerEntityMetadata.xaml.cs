@@ -554,7 +554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             using (var stringWriter1 = new StringWriter(stringBuilder1))
             {
-                var handler1 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter1, config, service1, _iWriteToOutput, codeGenerationServiceProvider1);
+                var handler1 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter1, config, service1, codeGenerationServiceProvider1);
 
                 var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
 
@@ -564,7 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     using (var stringWriter2 = new StringWriter(stringBuilder2))
                     {
-                        var handler2 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter2, config, service2, _iWriteToOutput, codeGenerationServiceProvider2);
+                        var handler2 = new CreateFileWithEntityMetadataCSharpHandler(stringWriter2, config, service2, codeGenerationServiceProvider2);
 
                         await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
                     }
@@ -752,7 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             using (var stringWriter1 = new StringWriter(stringBuilder1))
             {
-                var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter1, config, service1, _iWriteToOutput);
+                var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter1, config, service1);
 
                 var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
 
@@ -762,7 +762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     using (var stringWriter2 = new StringWriter(stringBuilder2))
                     {
-                        var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter2, config, service2, _iWriteToOutput);
+                        var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter2, config, service2);
 
                         await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
                     }
@@ -900,7 +900,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+                    var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, codeGenerationServiceProvider);
 
                     await handler.CreateFileAsync(entityMetadata.LogicalName);
                 }
@@ -1074,7 +1074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service, _iWriteToOutput);
+                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service);
 
                     await handler.CreateFileAsync(entityName);
                 }

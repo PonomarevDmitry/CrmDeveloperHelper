@@ -19,7 +19,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly DependencyRepository _dependencyRepository;
         private readonly SolutionComponentDescriptor _solutionComponentDescriptor;
         private readonly IOrganizationServiceExtented _service;
-        private readonly IWriteToOutput iWriteToOutput;
         private readonly CreateFileJavaScriptConfiguration _config;
 
         private List<StringMap> _listStringMap;
@@ -28,12 +27,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             TextWriter writer
             , CreateFileJavaScriptConfiguration config
             , IOrganizationServiceExtented service
-            , IWriteToOutput outputWindow
         ) : base(writer, config.TabSpacer, true)
         {
             this._config = config;
             this._service = service;
-            this.iWriteToOutput = outputWindow;
 
             this._solutionComponentDescriptor = new SolutionComponentDescriptor(_service)
             {

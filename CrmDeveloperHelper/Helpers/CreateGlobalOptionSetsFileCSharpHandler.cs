@@ -25,23 +25,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly StringMapRepository _repositoryStringMap;
 
-        private readonly IWriteToOutput _iWriteToOutput;
-
         public CreateGlobalOptionSetsFileCSharpHandler(
             TextWriter writer
             , IOrganizationServiceExtented service
-            , IWriteToOutput iWriteToOutput
             , SolutionComponentDescriptor descriptor
             , CreateFileCSharpConfiguration config
         ) : base(writer, config.TabSpacer, config.AllDescriptions)
         {
             this._service = service ?? throw new ArgumentNullException(nameof(service));
-            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
 
             this._config = config;
 
             this._descriptor = descriptor;
-            descriptor.WithManagedInfo = config.WithManagedInfo;
+            this._descriptor.WithManagedInfo = config.WithManagedInfo;
 
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);

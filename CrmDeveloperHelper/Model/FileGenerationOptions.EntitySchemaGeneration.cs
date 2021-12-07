@@ -163,6 +163,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _GenerateSchemaAttributesProperties = false;
+        /// <summary>
+        /// Генерировать атрибуты в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateSchemaAttributesProperties
+        {
+            get => _GenerateSchemaAttributesProperties;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateSchemaAttributesProperties));
+                this._GenerateSchemaAttributesProperties = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaAttributesProperties));
+            }
+        }
+
         private bool _GenerateSchemaManyToOne = true;
         /// <summary>
         /// Генерировать связи Many To One (N:1) в файле с метаданными сущности

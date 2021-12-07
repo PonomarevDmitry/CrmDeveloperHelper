@@ -17,6 +17,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool GenerateAttributesWithNameOf { get; private set; }
 
+        public bool GenerateAttributesProperties { get; private set; }
+
         public ProxyClassAttributeEnums GenerateAttributesEnumsStateStatus { get; private set; }
 
         public ProxyClassAttributeEnums GenerateAttributesEnumsLocal { get; private set; }
@@ -101,6 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 TypeConverterName = fileGenerationOptions.TypeConverterName,
 
                 GenerateAttributes = fileGenerationOptions.GenerateSchemaAttributes,
+                GenerateAttributesProperties = fileGenerationOptions.GenerateSchemaAttributesProperties,
                 GenerateStateStatusOptionSet = fileGenerationOptions.GenerateSchemaStatusOptionSet,
                 GenerateLocalOptionSet = fileGenerationOptions.GenerateSchemaLocalOptionSet,
                 GenerateGlobalOptionSet = fileGenerationOptions.GenerateSchemaGlobalOptionSet,

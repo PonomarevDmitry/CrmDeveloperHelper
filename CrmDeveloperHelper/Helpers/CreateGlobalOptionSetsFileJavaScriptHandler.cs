@@ -22,22 +22,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly StringMapRepository _repositoryStringMap;
 
-        private readonly IWriteToOutput _iWriteToOutput;
-
         private readonly string _namespaceGlobalOptionSetsJavaScript;
 
         public CreateGlobalOptionSetsFileJavaScriptHandler(
             TextWriter writer
             , IOrganizationServiceExtented service
             , SolutionComponentDescriptor descriptor
-            , IWriteToOutput iWriteToOutput
             , string tabSpacer
             , bool withDependentComponents
             , string namespaceGlobalOptionSetsJavaScript
         ) : base(writer, tabSpacer, true)
         {
             this._service = service;
-            this._iWriteToOutput = iWriteToOutput;
             this._withDependentComponents = withDependentComponents;
 
             this._namespaceGlobalOptionSetsJavaScript = namespaceGlobalOptionSetsJavaScript;

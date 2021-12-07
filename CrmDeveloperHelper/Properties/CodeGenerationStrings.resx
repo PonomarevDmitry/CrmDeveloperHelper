@@ -102,6 +102,9 @@
   <data name="Attributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
+  <data name="AttributesProperties" xml:space="preserve">
+    <value>AttributesProperties</value>
+  </data>
   <data name="PrimaryAttributes" xml:space="preserve">
     <value>Primary Attributes</value>
   </data>

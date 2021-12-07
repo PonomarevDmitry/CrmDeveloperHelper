@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             using (var stringWriter = new StringWriter(stringBuilder))
             {
-                var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+                var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, codeGenerationServiceProvider);
 
                 await handler.CreateFileAsync(entityMetadata);
             }
@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             using (var stringWriter = new StringWriter(stringBuilder))
             {
-                var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service, _iWriteToOutput);
+                var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service);
 
                 await handler.CreateFileAsync(entityMetadata);
             }
@@ -457,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             using (var stringWriter = new StringWriter(stringBuilder))
             {
-                var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, _iWriteToOutput, descriptor, config);
+                var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, descriptor, config);
 
                 await handler.CreateFileAsync(new[] { optionSetMetadata });
             }
@@ -495,7 +495,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     stringWriter
                     , service
                     , descriptor
-                    , _iWriteToOutput
                     , fileGenerationOptions.GetTabSpacer()
                     , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
                     , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
@@ -727,7 +726,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         stringWriter
                         , service
                         , descriptor
-                        , _iWriteToOutput
                         , fileGenerationOptions.GetTabSpacer()
                         , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
                         , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript

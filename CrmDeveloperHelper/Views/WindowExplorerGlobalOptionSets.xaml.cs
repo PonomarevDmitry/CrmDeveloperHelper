@@ -522,7 +522,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var descriptor = new SolutionComponentDescriptor(service);
 
-                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, _iWriteToOutput, descriptor, config);
+                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, descriptor, config);
 
                     await handler.CreateFileAsync(optionSets);
                 }
@@ -611,7 +611,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         stringWriter
                         , service
                         , descriptor
-                        , _iWriteToOutput
                         , fileGenerationOptions.GetTabSpacer()
                         , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
                         , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript

@@ -185,6 +185,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        private void WriteToOutputProjectList(ConnectionData connectionData, IEnumerable<EnvDTE.Project> projectList)
+        {
+            foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
+            }
+        }
+
         #region Comparing Local Assembly and PluginAssembly by PluginTypes.
 
         public async Task ExecuteComparingPluginTypesLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
@@ -192,6 +200,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(Properties.OperationNames.ComparingCrmPluginAssemblyAndLocalAssemblyFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            WriteToOutputProjectList(connectionData, projectList);
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
 
             try
             {
@@ -203,6 +214,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                WriteToOutputProjectList(connectionData, projectList);
+
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
@@ -313,6 +327,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
+            WriteToOutputProjectList(connectionData, projectList);
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+
             try
             {
                 await ComparingByteArrayLocalAssemblyAndPluginAssembly(connectionData, commonConfig, projectList);
@@ -323,6 +340,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                WriteToOutputProjectList(connectionData, projectList);
+
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
@@ -548,10 +568,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-            foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
-            }
+            WriteToOutputProjectList(connectionData, projectList);
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
 
             try
             {
@@ -563,10 +581,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
-                }
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                WriteToOutputProjectList(connectionData, projectList);
 
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
@@ -635,10 +651,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-            foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
-            }
+            WriteToOutputProjectList(connectionData, projectList);
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
 
             try
             {
@@ -650,10 +664,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
-                foreach (var project in projectList.Where(p => !string.IsNullOrEmpty(p.Name)).OrderBy(p => p.Name))
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + project.Name);
-                }
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                WriteToOutputProjectList(connectionData, projectList);
 
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
@@ -908,6 +920,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
+            WriteToOutputProjectList(connectionData, projectList);
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+
             try
             {
                 await RegisterPluginAssembly(connectionData, commonConfig, projectList);
@@ -918,6 +933,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                WriteToOutputProjectList(connectionData, projectList);
+
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
@@ -967,6 +985,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
+            WriteToOutputProjectList(connectionData, projectList);
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+
             try
             {
                 await ExecutingActionOnProjectPluginAssembly(connectionData, commonConfig, projectList, actionOnComponent);
@@ -977,6 +998,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             finally
             {
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                WriteToOutputProjectList(connectionData, projectList);
+
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }

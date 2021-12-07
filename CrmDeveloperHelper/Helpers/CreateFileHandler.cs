@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private int _tabCount = 0;
 
-        public CreateFileHandler(TextWriter writer, string tabSpacer, bool allDescriptions)
+        protected CreateFileHandler(TextWriter writer, string tabSpacer, bool allDescriptions)
         {
             this._writer = writer;
             this._tabSpacer = tabSpacer;
@@ -1107,6 +1107,66 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         protected static string ToCSharpLiteral(string input)
+        {
+            using (var writer = new StringWriter())
+            {
+                using (System.CodeDom.Compiler.CodeDomProvider provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+                {
+                    provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(input), writer, null);
+                    return writer.ToString();
+                }
+            }
+        }
+
+        protected static string ToCSharpLiteral(int input)
+        {
+            using (var writer = new StringWriter())
+            {
+                using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+                {
+                    provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(input), writer, null);
+                    return writer.ToString();
+                }
+            }
+        }
+
+        protected static string ToCSharpLiteral(long input)
+        {
+            using (var writer = new StringWriter())
+            {
+                using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+                {
+                    provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(input), writer, null);
+                    return writer.ToString();
+                }
+            }
+        }
+
+        protected static string ToCSharpLiteral(decimal input)
+        {
+            using (var writer = new StringWriter())
+            {
+                using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+                {
+                    provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(input), writer, null);
+                    return writer.ToString();
+                }
+            }
+        }
+
+        protected static string ToCSharpLiteral(double input)
+        {
+            using (var writer = new StringWriter())
+            {
+                using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+                {
+                    provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(input), writer, null);
+                    return writer.ToString();
+                }
+            }
+        }
+
+        protected static string ToCSharpLiteral(bool input)
         {
             using (var writer = new StringWriter())
             {

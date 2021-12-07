@@ -54,7 +54,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return _listAttributeMap;
         }
 
-        private readonly IWriteToOutput _iWriteToOutput;
         private Task _taskDownloadMetadata;
         private readonly ICodeGenerationServiceProvider _iCodeGenerationServiceProvider;
 
@@ -64,13 +63,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             TextWriter writer
             , CreateFileCSharpConfiguration config
             , IOrganizationServiceExtented service
-            , IWriteToOutput iWriteToOutput
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         ) : base(writer, config.TabSpacer, config.AllDescriptions)
         {
             this._config = config;
             this._service = service;
-            this._iWriteToOutput = iWriteToOutput;
             this._iCodeGenerationServiceProvider = iCodeGenerationServiceProvider;
 
             this._solutionComponentDescriptor = new SolutionComponentDescriptor(_service)
@@ -148,26 +145,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine("{");
             }
 
-            WriteLine("public {0} string EntityLogicalName = \"{1}\";", _fieldHeader, _entityMetadata.LogicalName);
+            WriteLine("public {0} string EntityLogicalName = {1};", _fieldHeader, ToCSharpLiteral(_entityMetadata.LogicalName));
 
             WriteLine();
-            WriteLine("public {0} string EntitySchemaName = \"{1}\";", _fieldHeader, _entityMetadata.SchemaName);
+            WriteLine("public {0} string EntitySchemaName = {1};", _fieldHeader, ToCSharpLiteral(_entityMetadata.SchemaName));
 
             WriteLine();
-            WriteLine("public {0} string EntityPrimaryIdAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryIdAttribute);
+            WriteLine("public {0} string EntityPrimaryIdAttribute = {1};", _fieldHeader, ToCSharpLiteral(_entityMetadata.PrimaryIdAttribute));
 
             if (!string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
             {
                 WriteLine();
 
-                WriteLine("public {0} string EntityPrimaryNameAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryNameAttribute);
+                WriteLine("public {0} string EntityPrimaryNameAttribute = {1};", _fieldHeader, ToCSharpLiteral(_entityMetadata.PrimaryNameAttribute));
             }
 
             if (!string.IsNullOrEmpty(_entityMetadata.PrimaryImageAttribute))
             {
                 WriteLine();
 
-                WriteLine("public {0} string EntityPrimaryImageAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryImageAttribute);
+                WriteLine("public {0} string EntityPrimaryImageAttribute = {1};", _fieldHeader, ToCSharpLiteral(_entityMetadata.PrimaryImageAttribute));
             }
 
             if (_entityMetadata.ObjectTypeCode.HasValue)
@@ -176,31 +173,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (_entityMetadata.IsCustomEntity.GetValueOrDefault())
                 {
-                    WriteLine("// public {0} int EntityObjectTypeCode = {1};", _fieldHeader, _entityMetadata.ObjectTypeCode);
+                    WriteLine("// public {0} int EntityObjectTypeCode = {1};", _fieldHeader, ToCSharpLiteral(_entityMetadata.ObjectTypeCode.Value));
                 }
                 else
                 {
-                    WriteLine("public {0} int EntityObjectTypeCode = {1};", _fieldHeader, _entityMetadata.ObjectTypeCode);
+                    WriteLine("public {0} int EntityObjectTypeCode = {1};", _fieldHeader, ToCSharpLiteral(_entityMetadata.ObjectTypeCode.Value));
                 }
             }
 
             await WriteAttributesToFile();
 
-            await WriteEnums();
+            await WriteAttributesPropertiesToFile();
 
-            WriteKeys(_entityMetadata.Keys);
+            await WriteEnumsToFile();
+
+            WriteKeysToFile(_entityMetadata.Keys);
 
             if (this._config.GenerateManyToOne)
             {
-                await WriteOneToMany(_entityMetadata.ManyToOneRelationships, "ManyToOne", "N:1");
+                await WriteOneToManyToFile(_entityMetadata.ManyToOneRelationships, "ManyToOne", "N:1");
             }
 
             if (this._config.GenerateOneToMany)
             {
-                await WriteOneToMany(_entityMetadata.OneToManyRelationships, "OneToMany", "1:N");
+                await WriteOneToManyToFile(_entityMetadata.OneToManyRelationships, "OneToMany", "1:N");
             }
 
-            await WriteManyToMany(_entityMetadata.ManyToManyRelationships);
+            await WriteManyToManyToFile(_entityMetadata.ManyToManyRelationships);
 
             WriteLine("}");
 
@@ -384,6 +383,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        #region Attributes To File
+
         private async Task WriteAttributesToFile()
         {
             if (!this._config.GenerateAttributes
@@ -458,7 +459,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             var notPrimaryAttributes = _entityMetadata.Attributes.Where(a => !string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
-                    && !string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+                && !string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
+            );
 
             var oobAttributes = notPrimaryAttributes.Where(a => !a.IsCustomAttribute.GetValueOrDefault());
             var customAttributes = notPrimaryAttributes.Where(a => a.IsCustomAttribute.GetValueOrDefault());
@@ -533,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteSummary(attributeMetadata.DisplayName, attributeMetadata.Description, null, footers);
 
-            string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attributeNameInSchemaAttributes, attributeMetadata.LogicalName);
+            string str = string.Format("public {0} string {1} = {2};", _fieldHeader, attributeNameInSchemaAttributes, ToCSharpLiteral(attributeMetadata.LogicalName));
 
             bool ignore =
             !(
@@ -607,7 +609,513 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private async Task WriteEnums()
+        #endregion Attributes To File
+
+        #region AttributesProperties To File
+
+        private async Task WriteAttributesPropertiesToFile()
+        {
+            if (!this._config.GenerateAttributesProperties
+                || _entityMetadata.Attributes == null
+                || !_entityMetadata.Attributes.Any()
+            )
+            {
+                return;
+            }
+
+            WriteLine();
+            WriteLine($"#region {Properties.CodeGenerationStrings.AttributesProperties}");
+            WriteLine();
+
+            WriteLine("public static partial class AttributesProperties");
+            WriteLine("{");
+
+            await this._taskDownloadMetadata;
+
+            bool first = true;
+
+            var primaryAttributes = _entityMetadata.Attributes.Where(a => string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
+            );
+
+            if (primaryAttributes.Any())
+            {
+                bool regionCreated = false;
+
+                if (!string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
+                {
+                    AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (attributeMetadata != null
+                        && attributeMetadata.IsPrimaryId.GetValueOrDefault()
+                    )
+                    {
+                        if (first) { first = false; } else { WriteLine(); }
+                        if (!regionCreated)
+                        {
+                            regionCreated = true;
+                            WriteLine($"#region {Properties.CodeGenerationStrings.PrimaryAttributes}");
+                            WriteLine();
+                        }
+
+                        GenerateAttributeProperties(attributeMetadata);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
+                {
+                    AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (attributeMetadata != null
+                        && attributeMetadata.IsPrimaryName.GetValueOrDefault()
+                    )
+                    {
+                        if (first) { first = false; } else { WriteLine(); }
+                        if (!regionCreated)
+                        {
+                            regionCreated = true;
+                            WriteLine($"#region {Properties.CodeGenerationStrings.PrimaryAttributes}");
+                            WriteLine();
+                        }
+
+                        GenerateAttributeProperties(attributeMetadata);
+                    }
+                }
+
+                WriteLine();
+                WriteLine($"#endregion {Properties.CodeGenerationStrings.PrimaryAttributes}");
+            }
+
+            var notPrimaryAttributes = _entityMetadata.Attributes.Where(a => !string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
+            );
+
+            var oobAttributes = notPrimaryAttributes.Where(a => !a.IsCustomAttribute.GetValueOrDefault());
+            var customAttributes = notPrimaryAttributes.Where(a => a.IsCustomAttribute.GetValueOrDefault());
+
+            if (oobAttributes.Any())
+            {
+                if (first) { first = false; } else { WriteLine(); }
+                WriteLine($"#region {Properties.CodeGenerationStrings.OOBAttributes}");
+
+                foreach (AttributeMetadata attributeMetadata in oobAttributes.OrderBy(attr => attr.LogicalName))
+                {
+                    WriteLine();
+                    GenerateAttributeProperties(attributeMetadata);
+                }
+
+                WriteLine();
+                WriteLine($"#endregion {Properties.CodeGenerationStrings.OOBAttributes}");
+            }
+
+            if (customAttributes.Any())
+            {
+                if (first) { first = false; } else { WriteLine(); }
+                WriteLine($"#region {Properties.CodeGenerationStrings.CustomAttributes}");
+
+                foreach (AttributeMetadata attributeMetadata in customAttributes.OrderBy(attr => attr.LogicalName))
+                {
+                    WriteLine();
+                    GenerateAttributeProperties(attributeMetadata);
+                }
+
+                WriteLine();
+                WriteLine($"#endregion {Properties.CodeGenerationStrings.CustomAttributes}");
+            }
+
+            WriteLine("}");
+
+            WriteLine();
+            WriteLine($"#endregion {Properties.CodeGenerationStrings.AttributesProperties}");
+        }
+
+        private void GenerateAttributeProperties(AttributeMetadata attributeMetadata)
+        {
+            string attributeNameInSchemaAttributes = GetAttributeNameInSchemaAttributes(attributeMetadata);
+
+            string attributeNameInProxy = GetAttributeNameInProxy(attributeMetadata);
+
+            bool attributeGeneratedInProxyClass = _iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata);
+
+            bool ignore =
+            !(
+                attributeGeneratedInProxyClass
+                || attributeMetadata.IsValidForGrid.GetValueOrDefault()
+                || attributeMetadata.IsValidForForm.GetValueOrDefault()
+                || (attributeMetadata.IsValidForAdvancedFind?.Value).GetValueOrDefault()
+                || string.Equals(attributeMetadata.LogicalName, SystemForm.Schema.Attributes.solutionid, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(attributeMetadata.LogicalName, SystemForm.Schema.Attributes.supportingsolutionid, StringComparison.InvariantCultureIgnoreCase)
+            );
+
+            List<string> footers = new List<string>();
+
+            if (!ignore)
+            {
+                if (_config.GenerateAttributes)
+                {
+                    string attributeFullName = $"Attributes.{attributeNameInSchemaAttributes}";
+
+                    string attributeSeeLink = string.Format("Attribute <see cref=\"{0}\"/>", attributeFullName);
+
+                    footers.Add(attributeSeeLink);
+                }
+            }
+
+            if (attributeGeneratedInProxyClass)
+            {
+                string proxyClassAttributeFullName = $"{_config.NamespaceClasses}.{_entityClassName}.{attributeNameInProxy}";
+
+                string proxyClassAttributeSeeLink = string.Format("Proxy Class Attribute <see cref=\"{0}\"/>", proxyClassAttributeFullName);
+
+                footers.Add(proxyClassAttributeSeeLink);
+            }
+
+            string optionSetSeeLink = GetOptionSetSeeLink(_config.NamespaceGlobalOptionSets, attributeMetadata);
+
+            if (!string.IsNullOrEmpty(optionSetSeeLink))
+            {
+                footers.Add(optionSetSeeLink);
+            }
+
+            WriteSummaryStrings(footers);
+
+            string str = string.Format("public static partial class {0}", attributeNameInProxy);
+
+            if (ignore)
+            {
+                str = "//" + str;
+            }
+
+            if (!ignore)
+            {
+                if (_config.AddDescriptionAttribute)
+                {
+                    string description = GetLocalizedLabel(attributeMetadata.DisplayName);
+
+                    if (string.IsNullOrEmpty(description))
+                    {
+                        description = GetLocalizedLabel(attributeMetadata.Description);
+                    }
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
+                    }
+                }
+            }
+
+            WriteLine(str);
+
+            if (ignore)
+            {
+                return;
+            }
+
+            WriteLine("{");
+
+            WriteLine(string.Format("public {0} string SchemaName = {1};", _fieldHeader, ToCSharpLiteral(attributeMetadata.SchemaName)));
+
+            if (attributeMetadata.AttributeType.HasValue)
+            {
+                WriteLine();
+                WriteLine(string.Format("public {0} Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode AttributeType = Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.{1};", _fieldHeader, attributeMetadata.AttributeType));
+            }
+
+            if (attributeMetadata.AttributeTypeName != null && !string.IsNullOrEmpty(attributeMetadata.AttributeTypeName.Value))
+            {
+                WriteLine();
+                WriteLine(string.Format("public {0} string AttributeTypeName = {1};", _fieldHeader, ToCSharpLiteral(attributeMetadata.AttributeTypeName.Value)));
+            }
+
+            if (attributeMetadata is MemoAttributeMetadata memoAttrib)
+            {
+                if (memoAttrib.MaxLength.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int MaxLength = {1};", _fieldHeader, ToCSharpLiteral(memoAttrib.MaxLength.Value)));
+                }
+            }
+
+            if (attributeMetadata is StringAttributeMetadata stringAttrib)
+            {
+                if (stringAttrib.MaxLength.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int MaxLength = {1};", _fieldHeader, ToCSharpLiteral(stringAttrib.MaxLength.Value)));
+                }
+            }
+
+            if (attributeMetadata is IntegerAttributeMetadata intAttrib)
+            {
+                if (intAttrib.MinValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int MinValue = {1};", _fieldHeader, ToCSharpLiteral(intAttrib.MinValue.Value)));
+                }
+
+                if (intAttrib.MaxValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int MaxValue = {1};", _fieldHeader, ToCSharpLiteral(intAttrib.MaxValue.Value)));
+                }
+            }
+
+            if (attributeMetadata is BigIntAttributeMetadata bigIntAttrib)
+            {
+                if (bigIntAttrib.MinValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} long MinValue = {1};", _fieldHeader, ToCSharpLiteral(bigIntAttrib.MinValue.Value)));
+                }
+
+                if (bigIntAttrib.MaxValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} long MaxValue = {1};", _fieldHeader, ToCSharpLiteral(bigIntAttrib.MaxValue.Value)));
+                }
+            }
+
+            if (attributeMetadata is ImageAttributeMetadata imageAttrib)
+            {
+                if (imageAttrib.MaxHeight.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} short MaxHeight = {1};", _fieldHeader, ToCSharpLiteral(imageAttrib.MaxHeight.Value)));
+                }
+
+                if (imageAttrib.MaxWidth.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} short MaxWidth = {1};", _fieldHeader, ToCSharpLiteral(imageAttrib.MaxWidth.Value)));
+                }
+            }
+
+            if (attributeMetadata is MoneyAttributeMetadata moneyAttrib)
+            {
+                if (moneyAttrib.MinValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} double MaxHeight = {1};", _fieldHeader, ToCSharpLiteral(moneyAttrib.MinValue.Value)));
+                }
+
+                if (moneyAttrib.MaxValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} double MaxWidth = {1};", _fieldHeader, ToCSharpLiteral(moneyAttrib.MaxValue.Value)));
+                }
+
+                if (moneyAttrib.Precision.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int Precision = {1};", _fieldHeader, ToCSharpLiteral(moneyAttrib.Precision.Value)));
+                }
+
+                if (moneyAttrib.PrecisionSource.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int PrecisionSource = {1};", _fieldHeader, ToCSharpLiteral(moneyAttrib.PrecisionSource.Value)));
+                }
+            }
+
+            if (attributeMetadata is DecimalAttributeMetadata decimalAttrib)
+            {
+                if (decimalAttrib.MinValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} decimal MinValue = {1};", _fieldHeader, ToCSharpLiteral(decimalAttrib.MinValue.Value)));
+                }
+
+                if (decimalAttrib.MaxValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} decimal MaxValue = {1};", _fieldHeader, ToCSharpLiteral(decimalAttrib.MaxValue.Value)));
+                }
+
+                if (decimalAttrib.Precision.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int Precision = {1};", _fieldHeader, ToCSharpLiteral(decimalAttrib.Precision.Value)));
+                }
+            }
+
+            if (attributeMetadata is DoubleAttributeMetadata doubleAttrib)
+            {
+                if (doubleAttrib.MinValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} double MaxHeight = {1};", _fieldHeader, ToCSharpLiteral(doubleAttrib.MinValue.Value)));
+                }
+
+                if (doubleAttrib.MaxValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} double MaxWidth = {1};", _fieldHeader, ToCSharpLiteral(doubleAttrib.MaxValue.Value)));
+                }
+
+                if (doubleAttrib.Precision.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int Precision = {1};", _fieldHeader, ToCSharpLiteral(doubleAttrib.Precision.Value)));
+                }
+            }
+
+            if (attributeMetadata is BooleanAttributeMetadata boolAttrib)
+            {
+                if (boolAttrib.DefaultValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} bool DefaultValue = {1};", _fieldHeader, ToCSharpLiteral(boolAttrib.DefaultValue.Value)));
+                }
+            }
+
+            if (attributeMetadata is PicklistAttributeMetadata picklistAttrib)
+            {
+                if (picklistAttrib.DefaultFormValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int DefaultFormValue = {1};", _fieldHeader, ToCSharpLiteral(picklistAttrib.DefaultFormValue.Value)));
+                }
+
+                if (picklistAttrib.OptionSet != null)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} bool IsGlobalOptionSet = {1};", _fieldHeader, ToCSharpLiteral(picklistAttrib.OptionSet.IsGlobal.GetValueOrDefault())));
+
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string OptionSetName = {1};", _fieldHeader, ToCSharpLiteral(picklistAttrib.OptionSet.Name)));
+                }
+            }
+
+            if (attributeMetadata is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttrib)
+            {
+                if (multiSelectPicklistAttrib.DefaultFormValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int DefaultFormValue = {1};", _fieldHeader, ToCSharpLiteral(multiSelectPicklistAttrib.DefaultFormValue.Value)));
+                }
+
+                if (multiSelectPicklistAttrib.OptionSet != null)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} bool IsGlobalOptionSet = {1};", _fieldHeader, ToCSharpLiteral(multiSelectPicklistAttrib.OptionSet.IsGlobal.GetValueOrDefault())));
+
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string OptionSetName = {1};", _fieldHeader, ToCSharpLiteral(multiSelectPicklistAttrib.OptionSet.Name)));
+                }
+            }
+
+            if (attributeMetadata is StatusAttributeMetadata statusAttrib)
+            {
+                if (statusAttrib.DefaultFormValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int DefaultFormValue = {1};", _fieldHeader, ToCSharpLiteral(statusAttrib.DefaultFormValue.Value)));
+                }
+
+                if (statusAttrib.OptionSet != null)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} bool IsGlobalOptionSet = {1};", _fieldHeader, ToCSharpLiteral(statusAttrib.OptionSet.IsGlobal.GetValueOrDefault())));
+
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string OptionSetName = {1};", _fieldHeader, ToCSharpLiteral(statusAttrib.OptionSet.Name)));
+                }
+            }
+
+            if (attributeMetadata is StateAttributeMetadata stateAttrib)
+            {
+                if (stateAttrib.DefaultFormValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int DefaultFormValue = {1};", _fieldHeader, ToCSharpLiteral(stateAttrib.DefaultFormValue.Value)));
+                }
+
+                if (stateAttrib.OptionSet != null)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} bool IsGlobalOptionSet = {1};", _fieldHeader, ToCSharpLiteral(stateAttrib.OptionSet.IsGlobal.GetValueOrDefault())));
+
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string OptionSetName = {1};", _fieldHeader, ToCSharpLiteral(stateAttrib.OptionSet.Name)));
+                }
+            }
+
+            if (attributeMetadata is EntityNameAttributeMetadata entityNameAttrib)
+            {
+                if (entityNameAttrib.DefaultFormValue.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} int DefaultFormValue = {1};", _fieldHeader, ToCSharpLiteral(entityNameAttrib.DefaultFormValue.Value)));
+                }
+
+                if (entityNameAttrib.OptionSet != null)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} bool IsGlobalOptionSet = {1};", _fieldHeader, ToCSharpLiteral(entityNameAttrib.OptionSet.IsGlobal.GetValueOrDefault())));
+
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string OptionSetName = {1};", _fieldHeader, ToCSharpLiteral(entityNameAttrib.OptionSet.Name)));
+                }
+            }
+
+            if (attributeMetadata is ManagedPropertyAttributeMetadata managedAttrib)
+            {
+                if (!string.IsNullOrEmpty(managedAttrib.ManagedPropertyLogicalName))
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string ManagedPropertyLogicalName = {1};", _fieldHeader, ToCSharpLiteral(managedAttrib.ManagedPropertyLogicalName)));
+                }
+
+                WriteLine();
+                WriteLine(string.Format("public {0} Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode ValueAttributeTypeCode = Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.{1};", _fieldHeader, managedAttrib.ValueAttributeTypeCode));
+
+                if (!string.IsNullOrEmpty(managedAttrib.ParentAttributeName))
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string ParentAttributeName = {1};", _fieldHeader, managedAttrib.ParentAttributeName));
+                }
+            }
+
+            if (attributeMetadata is LookupAttributeMetadata lookupAttrib)
+            {
+                if (lookupAttrib.Targets != null && lookupAttrib.Targets.Length > 0)
+                {
+                    string targets = string.Join(", ", lookupAttrib.Targets.OrderBy(s => s).Select(s => ToCSharpLiteral(s)));
+
+                    WriteLine();
+                    WriteLine("public static readonly System.Collections.ObjectModel.ReadOnlyCollection<string> Targets = new System.Collections.ObjectModel.ReadOnlyCollection<string>(new string[] { " + targets + " });");
+                }
+            }
+
+            if (attributeMetadata is DateTimeAttributeMetadata dateTimeAttrib)
+            {
+                //WriteLine();
+                //WriteLine("Format: '{0}',", dateTimeAttrib.Format.HasValue ? dateTimeAttrib.Format.ToString() : "null");
+                //WriteLine("DateTimeBehavior: '{0}',", dateTimeAttrib.DateTimeBehavior != null ? dateTimeAttrib.DateTimeBehavior.Value.ToString() : "null");
+                //Write("CanChangeDateTimeBehavior: {0}", dateTimeAttrib.CanChangeDateTimeBehavior != null ? dateTimeAttrib.CanChangeDateTimeBehavior.Value.ToString().ToLower() : "null");
+
+                if (dateTimeAttrib.Format.HasValue)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} Microsoft.Xrm.Sdk.Metadata.DateTimeFormat Format = Microsoft.Xrm.Sdk.Metadata.DateTimeFormat.{1};", _fieldHeader, dateTimeAttrib.Format));
+                }
+
+                if (dateTimeAttrib.DateTimeBehavior != null)
+                {
+                    WriteLine();
+                    WriteLine(string.Format("public {0} string DateTimeBehavior = {1};", _fieldHeader, ToCSharpLiteral(dateTimeAttrib.DateTimeBehavior.Value)));
+                }
+            }
+
+            WriteLine("}");
+
+        }
+
+        #endregion AttributesProperties To File
+
+        #region Enums To File
+
+        private async Task WriteEnumsToFile()
         {
             if (!this._config.GenerateStateStatusOptionSet && !this._config.GenerateLocalOptionSet && !this._config.GenerateGlobalOptionSet)
             {
@@ -630,9 +1138,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             bool first = true;
 
-            first = await WriteStateStatusOptionSets(first);
+            first = await WriteStateStatusOptionSetsToFile(first);
 
-            first = await WriteRegularOptionSets(first);
+            first = await WriteRegularOptionSetsToFile(first);
 
             WriteLine("}");
 
@@ -670,7 +1178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
-        private async Task<bool> WriteRegularOptionSets(bool first)
+        private async Task<bool> WriteRegularOptionSetsToFile(bool first)
         {
             if (!this._config.GenerateLocalOptionSet && !this._config.GenerateGlobalOptionSet)
             {
@@ -728,7 +1236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return first;
         }
 
-        private async Task<bool> WriteStateStatusOptionSets(bool first)
+        private async Task<bool> WriteStateStatusOptionSetsToFile(bool first)
         {
             if (!this._config.GenerateStateStatusOptionSet)
             {
@@ -1187,7 +1695,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
         }
 
-        private async Task WriteOneToMany(OneToManyRelationshipMetadata[] metadata, string className, string relationTypeName)
+        #endregion Enums To File
+
+        #region OneToMany To File
+
+        private async Task WriteOneToManyToFile(OneToManyRelationshipMetadata[] metadata, string className, string relationTypeName)
         {
             var relationshipColl = metadata.Where(rel => !string.IsNullOrEmpty(rel.SchemaName));
 
@@ -1316,13 +1828,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine("public static partial class {0}", relationship.SchemaName.ToLower());
                 WriteLine("{");
 
-                WriteLine("public {0} string Name = \"{1}\";", _fieldHeader, relationship.SchemaName);
+                WriteLine("public {0} string Name = {1};", _fieldHeader, ToCSharpLiteral(relationship.SchemaName));
 
                 WriteLine();
-                WriteLine("public {0} string ReferencedEntity_{1} = \"{1}\";", _fieldHeader, relationship.ReferencedEntity);
+                WriteLine("public {0} string ReferencedEntity_{1} = {2};", _fieldHeader, relationship.ReferencedEntity, ToCSharpLiteral(relationship.ReferencedEntity));
 
                 WriteLine();
-                WriteLine("public {0} string ReferencedAttribute_{1} = \"{1}\";", _fieldHeader, relationship.ReferencedAttribute);
+                WriteLine("public {0} string ReferencedAttribute_{1} = {2};", _fieldHeader, relationship.ReferencedAttribute, ToCSharpLiteral(relationship.ReferencedAttribute));
 
                 if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencedEntity, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -1333,15 +1845,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (!string.IsNullOrEmpty(referencedEntityMetadata.PrimaryNameAttribute))
                     {
                         WriteLine();
-                        WriteLine("public {0} string ReferencedEntity_PrimaryNameAttribute_{1} = \"{1}\";", _fieldHeader, referencedEntityMetadata.PrimaryNameAttribute);
+                        WriteLine("public {0} string ReferencedEntity_PrimaryNameAttribute_{1} = {2};", _fieldHeader, referencedEntityMetadata.PrimaryNameAttribute, ToCSharpLiteral(referencedEntityMetadata.PrimaryNameAttribute));
                     }
                 }
 
                 WriteLine();
-                WriteLine("public {0} string ReferencingEntity_{1} = \"{1}\";", _fieldHeader, relationship.ReferencingEntity);
+                WriteLine("public {0} string ReferencingEntity_{1} = {2};", _fieldHeader, relationship.ReferencingEntity, ToCSharpLiteral(relationship.ReferencingEntity));
 
                 WriteLine();
-                WriteLine("public {0} string ReferencingAttribute_{1} = \"{1}\";", _fieldHeader, relationship.ReferencingAttribute);
+                WriteLine("public {0} string ReferencingAttribute_{1} = {2};", _fieldHeader, relationship.ReferencingAttribute, ToCSharpLiteral(relationship.ReferencingAttribute));
 
                 if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencingEntity, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -1352,7 +1864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (!string.IsNullOrEmpty(referencingEntityMetadata.PrimaryNameAttribute))
                     {
                         WriteLine();
-                        WriteLine("public {0} string ReferencingEntity_PrimaryNameAttribute_{1} = \"{1}\";", _fieldHeader, referencingEntityMetadata.PrimaryNameAttribute);
+                        WriteLine("public {0} string ReferencingEntity_PrimaryNameAttribute_{1} = {2};", _fieldHeader, referencingEntityMetadata.PrimaryNameAttribute, ToCSharpLiteral(referencingEntityMetadata.PrimaryNameAttribute));
                     }
                 }
 
@@ -1423,7 +1935,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private async Task WriteManyToMany(ManyToManyRelationshipMetadata[] metadata)
+        #endregion OneToMany To File
+
+        #region ManyToMany To File
+
+        private async Task WriteManyToManyToFile(ManyToManyRelationshipMetadata[] metadata)
         {
             if (!this._config.GenerateManyToMany)
             {
@@ -1554,16 +2070,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine("public static partial class {0}", relationship.SchemaName.ToLower());
                 WriteLine("{");
 
-                WriteLine("public {0} string Name = \"{1}\";", _fieldHeader, relationship.SchemaName);
+                WriteLine("public {0} string Name = {1};", _fieldHeader, ToCSharpLiteral(relationship.SchemaName));
 
                 WriteLine();
-                WriteLine("public {0} string IntersectEntity_{1} = \"{1}\";", _fieldHeader, relationship.IntersectEntityName);
+                WriteLine("public {0} string IntersectEntity_{1} = {2};", _fieldHeader, relationship.IntersectEntityName, ToCSharpLiteral(relationship.IntersectEntityName));
 
                 WriteLine();
-                WriteLine("public {0} string Entity1_{1} = \"{1}\";", _fieldHeader, relationship.Entity1LogicalName);
+                WriteLine("public {0} string Entity1_{1} = {2};", _fieldHeader, relationship.Entity1LogicalName, ToCSharpLiteral(relationship.Entity1LogicalName));
 
                 WriteLine();
-                WriteLine("public {0} string Entity1Attribute_{1} = \"{1}\";", _fieldHeader, relationship.Entity1IntersectAttribute);
+                WriteLine("public {0} string Entity1Attribute_{1} = {2};", _fieldHeader, relationship.Entity1IntersectAttribute, ToCSharpLiteral(relationship.Entity1IntersectAttribute));
 
                 if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity1LogicalName, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -1574,15 +2090,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (!string.IsNullOrEmpty(entity1LogicalName.PrimaryNameAttribute))
                     {
                         WriteLine();
-                        WriteLine("public {0} string Entity1LogicalName_PrimaryNameAttribute_{1} = \"{1}\";", _fieldHeader, entity1LogicalName.PrimaryNameAttribute);
+                        WriteLine("public {0} string Entity1LogicalName_PrimaryNameAttribute_{1} = {2};", _fieldHeader, entity1LogicalName.PrimaryNameAttribute, ToCSharpLiteral(entity1LogicalName.PrimaryNameAttribute));
                     }
                 }
 
                 WriteLine();
-                WriteLine("public {0} string Entity2_{1} = \"{1}\";", _fieldHeader, relationship.Entity2LogicalName);
+                WriteLine("public {0} string Entity2_{1} = {2};", _fieldHeader, relationship.Entity2LogicalName, ToCSharpLiteral(relationship.Entity2LogicalName));
 
                 WriteLine();
-                WriteLine("public {0} string Entity2Attribute_{1} = \"{1}\";", _fieldHeader, relationship.Entity2IntersectAttribute);
+                WriteLine("public {0} string Entity2Attribute_{1} = {2};", _fieldHeader, relationship.Entity2IntersectAttribute, ToCSharpLiteral(relationship.Entity2IntersectAttribute));
 
                 if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity2LogicalName, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -1593,7 +2109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (!string.IsNullOrEmpty(entity2LogicalName.PrimaryNameAttribute))
                     {
                         WriteLine();
-                        WriteLine("public {0} string Entity2LogicalName_PrimaryNameAttribute_{1} = \"{1}\";", _fieldHeader, entity2LogicalName.PrimaryNameAttribute);
+                        WriteLine("public {0} string Entity2LogicalName_PrimaryNameAttribute_{1} = {2};", _fieldHeader, entity2LogicalName.PrimaryNameAttribute, ToCSharpLiteral(entity2LogicalName.PrimaryNameAttribute));
                     }
                 }
 
@@ -1677,7 +2193,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private void WriteKeys(EntityKeyMetadata[] keys)
+        #endregion ManyToMany To File
+
+        #region Keys To File
+
+        private void WriteKeysToFile(EntityKeyMetadata[] keys)
         {
             if (!this._config.GenerateKeys)
             {
@@ -1744,10 +2264,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine("public static partial class {0}", key.LogicalName.ToLower());
                 WriteLine("{");
 
-                WriteLine("public {0} string Name = \"{1}\";", _fieldHeader, key.LogicalName);
+                WriteLine("public {0} string Name = {1};", _fieldHeader, ToCSharpLiteral(key.LogicalName));
+
+                string keysStringArray = string.Join(", ", key.KeyAttributes.OrderBy(s => s).Select(s => ToCSharpLiteral(s)));
 
                 WriteLine();
-                WriteLine("public static readonly System.Collections.ObjectModel.ReadOnlyCollection<string> KeyAttributes = new System.Collections.ObjectModel.ReadOnlyCollection<string>(new string[] { " + string.Join(", ", key.KeyAttributes.OrderBy(s => s).Select(s => "\"" + s + "\"")) + " });");
+                WriteLine("public static readonly System.Collections.ObjectModel.ReadOnlyCollection<string> KeyAttributes = new System.Collections.ObjectModel.ReadOnlyCollection<string>(new string[] { " + keysStringArray + " });");
 
                 WriteLine("}");
             }
@@ -1757,6 +2279,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine($"#endregion {Properties.CodeGenerationStrings.EntityKeys}");
         }
+
+        #endregion Keys To File
 
         public static string CreateFileNameForSchema(ConnectionData connectionData, string entitySchemaName, bool withoutConnectionName)
         {

@@ -639,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+                    var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, codeGenerationServiceProvider);
 
                     await handler.CreateFileAsync(entityMetadata.LogicalName);
                 }
@@ -781,7 +781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service, _iWriteToOutput);
+                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service);
 
                     await handler.CreateFileAsync(entityMetadata.LogicalName);
                 }

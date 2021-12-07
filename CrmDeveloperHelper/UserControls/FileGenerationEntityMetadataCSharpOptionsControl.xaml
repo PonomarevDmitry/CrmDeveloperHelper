@@ -146,15 +146,25 @@
                         <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" x:Name="chBSchemaAttributes" Content="Attributes" IsChecked="{Binding Path=GenerateSchemaAttributes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                    <CheckBox Grid.Column="1" x:Name="chBSchemaOneToMany" Content="One to Many" IsChecked="{Binding Path=GenerateSchemaOneToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                    <CheckBox Grid.Column="2" x:Name="chBSchemaManyToOne" Content="Many to One" IsChecked="{Binding Path=GenerateSchemaManyToOne, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                    <CheckBox Grid.Column="3" x:Name="chBSchemaManyToMany" Content="Many to Many" IsChecked="{Binding Path=GenerateSchemaManyToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                    <CheckBox Grid.Column="4" x:Name="chBSchemaKeys" Content="Keys" IsChecked="{Binding Path=GenerateSchemaKeys, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100*" />
+                        <RowDefinition Height="100*" />
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBSchemaAttributes" Content="Attributes" IsChecked="{Binding Path=GenerateSchemaAttributes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBSchemaAttributesProperties" Content="Attributes Properties" IsChecked="{Binding Path=GenerateSchemaAttributesProperties, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBSchemaKeys" Content="Keys" IsChecked="{Binding Path=GenerateSchemaKeys, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBSchemaOneToMany" Content="One to Many" IsChecked="{Binding Path=GenerateSchemaOneToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chBSchemaManyToOne" Content="Many to One" IsChecked="{Binding Path=GenerateSchemaManyToOne, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="1" Grid.Column="2" x:Name="chBSchemaManyToMany" Content="Many to Many" IsChecked="{Binding Path=GenerateSchemaManyToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    
                 </Grid>
 
                 <Separator />

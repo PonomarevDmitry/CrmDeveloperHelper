@@ -581,7 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var descriptor1 = new SolutionComponentDescriptor(service1);
 
-                        var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter1, service1, _iWriteToOutput, descriptor1, config);
+                        var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter1, service1, descriptor1, config);
 
                         var task1 = handler1.CreateFileAsync(optionSets1);
 
@@ -593,7 +593,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 var descriptor2 = new SolutionComponentDescriptor(service2);
 
-                                var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter2, service2, _iWriteToOutput, descriptor2, config);
+                                var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter2, service2, descriptor2, config);
 
                                 await handler2.CreateFileAsync(optionSets2);
                             }
@@ -722,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var descriptor1 = new SolutionComponentDescriptor(service1);
 
-                        var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter1, service1, descriptor1, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
+                        var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter1, service1, descriptor1, tabSpacer, withDependentComponents, namespaceJavascript);
 
                         var task1 = handler1.CreateFileAsync(optionSets1);
 
@@ -734,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 var descriptor2 = new SolutionComponentDescriptor(service2);
 
-                                var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter2, service2, descriptor2, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
+                                var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter2, service2, descriptor2, tabSpacer, withDependentComponents, namespaceJavascript);
 
                                 await handler2.CreateFileAsync(optionSets2);
                             }
@@ -867,7 +867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var descriptor = new SolutionComponentDescriptor(service);
 
-                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, _iWriteToOutput, descriptor, config);
+                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, descriptor, config);
 
                     await handler.CreateFileAsync(optionSets);
                 }
@@ -983,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var descriptor = new SolutionComponentDescriptor(service);
 
-                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter, service, descriptor, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavaScript);
+                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter, service, descriptor, tabSpacer, withDependentComponents, namespaceJavaScript);
 
                     await handler.CreateFileAsync(optionSets);
                 }
