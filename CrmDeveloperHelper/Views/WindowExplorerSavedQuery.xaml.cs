@@ -709,14 +709,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     UpdateStatus(service.ConnectionData, Properties.OutputStrings.ExecutingValidateSavedQueryRequest);
 
-                    var request = new ValidateSavedQueryRequest()
+                    try
                     {
-                        FetchXml = newText,
-                        QueryType = savedQuery.QueryType.GetValueOrDefault()
-                    };
+                        var request = new ValidateSavedQueryRequest()
+                        {
+                            FetchXml = newText,
+                            QueryType = savedQuery.QueryType.GetValueOrDefault()
+                        };
 
-                    service.Execute(request);
+                        service.Execute(request);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    }
                 }
+
+                UpdateStatus(service.ConnectionData, Properties.OutputStrings.SavingEntityFormat1, savedQuery.LogicalName);
+
+                _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, savedQuery.LogicalName, savedQuery.Id);
 
                 var updateEntity = new SavedQuery
                 {
@@ -725,6 +736,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateEntity.Attributes[fieldName] = newText;
 
                 await service.UpdateAsync(updateEntity);
+
+                UpdateStatus(service.ConnectionData, Properties.OutputStrings.SavingEntityCompletedFormat1, savedQuery.LogicalName);
 
                 UpdateStatus(service.ConnectionData, Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 

@@ -336,16 +336,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
             {
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingValidateSavedQueryRequest);
-
-                var request = new ValidateSavedQueryRequest()
+                try
                 {
-                    FetchXml = newText,
-                    QueryType = savedQuery.QueryType.GetValueOrDefault()
-                };
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingValidateSavedQueryRequest);
 
-                service.Execute(request);
+                    var request = new ValidateSavedQueryRequest()
+                    {
+                        FetchXml = newText,
+                        QueryType = savedQuery.QueryType.GetValueOrDefault()
+                    };
+
+                    service.Execute(request);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
             }
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SavingEntityFormat1, savedQuery.LogicalName);
+
+            _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, savedQuery.LogicalName, savedQuery.Id);
 
             var updateEntity = new SavedQuery
             {
@@ -354,6 +365,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             updateEntity.Attributes[fieldName] = newText;
 
             await service.UpdateAsync(updateEntity);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SavingEntityCompletedFormat1, savedQuery.LogicalName);
 
             _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, service.ConnectionData.Name, savedQuery.ReturnedTypeCode);
 
