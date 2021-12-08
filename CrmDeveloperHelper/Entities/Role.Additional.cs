@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string TeamName = Team.Schema.Attributes.teamid + "." + Team.Schema.Attributes.name;
 
-                public const string TeamBusinessUnitName = Team.Schema.Attributes.teamid + "." + Team.Schema.Attributes.businessunitid;
+                public const string TeamBusinessUnit = Team.Schema.Attributes.teamid + "." + Team.Schema.Attributes.businessunitid;
 
                 public const string TeamId = Team.Schema.Attributes.teamid + "." + Team.Schema.Attributes.teamid;
 
@@ -83,13 +83,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             }
         }
 
+        public EntityReference TeamBusinessUnit
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.TeamBusinessUnit)
+                    && this.Attributes[Schema.EntityAliasFields.TeamBusinessUnit] != null
+                    && this.Attributes[Schema.EntityAliasFields.TeamBusinessUnit] is AliasedValue aliasedValue
+                    && aliasedValue.Value is EntityReference aliasedValueValue
+                    )
+                {
+                    return aliasedValueValue;
+                }
+
+                return null;
+            }
+        }
+
         public string TeamBusinessUnitName
         {
             get
             {
-                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.TeamBusinessUnitName)
-                    && this.Attributes[Schema.EntityAliasFields.TeamBusinessUnitName] != null
-                    && this.Attributes[Schema.EntityAliasFields.TeamBusinessUnitName] is AliasedValue aliasedValue
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.TeamBusinessUnit)
+                    && this.Attributes[Schema.EntityAliasFields.TeamBusinessUnit] != null
+                    && this.Attributes[Schema.EntityAliasFields.TeamBusinessUnit] is AliasedValue aliasedValue
                     && aliasedValue.Value is EntityReference aliasedValueValue
                     )
                 {

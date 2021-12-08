@@ -406,6 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         Role.Schema.Attributes.name
                         , Role.Schema.Attributes.businessunitid
                         , Role.Schema.Attributes.ismanaged
+                        , Role.Schema.Attributes.roletemplateid
                         , Role.Schema.Attributes.iscustomizable
                     ));
                 }
@@ -1610,6 +1611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Role.Schema.Attributes.name
                 , Role.Schema.Attributes.businessunitid
                 , Role.Schema.Attributes.ismanaged
+                , Role.Schema.Attributes.roletemplateid
                 , Role.Schema.Attributes.iscustomizable
             );
 
@@ -1641,7 +1643,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var role = form.SelectedEntity;
 
             string rolesName = role.Name;
-            string teamsName = string.Join(", ", teamList.Select(r => r.Name).OrderBy(s => s));
+            string teamsName = string.Empty;
+
+            if (teamList.Count() > 8)
+            {
+                teamsName = teamList.Count().ToString();
+            }
+            else
+            {
+                teamsName = string.Join(", ", teamList.Select(r => r.Name).OrderBy(s => s));
+            }
 
             string operationName = string.Format(Properties.OperationNames.AssigningRolesToTeamsFormat3, service.ConnectionData.Name, rolesName, teamsName);
 
@@ -1681,8 +1692,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string rolesName = string.Join(", ", roleList.Select(u => u.Name).OrderBy(s => s));
+            string rolesName = string.Empty;
             string teamsName = team.Name;
+
+            if (roleList.Count > 8)
+            {
+                rolesName = roleList.Count.ToString();
+            }
+            else
+            {
+                rolesName = string.Join(", ", roleList.Select(u => u.Name).OrderBy(s => s));
+            }
 
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveRolesFromTeamsFormat2, rolesName, teamsName);
 
@@ -1784,7 +1804,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var user = form.SelectedEntity;
 
             string usersName = string.Format("{0} - {1}", user.DomainName, user.FullName);
-            string teamsName = string.Join(", ", teamList.Select(r => r.Name).OrderBy(s => s));
+            string teamsName = string.Empty;
+
+            if (teamList.Count() > 8)
+            {
+                teamsName = teamList.Count().ToString();
+            }
+            else
+            {
+                teamsName = string.Join(", ", teamList.Select(r => r.Name).OrderBy(s => s));
+            }
 
             string operationName = string.Format(Properties.OperationNames.AddingUsersToTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
 
@@ -1821,8 +1850,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string usersName = string.Join(", ", userList.Select(r => string.Format("{0} - {1}", r.DomainName, r.FullName)).OrderBy(s => s));
+            string usersName = string.Empty;
             string teamsName = team.Name;
+
+            if (userList.Count > 8)
+            {
+                usersName = userList.Count.ToString();
+            }
+            else
+            {
+                usersName = string.Join(", ", userList.Select(r => string.Format("{0} - {1}", r.DomainName, r.FullName)).OrderBy(s => s));
+            }
 
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveUsersFromTeamsFormat2, usersName, teamsName);
 
@@ -1916,6 +1954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Role.Schema.Attributes.name
                 , Role.Schema.Attributes.businessunitid
                 , Role.Schema.Attributes.ismanaged
+                , Role.Schema.Attributes.roletemplateid
                 , Role.Schema.Attributes.iscustomizable
             ));
 
@@ -2386,6 +2425,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, entity.LogicalName, entity.Id);
         }
 
+        #region SystemUser Context Menu
+
         private void mICopySystemUserDomainNameToClipboard_Click(object sender, RoutedEventArgs e)
         {
             GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.DomainName);
@@ -2405,5 +2446,148 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.BusinessUnitId?.Id.ToString());
         }
+
+        #endregion SystemUser Context Menu
+
+        #region Team Context Menu
+
+        #region Team Context Menu Clipboard
+
+        private void mICopyTeamNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.Name);
+        }
+
+        private void mICopyTeamTypeToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.TeamTypeName);
+        }
+
+        private void mICopyTeamBusinessUnitNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.BusinessUnitId?.Name);
+        }
+
+        private void mICopyTeamBusinessUnitIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.BusinessUnitId?.Id.ToString());
+        }
+
+        private void mICopyTeamTemplateIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.TeamTemplateId?.Id.ToString());
+        }
+
+        private void mICopyTeamTemplateNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.TeamTemplateName);
+        }
+
+        private void mICopyTeamTemplateUrlToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null)
+            {
+                GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.TeamTemplateId != null ? connectionData.GetEntityInstanceUrl(ent.TeamTemplateId.LogicalName, ent.TeamTemplateId.Id) : string.Empty);
+            }
+        }
+
+        private void mICopyTeamRegardingObjectIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.RegardingObjectId?.Id.ToString());
+        }
+
+        private void mICopyTeamRegardingObjectEntityNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.RegardingObjectId?.LogicalName.ToString());
+        }
+
+        private void mICopyTeamRegardingObjectUrlToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null)
+            {
+                GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.RegardingObjectId != null ? connectionData.GetEntityInstanceUrl(ent.RegardingObjectId.LogicalName, ent.RegardingObjectId.Id) : string.Empty);
+            }
+        }
+
+        #endregion Team Context Menu Clipboard
+
+        private void mIOpenTeamTemplateInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Team team)
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null && team.TeamTemplateId != null)
+            {
+                connectionData.OpenEntityInstanceInWeb(team.TeamTemplateId.LogicalName, team.TeamTemplateId.Id);
+            }
+        }
+
+        private void mIOpenRegardingObjectInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Team team)
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null && team.RegardingObjectId != null)
+            {
+                connectionData.OpenEntityInstanceInWeb(team.RegardingObjectId.LogicalName, team.RegardingObjectId.Id);
+            }
+        }
+
+        #endregion Team Context Menu
+
+        #region Role Context Menu
+
+        private void mICopyRoleNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.Name);
+        }
+
+        private void mICopyRoleTemplateNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.RoleTemplateName);
+        }
+
+        private void mICopyRoleTemplateIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.RoleTemplateId?.Id.ToString());
+        }
+
+        private void mICopyRoleBusinessUnitNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.BusinessUnitId?.Name);
+        }
+
+        private void mICopyRoleBusinessUnitIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.BusinessUnitId?.Id.ToString());
+        }
+
+        #endregion Role Context Menu
     }
 }

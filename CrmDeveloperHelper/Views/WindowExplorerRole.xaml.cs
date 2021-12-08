@@ -410,6 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             Role.Schema.Attributes.name
                             , Role.Schema.Attributes.businessunitid
                             , Role.Schema.Attributes.ismanaged
+                            , Role.Schema.Attributes.roletemplateid
                             , Role.Schema.Attributes.iscustomizable
                         )
                     );
@@ -1672,8 +1673,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var user = form.SelectedEntity;
 
-            string rolesName = string.Join(", ", roleList.Select(r => r.Name).OrderBy(s => s));
+            string rolesName = string.Empty;
             string usersName = string.Format("{0} - {1}", user.DomainName, user.FullName);
+
+            if (roleList.Count > 8)
+            {
+                rolesName = roleList.Count.ToString();
+            }
+            else
+            {
+                rolesName = string.Join(", ", roleList.Select(r => r.Name).OrderBy(s => s));
+            }
 
             string operationName = string.Format(Properties.OperationNames.AssigningRolesToUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
@@ -1711,7 +1721,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             string rolesName = role.Name;
-            string usersName = string.Join(", ", userList.Select(u => string.Format("{0} - {1}", u.DomainName, u.FullName)).OrderBy(s => s));
+            string usersName = string.Empty;
+
+            if (userList.Count > 8)
+            {
+                usersName = userList.Count.ToString();
+            }
+            else
+            {
+                usersName = string.Join(", ", userList.Select(u => string.Format("{0} - {1}", u.DomainName, u.FullName)).OrderBy(s => s));
+            }
 
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveRolesFromUsersFormat2, rolesName, usersName);
 
@@ -1809,8 +1828,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var team = form.SelectedEntity;
 
-            string rolesName = string.Join(", ", roleList.Select(r => r.Name).OrderBy(s => s));
+            string rolesName = string.Empty;
             string teamsName = team.Name;
+
+            if (roleList.Count > 8)
+            {
+                rolesName = roleList.Count.ToString();
+            }
+            else
+            {
+                rolesName = string.Join(", ", roleList.Select(r => r.Name).OrderBy(s => s));
+            }
 
             string operationName = string.Format(Properties.OperationNames.AssigningRolesToTeamsFormat3, service.ConnectionData.Name, rolesName, teamsName);
 
@@ -1848,7 +1876,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             string rolesName = role.Name;
-            string teamsName = string.Join(", ", teamList.Select(u => u.Name).OrderBy(s => s));
+            string teamsName = string.Empty;
+
+            if (teamList.Count > 8)
+            {
+                teamsName = teamList.Count.ToString();
+            }
+            else
+            {
+                teamsName = string.Join(", ", teamList.Select(u => u.Name).OrderBy(s => s));
+            }
 
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveRolesFromTeamsFormat2, rolesName, teamsName);
 
@@ -2218,6 +2255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Role.Schema.Attributes.name
                     , Role.Schema.Attributes.businessunitid
                     , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.roletemplateid
                     , Role.Schema.Attributes.iscustomizable
                 )
             );
@@ -2272,6 +2310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Role.Schema.Attributes.name
                     , Role.Schema.Attributes.businessunitid
                     , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.roletemplateid
                     , Role.Schema.Attributes.iscustomizable
                 )
             );
@@ -2326,6 +2365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Role.Schema.Attributes.name
                     , Role.Schema.Attributes.businessunitid
                     , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.roletemplateid
                     , Role.Schema.Attributes.iscustomizable
                 )
             );
@@ -2464,6 +2504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Role.Schema.Attributes.name
                     , Role.Schema.Attributes.businessunitid
                     , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.roletemplateid
                     , Role.Schema.Attributes.iscustomizable
                 )
             );
@@ -2520,6 +2561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Role.Schema.Attributes.name
                     , Role.Schema.Attributes.businessunitid
                     , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.roletemplateid
                     , Role.Schema.Attributes.iscustomizable
                 )
             );
@@ -2576,6 +2618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Role.Schema.Attributes.name
                     , Role.Schema.Attributes.businessunitid
                     , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.roletemplateid
                     , Role.Schema.Attributes.iscustomizable
                 )
             );
@@ -3041,6 +3084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Role.Schema.Attributes.name
                     , Role.Schema.Attributes.businessunitid
                     , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.roletemplateid
                     , Role.Schema.Attributes.iscustomizable
                 )
             );
@@ -3544,6 +3588,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, entity.LogicalName, entity.Id);
         }
 
+        #region SystemUser Context Menu
+
         private void mICopySystemUserDomainNameToClipboard_Click(object sender, RoutedEventArgs e)
         {
             GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.DomainName);
@@ -3563,5 +3609,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             GetEntityViewItemAndCopyToClipboard<SystemUser>(e, ent => ent.BusinessUnitId?.Id.ToString());
         }
+
+        #endregion SystemUser Context Menu
+
+        #region Team Context Menu
+
+        #region Team Context Menu Clipboard
+
+        private void mICopyTeamNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.Name);
+        }
+
+        private void mICopyTeamBusinessUnitNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.BusinessUnitId?.Name);
+        }
+
+        private void mICopyTeamBusinessUnitIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Team>(e, ent => ent.BusinessUnitId?.Id.ToString());
+        }
+
+        #endregion Team Context Menu Clipboard
+
+        #endregion Team Context Menu
+
+        #region Role Context Menu
+
+        private void mICopyRoleNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.Name);
+        }
+
+        private void mICopyRoleTemplateNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.RoleTemplateName);
+        }
+
+        private void mICopyRoleTemplateIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.RoleTemplateId?.Id.ToString());
+        }
+
+        private void mICopyRoleBusinessUnitNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.BusinessUnitId?.Name);
+        }
+
+        private void mICopyRoleBusinessUnitIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<Role>(e, ent => ent.BusinessUnitId?.Id.ToString());
+        }
+
+        #endregion Role Context Menu
     }
 }

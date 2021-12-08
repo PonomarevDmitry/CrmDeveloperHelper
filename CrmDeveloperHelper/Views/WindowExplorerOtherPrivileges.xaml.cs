@@ -380,6 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             Role.Schema.Attributes.name
                             , Role.Schema.Attributes.businessunitid
                             , Role.Schema.Attributes.ismanaged
+                            , Role.Schema.Attributes.roletemplateid
                             , Role.Schema.Attributes.iscustomizable
                         )
                     );
@@ -1297,5 +1298,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.Focus();
             }
         }
+
+        #region Role Context Menu
+
+        private void mICopyRoleNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeRolePrivilegeViewItem>(e, ent => ent.Role.Name);
+        }
+
+        private void mICopyRoleTemplateNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeRolePrivilegeViewItem>(e, ent => ent.RoleTemplateName);
+        }
+
+        private void mICopyRoleTemplateIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeRolePrivilegeViewItem>(e, ent => ent.Role.RoleTemplateId?.Id.ToString());
+        }
+
+        private void mICopyRoleBusinessUnitNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeRolePrivilegeViewItem>(e, ent => ent.Role.BusinessUnitId?.Name);
+        }
+
+        private void mICopyRoleBusinessUnitIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeRolePrivilegeViewItem>(e, ent => ent.Role.BusinessUnitId?.Id.ToString());
+        }
+
+        #endregion Role Context Menu
     }
 }

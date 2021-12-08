@@ -30,12 +30,14 @@
 
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard User Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard User Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
                 
                 <Separator/>
                 <MenuItem Header="Copy to Clipboard User DomainName" Click="mICopySystemUserDomainNameToClipboard_Click" />
                 <MenuItem Header="Copy to Clipboard User FullName" Click="mICopySystemUserFullNameToClipboard_Click" />
+
+                <Separator/>
                 <MenuItem Header="Copy to Clipboard User BusinessUnit Name" Click="mICopySystemUserBusinessUnitNameToClipboard_Click" />
                 <MenuItem Header="Copy to Clipboard User BusinessUnit Id" Click="mICopySystemUserBusinessUnitIdToClipboard_Click" />
             </MenuItem>
@@ -61,8 +63,19 @@
 
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Role Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy Role Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Role Name" Click="mICopyRoleNameToClipboard_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Role Template Name" Click="mICopyRoleTemplateNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role Template Id" Click="mICopyRoleTemplateIdToClipboard_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Role BusinessUnit Name" Click="mICopyRoleBusinessUnitNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role BusinessUnit Id" Click="mICopyRoleBusinessUnitIdToClipboard_Click" />
             </MenuItem>
 
             <Separator/>
@@ -86,6 +99,12 @@
             <MenuItem Header="Create Team Entity Description" Click="mICreateEntityDescription_Click" />
 
             <Separator/>
+            <MenuItem Header="Open Team Template in Browser" Click="mIOpenTeamTemplateInWeb_Click" />
+
+            <Separator/>
+            <MenuItem Header="Open RegardingObject in Browser" Click="mIOpenRegardingObjectInWeb_Click" />
+
+            <Separator/>
             <MenuItem Header="Compare Team Privileges">
                 <MenuItem Header="With Role Privileges" Click="mIRolePrivilegesWithRolePrivileges_Click" />
 
@@ -98,8 +117,26 @@
 
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Team Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy Team Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Team Name" Click="mICopyTeamNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team Type" Click="mICopyTeamTypeToClipboard_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Team BusinessUnit Name" Click="mICopyTeamBusinessUnitNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team BusinessUnit Id" Click="mICopyTeamBusinessUnitIdToClipboard_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Team Template Id" Click="mICopyTeamTemplateIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team Template Name" Click="mICopyTeamTemplateNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team Template Url" Click="mICopyTeamTemplateUrlToClipboard_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Team RegardingObject Id" Click="mICopyTeamRegardingObjectIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team RegardingObject Entity Name" Click="mICopyTeamRegardingObjectEntityNameToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team RegardingObject Url" Click="mICopyTeamRegardingObjectUrlToClipboard_Click" />
             </MenuItem>
 
             <Separator/>
