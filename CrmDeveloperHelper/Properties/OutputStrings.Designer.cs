@@ -3616,6 +3616,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Removing User {1} from AccessTeams {2} Entities {3} count {4} completed..
+        /// </summary>
+        internal static string InConnectionRemovingUserFromEntitiesAccessTeamsCompletedFormat5 {
+            get {
+                return ResourceManager.GetString("InConnectionRemovingUserFromEntitiesAccessTeamsCompletedFormat5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Removing User {1} from AccessTeams {2} Entities {3} count {4}....
+        /// </summary>
+        internal static string InConnectionRemovingUserFromEntitiesAccessTeamsFormat5 {
+            get {
+                return ResourceManager.GetString("InConnectionRemovingUserFromEntitiesAccessTeamsFormat5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Removing users {1} from teams {2} completed..
         /// </summary>
         internal static string InConnectionRemovingUsersFromTeamsCompletedFormat3 {
@@ -5754,6 +5772,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string RemovingSolutionComponentsFromOwnedByFormat2 {
             get {
                 return ResourceManager.GetString("RemovingSolutionComponentsFromOwnedByFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing User {0} from AccessTeam {1} Entity {2} of {3}....
+        /// </summary>
+        internal static string RemovingUserFromEntityAccessTeamFormat4 {
+            get {
+                return ResourceManager.GetString("RemovingUserFromEntityAccessTeamFormat4", resourceCulture);
             }
         }
         

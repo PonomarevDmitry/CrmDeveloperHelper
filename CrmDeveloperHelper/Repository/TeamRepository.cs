@@ -1044,6 +1044,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return response.AccessTeamId;
         }
 
+        public async Task<Guid?> RemoveUserFromRecordAccessTeamAsync(Guid idTeamTemplate, EntityReference record, Guid idUser)
+        {
+            var teamId = await this.FindRecordAccessTeamIdAsync(record.Id, idTeamTemplate);
+
+            if (!teamId.HasValue)
+            {
+                return null;
+            }
+
+            if (!await IsUserTeamMemberAsync(idUser, teamId.Value))
+            {
+                return null;
+            }
+
+            var request = new RemoveUserFromRecordTeamRequest()
+            {
+                TeamTemplateId = idTeamTemplate,
+                Record = record,
+                SystemUserId = idUser,
+            };
+
+            var response = await _service.ExecuteAsync<RemoveUserFromRecordTeamResponse>(request);
+
+            StoreRecordAccessGroupCacheValue(idTeamTemplate, record.Id, response.AccessTeamId);
+
+            return response.AccessTeamId;
+        }
+
         public Task<bool> IsUserTeamMemberAsync(Guid idSystemUser, Guid idTeam)
         {
             return Task.Run(() => IsUserTeamMember(idSystemUser, idTeam));

@@ -2413,6 +2413,211 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #endregion Assign to User
 
+        #region Assign to Team
+
+        private async void mIAssignToTeamEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            try
+            {
+                await AssignEntitiesToTeam(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miAssignToTeamAllEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            try
+            {
+                await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async void miAssignToTeamSelectedEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            try
+            {
+                await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async Task AssignEntitiesToTeam(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!entityIds.Any(id => id != Guid.Empty))
+            {
+                return;
+            }
+
+            ConnectionData connectionData = this.GetSelectedConnection();
+
+            if (connectionData == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
+                return;
+            }
+
+            var service = await GetServiceAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new TeamRepository(service);
+
+            Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repository.GetOwnerTeamsAsync(filter
+                , new ColumnSet(
+                    Team.Schema.Attributes.name
+                    , Team.Schema.Attributes.businessunitid
+                    , Team.Schema.Attributes.isdefault
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
+
+            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            Team team = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToTeamFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , team.Name
+            );
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false
+                , Properties.OutputStrings.InConnectionAssigningEntitiesToTeamFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , team.Name
+            );
+
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            var request = new AssignRequest()
+            {
+                Assignee = team.ToEntityReference(),
+            };
+
+            int number = 1;
+
+            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
+            {
+                try
+                {
+                    request.Target = new EntityReference(entityName, id);
+
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToTeamFormat3, number, listIds.Count, team.Name);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
+
+                    await service.ExecuteAsync<AssignResponse>(request);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                number++;
+            }
+
+            ToggleControls(service.ConnectionData, true
+                , Properties.OutputStrings.InConnectionAssigningEntitiesToTeamCompletedFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , team.Name
+            );
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        #endregion Assign to Team
+
         #region Add User To Entites Access Teams
 
         private async void mIAddUserToAccessTeamEntity_Click(object sender, RoutedEventArgs e)
@@ -2662,14 +2867,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #endregion Add User To Entites Access Teams
 
-        private void mIRemoveUserFromAccessTeamEntity_Click(object sender, RoutedEventArgs e)
-        {
+        #region Remove User To Entites Access Teams
 
-        }
-
-        #region Assign to Team
-
-        private async void mIAssignToTeamEntity_Click(object sender, RoutedEventArgs e)
+        private async void mIRemoveUserFromAccessTeamEntity_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2688,7 +2888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             try
             {
-                await AssignEntitiesToTeam(entity.LogicalName, new[] { entity.Id });
+                await RemoveUserFromEntitiesAccessTeam(entity.LogicalName, new[] { entity.Id });
             }
             catch (Exception ex)
             {
@@ -2697,35 +2897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async void miAssignToTeamAllEntities_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (_entityCollection == null
-                || _entityCollection.Entities.Count == 0
-                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
-            )
-            {
-                return;
-            }
-
-            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
-
-            try
-            {
-                await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(null, ex);
-                _iWriteToOutput.ActivateOutputWindow(null);
-            }
-        }
-
-        private async void miAssignToTeamSelectedEntities_Click(object sender, RoutedEventArgs e)
+        private async void mIRemoveUserFromAccessTeamSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2748,7 +2920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             try
             {
-                await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
+                await RemoveUserFromEntitiesAccessTeam(_entityCollection.EntityName, selectedEntityIds);
             }
             catch (Exception ex)
             {
@@ -2757,7 +2929,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private async Task AssignEntitiesToTeam(string entityName, IEnumerable<Guid> entityIds)
+        private async void mIRemoveUserFromAccessTeamAllEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            try
+            {
+                await RemoveUserFromEntitiesAccessTeam(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
+        }
+
+        private async Task RemoveUserFromEntitiesAccessTeam(string entityName, IEnumerable<Guid> entityIds)
         {
             if (!IsControlsEnabled)
             {
@@ -2766,7 +2966,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
 
-            if (!entityIds.Any(id => id != Guid.Empty))
+            if (!listIds.Any())
             {
                 return;
             }
@@ -2786,68 +2986,111 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var repository = new TeamRepository(service);
+            var repositoryEntityMetadata = new EntityMetadataRepository(service);
 
-            Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repository.GetOwnerTeamsAsync(filter
+            var entityMetadata = await repositoryEntityMetadata.GetEntityMetadataAsync(entityName);
+
+            var repositoryTeamTemplate = new TeamTemplateRepository(service);
+
+            var listTemplates = (await repositoryTeamTemplate.GetListForEntityAsync(entityMetadata.ObjectTypeCode.Value, ColumnSetInstances.AllColumns)).ToList();
+
+            TeamTemplate teamTemplate = null;
+
+            if (listTemplates.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityHasNoAccessTeamTemplatesFormat1, entityName);
+                return;
+            }
+            else if (listTemplates.Count == 1)
+            {
+                teamTemplate = listTemplates[0];
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityHasOnlyOneAccessTeamTemplateFormat2, entityName, teamTemplate.TeamTemplateName);
+            }
+            else
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityHasSeveralAccessTeamTemplatesFormat2, entityName, listTemplates.Count);
+
+                Func<string, Task<IEnumerable<TeamTemplate>>> getterTeamTemplate = (string filter) => repositoryTeamTemplate.GetListForEntityAsync(filter, entityMetadata.ObjectTypeCode.Value, ColumnSetInstances.AllColumns);
+
+                IEnumerable<DataGridColumn> columnsTeamTemplate = TeamTemplateRepository.GetDataGridColumn();
+
+                var formSelectTeamTemplate = new WindowEntitySelect<TeamTemplate>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getterTeamTemplate, columnsTeamTemplate);
+
+                if (!formSelectTeamTemplate.ShowDialog().GetValueOrDefault())
+                {
+                    return;
+                }
+
+                if (formSelectTeamTemplate.SelectedEntity == null)
+                {
+                    return;
+                }
+
+                teamTemplate = formSelectTeamTemplate.SelectedEntity;
+            }
+
+            var repositorySystemUser = new SystemUserRepository(service);
+
+            Func<string, Task<IEnumerable<SystemUser>>> getterSystemUser = (string filter) => repositorySystemUser.GetUsersAsync(filter
                 , new ColumnSet(
-                    Team.Schema.Attributes.name
-                    , Team.Schema.Attributes.businessunitid
-                    , Team.Schema.Attributes.isdefault
+                    SystemUser.Schema.Attributes.domainname
+                    , SystemUser.Schema.Attributes.fullname
+                    , SystemUser.Schema.Attributes.businessunitid
+                    , SystemUser.Schema.Attributes.isdisabled
                 )
             );
 
-            IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
+            IEnumerable<DataGridColumn> columnsSystemUser = SystemUserRepository.GetDataGridColumn();
 
-            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+            var formSelectSystemUser = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getterSystemUser, columnsSystemUser);
 
-            if (!form.ShowDialog().GetValueOrDefault())
+            if (!formSelectSystemUser.ShowDialog().GetValueOrDefault())
             {
                 return;
             }
 
-            if (form.SelectedEntity == null)
+            if (formSelectSystemUser.SelectedEntity == null)
             {
                 return;
             }
 
-            Team team = form.SelectedEntity;
+            SystemUser user = formSelectSystemUser.SelectedEntity;
 
-            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToTeamFormat4
+            string operationName = string.Format(Properties.OperationNames.RemovingUserFromEntitiesAccessTeamsFormat5
                 , service.ConnectionData.Name
+                , user.FullName
+                , teamTemplate.TeamTemplateName
                 , entityName
                 , listIds.Count
-                , team.Name
             );
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
-                , Properties.OutputStrings.InConnectionAssigningEntitiesToTeamFormat4
+                , Properties.OutputStrings.InConnectionRemovingUserFromEntitiesAccessTeamsFormat5
                 , service.ConnectionData.Name
+                , user.FullName
+                , teamTemplate.TeamTemplateName
                 , entityName
                 , listIds.Count
-                , team.Name
             );
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-            var request = new AssignRequest()
-            {
-                Assignee = team.ToEntityReference(),
-            };
+            var teamRepository = new TeamRepository(service);
 
             int number = 1;
 
-            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
+            foreach (var id in listIds)
             {
                 try
                 {
-                    request.Target = new EntityReference(entityName, id);
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToTeamFormat3, number, listIds.Count, team.Name);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.RemovingUserFromEntityAccessTeamFormat4, user.FullName, teamTemplate.TeamTemplateName, number, listIds.Count);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
-                    await service.ExecuteAsync<AssignResponse>(request);
+                    await teamRepository.RemoveUserFromRecordAccessTeamAsync(teamTemplate.Id, new EntityReference(entityName, id), user.Id);
                 }
                 catch (Exception ex)
                 {
@@ -2860,17 +3103,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.OutputStrings.InConnectionAssigningEntitiesToTeamCompletedFormat4
+                , Properties.OutputStrings.InConnectionRemovingUserFromEntitiesAccessTeamsCompletedFormat5
                 , service.ConnectionData.Name
+                , user.FullName
+                , teamTemplate.TeamTemplateName
                 , entityName
                 , listIds.Count
-                , team.Name
             );
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
-        #endregion Assign to Team
+        #endregion Remove User To Entites Access Teams
 
         #region Entity Actions
 

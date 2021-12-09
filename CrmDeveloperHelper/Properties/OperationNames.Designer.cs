@@ -2086,6 +2086,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Removing User {1} from AccessTeams {2} Entities {3} count {4}.
+        /// </summary>
+        internal static string RemovingUserFromEntitiesAccessTeamsFormat5 {
+            get {
+                return ResourceManager.GetString("RemovingUserFromEntitiesAccessTeamsFormat5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Removing Users {1} from Teams {2}.
         /// </summary>
         internal static string RemovingUsersFromTeamsFormat3 {

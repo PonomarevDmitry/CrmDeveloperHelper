@@ -468,11 +468,14 @@
   <data name="AssigningEntityToUserFormat3" xml:space="preserve">
     <value>Assigning Entity {0} of {1} to User {2}...</value>
   </data>
+  <data name="AssigningEntityToTeamFormat3" xml:space="preserve">
+    <value>Assigning Entity {0} of {1} to Team {2}...</value>
+  </data>
   <data name="AddingUserToEntityAccessTeamFormat4" xml:space="preserve">
     <value>Adding User {0} to AccessTeam {1} Entity {2} of {3}...</value>
   </data>
-  <data name="AssigningEntityToTeamFormat3" xml:space="preserve">
-    <value>Assigning Entity {0} of {1} to Team {2}...</value>
+  <data name="RemovingUserFromEntityAccessTeamFormat4" xml:space="preserve">
+    <value>Removing User {0} from AccessTeam {1} Entity {2} of {3}...</value>
   </data>
 
   <data name="SettingEntityStateFormat6" xml:space="preserve">
@@ -2042,6 +2045,13 @@
   </data>
   <data name="InConnectionAddingUserToEntitiesAccessTeamsFormat5" xml:space="preserve">
     <value>{0}. Adding User {1} to AccessTeams {2} Entities {3} count {4}...</value>
+  </data>
+
+  <data name="InConnectionRemovingUserFromEntitiesAccessTeamsCompletedFormat5" xml:space="preserve">
+    <value>{0}. Removing User {1} from AccessTeams {2} Entities {3} count {4} completed.</value>
+  </data>
+  <data name="InConnectionRemovingUserFromEntitiesAccessTeamsFormat5" xml:space="preserve">
+    <value>{0}. Removing User {1} from AccessTeams {2} Entities {3} count {4}...</value>
   </data>
   
   <data name="ExecutingWorkflowCompletedFormat4" xml:space="preserve">

@@ -56,9 +56,7 @@
 
                     <Separator/>
                     <MenuItem Header="Add User To Entity Access Team" Click="mIAddUserToAccessTeamEntity_Click" />
-
-                    <!--<Separator/>
-                    <MenuItem Header="Remove User From Entity Access Team" Click="mIRemoveUserFromAccessTeamEntity_Click" />-->
+                    <MenuItem Header="Remove User From Entity Access Team" Click="mIRemoveUserFromAccessTeamEntity_Click" />
 
                     <Separator/>
                     <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click" />
@@ -170,9 +168,7 @@
 
                     <Separator/>
                     <MenuItem Header="Add User To Entity Access Team" Click="mIAddUserToAccessTeamEntity_Click" />
-
-                    <!--<Separator/>
-                    <MenuItem Header="Remove User From Entity Access Team" Click="mIRemoveUserFromAccessTeamEntity_Click" />-->
+                    <MenuItem Header="Remove User From Entity Access Team" Click="mIRemoveUserFromAccessTeamEntity_Click" />
 
                     <Separator/>
                     <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click" />
@@ -350,6 +346,7 @@
 
                                 <Separator/>
                                 <MenuItem Header="Add User To Selected Entities Access Teams" Click="mIAddUserToAccessTeamSelectedEntities_Click" />
+                                <MenuItem Header="Remove User From Selected Entities Access Teams" Click="mIRemoveUserFromAccessTeamSelectedEntities_Click" />
 
                                 <Separator/>
                                 <MenuItem Header="Set State Selected Entities" Click="mISetStateSelectedEntities_Click" />
@@ -390,6 +387,7 @@
 
                                 <Separator/>
                                 <MenuItem Header="Add User To All Entities Access Teams" Click="mIAddUserToAccessTeamAllEntities_Click" />
+                                <MenuItem Header="Remove User From All Entities Access Teams" Click="mIRemoveUserFromAccessTeamAllEntities_Click" />
 
                                 <Separator/>
                                 <MenuItem Header="Set State All Entities" Click="mISetStateAllEntities_Click" />
