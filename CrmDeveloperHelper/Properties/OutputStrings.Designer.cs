@@ -1294,6 +1294,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating SystemForm Attributes Description for {0} - {1} completed..
+        /// </summary>
+        internal static string CreatingSystemFormAttributesDescriptionCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingSystemFormAttributesDescriptionCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating SystemForm Attributes Description for {0} - {1} failed..
+        /// </summary>
+        internal static string CreatingSystemFormAttributesDescriptionFailedFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingSystemFormAttributesDescriptionFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating SystemForm Attributes Description for {0} - {1}....
+        /// </summary>
+        internal static string CreatingSystemFormAttributesDescriptionFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingSystemFormAttributesDescriptionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating SystemForm Description for {0} - {1} completed..
         /// </summary>
         internal static string CreatingSystemFormDescriptionCompletedFormat2 {

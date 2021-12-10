@@ -1042,6 +1042,15 @@
   <data name="CreatingSystemFormDescriptionFormat2" xml:space="preserve">
     <value>Creating SystemForm Description for {0} - {1}...</value>
   </data>
+  <data name="CreatingSystemFormAttributesDescriptionCompletedFormat2" xml:space="preserve">
+    <value>Creating SystemForm Attributes Description for {0} - {1} completed.</value>
+  </data>
+  <data name="CreatingSystemFormAttributesDescriptionFailedFormat2" xml:space="preserve">
+    <value>Creating SystemForm Attributes Description for {0} - {1} failed.</value>
+  </data>
+  <data name="CreatingSystemFormAttributesDescriptionFormat2" xml:space="preserve">
+    <value>Creating SystemForm Attributes Description for {0} - {1}...</value>
+  </data>
   <data name="CreatingTextFileWithComponentsCompletedFormat1" xml:space="preserve">
     <value>Creating text file with Components for {0} completed.</value>
   </data>

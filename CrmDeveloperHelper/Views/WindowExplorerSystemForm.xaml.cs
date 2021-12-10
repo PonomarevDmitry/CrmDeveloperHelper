@@ -1194,6 +1194,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSystemFormDescriptionCompletedFormat2, entityName, name);
         }
 
+        private async void mIExportSystemFormAttributeDescription_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportFormAttributeDescriptionToFileAsync);
+        }
+
+        private async Task PerformExportFormAttributeDescriptionToFileAsync(string folder, Guid idSystemForm, string entityName, string name)
+        {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingSystemFormAttributesDescriptionFormat2, entityName, name);
+
+            var descriptor = GetSolutionComponentDescriptor(service);
+            var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+            var repository = new SystemFormRepository(service);
+
+            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(SystemForm.Schema.Attributes.type, SystemForm.Schema.Attributes.formxml));
+
+            string formXml = systemForm.FormXml;
+
+            if (!string.IsNullOrEmpty(formXml))
+            {
+                try
+                {
+                    XElement doc = XElement.Parse(formXml);
+
+                    string desc = await handler.GetFormAttributesDescriptionAsync(doc, entityName, idSystemForm, name, systemForm.FormattedValues[SystemForm.Schema.Attributes.type]);
+
+                    string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, entityName, name, "FormAttributesDescription", FileExtension.txt);
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, desc, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormAttributesDescription", filePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, SystemForm.Schema.Headers.formxml);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSystemFormAttributesDescriptionCompletedFormat2, entityName, name);
+        }
+
         private async void mIExportSystemFormFormXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();

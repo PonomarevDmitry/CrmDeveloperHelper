@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<string> GetFormDescription(XElement doc, string entityName, Guid formId, string name, string typeName)
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
             if (!string.IsNullOrEmpty(entityName) && entityName != "none")
             {
@@ -84,6 +84,194 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return result.ToString();
+        }
+
+        public Task<string> GetFormAttributesDescriptionAsync(XElement doc, string entityName, Guid formId, string name, string typeName)
+        {
+            return Task.Run(() => GetFormAttributesDescription(doc, entityName, formId, name, typeName));
+        }
+
+        private string GetFormAttributesDescription(XElement doc, string entityName, Guid formId, string name, string typeName)
+        {
+            var result = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(entityName) && entityName != "none")
+            {
+                try
+                {
+                    this._entityMetadata = _descriptor.MetadataSource.GetEntityMetadata(entityName);
+                }
+                catch (Exception)
+                {
+                    this._entityMetadata = null;
+
+#if DEBUG
+                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+#endif
+                }
+            }
+
+            FormInformation formInfo = GetFormInformation(doc);
+
+            if (formInfo.Header != null)
+            {
+                string tabLabel = "Header";
+                var tab = formInfo.Header;
+
+                foreach (var section in formInfo.Header.Sections)
+                {
+                    string sectionLabel = "Header";
+
+                    SaveControlAttributesInfo(result, entityName, tab, tabLabel, section, sectionLabel);
+                }
+            }
+
+            foreach (var tab in formInfo.Tabs)
+            {
+                string tabLabel = tab.Labels.FirstOrDefault()?.Value;
+
+                foreach (var section in tab.Sections)
+                {
+                    string sectionLabel = section.Labels.FirstOrDefault()?.Value;
+
+                    SaveControlAttributesInfo(result, entityName, tab, tabLabel, section, sectionLabel);
+                }
+            }
+
+            if (formInfo.Footer != null)
+            {
+                string tabLabel = "Footer";
+                var tab = formInfo.Footer;
+
+                foreach (var section in formInfo.Footer.Sections)
+                {
+                    string sectionLabel = "Footer";
+
+                    SaveControlAttributesInfo(result, entityName, tab, tabLabel, section, sectionLabel);
+                }
+            }
+
+            return result.ToString();
+        }
+
+        private void SaveControlAttributesInfo(StringBuilder result, string entityName, FormTab tab, string tabLabel, FormSection section, string sectionLabel)
+        {
+            foreach (var control in section.Controls)
+            {
+                if (!string.IsNullOrEmpty(control.Attribute))
+                {
+                    var attribute = _entityMetadata.Attributes?.FirstOrDefault(a => a.LogicalName.Equals(control.Attribute, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (attribute != null)
+                    {
+                        var attributeDisplayName = attribute.DisplayName?.LocalizedLabels.FirstOrDefault()?.Label;
+                        var attributeDescription = attribute.Description?.LocalizedLabels.FirstOrDefault()?.Label;
+                        var fieldType = GetLocalizedSourceType(attribute.SourceType);
+                        var fieldTypeName = GetLocalizedAttributeTypeName((int)attribute.AttributeType);
+
+                        var safety = GetAttributeMetadataSafetyState(attribute);
+
+                        var audit = GetAuditState(attribute.IsAuditEnabled);
+
+                        string state = attribute.IsManaged == true ? "Управляемое" : "Неуправляемое";
+
+                        result.Append($"{entityName};{attribute.LogicalName};{attribute.SchemaName};{attributeDisplayName};{fieldTypeName};{fieldType};{state};{safety};{audit};{attributeDescription}")
+                            .Append($";{control.ShowLabel};{control.Visible};{control.Disabled}")
+                            .Append($";{sectionLabel};{tabLabel}")
+                            .Append($";{section.Name};{tab.Name}")
+                            .Append($";{section.Id};{tab.Id}")
+                            .AppendLine()
+                            ;
+                    }
+                }
+            }
+        }
+
+        private static string GetAttributeMetadataSafetyState(AttributeMetadata attr)
+        {
+            if (!attr.CanBeSecuredForCreate.Value && !attr.CanBeSecuredForRead.Value && !attr.CanBeSecuredForUpdate.Value)
+            {
+                return "Неприменимо";
+            }
+            return attr.IsSecured == true ? "Включено" : "Отключено";
+        }
+
+        private static string GetAuditState(BooleanManagedProperty isAuditEnabled)
+        {
+            if (!isAuditEnabled.CanBeChanged)
+            {
+                return "Неприменимо";
+            }
+            return isAuditEnabled.Value == true ? "Включено" : "Отключено";
+        }
+
+        private static string GetLocalizedAttributeTypeName(int type)
+        {
+            switch (type)
+            {
+                case 0:
+                    return "Два параметра"; // Boolean
+                case 1:
+                    return "Клиент"; // Customer
+                case 2:
+                    return "Дата и время"; // DateTime
+                case 3:
+                    return "Десятичное число"; // Decimal
+                case 4:
+                    return "Число с плавающей точкой"; // Double
+                case 5:
+                    return "Целое число"; // Integer
+                case 6:
+                    return "Поиск"; // Lookup
+                case 7:
+                    return "Несколько строк текста"; // Memo
+                case 8:
+                    return "Валюта"; // Money
+                case 9:
+                    return "Ответственный"; // Owner
+                case 10:
+                    return "PartyList"; // PartyList
+                case 11:
+                    return "Набор параметров"; // PickList
+                case 12:
+                    return "Состояние"; // State
+                case 13:
+                    return "Причина состояния"; // Status
+                case 14:
+                    return "Строка текста"; // String
+                case 15:
+                    return "Первичный ключ"; // Uniqueidentifier
+                case 16:
+                    return "CalendarRules"; // CalendarRules
+                case 17:
+                    return "Набор параметров с несколькими вариантами"; // Virtual
+                case 18:
+                    return "Отметка времени"; // BigInt
+                case 19:
+                    return "ManagedProperty"; // ManagedProperty
+                case 20:
+                    return "Название сущности"; // EntityName
+                default:
+                    return null;
+            }
+        }
+
+        private static string GetLocalizedSourceType(int? type)
+        {
+            switch (type)
+            {
+                case 0:
+                    return "Простой";
+
+                case 1:
+                    return "Вычисляемый";
+
+                case 2:
+                    return "Свертка";
+
+                default:
+                    return null;
+            }
         }
 
         private async Task SaveDependentComponents(StringBuilder result, Guid formId)
