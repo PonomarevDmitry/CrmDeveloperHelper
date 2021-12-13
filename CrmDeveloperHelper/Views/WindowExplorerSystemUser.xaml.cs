@@ -9,6 +9,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -98,6 +99,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
             _popupPrivilegeFilter.Closed += this.popupPrivilegeFilter_Closed;
+
+            cmBTeamType.ItemsSource = new EnumBindingSourceExtension(typeof(Team.Schema.OptionSets.teamtype?)).ProvideValue(null) as IEnumerable;
+
+            FillComboBoxTrueFalse(cmBIsDefault);
+            FillComboBoxTrueFalse(cmBIsTeamTemplate);
+            cmBIsDefault.SelectedItem = false;
+            cmBIsTeamTemplate.SelectedItem = false;
 
             LoadFromConfig();
 
@@ -469,12 +477,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSystemUserTeams);
 
             string filterTeam = string.Empty;
+            Team.Schema.OptionSets.teamtype? teamType = null;
+            bool? isDefault = null;
+            bool? isTeamTemplate = null;
 
             this.Dispatcher.Invoke(() =>
             {
                 _itemsSourceTeams.Clear();
 
                 filterTeam = txtBFilterTeams.Text.Trim().ToLower();
+
+                {
+                    if (cmBTeamType.SelectedItem is Team.Schema.OptionSets.teamtype comboBoxItem)
+                    {
+                        teamType = comboBoxItem;
+                    }
+                }
+
+                if (cmBIsDefault.SelectedItem is bool valueDefault)
+                {
+                    isDefault = valueDefault;
+                }
+
+                if (cmBIsTeamTemplate.SelectedItem is bool valueTeamTemplate)
+                {
+                    isTeamTemplate = valueTeamTemplate;
+                }
             });
 
             var user = GetSelectedSystemUser();
@@ -489,13 +517,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repository = new TeamRepository(service);
 
-                    list = await repository.GetUserTeamsAsync(user.Id, filterTeam, new ColumnSet(
-                        Team.Schema.Attributes.name
-                        , Team.Schema.Attributes.businessunitid
-                        , Team.Schema.Attributes.teamtype
-                        , Team.Schema.Attributes.regardingobjectid
-                        , Team.Schema.Attributes.teamtemplateid
-                        , Team.Schema.Attributes.isdefault
+                    list = await repository.GetUserTeamsAsync(user.Id
+                        , filterTeam
+                        , isDefault
+                        , teamType
+                        , isTeamTemplate
+                        , new ColumnSet(
+                            Team.Schema.Attributes.name
+                            , Team.Schema.Attributes.businessunitid
+                            , Team.Schema.Attributes.teamtype
+                            , Team.Schema.Attributes.regardingobjectid
+                            , Team.Schema.Attributes.teamtemplateid
+                            , Team.Schema.Attributes.isdefault
                     ));
                 }
             }
@@ -847,6 +880,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowSystemUserTeams();
             }
+        }
+
+        private async void cmBTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await ShowSystemUserTeams();
         }
 
         private async void txtBFilterRole_KeyDown(object sender, KeyEventArgs e)

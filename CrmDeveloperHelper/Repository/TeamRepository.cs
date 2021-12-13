@@ -98,14 +98,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return _service.RetrieveMultipleAll<Team>(query);
         }
 
-        public Task<List<Team>> GetUserTeamsAsync(Guid idUser, string filter, ColumnSet columnSet)
+        public Task<List<Team>> GetUserTeamsAsync(Guid idUser, string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, bool? isTeamTemplate, ColumnSet columnSet)
         {
-            return Task.Run(() => GetUserTeams(idUser, filter, columnSet));
+            return Task.Run(() => GetUserTeams(idUser, filter, isDefault, teamType, isTeamTemplate,  columnSet));
         }
 
-        private List<Team> GetUserTeams(Guid idUser, string filter, ColumnSet columnSet)
+        private List<Team> GetUserTeams(Guid idUser, string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, bool? isTeamTemplate, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -168,6 +168,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
                 }
+            }
+
+            if (isDefault.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.isdefault, ConditionOperator.Equal, isDefault.Value));
+            }
+
+            if (isTeamTemplate.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamtemplateid, isTeamTemplate.Value ? ConditionOperator.NotNull : ConditionOperator.Null));
+            }
+
+            if (teamType.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamtype, ConditionOperator.Equal, (int)teamType.Value));
             }
 
             return _service.RetrieveMultipleAll<Team>(query);

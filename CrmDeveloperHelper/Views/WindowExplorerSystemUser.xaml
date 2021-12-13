@@ -447,6 +447,7 @@
 
                 <TabItem Header="Teams">
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                        
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
                             <Button x:Name="btnRefreshTeams" HorizontalAlignment="Left" Click="btnRefreshTeams_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -459,14 +460,33 @@
                             <Separator Margin="20,0" />
                             <Button x:Name="btnRemoveUserFromTeam" IsEnabled="False" Content="Remove User from Team" Click="btnRemoveUserFromTeam_Click" />
                         </ToolBar>
+                        
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="50*" />
+
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0" />
                             <TextBox x:Name="txtBFilterTeams" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterTeams_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+
+                            <Label Content="Type" Grid.Row="1" Grid.Column="2" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBTeamType" Grid.Row="1" Grid.Column="3" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBTeam_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                            <Label Content="Default" Grid.Row="1" Grid.Column="4" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBIsDefault" Grid.Row="1" Grid.Column="5" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBTeam_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                            <Label Content="TeamTemplate" Grid.Row="1" Grid.Column="6" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBIsTeamTemplate" Grid.Row="1" Grid.Column="7" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBTeam_SelectionChanged" HorizontalContentAlignment="Stretch" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="LstVwTeams_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
