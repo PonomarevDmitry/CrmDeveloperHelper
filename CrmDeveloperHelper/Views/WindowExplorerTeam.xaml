@@ -293,13 +293,13 @@
                     <TextBox x:Name="txtBFilterTeams" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterTeams_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
 
                     <Label Content="Type" Grid.Row="1" Grid.Column="2" />
-                    <ComboBox x:Name="cmBTeamType" Grid.Row="1" Grid.Column="3" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
+                    <ComboBox x:Name="cmBTeamType" Grid.Row="1" Grid.Column="3" IsEditable="False" SelectionChanged="cmBTeam_SelectionChanged" HorizontalContentAlignment="Stretch" />
 
                     <Label Content="Default" Grid.Row="1" Grid.Column="4" />
-                    <ComboBox x:Name="cmBIsDefault" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
+                    <ComboBox x:Name="cmBTeamIsDefault" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="cmBTeam_SelectionChanged" HorizontalContentAlignment="Stretch" />
 
                     <Label Content="TeamTemplate" Grid.Row="1" Grid.Column="6" />
-                    <ComboBox x:Name="cmBIsTeamTemplate" Grid.Row="1" Grid.Column="7" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
+                    <ComboBox x:Name="cmBTeamIsTeamTemplate" Grid.Row="1" Grid.Column="7" IsEditable="False" SelectionChanged="cmBTeam_SelectionChanged" HorizontalContentAlignment="Stretch" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwTeam_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -340,15 +340,19 @@
             <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2">
                 <TabItem Header="Roles">
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                        
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                            
                             <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Roles</TextBlock>
                                 </StackPanel>
                             </Button>
+                            
                             <Separator Margin="20,0" />
                             <Button x:Name="btnAssignRoleToTeam" Content="Assing Role to Team" Click="btnAssignRoleToTeam_Click" />
+                            
                             <Separator Margin="20,0" />
                             <Button x:Name="btnRemoveRoleFromTeam" IsEnabled="False" Content="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click" />
                         </ToolBar>
@@ -357,10 +361,28 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="50*" />
+
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0" />
                             <TextBox x:Name="txtBFilterRole" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+
+                            <Label Content="Customizable" Grid.Row="1" Grid.Column="2" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBRoleIsCustomizable" Grid.Row="1" Grid.Column="3" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBRole_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                            <Label Content="Managed" Grid.Row="1" Grid.Column="4" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBRoleIsManaged" Grid.Row="1" Grid.Column="5" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBRole_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                            <Label Content="Template" Grid.Row="1" Grid.Column="6" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBRoleIsTemplate" Grid.Row="1" Grid.Column="7" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBRole_SelectionChanged" HorizontalContentAlignment="Stretch" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -379,6 +401,32 @@
                                 <DataGridTextColumn Header="Role Name" Width="200" Binding="{Binding Name, Mode=OneTime}" />
                                 <DataGridTextColumn Header="RoleTemplate" Width="200" Binding="{Binding RoleTemplateName, Mode=OneTime}" />
                                 <DataGridTextColumn Header="BusinessUnit" Width="200" Binding="{Binding BusinessUnitId.Name, Mode=OneTime}" />
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsCustomizable.Value, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="Cust" Margin="0" Padding="0" ToolTip="IsCustomizable" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsManaged, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="Mng" Margin="0" Padding="0" ToolTip="IsManaged" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
 
                             </DataGrid.Columns>
                         </DataGrid>

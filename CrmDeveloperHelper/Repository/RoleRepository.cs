@@ -1,4 +1,3 @@
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -27,7 +26,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public Task<IEnumerable<Role>> GetListAsync(string filterRole, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(filterRole, columnSet));
+            return Task.Run(() => GetList(filterRole, null, null, null, columnSet));
+        }
+
+        public Task<IEnumerable<Role>> GetListAsync(string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetList(filterRole, isCustomizable, isManaged, isTemplate, columnSet));
         }
 
         /// <summary>
@@ -35,9 +39,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private IEnumerable<Role> GetList(string filterRole, ColumnSet columnSet)
+        private IEnumerable<Role> GetList(string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -102,6 +106,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
                 }
+            }
+
+            if (isManaged.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.ismanaged, ConditionOperator.Equal, isManaged.Value));
+            }
+
+            if (isCustomizable.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.iscustomizable, ConditionOperator.Equal, isCustomizable.Value));
+            }
+
+            if (isTemplate.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roletemplateid, isTemplate.Value ? ConditionOperator.NotNull : ConditionOperator.Null));
             }
 
             return _service.RetrieveMultipleAll<Role>(query);
@@ -199,14 +218,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<Role>()).SingleOrDefault() : null;
         }
 
-        public Task<List<Role>> GetUserRolesAsync(Guid idUser, string filterRole, ColumnSet columnSet)
+        public Task<List<Role>> GetUserRolesAsync(Guid idUser, string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
         {
-            return Task.Run(() => GetUserRoles(idUser, filterRole, columnSet));
+            return Task.Run(() => GetUserRoles(idUser, filterRole, isCustomizable, isManaged, isTemplate, columnSet));
         }
 
-        public List<Role> GetUserRoles(Guid idUser, string filterRole, ColumnSet columnSet)
+        public List<Role> GetUserRoles(Guid idUser, string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -282,17 +301,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
+            if (isManaged.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.ismanaged, ConditionOperator.Equal, isManaged.Value));
+            }
+
+            if (isCustomizable.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.iscustomizable, ConditionOperator.Equal, isCustomizable.Value));
+            }
+
+            if (isTemplate.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roletemplateid, isTemplate.Value ? ConditionOperator.NotNull : ConditionOperator.Null));
+            }
+
             return _service.RetrieveMultipleAll<Role>(query);
         }
 
-        public Task<List<Role>> GetTeamRolesAsync(Guid idTeam, string filterRole, ColumnSet columnSet)
+        public Task<List<Role>> GetTeamRolesAsync(Guid idTeam, string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
         {
-            return Task.Run(() => GetTeamRoles(idTeam, filterRole, columnSet));
+            return Task.Run(() => GetTeamRoles(idTeam, filterRole, isCustomizable, isManaged, isTemplate, columnSet));
         }
 
-        public List<Role> GetTeamRoles(Guid idTeam, string filterRole, ColumnSet columnSet)
+        public List<Role> GetTeamRoles(Guid idTeam, string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -368,17 +402,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
+            if (isManaged.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.ismanaged, ConditionOperator.Equal, isManaged.Value));
+            }
+
+            if (isCustomizable.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.iscustomizable, ConditionOperator.Equal, isCustomizable.Value));
+            }
+
+            if (isTemplate.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roletemplateid, isTemplate.Value ? ConditionOperator.NotNull : ConditionOperator.Null));
+            }
+
             return _service.RetrieveMultipleAll<Role>(query);
         }
 
-        public Task<List<Role>> GetUserRolesByTeamsAsync(Guid idUser, string filterRole, ColumnSet columnSet)
+        public Task<List<Role>> GetUserRolesByTeamsAsync(Guid idUser, string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
         {
-            return Task.Run(() => GetUserRolesByTeams(idUser, filterRole, columnSet));
+            return Task.Run(() => GetUserRolesByTeams(idUser, filterRole, isCustomizable, isManaged, isTemplate, columnSet));
         }
 
-        private List<Role> GetUserRolesByTeams(Guid idUser, string filterRole, ColumnSet columnSet)
+        private List<Role> GetUserRolesByTeams(Guid idUser, string filterRole, bool? isCustomizable, bool? isManaged, bool? isTemplate, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -480,6 +529,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
                 }
+            }
+
+            if (isManaged.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.ismanaged, ConditionOperator.Equal, isManaged.Value));
+            }
+
+            if (isCustomizable.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.iscustomizable, ConditionOperator.Equal, isCustomizable.Value));
+            }
+
+            if (isTemplate.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roletemplateid, isTemplate.Value ? ConditionOperator.NotNull : ConditionOperator.Null));
             }
 
             return _service.RetrieveMultipleAll<Role>(query);

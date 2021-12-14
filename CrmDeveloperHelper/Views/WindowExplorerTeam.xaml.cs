@@ -101,10 +101,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBTeamType.ItemsSource = new EnumBindingSourceExtension(typeof(Team.Schema.OptionSets.teamtype?)).ProvideValue(null) as IEnumerable;
 
-            FillComboBoxTrueFalse(cmBIsDefault);
-            FillComboBoxTrueFalse(cmBIsTeamTemplate);
-            cmBIsDefault.SelectedItem = false;
-            cmBIsTeamTemplate.SelectedItem = false;
+            FillComboBoxTrueFalse(cmBTeamIsDefault);
+            FillComboBoxTrueFalse(cmBTeamIsTeamTemplate);
+            cmBTeamIsDefault.SelectedItem = false;
+            cmBTeamIsTeamTemplate.SelectedItem = false;
+
+            FillComboBoxTrueFalse(cmBRoleIsCustomizable);
+            FillComboBoxTrueFalse(cmBRoleIsManaged);
+            FillComboBoxTrueFalse(cmBRoleIsTemplate);
 
             LoadFromConfig();
 
@@ -382,12 +386,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(connectionData, false, Properties.OutputStrings.LoadingTeamSecurityRoles);
 
             string filterRole = string.Empty;
+            bool? isTemplate = null;
+            bool? isManaged = null;
+            bool? isCustomizable = null;
 
             this.Dispatcher.Invoke(() =>
             {
                 _itemsSourceRoles.Clear();
 
                 filterRole = txtBFilterRole.Text.Trim().ToLower();
+
+                if (cmBRoleIsTemplate.SelectedItem is bool valueIsTemplate)
+                {
+                    isTemplate = valueIsTemplate;
+                }
+
+                if (cmBRoleIsManaged.SelectedItem is bool valueIsManaged)
+                {
+                    isManaged = valueIsManaged;
+                }
+
+                if (cmBRoleIsCustomizable.SelectedItem is bool valueIsCustomizable)
+                {
+                    isCustomizable = valueIsCustomizable;
+                }
             });
 
             var team = GetSelectedTeam();
@@ -402,13 +424,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repository = new RoleRepository(service);
 
-                    list = await repository.GetTeamRolesAsync(team.Id, filterRole, new ColumnSet(
-                        Role.Schema.Attributes.name
-                        , Role.Schema.Attributes.businessunitid
-                        , Role.Schema.Attributes.ismanaged
-                        , Role.Schema.Attributes.roletemplateid
-                        , Role.Schema.Attributes.iscustomizable
-                    ));
+                    list = await repository.GetTeamRolesAsync(team.Id, filterRole
+                        , isCustomizable
+                        , isManaged
+                        , isTemplate
+                        , new ColumnSet
+                        (
+                            Role.Schema.Attributes.name
+                            , Role.Schema.Attributes.businessunitid
+                            , Role.Schema.Attributes.ismanaged
+                            , Role.Schema.Attributes.roletemplateid
+                            , Role.Schema.Attributes.iscustomizable
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -469,12 +497,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                if (cmBIsDefault.SelectedItem is bool valueDefault)
+                if (cmBTeamIsDefault.SelectedItem is bool valueDefault)
                 {
                     isDefault = valueDefault;
                 }
 
-                if (cmBIsTeamTemplate.SelectedItem is bool valueTeamTemplate)
+                if (cmBTeamIsTeamTemplate.SelectedItem is bool valueTeamTemplate)
                 {
                     isTeamTemplate = valueTeamTemplate;
                 }
@@ -835,7 +863,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             await ShowExistingTeams();
         }
@@ -846,6 +874,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowTeamRoles();
             }
+        }
+
+        private async void cmBRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await ShowTeamRoles();
         }
 
         private Team GetSelectedTeam()

@@ -101,6 +101,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             _popupPrivilegeFilter.Closed += this.popupPrivilegeFilter_Closed;
 
+            FillComboBoxTrueFalse(cmBRoleIsCustomizable);
+            FillComboBoxTrueFalse(cmBRoleIsManaged);
+            FillComboBoxTrueFalse(cmBRoleIsTemplate);
+
             LoadFromConfig();
 
             txtBFilterRole.Text = filterEntity;
@@ -378,6 +382,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSecurityRoles);
 
             string filterRole = string.Empty;
+            bool? isTemplate = null;
+            bool? isManaged = null;
+            bool? isCustomizable = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -392,6 +399,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _currentRoleOtherPrivileges.Clear();
 
                 filterRole = txtBFilterRole.Text.Trim().ToLower();
+
+                if (cmBRoleIsTemplate.SelectedItem is bool valueIsTemplate)
+                {
+                    isTemplate = valueIsTemplate;
+                }
+
+                if (cmBRoleIsManaged.SelectedItem is bool valueIsManaged)
+                {
+                    isManaged = valueIsManaged;
+                }
+
+                if (cmBRoleIsCustomizable.SelectedItem is bool valueIsCustomizable)
+                {
+                    isCustomizable = valueIsCustomizable;
+                }
             });
 
             IEnumerable<Role> list = Enumerable.Empty<Role>();
@@ -402,9 +424,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    RoleRepository repository = new RoleRepository(service);
+                    var repositoryRole = new RoleRepository(service);
 
-                    list = await repository.GetListAsync(filterRole
+                    list = await repositoryRole.GetListAsync(filterRole
+                        , isCustomizable
+                        , isManaged
+                        , isTemplate
                         , new ColumnSet
                         (
                             Role.Schema.Attributes.name
@@ -843,6 +868,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowExistingRoles();
             }
+        }
+
+        private async void cmBRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await ShowExistingRoles();
         }
 
         private Role GetSelectedRole()
@@ -2261,9 +2291,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var sourceRole = entity.ToEntity<Role>();
 
-            var repository = new RoleRepository(service);
+            var repositoryRole = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repositoryRole.GetRolesForNotAnotherAsync(filter
                 , sourceRole.Id
                 , new ColumnSet(
                     Role.Schema.Attributes.name
@@ -2316,9 +2346,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var sourceRole = entity.ToEntity<Role>();
 
-            var repository = new RoleRepository(service);
+            var repositoryRole = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repositoryRole.GetRolesForNotAnotherAsync(filter
                 , sourceRole.Id
                 , new ColumnSet(
                     Role.Schema.Attributes.name
@@ -2371,9 +2401,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var sourceRole = entity.ToEntity<Role>();
 
-            var repository = new RoleRepository(service);
+            var repositoryRole = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repositoryRole.GetRolesForNotAnotherAsync(filter
                 , sourceRole.Id
                 , new ColumnSet(
                     Role.Schema.Attributes.name
@@ -2510,9 +2540,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var targetRole = entity.ToEntity<Role>();
 
-            var repository = new RoleRepository(service);
+            var repositoryRole = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repositoryRole.GetRolesForNotAnotherAsync(filter
                 , targetRole.Id
                 , new ColumnSet(
                     Role.Schema.Attributes.name
@@ -2567,9 +2597,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var targetRole = entity.ToEntity<Role>();
 
-            var repository = new RoleRepository(service);
+            var repositoryRole = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repositoryRole.GetRolesForNotAnotherAsync(filter
                 , targetRole.Id
                 , new ColumnSet(
                     Role.Schema.Attributes.name
@@ -2624,9 +2654,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var targetRole = entity.ToEntity<Role>();
 
-            var repository = new RoleRepository(service);
+            var repositoryRole = new RoleRepository(service);
 
-            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repositoryRole.GetRolesForNotAnotherAsync(filter
                 , targetRole.Id
                 , new ColumnSet(
                     Role.Schema.Attributes.name

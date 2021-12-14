@@ -102,10 +102,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBTeamType.ItemsSource = new EnumBindingSourceExtension(typeof(Team.Schema.OptionSets.teamtype?)).ProvideValue(null) as IEnumerable;
 
-            FillComboBoxTrueFalse(cmBIsDefault);
-            FillComboBoxTrueFalse(cmBIsTeamTemplate);
-            cmBIsDefault.SelectedItem = false;
-            cmBIsTeamTemplate.SelectedItem = false;
+            FillComboBoxTrueFalse(cmBTeamIsDefault);
+            FillComboBoxTrueFalse(cmBTeamIsTeamTemplate);
+            cmBTeamIsDefault.SelectedItem = false;
+            cmBTeamIsTeamTemplate.SelectedItem = false;
+
+            FillComboBoxTrueFalse(cmBRoleIsCustomizable);
+            FillComboBoxTrueFalse(cmBRoleIsManaged);
+            FillComboBoxTrueFalse(cmBRoleIsTemplate);
 
             LoadFromConfig();
 
@@ -392,6 +396,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(connectionData, false, Properties.OutputStrings.LoadingSystemUserSecurityRoles);
 
             string filterRole = string.Empty;
+            bool? isTemplate = null;
+            bool? isManaged = null;
+            bool? isCustomizable = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -399,6 +406,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSourceRolesByTeams.Clear();
 
                 filterRole = txtBFilterRole.Text.Trim().ToLower();
+
+                if (cmBRoleIsTemplate.SelectedItem is bool valueIsTemplate)
+                {
+                    isTemplate = valueIsTemplate;
+                }
+
+                if (cmBRoleIsManaged.SelectedItem is bool valueIsManaged)
+                {
+                    isManaged = valueIsManaged;
+                }
+
+                if (cmBRoleIsCustomizable.SelectedItem is bool valueIsCustomizable)
+                {
+                    isCustomizable = valueIsCustomizable;
+                }
             });
 
             var user = GetSelectedSystemUser();
@@ -414,21 +436,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     RoleRepository repository = new RoleRepository(service);
 
-                    list = await repository.GetUserRolesAsync(user.Id, filterRole, new ColumnSet(
-                        Role.Schema.Attributes.name
-                        , Role.Schema.Attributes.businessunitid
-                        , Role.Schema.Attributes.ismanaged
-                        , Role.Schema.Attributes.roletemplateid
-                        , Role.Schema.Attributes.iscustomizable
-                    ));
+                    list = await repository.GetUserRolesAsync(user.Id, filterRole
+                        , isCustomizable
+                        , isManaged
+                        , isTemplate
+                        , new ColumnSet
+                        (
+                            Role.Schema.Attributes.name
+                            , Role.Schema.Attributes.businessunitid
+                            , Role.Schema.Attributes.ismanaged
+                            , Role.Schema.Attributes.roletemplateid
+                            , Role.Schema.Attributes.iscustomizable
+                        )
+                    );
 
-                    listByTeams = await repository.GetUserRolesByTeamsAsync(user.Id, filterRole, new ColumnSet(
-                        Role.Schema.Attributes.name
-                        , Role.Schema.Attributes.businessunitid
-                        , Role.Schema.Attributes.ismanaged
-                        , Role.Schema.Attributes.roletemplateid
-                        , Role.Schema.Attributes.iscustomizable
-                    ));
+                    listByTeams = await repository.GetUserRolesByTeamsAsync(user.Id, filterRole
+                        , isCustomizable
+                        , isManaged
+                        , isTemplate
+                        , new ColumnSet
+                        (
+                            Role.Schema.Attributes.name
+                            , Role.Schema.Attributes.businessunitid
+                            , Role.Schema.Attributes.ismanaged
+                            , Role.Schema.Attributes.roletemplateid
+                            , Role.Schema.Attributes.iscustomizable
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -494,12 +528,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                if (cmBIsDefault.SelectedItem is bool valueDefault)
+                if (cmBTeamIsDefault.SelectedItem is bool valueDefault)
                 {
                     isDefault = valueDefault;
                 }
 
-                if (cmBIsTeamTemplate.SelectedItem is bool valueTeamTemplate)
+                if (cmBTeamIsTeamTemplate.SelectedItem is bool valueTeamTemplate)
                 {
                     isTeamTemplate = valueTeamTemplate;
                 }
@@ -893,6 +927,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowSystemUserRoles();
             }
+        }
+
+        private async void cmBRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await ShowSystemUserRoles();
         }
 
         private SystemUser GetSelectedSystemUser()
@@ -1884,7 +1923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 rolesName = string.Join(", ", roleList.Select(r => r.Name).OrderBy(s => s));
             }
-                
+
             string usersName = string.Format("{0} - {1}", user.DomainName, user.FullName);
 
             string message = string.Format(Properties.MessageBoxStrings.AreYouSureRemoveRolesFromUsersFormat2, rolesName, usersName);
