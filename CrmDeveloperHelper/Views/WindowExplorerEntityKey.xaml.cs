@@ -523,7 +523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, mIClearEntityCacheAndRefresh, mIClearEntityKeyCacheAndRefresh);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, mIClearEntityCacheAndRefresh, mIClearEntityKeyCacheAndRefresh, mIClearCache);
 
             UpdateButtonsEnable();
         }
@@ -1032,6 +1032,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        #region Clear Cache
+
         private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
@@ -1059,6 +1061,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await ShowExistingEntityKeys();
             }
         }
+
+        private async void mIClearAllConnectionsEntityAndEntityKeyCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            _cacheEntityMetadata.Clear();
+            _cacheEntityKeyMetadata.Clear();
+
+            UpdateButtonsEnable();
+
+            await ShowExistingEntities();
+        }
+
+        private async void mIClearAllConnectionsEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            _cacheEntityMetadata.Clear();
+
+            UpdateButtonsEnable();
+
+            await ShowExistingEntities();
+        }
+
+        private async void mIClearAllConnectionsEntityKeyCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            _cacheEntityKeyMetadata.Clear();
+
+            UpdateButtonsEnable();
+
+            await ShowExistingEntityKeys();
+        }
+
+        #endregion Clear Cache
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {

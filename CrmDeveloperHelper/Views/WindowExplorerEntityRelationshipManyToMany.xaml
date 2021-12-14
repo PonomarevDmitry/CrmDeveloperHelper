@@ -127,21 +127,40 @@
                 <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" VerticalAlignment="Center" />
             </Menu>
 
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Button x:Name="mIClearEntityCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityCacheAndRefresh_Click">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear Entity Cache and Refresh</TextBlock>
-                </StackPanel>
-            </Button>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearCache" Header="Clear Cache" VerticalAlignment="Center" VerticalContentAlignment="Center">
 
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Button x:Name="mIClearEntityRelationshipCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityRelationshipCacheAndRefresh_Click">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear EntityRelationship Cache and Refresh</TextBlock>
-                </StackPanel>
-            </Button>
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+
+                    <MenuItem Header="Clear All Connections Entity and EntityRelationship Cache and Refresh" Click="mIClearAllConnectionsEntityAndEntityRelationshipCacheAndRefresh_Click" />
+
+                    <Separator />
+                    <MenuItem Header="Clear All Connections Entity Cache and Refresh" Click="mIClearAllConnectionsEntityCacheAndRefresh_Click" />
+                    <MenuItem Header="Clear All Connections EntityRelationship Cache and Refresh" Click="mIClearAllConnectionsEntityRelationshipCacheAndRefresh_Click" />
+
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearEntityCacheAndRefresh" Header="Clear Entity Cache and Refresh" ToolTip="Clear Current Connection Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearEntityRelationshipCacheAndRefresh" Header="Clear EntityRelationship Cache and Refresh" ToolTip="Clear Current Connection EntityRelationship Cache and Refresh" Click="mIClearEntityRelationshipCacheAndRefresh_Click">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
         </ToolBar>
 
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">

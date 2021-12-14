@@ -135,8 +135,23 @@
                         </StackPanel>
                     </Button>
 
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                    <Button x:Name="btnClearOtherPrivilegesCacheAndRefresh" Content="Clear Cache" Click="btnClearOtherPrivilegesCacheAndRefresh_Click" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="mIClearCache" Header="Clear Cache" VerticalAlignment="Center" VerticalContentAlignment="Center">
+
+                            <MenuItem.Icon>
+                                <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                            </MenuItem.Icon>
+
+                            <MenuItem Header="Clear Other Privileges Cache and Refresh" ToolTip="Clear Current Connection Other Privileges Cache and Refresh" Click="mIClearOtherPrivilegesCacheAndRefresh_Click" />
+
+                            <Separator />
+                            <MenuItem Header="Clear All Connections Other Privileges Cache and Refresh" Click="mIClearAllConnectionsOtherPrivilegesCacheAndRefresh_Click" />
+
+                        </MenuItem>
+                    </Menu>
+
 
                     <Separator Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">

@@ -792,6 +792,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , btnRefreshSystemUsers
                 , btnRefreshTeams
                 , btnRefreshOtherPrivileges
+
+                , mIClearCache
             );
 
             UpdateTeamsButtons();
@@ -1259,6 +1261,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        #region Clear Cache
+
         private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
@@ -1271,6 +1275,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await RefreshRoleInfo();
             }
         }
+
+        private async void mIClearAllConnectionsEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            _cacheEntityMetadata.Clear();
+            _cachePrivileges.Clear();
+
+            await RefreshRoleInfo();
+        }
+
+        #endregion Clear Cache
 
         #region Role Team User Common Operations
 

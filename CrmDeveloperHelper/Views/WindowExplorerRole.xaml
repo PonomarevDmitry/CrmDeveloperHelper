@@ -282,7 +282,21 @@
             <Button x:Name="btnSaveRoleChanges" Content="Save Role Changes" Click="mISaveRoleChanges_Click" />
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <Button Content="Clear Cache" Click="mIClearEntityCacheAndRefresh_Click" />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearCache" Header="Clear Cache" VerticalAlignment="Center" VerticalContentAlignment="Center">
+
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+
+                    <MenuItem Header="Clear Entity and Other Privileges Cache and Refresh" ToolTip="Clear Current Connection Entity and Other Privileges Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" />
+
+                    <Separator />
+                    <MenuItem Header="Clear All Connections Entity and Other Privileges Cache and Refresh" Click="mIClearAllConnectionsEntityCacheAndRefresh_Click" />
+
+                </MenuItem>
+            </Menu>
+
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">

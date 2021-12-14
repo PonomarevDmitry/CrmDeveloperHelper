@@ -299,8 +299,22 @@
             </Button>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <Button Content="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearCache" Header="Clear Cache" VerticalAlignment="Center" VerticalContentAlignment="Center">
+
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+
+                    <MenuItem Header="Clear Entity and Other Privileges Cache and Refresh" ToolTip="Clear Current Connection Entity and Other Privileges Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" />
+
+                    <Separator />
+                    <MenuItem Header="Clear All Connections Entity and Other Privileges Cache and Refresh" Click="mIClearAllConnectionsEntityCacheAndRefresh_Click" />
+
+                </MenuItem>
+            </Menu>
         </ToolBar>
+        
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
@@ -308,6 +322,7 @@
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click" />
             <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         </StatusBar>
+        
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="columnSystemUser" Width="600" />

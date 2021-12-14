@@ -671,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , btnSetCurrentConnection
 
                 , btnRefreshEntites
-                , btnClearEntityCacheAndRefresh
+                , mIClearCache
                 , btnRefreshRoles
             );
 
@@ -1204,7 +1204,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void btnClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        #region Clear Cache
+
+        private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -1215,6 +1217,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await ShowExistingEntities();
             }
         }
+
+        private async void mIClearAllConnectionsEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            _cacheEntityMetadata.Clear();
+
+            await ShowExistingEntities();
+        }
+
+        #endregion Clear Cache
 
         private async void btnRefreshEntites_Click(object sender, RoutedEventArgs e)
         {

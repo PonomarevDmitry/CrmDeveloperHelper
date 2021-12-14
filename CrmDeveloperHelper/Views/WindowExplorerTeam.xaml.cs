@@ -794,7 +794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, btnRefreshEntites, btnRefreshRoles, btnRefreshSystemUsers, btnRefreshTeams, tSProgressBar);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, btnRefreshEntites, btnRefreshRoles, btnRefreshSystemUsers, btnRefreshTeams, tSProgressBar, mIClearCache);
 
             UpdateSecurityRolesButtons();
 
@@ -1342,6 +1342,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        #region Clear Cache
+
         private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
@@ -1354,6 +1356,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await RefreshTeamInfo();
             }
         }
+
+        private async void mIClearAllConnectionsEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            _cacheEntityMetadata.Clear();
+            _cachePrivileges.Clear();
+
+            await RefreshTeamInfo();
+        }
+
+        #endregion Clear Cache
 
         private void mIOpenEntityInstanceInWeb_Click(object sender, RoutedEventArgs e)
         {

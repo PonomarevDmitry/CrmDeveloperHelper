@@ -498,7 +498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , btnSetCurrentConnection
 
                 , btnRefreshOtherPrivileges
-                , btnClearOtherPrivilegesCacheAndRefresh
+                , mIClearCache
                 , btnRefreshRoles
             );
 
@@ -813,7 +813,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void btnClearOtherPrivilegesCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        #region Clear Cache
+
+        private async void mIClearOtherPrivilegesCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -824,6 +826,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await ShowExistingOtherPrivileges();
             }
         }
+
+        private async void mIClearAllConnectionsOtherPrivilegesCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            _cachePrivileges.Clear();
+
+            await ShowExistingOtherPrivileges();
+        }
+
+        #endregion Clear Cache
 
         private async void btnRefreshOtherPrivileges_Click(object sender, RoutedEventArgs e)
         {

@@ -5,7 +5,7 @@
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityRelationshipOneToMany"
     Title="Entity EntityRelationship OneToMany Explorer"
     Height="540"
-    Width="1233"
+    Width="1257"
     WindowStartupLocation="Manual"
     >
     <src:WindowWithConnectionList.Resources>
@@ -140,14 +140,6 @@
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <Button x:Name="mIClearEntityCacheAndRefresh" Click="mIClearEntityCacheAndRefresh_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
-                    <TextBlock>Clear Entity Cache and Refresh</TextBlock>
-                </StackPanel>
-            </Button>
-
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <ComboBox x:Name="cmBRelationType" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Margin="10,0" SelectedIndex="0" IsEditable="False" SelectionChanged="cmBRelationType_SelectionChanged">
                 <ComboBoxItem Content="All Relationships" />
                 <ComboBoxItem Content="One-To-Many" />
@@ -155,12 +147,39 @@
             </ComboBox>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <Button x:Name="mIClearEntityRelationshipCacheAndRefresh" Click="mIClearEntityRelationshipCacheAndRefresh_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
-                    <TextBlock>Clear EntityRelationship Cache and Refresh</TextBlock>
-                </StackPanel>
-            </Button>
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearCache" Header="Clear Cache" VerticalAlignment="Center" VerticalContentAlignment="Center">
+
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+
+                    <MenuItem Header="Clear All Connections Entity and EntityRelationship Cache and Refresh" Click="mIClearAllConnectionsEntityAndEntityRelationshipCacheAndRefresh_Click" />
+
+                    <Separator />
+                    <MenuItem Header="Clear All Connections Entity Cache and Refresh" Click="mIClearAllConnectionsEntityCacheAndRefresh_Click" />
+                    <MenuItem Header="Clear All Connections EntityRelationship Cache and Refresh" Click="mIClearAllConnectionsEntityRelationshipCacheAndRefresh_Click" />
+
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearEntityCacheAndRefresh" Header="Clear Entity Cache and Refresh" ToolTip="Clear Current Connection Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                <MenuItem x:Name="mIClearEntityRelationshipCacheAndRefresh" Header="Clear EntityRelationship Cache and Refresh" ToolTip="Clear Current Connection EntityRelationship Cache and Refresh" Click="mIClearEntityRelationshipCacheAndRefresh_Click">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
         </ToolBar>
 
         <Grid Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
