@@ -4,7 +4,7 @@
     <xs:complexType>
       <xs:all>
         <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
-        <xs:element minOccurs="0" maxOccurs="1" name="EntitiesPerFile" type="EntitiesPerFileEnum"/>
+        <xs:element minOccurs="0" maxOccurs="1" name="EntitiesPerFile" type="EntitiesPerFileEnum" />
         <xs:element minOccurs="0" maxOccurs="1" name="UserIdentifier">
           <xs:complexType>
             <xs:all>

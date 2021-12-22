@@ -211,9 +211,9 @@
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Solution Name" Width="200" Binding="{Binding SolutionName}" />
+                        <DataGridTextColumn Header="Unique Name" Width="200" Binding="{Binding UniqueName}" />
 
-                        <DataGridTextColumn Header="Display Name" Width="330" Binding="{Binding DisplayName}" />
+                        <DataGridTextColumn Header="Friendly Name" Width="330" Binding="{Binding FriendlyName}" />
 
                         <DataGridTextColumn Header="Solution Type" Width="130" Binding="{Binding SolutionType}" />
 
@@ -259,7 +259,7 @@
                     <ComboBox x:Name="cmBGroupBy" SelectedItem="{Binding Path=ComponentsGroupBy}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ComponentsGroupBy}}}" IsReadOnly="True" Margin="10,0" Width="155" SelectedIndex="1" />
                 </ToolBarPanel>
 
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"  />
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
 
                 <Separator x:Name="sepClearSolutionComponentFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10,0" />
                 <Button x:Name="btnClearSolutionComponentFilter" Content="Clear Solution Component Filter" Click="btnClearSolutionComponentFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />

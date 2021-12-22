@@ -82,7 +82,7 @@
                 <MenuItem x:Uid="contMnSdkMessagePair" Header="Create C# Request Proxy Class" Click="mICreateRequestProxyClassCSharp_Click" />
                 <MenuItem x:Uid="contMnSdkMessagePair" Header="SdkMessagePair">
 
-                    <MenuItem x:Uid="contMnSdkMessagePairAddToSolutionLast" Header="Add SdkMessagePair to Last Crm Solution"  />
+                    <MenuItem x:Uid="contMnSdkMessagePairAddToSolutionLast" Header="Add SdkMessagePair to Last Crm Solution" />
                     <MenuItem Header="Add SdkMessagePair to Crm Solution" Click="mIAddSdkMessagePairToCrmSolution_Click" />
 
                     <Separator/>
@@ -200,7 +200,7 @@
                     <MenuItem x:Name="mIView" Header="View" />
                 </Menu>
 
-                <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False" />
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                 <Button x:Name="tSBRefresh" Click="tSBRefresh_Click">

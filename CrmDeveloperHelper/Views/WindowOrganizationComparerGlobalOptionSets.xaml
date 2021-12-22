@@ -164,7 +164,7 @@
                             <MenuItem Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />
 
                             <Separator/>
-                            <MenuItem Header="C# File All OptionSets" Click="btnDifferenceCSharpFile_Click"  />
+                            <MenuItem Header="C# File All OptionSets" Click="btnDifferenceCSharpFile_Click" />
 
                             <Separator/>
                             <MenuItem Header="JavaScript File Json Object All OptionSets" Click="btnDifferenceJavaScriptFileJsonObject_Click" />
@@ -177,13 +177,13 @@
                             <MenuItem Header="Open OptionSet in Browser" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click"  />
+                            <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection1JavaScriptSingleJsonObject_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create C# File All OptionSets" Click="btnConnection1CSharp_Click"  />
+                            <MenuItem Header="Create C# File All OptionSets" Click="btnConnection1CSharp_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object All OptionSets" Click="btnConnection1JavaScriptJsonObject_Click" />

@@ -85,15 +85,15 @@
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddStepToCrmSolution_Click" />
 
                 <Separator x:Uid="contMnAddPluginTypeStepsToSolution" />
-                <MenuItem x:Uid="contMnAddPluginTypeStepsToSolutionLast" Header="Add All Steps for PluginType to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginTypeStepsToSolutionLast" Header="Add All Steps for PluginType to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddPluginTypeStepsToSolution" Header="Add All Steps for PluginType to Crm Solution" Click="mIAddPluginTypeStepsToSolution_Click" />
 
                 <Separator x:Uid="contMnAddPluginAssemblyToSolution" />
-                <MenuItem x:Uid="contMnAddPluginAssemblyToSolutionLast" Header="Add PluginAssembly to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginAssemblyToSolutionLast" Header="Add PluginAssembly to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddPluginAssemblyToSolution" Header="Add PluginAssembly to Crm Solution" Click="AddAssemblyToCrmSolution_Click" />
 
                 <Separator x:Uid="contMnAddPluginAssemblyStepsToSolution" />
-                <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add All Steps for PluginAssembly to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add All Steps for PluginAssembly to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolution" Header="Add All Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
 
                 <Separator />
@@ -210,7 +210,7 @@
                     </Style>
                 </ToolBarPanel.Resources>
 
-                <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False" />
 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                 <Button x:Name="tSBRegisterAssembly" Content="Register New Assembly" Click="tSBRegisterAssembly_Click" />

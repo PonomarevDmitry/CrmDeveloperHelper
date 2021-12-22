@@ -170,6 +170,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Security
 
+        public void HandleOpenTeamTemplateExplorer()
+        {
+            HandleOpenTeamTemplateExplorer(null);
+        }
+
+        public void HandleOpenTeamTemplateExplorer(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingTeamTemplateExplorer(conn, commonConfig, selection));
+        }
+
         public void HandleTraceReaderOpenWindow(ConnectionData connectionData)
         {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartTraceReaderOpenWindow(conn, commonConfig));

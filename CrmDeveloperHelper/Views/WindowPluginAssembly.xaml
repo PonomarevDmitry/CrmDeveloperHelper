@@ -113,8 +113,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <Button x:Name="btnBuildProject" Content="Build Project" Grid.Row="0" Grid.Column="0" Visibility="Hidden" IsEnabled="False" Click="btnBuildProject_Click"  />
-                            <Button x:Name="btnLoadAssembly" Content="Load Assembly" Grid.Row="0" Grid.Column="2" Click="btnLoadAssembly_Click"  />
+                            <Button x:Name="btnBuildProject" Content="Build Project" Grid.Row="0" Grid.Column="0" Visibility="Hidden" IsEnabled="False" Click="btnBuildProject_Click" />
+                            <Button x:Name="btnLoadAssembly" Content="Load Assembly" Grid.Row="0" Grid.Column="2" Click="btnLoadAssembly_Click" />
                         </Grid>
 
                     </StackPanel>

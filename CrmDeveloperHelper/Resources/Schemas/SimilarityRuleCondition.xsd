@@ -10,8 +10,8 @@
 								<xs:complexType>
 									<xs:simpleContent>
 										<xs:extension base="xs:string">
-											<xs:attribute type="ConditionColumnType" name="id" use="required"/>
-											<xs:attribute type="xs:string" name="value" use="required"/>
+											<xs:attribute type="ConditionColumnType" name="id" use="required" />
+											<xs:attribute type="xs:string" name="value" use="required" />
 										</xs:extension>
 									</xs:simpleContent>
 								</xs:complexType>

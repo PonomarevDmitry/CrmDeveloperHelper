@@ -520,6 +520,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter, EnvDTE.SelectedItem selectedItem)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageRequestTree, commonConfig, entityFilter, messageFilter, selectedItem);
 
+        public void StartShowingTeamTemplateExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingTeamTemplateExplorer, commonConfig, filter);
+
         public void StartShowingSystemUserExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
             => ExecuteWithConnectionInThread(connectionData, this._securityController.ExecuteShowingSystemUserExplorer, commonConfig, filter);
 

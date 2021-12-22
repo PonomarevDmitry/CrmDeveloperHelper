@@ -94,12 +94,12 @@
               </xs:complexType>
             </xs:element>
           </xs:choice>
-          <xs:attribute name="initial-data-set-fetch" type="xs:boolean" use="optional"  default="true"/> 
+          <xs:attribute name="initial-data-set-fetch" type="xs:boolean" use="optional"  default="true" /> 
           <xs:attribute name="name" type="xs:string" use="required" />
           <xs:attribute name="max-occurs" type="xs:string" use="optional" />
           <xs:attribute name="display-name-key" type="xs:string" use="required" />
           <xs:attribute name="description-key" type="xs:string" use="optional" />
-          <xs:attribute name="editable" type="xs:boolean" use="optional"  default="false"/>
+          <xs:attribute name="editable" type="xs:boolean" use="optional"  default="false" />
         </xs:complexType>
       </xs:element>
     </xs:choice>
@@ -132,9 +132,9 @@
               <xs:element minOccurs="0" name="modes">
                 <xs:complexType>
                   <xs:all>
-                    <xs:element name="read" type="booleanEmptyType" minOccurs="0"/>
-                    <xs:element name="edit" type="booleanEmptyType" minOccurs="0"/>
-                    <xs:element name="container" type="booleanEmptyType" minOccurs="0"/>
+                    <xs:element name="read" type="booleanEmptyType" minOccurs="0" />
+                    <xs:element name="edit" type="booleanEmptyType" minOccurs="0" />
+                    <xs:element name="container" type="booleanEmptyType" minOccurs="0" />
                   </xs:all>
                 </xs:complexType>
               </xs:element>
@@ -290,8 +290,8 @@
 
           <!--uniqueness of "name" attribute of property element-->
           <xs:unique name="uniqueProperty">
-            <xs:selector xpath="./data-set | ./data-set/property-set | ./property | ./groups | ./groups/group | ./groups/group/data-set | ./groups/group/data-set/property-set | ./groups/group/property"/>
-            <xs:field xpath="@name"/>
+            <xs:selector xpath="./data-set | ./data-set/property-set | ./property | ./groups | ./groups/group | ./groups/group/data-set | ./groups/group/data-set/property-set | ./groups/group/property" />
+            <xs:field xpath="@name" />
           </xs:unique>
 
         </xs:element>
@@ -385,7 +385,7 @@
   </xs:simpleType>
   <xs:simpleType name="AlphaNumericType">
     <xs:restriction base="xs:string">
-      <xs:pattern value="[a-zA-Z0-9.]+"/>
+      <xs:pattern value="[a-zA-Z0-9.]+" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

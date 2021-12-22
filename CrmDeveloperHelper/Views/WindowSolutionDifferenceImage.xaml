@@ -41,7 +41,7 @@
         <ComboBox x:Name="cmBComponentLocation" SelectedIndex="0" Height="23" Margin="0,38,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265">
             <ComboBoxItem Content="Common components" HorizontalAlignment="Stretch" />
             <ComboBoxItem Content="Only in First" HorizontalAlignment="Stretch" />
-            <ComboBoxItem Content="Only in Second" HorizontalAlignment="Stretch"  />
+            <ComboBoxItem Content="Only in Second" HorizontalAlignment="Stretch" />
         </ComboBox>
 
         <Label Content="Component Type" HorizontalAlignment="Right" Margin="0,66,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96" />

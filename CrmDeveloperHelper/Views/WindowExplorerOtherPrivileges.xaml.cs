@@ -56,6 +56,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _cachePrivileges[service.ConnectionData.ConnectionId] = privileges;
             }
 
+            FillComboBoxTrueFalse(cmBRoleIsManaged);
+            FillComboBoxTrueFalse(cmBRoleIsTemplate);
+            FillComboBoxTrueFalse(cmBRoleIsCustomizable);
+
             LoadFromConfig();
 
             txtBOtherPrivilegesFilter.Text = filter;
@@ -66,10 +70,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._menuItemsSetPrivilegeDepths = new Dictionary<PrivilegeDepth, MenuItem>()
             {
-                { PrivilegeDepth.Basic, mISetAttributeOtherPrivilegeRightBasic }
-                , { PrivilegeDepth.Local, mISetAttributeOtherPrivilegeRightLocal }
-                , { PrivilegeDepth.Deep, mISetAttributeOtherPrivilegeRightDeep }
-                , { PrivilegeDepth.Global, mISetAttributeOtherPrivilegeRightGlobal }
+                { PrivilegeDepth.Basic, mISetOtherPrivilegeRightBasic }
+                , { PrivilegeDepth.Local, mISetOtherPrivilegeRightLocal }
+                , { PrivilegeDepth.Deep, mISetOtherPrivilegeRightDeep }
+                , { PrivilegeDepth.Global, mISetOtherPrivilegeRightGlobal }
             };
 
             _privilegeFilter = new PrivilegeFilter();
@@ -360,10 +364,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntityPrivileges);
 
             string textName = string.Empty;
+            bool? isTemplate = null;
+            bool? isManaged = null;
+            bool? isCustomizable = null;
 
             txtBFilterSecurityRole.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilterSecurityRole.Text.Trim().ToLower();
+
+                if (cmBRoleIsTemplate.SelectedItem is bool valueIsTemplate)
+                {
+                    isTemplate = valueIsTemplate;
+                }
+
+                if (cmBRoleIsManaged.SelectedItem is bool valueIsManaged)
+                {
+                    isManaged = valueIsManaged;
+                }
+
+                if (cmBRoleIsCustomizable.SelectedItem is bool valueIsCustomizable)
+                {
+                    isCustomizable = valueIsCustomizable;
+                }
             });
 
             IEnumerable<OtherPrivilegeRolePrivilegeViewItem> list = Enumerable.Empty<OtherPrivilegeRolePrivilegeViewItem>();
@@ -374,7 +396,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repositoryRole = new RoleRepository(service);
 
-                    var roles = await repositoryRole.GetListAsync(textName
+                    IEnumerable<Role> roles = await repositoryRole.GetListAsync(textName
+                        , isCustomizable
+                        , isManaged
+                        , isTemplate
                         , new ColumnSet
                         (
                             Role.Schema.Attributes.name
@@ -464,7 +489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void rolePrivilege_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (string.Equals(e.PropertyName, nameof(SinglePrivilegeViewItem.IsChanged), StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(e.PropertyName, nameof(BaseSinglePrivilegeViewItem.IsChanged), StringComparison.InvariantCultureIgnoreCase))
             {
                 UpdateRoleButtons();
             }
@@ -547,6 +572,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await ShowExistingSecurityRoles();
             }
+        }
+
+        private async void cmBRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await ShowExistingSecurityRoles();
         }
 
         private OtherPrivilegeRolePrivilegeViewItem GetSelectedSecurityRole()
@@ -1054,7 +1084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Set Attribute
 
-        private void mISetAttributeOtherPrivilegeRight_Click(object sender, RoutedEventArgs e)
+        private void mISetOtherPrivilegeRight_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null

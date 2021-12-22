@@ -329,6 +329,12 @@
   <data name="ExportingSystemFormXmlFormat1" xml:space="preserve">
     <value>{0} - Exporting System Form FormXml</value>
   </data>
+  <data name="ExportingCustomControlFormat1" xml:space="preserve">
+    <value>{0} - Exporting Custom Controls</value>
+  </data>
+  <data name="ExportingTeamTemplateFormat1" xml:space="preserve">
+    <value>{0} - Exporting TeamTemplates</value>
+  </data>
   <data name="ExportingSystemSavedQueryVisualizationXmlFormat1" xml:space="preserve">
     <value>{0} - Exporting System Chart (Saved Query Visualization) Xml</value>
   </data>

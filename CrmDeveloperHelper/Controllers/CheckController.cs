@@ -837,7 +837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 var repositorySystemForm = new SystemFormRepository(service);
                 var repositoryTeamTemplate = new TeamTemplateRepository(service);
 
-                var templatesDict = (await repositoryTeamTemplate.GetListAsync(ColumnSetInstances.AllColumns)).ToDictionary(e => e.Id);
+                var templatesDict = (await repositoryTeamTemplate.GetListAsync(string.Empty, ColumnSetInstances.AllColumns)).ToDictionary(e => e.Id);
 
                 var formList = await repositorySystemForm.GetListAsync(null, null, null, ColumnSetInstances.AllColumns);
 
@@ -1035,7 +1035,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 var repositorySystemForm = new SystemFormRepository(service);
                 var repositoryTeamTemplate = new TeamTemplateRepository(service);
 
-                var listTeamTemplates = await repositoryTeamTemplate.GetListAsync(ColumnSetInstances.AllColumns);
+                var listTeamTemplates = await repositoryTeamTemplate.GetListAsync(string.Empty, ColumnSetInstances.AllColumns);
 
                 var unusedTeamTemplates = listTeamTemplates.ToDictionary(e => e.Id);
                 var templatesDict = listTeamTemplates.ToDictionary(e => e.Id);

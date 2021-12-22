@@ -42,9 +42,9 @@
 	</xs:simpleType>
 	<xs:simpleType name="GridResizeType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Auto"/>
-			<xs:enumeration value="Fixed"/>
-			<xs:enumeration value="AutoWithFixedMax"/>
+			<xs:enumeration value="Auto" />
+			<xs:enumeration value="Fixed" />
+			<xs:enumeration value="AutoWithFixedMax" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="FormatType">
@@ -116,14 +116,14 @@
 						<xs:element name="IsColorValue" type="xs:boolean" minOccurs="0" maxOccurs="1" />
 						<!--Web Resource related parameters. Included in this section since they 
 								can include Url, PassParameters etc-->
-						<xs:element name="Height" type="xs:unsignedInt" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="Width" type="xs:unsignedInt" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="AltText" type="xs:string" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="SizeType" type="WebResourceSizeType" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Height" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Width" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
+						<xs:element name="AltText" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="SizeType" type="WebResourceSizeType" minOccurs="0" maxOccurs="1" />
 						<xs:element name="ShowInROF" type="xs:boolean" minOccurs="0" maxOccurs="1" />
 						<xs:element name="ShowOnMobileClient" type="xs:boolean" minOccurs="0" maxOccurs="1" />
-						<xs:element name="HorizontalAlignment" type="ImageHorizontalAlignmentType" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="VerticalAlignment" type="ImageVerticalAlignmentType" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="HorizontalAlignment" type="ImageHorizontalAlignmentType" minOccurs="0" maxOccurs="1" />
+						<xs:element name="VerticalAlignment" type="ImageVerticalAlignmentType" minOccurs="0" maxOccurs="1" />
 						<xs:element name="Data" type="xs:string" minOccurs="0" maxOccurs="1" />
 						<xs:element name="WebResourceId" type="xs:string" minOccurs="0" maxOccurs="1" />
 					</xs:choice>

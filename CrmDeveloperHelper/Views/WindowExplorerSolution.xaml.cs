@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _optionsSolutionPopup;
         private readonly ExportSolutionOptionsControl _optionsExportSolutionOptionsControl;
 
-        private readonly ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<SolutionViewItem> _itemsSource;
 
         private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             sepClearSolutionComponentFilter.IsEnabled = btnClearSolutionComponentFilter.IsEnabled = _objectId.HasValue && _componentType.HasValue;
             sepClearSolutionComponentFilter.Visibility = btnClearSolutionComponentFilter.Visibility = (_objectId.HasValue && _componentType.HasValue) ? Visibility.Visible : Visibility.Collapsed;
 
-            this._itemsSource = new ObservableCollection<EntityViewItem>();
+            this._itemsSource = new ObservableCollection<SolutionViewItem>();
 
             this.lstVwSolutions.ItemsSource = _itemsSource;
 
@@ -241,48 +241,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
-            LoadSolutions(list);
-
-            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
-        }
-
-        private class EntityViewItem
-        {
-            public Solution Solution { get; private set; }
-
-            public string SolutionName => Solution.UniqueName;
-
-            public string DisplayName => Solution.FriendlyName;
-
-            public string SolutionType => Solution.FormattedValues[Solution.Schema.Attributes.ismanaged];
-
-            public string Visible => Solution.FormattedValues[Solution.Schema.Attributes.isvisible];
-
-            public DateTime? InstalledOn => Solution.InstalledOn?.ToLocalTime();
-
-            public string PublisherName => Solution.PublisherId?.Name;
-
-            public string Prefix => Solution.PublisherCustomizationPrefix;
-
-            public string Description => Solution.Description;
-
-            public string Version => Solution.Version;
-
-            public bool HasDescription => !string.IsNullOrEmpty(Solution.Description);
-
-            public EntityViewItem(Solution solution)
-            {
-                this.Solution = solution;
-            }
-        }
-
-        private void LoadSolutions(IEnumerable<Solution> results)
-        {
             this.lstVwSolutions.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results.OrderByDescending(ent => ent.InstalledOn).ThenBy(ent => ent.UniqueName))
+                foreach (var entity in list.OrderByDescending(ent => ent.InstalledOn).ThenBy(ent => ent.UniqueName))
                 {
-                    var item = new EntityViewItem(entity);
+                    var item = new SolutionViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -292,6 +255,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwSolutions.SelectedItem = this.lstVwSolutions.Items[0];
                 }
             });
+
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
@@ -338,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         if (enabled)
                         {
                             var list1 = lstVwSolutions.SelectedItems
-                                .OfType<EntityViewItem>()
+                                .OfType<SolutionViewItem>()
                                 .Select(e => e.Solution)
                                 .OrderBy(e => e.UniqueName)
                                 .ToList();
@@ -421,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         if (enabled)
                         {
                             var list = lstVwSolutions.SelectedItems
-                                .OfType<EntityViewItem>()
+                                .OfType<SolutionViewItem>()
                                 .Select(e => e.Solution)
                                 .OrderBy(e => e.UniqueName)
                                 .ToList();
@@ -473,7 +438,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         if (enabled)
                         {
                             var listFrom = lstVwSolutions.SelectedItems
-                                .OfType<EntityViewItem>()
+                                .OfType<SolutionViewItem>()
                                 .Where(e => e.Solution != null)
                                 .Select(e => e.Solution)
                                 .OrderBy(e => e.UniqueName)
@@ -512,7 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         if (enabled)
                         {
                             var list = lstVwSolutions.SelectedItems
-                                .OfType<EntityViewItem>()
+                                .OfType<SolutionViewItem>()
                                 .Where(e => e.Solution.IsManaged.GetValueOrDefault() == false)
                                 .Select(e => e.Solution)
                                 .OrderBy(e => e.UniqueName)
@@ -573,7 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var listSolutionNames = connectionData.LastSelectedSolutionsUniqueName.ToList();
 
                     var listFrom = lstVwSolutions.SelectedItems
-                            .OfType<EntityViewItem>()
+                            .OfType<SolutionViewItem>()
                             .Where(e => e.Solution != null)
                             .Select(e => e.Solution)
                             .OrderBy(e => e.UniqueName)
@@ -826,8 +791,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
                 mICopySolutionId.Click += mICopySolutionId_Click;
 
+                var mICopySolutionUrl = new MenuItem()
+                {
+                    Header = "Copy to Clipboard Solution Url",
+                    Tag = solution,
+                };
+                mICopySolutionUrl.Click += mICopySolutionUrl_Click;
+
                 mIClipboard.Items.Add(new Separator());
                 mIClipboard.Items.Add(mICopySolutionId);
+                mIClipboard.Items.Add(mICopySolutionUrl);
 
                 itemCollection.Add(new Separator());
                 itemCollection.Add(mIClipboard);
@@ -1556,6 +1529,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             )
             {
                 ClipboardHelper.SetText(solution.Id.ToString());
+            }
+        }
+
+        private void mICopySolutionUrl_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                var connectionData = GetSelectedConnection();
+
+                if (connectionData != null)
+                {
+                    var url = connectionData.GetSolutionUrl(solution.Id);
+
+                    ClipboardHelper.SetText(url);
+                }
             }
         }
 
@@ -3529,7 +3519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 contextMenu.Items.Clear();
 
                 var list = lstVwSolutions.SelectedItems
-                                 .OfType<EntityViewItem>()
+                                 .OfType<SolutionViewItem>()
                                  .Select(en => en.Solution)
                                  .OrderBy(en => en.UniqueName)
                                  .ToList();
@@ -3641,7 +3631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+                SolutionViewItem item = GetItemFromRoutedDataContext<SolutionViewItem>(e);
 
                 if (item != null && item.Solution != null)
                 {

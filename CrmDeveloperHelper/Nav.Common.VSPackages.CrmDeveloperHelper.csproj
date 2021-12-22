@@ -118,6 +118,8 @@
     <Compile Include="Commands\CodeLinkedGlobalOptionSetPublishInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityInstanceByIdCommand.cs" />
+    <Compile Include="Commands\Explorers\CommonTeamTemplateExplorerCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Explorers\OutputTeamTemplateExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenWebResourcesInSolutionLastSelectedCommand.cs" />
     <Compile Include="Commands\WebResources\OpenWebResourcesInSolutionLastSelectedCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionPoolClearCommand.cs" />
@@ -637,6 +639,7 @@
     <Compile Include="Entities\TeamMembership.Schema.cs" />
     <Compile Include="Entities\TeamRoles.Proxy.cs" />
     <Compile Include="Entities\TeamRoles.Schema.cs" />
+    <Compile Include="Entities\TeamTemplate.Additional.cs" />
     <Compile Include="Entities\TeamTemplate.Proxy.cs" />
     <Compile Include="Entities\TeamTemplate.Schema.cs" />
     <Compile Include="Entities\TextAnalyticsEntityMapping.Proxy.cs" />
@@ -665,14 +668,16 @@
     <Compile Include="Helpers\AssemblyReaderResult.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Model\BaseEntityPrivilegeViewItem.cs" />
     <Compile Include="Model\CompareTuple.cs" />
     <Compile Include="Model\FormInformation.cs" />
     <Compile Include="Model\FormParameter.cs" />
-    <Compile Include="Model\LinkedPrivilegeViewItem.cs" />
+    <Compile Include="Model\BaseLinkedPrivilegeViewItem.cs" />
     <Compile Include="Model\RoleLinkedEntitiesPrivilegeViewItem.cs" />
     <Compile Include="Model\BasePrivilegeViewItem.cs" />
     <Compile Include="Model\RoleLinkedOtherPrivilegeViewItem.cs" />
-    <Compile Include="Model\SinglePrivilegeViewItem.cs" />
+    <Compile Include="Model\BaseSinglePrivilegeViewItem.cs" />
+    <Compile Include="Model\SolutionViewItem.cs" />
     <Compile Include="Model\WorkflowEntityFieldString.cs" />
     <Compile Include="Repository\ColumnSetInstances.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
@@ -1499,6 +1504,9 @@
     </Compile>
     <Compile Include="Views\WindowExplorerEntityMetadataOptions.xaml.cs">
       <DependentUpon>WindowExplorerEntityMetadataOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExplorerTeamTemplate.xaml.cs">
+      <DependentUpon>WindowExplorerTeamTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExportFormEvents.xaml.cs">
       <DependentUpon>WindowExportFormEvents.xaml</DependentUpon>
@@ -2335,6 +2343,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExplorerEntityMetadataOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerTeamTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

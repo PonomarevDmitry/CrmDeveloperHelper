@@ -699,6 +699,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonReportExplorerCommand.Initialize,
             CommonWebResourceExplorerCommand.Initialize,
             CommonWorkflowExplorerCommand.Initialize,
+            CommonTeamTemplateExplorerCommand.Initialize,
 
             CommonExportFormEventsCommand.Initialize,
 
@@ -877,6 +878,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputCheckTeamTemplatesCommand.Initialize,
 
             OutputCustomControlExplorerCommand.Initialize,
+            OutputTeamTemplateExplorerCommand.Initialize,
+
             OutputEntityAttributeExplorerCommand.Initialize,
             OutputEntityKeyExplorerCommand.Initialize,
             OutputEntityMetadataExplorerCommand.Initialize,

@@ -160,7 +160,7 @@
                             </MenuItem>
                         </Menu>
 
-                        <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                        <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False" />
 
                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                         <Button x:Name="tSBCollapseAll" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
@@ -213,7 +213,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Label Content="Action" Padding="10,0" />
-                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" HorizontalAlignment="Left"  />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" HorizontalAlignment="Left" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>

@@ -27,14 +27,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<TeamTemplate>> GetListAsync(ColumnSet columnSet)
+        public Task<List<TeamTemplate>> GetListAsync(string filter, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(columnSet));
+            return Task.Run(() => GetList(filter, columnSet));
         }
 
-        private List<TeamTemplate> GetList(ColumnSet columnSet)
+        private List<TeamTemplate> GetList(string filter, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -48,6 +48,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(TeamTemplate.Schema.Attributes.teamtemplatename, OrderType.Ascending),
                 },
             };
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                if (Guid.TryParse(filter, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(TeamTemplate.Schema.Attributes.teamtemplateid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(TeamTemplate.Schema.Attributes.teamtemplatename, ConditionOperator.Like, "%" + filter + "%"));
+                }
+            }
 
             return _service.RetrieveMultipleAll<TeamTemplate>(query);
         }
@@ -64,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private IEnumerable<TeamTemplate> GetListForEntity(string filter, int objectTypeCode, ColumnSet columnSet)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -128,6 +140,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return collection.Entities.Select(e => e.ToEntity<TeamTemplate>()).FirstOrDefault();
         }
 
+        public Task<TeamTemplate> GetByIdAsync(Guid idTeamTemplate, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetById(idTeamTemplate, columnSet));
+        }
+
+        private TeamTemplate GetById(Guid idTeamTemplate, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = TeamTemplate.EntityLogicalName,
+
+                ColumnSet = columnSet ?? ColumnSetInstances.AllColumns,
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(TeamTemplate.EntityPrimaryIdAttribute, ConditionOperator.Equal, idTeamTemplate),
+                    },
+                },
+            };
+
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<TeamTemplate>()).SingleOrDefault() : null;
+        }
+
         public static IEnumerable<DataGridColumn> GetDataGridColumn()
         {
             //<DataGridTextColumn Header="Domain Name" Width="120" Binding="{Binding DomainName, Mode=OneTime}" />
@@ -146,7 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 new DataGridTextColumn()
                 {
-                    Header = "TeamTemplateName",
+                    Header = nameof(TeamTemplate.TeamTemplateName),
                     Width = new DataGridLength(260),
                     Binding = new Binding
                     {
@@ -157,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 new DataGridTextColumn()
                 {
-                    Header = "ObjectTypeCode",
+                    Header = nameof(TeamTemplate.ObjectTypeCode),
                     Width = new DataGridLength(120),
                     Binding = new Binding
                     {
@@ -168,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 new DataGridTextColumn()
                 {
-                    Header = "DefaultAccessRightsMask",
+                    Header = nameof(TeamTemplate.DefaultAccessRightsMask),
                     Width = new DataGridLength(120),
                     Binding = new Binding
                     {

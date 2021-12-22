@@ -51,7 +51,7 @@
                 <MenuItem Header="Delete Workflow" Click="mIDeleteWorkflow_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator x:Uid="contMnEntity" />
@@ -390,7 +390,7 @@
                             <MenuItem Header="Delete Workflow" Click="mIDeleteWorkflow_Click" />
 
                             <Separator/>
-                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                             <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                             <Separator/>

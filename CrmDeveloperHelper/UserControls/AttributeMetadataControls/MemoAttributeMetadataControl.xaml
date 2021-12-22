@@ -28,7 +28,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Changed" IsEnabled="False"  />
+                <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Changed" IsEnabled="False" />
 
                 <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
 

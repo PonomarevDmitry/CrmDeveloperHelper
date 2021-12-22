@@ -9,25 +9,25 @@
 
               <xs:element name="Library" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:attribute type="xs:string" name="name" use="required"/>
-                  <xs:attribute type="xs:string" name="displayName" use="required"/>
-                  <xs:attribute type="xs:string" name="languagecode" use="optional"/>
-                  <xs:attribute type="xs:string" name="description" use="optional"/>
-                  <xs:attribute type="GuidType" name="libraryUniqueId" use="required"/>
+                  <xs:attribute type="xs:string" name="name" use="required" />
+                  <xs:attribute type="xs:string" name="displayName" use="required" />
+                  <xs:attribute type="xs:string" name="languagecode" use="optional" />
+                  <xs:attribute type="xs:string" name="description" use="optional" />
+                  <xs:attribute type="GuidType" name="libraryUniqueId" use="required" />
                 </xs:complexType>
               </xs:element>
 
               <xs:element name="Attribute" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:attribute type="GuidType" name="attributeId" use="required"/>
-                  <xs:attribute type="xs:string" name="attributeName" use="required"/>
-                  <xs:attribute type="xs:string" name="entityName" use="required"/>
+                  <xs:attribute type="GuidType" name="attributeId" use="required" />
+                  <xs:attribute type="xs:string" name="attributeName" use="required" />
+                  <xs:attribute type="xs:string" name="entityName" use="required" />
                 </xs:complexType>
               </xs:element>
 
             </xs:sequence>
 
-            <xs:attribute type="componentType" name="componentType" use="required"/>
+            <xs:attribute type="componentType" name="componentType" use="required" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>

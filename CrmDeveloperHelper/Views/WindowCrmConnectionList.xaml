@@ -142,24 +142,24 @@
                                 <Menu Background="{x:Null}" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                     <MenuItem x:Name="mICreate" Header="Create" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                         <MenuItem.Icon>
-                                            <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
+                                            <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" />
                                         </MenuItem.Icon>
 
                                         <MenuItem x:Name="tSBCreate" Header="New" Click="tSBCreate_Click">
                                             <MenuItem.Icon>
-                                                <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
+                                                <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" />
                                             </MenuItem.Icon>
                                         </MenuItem>
 
                                         <MenuItem x:Name="tSBCreateCopy" Header="Create Copy" Click="tSBCreateCopy_Click">
                                             <MenuItem.Icon>
-                                                <Image Width="16" Height="16" Source="{StaticResource ImageCopy}"  />
+                                                <Image Width="16" Height="16" Source="{StaticResource ImageCopy}" />
                                             </MenuItem.Icon>
                                         </MenuItem>
 
                                         <MenuItem x:Name="tSBLoadFromFile" Header="Load from File" Click="tSBLoadFromFile_Click">
                                             <MenuItem.Icon>
-                                                <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
+                                                <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" />
                                             </MenuItem.Icon>
                                         </MenuItem>
                                     </MenuItem>
@@ -167,7 +167,7 @@
 
                                 <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" />
                                         <TextBlock >Edit</TextBlock>
                                     </StackPanel>
                                 </Button>
@@ -175,7 +175,7 @@
                                 <Separator/>
                                 <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                                     <StackPanel>
-                                        <Image  Width="16" Height="16" Source="{StaticResource ImageCheck}"  />
+                                        <Image  Width="16" Height="16" Source="{StaticResource ImageCheck}" />
                                         <TextBlock >Test Connection</TextBlock>
                                     </StackPanel>
                                 </Button>
@@ -183,20 +183,20 @@
                                 <Separator/>
                                 <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}" />
                                     </StackPanel>
                                 </Button>
 
                                 <Button x:Name="tSBDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBDown_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}" />
                                     </StackPanel>
                                 </Button>
 
                                 <Separator/>
                                 <Button x:Name="tSBOpenFolder" HorizontalAlignment="Left" Click="tSBOpenFolder_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageOpenFolder}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageOpenFolder}" />
                                         <TextBlock >Open Folder</TextBlock>
                                     </StackPanel>
                                 </Button>
@@ -210,7 +210,7 @@
 
                             <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
                                 <StackPanel>
-                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"  />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" />
                                     <TextBlock >Move to Archive</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -383,31 +383,31 @@
                             <ToolBarPanel Orientation="Horizontal" >
                                 <Button x:Name="tSBCreateUser" HorizontalAlignment="Left" Click="tSBCreateUser_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" />
                                         <TextBlock >Create User</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Button x:Name="tSBEditUser" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEditUser_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" />
                                         <TextBlock >Edit User</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Separator/>
                                 <Button x:Name="tSBUserUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUserUp_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}" />
                                     </StackPanel>
                                 </Button>
                                 <Button x:Name="tSBUserDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUserDown_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}" />
                                     </StackPanel>
                                 </Button>
                             </ToolBarPanel>
                             <Button x:Name="tSBDeleteUser" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBDeleteUser_Click" >
                                 <StackPanel>
-                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"  />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" />
                                     <TextBlock >Delete User</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -467,39 +467,39 @@
                             <ToolBarPanel Orientation="Horizontal" >
                                 <Button x:Name="tSBArchiveEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveEdit_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" />
                                         <TextBlock >Edit</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Separator/>
                                 <Button x:Name="tSBArchiveTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveTestConnection_Click" >
                                     <StackPanel>
-                                        <Image   Width="16" Height="16" Source="{StaticResource ImageCheck}"  />
+                                        <Image   Width="16" Height="16" Source="{StaticResource ImageCheck}" />
                                         <TextBlock >Test Connection</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Separator/>
                                 <Button x:Name="tSBArchiveUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveUp_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}" />
                                     </StackPanel>
                                 </Button>
                                 <Button x:Name="tSBArchiveDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveDown_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}" />
                                     </StackPanel>
                                 </Button>
                                 <Separator/>
                                 <Button x:Name="tSBArchiveReturnToConnectionList" HorizontalAlignment="Left" IsEnabled="False" Click="tSBArchiveReturnToConnectionList_Click" >
                                     <StackPanel>
-                                        <Image   Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
+                                        <Image   Width="16" Height="16" Source="{StaticResource ImageAdd}" />
                                         <TextBlock >Return to Connection List</TextBlock>
                                     </StackPanel>
                                 </Button>
                             </ToolBarPanel>
                             <Button x:Name="tSBArchiveDelete" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBArchiveDelete_Click">
                                 <StackPanel>
-                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"  />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" />
                                     <TextBlock >Delete</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -611,7 +611,7 @@
                     <ToolBar DockPanel.Dock="Top" >
                         <Button x:Name="tSBCreateConnectionFromOrganization" IsEnabled="False" Click="tSBCreateConnectionFromOrganization_Click">
                             <StackPanel Orientation="Horizontal">
-                                <Image  Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
+                                <Image  Width="16" Height="16" Source="{StaticResource ImageAdd}" />
                                 <TextBlock>Create Connection to Organization</TextBlock>
                             </StackPanel>
                         </Button>
@@ -642,7 +642,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding UniqueName}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding UniqueName}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -651,7 +651,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding FriendlyName}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding FriendlyName}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -661,7 +661,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding UrlName}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding UrlName}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -671,7 +671,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding State}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding State}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -681,7 +681,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding OrganizationVersion}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -690,7 +690,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding OrganizationId}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding OrganizationId}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -700,7 +700,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding OrganizationServiceEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding OrganizationServiceEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -709,7 +709,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding OrganizationDataServiceEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding OrganizationDataServiceEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -718,7 +718,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <TextBlock Text="{Binding WebApplicationEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}"  />
+                                                <TextBlock Text="{Binding WebApplicationEndpoint}" Margin="6,3" ToolTip="{Binding ToolTip}" />
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>

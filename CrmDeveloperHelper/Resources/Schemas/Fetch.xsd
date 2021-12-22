@@ -170,7 +170,7 @@
     
   -->
   <!-- [XDR-XSD] "fetch" element  -->
-  <xs:element name="fetch" type="FetchType"/>
+  <xs:element name="fetch" type="FetchType" />
   <xs:complexType name="FetchType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <!-- -->
@@ -179,14 +179,14 @@
       <xs:element name="order" type="FetchOrderType" minOccurs="1" maxOccurs="1" />
     </xs:choice>
     <!-- -->
-    <xs:attribute name="version"/>
-    <xs:attribute name="count" type="xs:integer"/>
-    <xs:attribute name="page" type="xs:integer"/>
-    <xs:attribute name="paging-cookie" type="xs:string"/>
-    <xs:attribute name="utc-offset" type="IntOrEmpty"/>
-    <xs:attribute name="aggregate" type="xs:boolean"/>
-    <xs:attribute name="distinct" type="xs:boolean"/>
-    <xs:attribute name="top" type="xs:integer"/>
+    <xs:attribute name="version" />
+    <xs:attribute name="count" type="xs:integer" />
+    <xs:attribute name="page" type="xs:integer" />
+    <xs:attribute name="paging-cookie" type="xs:string" />
+    <xs:attribute name="utc-offset" type="IntOrEmpty" />
+    <xs:attribute name="aggregate" type="xs:boolean" />
+    <xs:attribute name="distinct" type="xs:boolean" />
+    <xs:attribute name="top" type="xs:integer" />
     <xs:attribute name="mapping">
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
@@ -195,7 +195,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="min-active-row-version" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute name="min-active-row-version" type="xs:boolean" use="optional" default="false" />
     <xs:attribute name="output-format">
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
@@ -346,9 +346,9 @@
       <xs:enumeration value="not-begin-with" />
       <xs:enumeration value="ends-with" />
       <xs:enumeration value="not-end-with" />
-      <xs:enumeration value="under"/>
+      <xs:enumeration value="under" />
       <xs:enumeration value="eq-or-under" />
-      <xs:enumeration value="not-under"/>
+      <xs:enumeration value="not-under" />
       <xs:enumeration value="above" />
       <xs:enumeration value="eq-or-above" />
       <xs:enumeration value="contain-values" />
@@ -555,21 +555,21 @@
                 <xs:complexType>
                   <xs:attribute name="column" type="xs:string" use="required" />
                   <xs:attribute name="operator" type="operator" use="optional" />
-                  <xs:attribute name="value" type="xs:string" use="optional"/>
+                  <xs:attribute name="value" type="xs:string" use="optional" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
 
             <xs:attribute name="column" type="xs:string" use="optional" />
             <xs:attribute name="operator" type="operator" use="optional" />
-            <xs:attribute name="value" type="xs:string" use="optional"/>
-            <xs:attribute name="type" type="xs:string" use="optional"/>
+            <xs:attribute name="value" type="xs:string" use="optional" />
+            <xs:attribute name="type" type="xs:string" use="optional" />
 
           </xs:complexType>
         </xs:element>
       </xs:choice>
       <xs:attribute name="version"></xs:attribute>
-      <xs:attribute name="distinct" type="xs:boolean"/>
+      <xs:attribute name="distinct" type="xs:boolean" />
     </xs:complexType>
   </xs:element>
 </xs:schema>

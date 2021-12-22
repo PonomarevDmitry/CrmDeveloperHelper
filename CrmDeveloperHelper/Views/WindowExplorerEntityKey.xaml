@@ -187,20 +187,17 @@
 
                 <Grid Grid.Row="0" Margin="5">
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="30*"  />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="lblFilterEnitity" Content="Filter" Grid.Row="0" Grid.Column="0" />
-                    <TextBox x:Name="txtBFilterEnitity" KeyDown="txtBFilterEnitity_KeyDown" Grid.Row="0" Grid.Column="1" />
+                    <Label x:Name="lblFilterEnitity" Content="Filter" Grid.Column="0" />
+                    
+                    <TextBox x:Name="txtBFilterEnitity" KeyDown="txtBFilterEnitity_KeyDown" Grid.Column="1" />
 
-                    <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="EntityMetadata Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
+                    <Button x:Name="btnEntityMetadataFilter" Grid.Column="2" Content="EntityMetadata Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
 
                 </Grid>
 
@@ -285,9 +282,9 @@
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="EntityKey Name" Width="260" Binding="{Binding LogicalName, Mode=OneTime}"  />
+                        <DataGridTextColumn Header="EntityKey Name" Width="260" Binding="{Binding LogicalName, Mode=OneTime}" />
 
-                        <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName, Mode=OneTime}"  />
+                        <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName, Mode=OneTime}" />
 
                         <DataGridTextColumn Header="Key Attributes" Width="260" Binding="{Binding KeyAttributesString, Mode=OneTime}" />
 

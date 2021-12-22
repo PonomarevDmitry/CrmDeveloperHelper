@@ -216,9 +216,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         #region GetPrivilegeDepthsByAvailability
 
-        private static readonly PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
+        protected static readonly PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
 
-        private static ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]> _optionsCache = new ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]>();
+        private static readonly ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]> _optionsCache = new ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]>();
 
         protected static PrivilegeDepthExtended[] GetPrivilegeDepthsByAvailability(bool canBeBasic, bool canBeLocal, bool canBeDeep, bool canBeGlobal)
         {
@@ -276,6 +276,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             return _optionsDefault;
+        }
+
+        public static bool GetCanBeDepth(SecurityPrivilegeMetadata priv, PrivilegeDepthExtended privilegeDepth)
+        {
+            switch (privilegeDepth)
+            {
+                case PrivilegeDepthExtended.None:
+                    return true;
+
+                case PrivilegeDepthExtended.Basic:
+                    return priv.CanBeBasic;
+
+                case PrivilegeDepthExtended.Local:
+                    return priv.CanBeLocal;
+
+                case PrivilegeDepthExtended.Deep:
+                    return priv.CanBeDeep;
+
+                case PrivilegeDepthExtended.Global:
+                    return priv.CanBeGlobal;
+
+                default:
+                    break;
+            }
+
+            return false;
         }
 
         #endregion GetPrivilegeDepthsByAvailability

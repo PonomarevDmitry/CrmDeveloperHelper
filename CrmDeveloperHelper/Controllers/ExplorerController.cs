@@ -250,12 +250,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteOpeningCustomControlExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.ExportingSystemFormXmlFormat1
+                , Properties.OperationNames.ExportingCustomControlFormat1
                 , (service) => WindowHelper.OpenCustomControlExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
         }
 
         #endregion Экспортирование CustomControl.
+
+        #region Экспортирование TeamTemplate.
+
+        public async Task ExecuteShowingTeamTemplateExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ExportingTeamTemplateFormat1
+                , (service) => WindowHelper.OpenTeamTemplateExplorer(this._iWriteToOutput, service, commonConfig, selection)
+            );
+        }
+
+        #endregion Экспортирование TeamTemplate.
 
         #region Trace Reader.
 

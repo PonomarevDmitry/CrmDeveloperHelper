@@ -101,6 +101,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(CustomControlFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.ToStr());
         }
 
+        private const string TeamTemplateFormatFile = "{0}.{1} {2} at {3}.{4}";
+
+        internal static string GetTeamTemplateFileName(string connectionName, string name, string fieldTitle, FileExtension extension)
+        {
+            return string.Format(TeamTemplateFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.ToStr());
+        }
+
         private const string SystemFormFormatFile = "{0}.{1} SystemForm {2} - {3} at {4}.{5}";
 
         internal static string GetSystemFormFileName(string connectionName, string entityName, string name, string fieldTitle, FileExtension extension)

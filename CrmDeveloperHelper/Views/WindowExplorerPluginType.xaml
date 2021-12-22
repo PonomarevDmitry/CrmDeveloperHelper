@@ -58,15 +58,15 @@
                 <MenuItem x:Uid="mIOpenPluginAssemblyExplorer" Header="Open Plugin Assembly Explorer" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddPluginTypeStepsToSolutionLast" Header="Add Steps for PluginType to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginTypeStepsToSolutionLast" Header="Add Steps for PluginType to Last Crm Solution" />
                 <MenuItem Header="Add Steps for PluginType to Crm Solution" Click="mIAddPluginTypeStepsToSolution_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddPluginAssemblyToSolutionLast" Header="Add PluginAssembly to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginAssemblyToSolutionLast" Header="Add PluginAssembly to Last Crm Solution" />
                 <MenuItem Header="Add PluginAssembly to Crm Solution" Click="AddAssemblyToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add Steps for PluginAssembly to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add Steps for PluginAssembly to Last Crm Solution" />
                 <MenuItem Header="Add Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
 
                 <Separator/>

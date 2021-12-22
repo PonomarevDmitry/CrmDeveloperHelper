@@ -273,7 +273,7 @@
 
                                 <MenuItem Header="Set Privilege 1">
                                     <MenuItem Header="All">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAll1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -281,7 +281,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAll1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -289,7 +289,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAll1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -297,7 +297,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAll1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -305,7 +305,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAll1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAll1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -317,7 +317,7 @@
                                     <Separator />
 
                                     <MenuItem Header="Create">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeCreate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -325,7 +325,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeCreate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -333,7 +333,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeCreate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -341,7 +341,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeCreate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -349,7 +349,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeCreate1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeCreate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -360,7 +360,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Read">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeRead1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -368,7 +368,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeRead1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -376,7 +376,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeRead1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -384,7 +384,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeRead1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -392,7 +392,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeRead1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeRead1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -403,7 +403,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Update">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeUpdate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -411,7 +411,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeUpdate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -419,7 +419,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeUpdate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -427,7 +427,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeUpdate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -435,7 +435,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeUpdate1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeUpdate1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -446,7 +446,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Delete">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeDelete1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -454,7 +454,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeDelete1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -462,7 +462,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeDelete1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -470,7 +470,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeDelete1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -478,7 +478,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeDelete1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeDelete1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -489,7 +489,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Append">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAppend1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -497,7 +497,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAppend1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -505,7 +505,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAppend1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -513,7 +513,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAppend1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -521,7 +521,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppend1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAppend1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -532,7 +532,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="AppendTo">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAppendTo1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -540,7 +540,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAppendTo1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -548,7 +548,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAppendTo1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -556,7 +556,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAppendTo1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -564,7 +564,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppendTo1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAppendTo1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -575,7 +575,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Assign">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAssign1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -583,7 +583,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAssign1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -591,7 +591,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAssign1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -599,7 +599,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAssign1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -607,7 +607,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAssign1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAssign1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -618,7 +618,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Share">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeShare1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -626,7 +626,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeShare1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -634,7 +634,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeShare1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -642,7 +642,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeShare1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -650,7 +650,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeShare1_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeShare1_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -668,7 +668,7 @@
 
                                 <MenuItem Header="Set Privilege 2">
                                     <MenuItem Header="All">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAll2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -676,7 +676,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAll2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -684,7 +684,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAll2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -692,7 +692,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAll2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -700,7 +700,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAll2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAll2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -712,7 +712,7 @@
                                     <Separator />
 
                                     <MenuItem Header="Create">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeCreate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -720,7 +720,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeCreate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -728,7 +728,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeCreate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -736,7 +736,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeCreate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -744,7 +744,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeCreate2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeCreate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -755,7 +755,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Read">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeRead2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -763,7 +763,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeRead2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -771,7 +771,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeRead2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -779,7 +779,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeRead2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -787,7 +787,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeRead2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeRead2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -798,7 +798,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Update">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeUpdate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -806,7 +806,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeUpdate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -814,7 +814,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeUpdate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -822,7 +822,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeUpdate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -830,7 +830,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeUpdate2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeUpdate2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -841,7 +841,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Delete">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeDelete2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -849,7 +849,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeDelete2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -857,7 +857,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeDelete2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -865,7 +865,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeDelete2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -873,7 +873,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeDelete2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeDelete2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -884,7 +884,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Append">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAppend2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -892,7 +892,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAppend2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -900,7 +900,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAppend2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -908,7 +908,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAppend2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -916,7 +916,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppend2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAppend2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -927,7 +927,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="AppendTo">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAppendTo2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -935,7 +935,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAppendTo2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -943,7 +943,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAppendTo2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -951,7 +951,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAppendTo2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -959,7 +959,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAppendTo2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAppendTo2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -970,7 +970,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Assign">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeAssign2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -978,7 +978,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeAssign2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -986,7 +986,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeAssign2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -994,7 +994,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeAssign2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -1002,7 +1002,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeAssign2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeAssign2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -1013,7 +1013,7 @@
                                     </MenuItem>
 
                                     <MenuItem Header="Share">
-                                        <MenuItem Header="None" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                        <MenuItem Header="None" Click="mISetEntityPrivilegeShare2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                             </MenuItem.Icon>
@@ -1021,7 +1021,7 @@
                                                 <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Basic" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                        <MenuItem Header="Basic" Click="mISetEntityPrivilegeShare2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                             </MenuItem.Icon>
@@ -1029,7 +1029,7 @@
                                                 <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Local" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                        <MenuItem Header="Local" Click="mISetEntityPrivilegeShare2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                             </MenuItem.Icon>
@@ -1037,7 +1037,7 @@
                                                 <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Deep" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                        <MenuItem Header="Deep" Click="mISetEntityPrivilegeShare2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                             </MenuItem.Icon>
@@ -1045,7 +1045,7 @@
                                                 <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                             </MenuItem.Tag>
                                         </MenuItem>
-                                        <MenuItem Header="Global" Click="mISetAttributeEntityPrivilegeShare2_Click">
+                                        <MenuItem Header="Global" Click="mISetEntityPrivilegeShare2_Click">
                                             <MenuItem.Icon>
                                                 <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                             </MenuItem.Icon>
@@ -1069,14 +1069,17 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="100*" />
-                                <ColumnDefinition Width="30*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Label x:Name="lblEntitiesList" Content="Entities List" Grid.Row="0" Grid.Column="0" />
+                            
                             <ComboBox x:Name="cmBRoleEditorLayoutTabsEntities" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabsEntities_SelectionChanged" />
-                            <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
+
+                            <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="EntityMetadata Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
 
                             <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
+                            
                             <TextBox x:Name="txtBEntityFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
                         </Grid>
 
@@ -1587,7 +1590,7 @@
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                             <Menu Background="{x:Null}">
                                 <MenuItem Header="Set Privilege 1">
-                                    <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                    <MenuItem Header="None" Click="mISetOtherPrivilegeRight1_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                         </MenuItem.Icon>
@@ -1595,7 +1598,7 @@
                                             <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Basic" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                    <MenuItem Header="Basic" Click="mISetOtherPrivilegeRight1_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                         </MenuItem.Icon>
@@ -1603,7 +1606,7 @@
                                             <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Local" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                    <MenuItem Header="Local" Click="mISetOtherPrivilegeRight1_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                         </MenuItem.Icon>
@@ -1611,7 +1614,7 @@
                                             <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Deep" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                    <MenuItem Header="Deep" Click="mISetOtherPrivilegeRight1_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                         </MenuItem.Icon>
@@ -1619,7 +1622,7 @@
                                             <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Global" Click="mISetAttributeOtherPrivilegeRight1_Click">
+                                    <MenuItem Header="Global" Click="mISetOtherPrivilegeRight1_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                         </MenuItem.Icon>
@@ -1634,7 +1637,7 @@
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                             <Menu Background="{x:Null}">
                                 <MenuItem Header="Set Privilege 2">
-                                    <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                    <MenuItem Header="None" Click="mISetOtherPrivilegeRight2_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                         </MenuItem.Icon>
@@ -1642,7 +1645,7 @@
                                             <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Basic" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                    <MenuItem Header="Basic" Click="mISetOtherPrivilegeRight2_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                         </MenuItem.Icon>
@@ -1650,7 +1653,7 @@
                                             <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Local" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                    <MenuItem Header="Local" Click="mISetOtherPrivilegeRight2_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                         </MenuItem.Icon>
@@ -1658,7 +1661,7 @@
                                             <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Deep" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                    <MenuItem Header="Deep" Click="mISetOtherPrivilegeRight2_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                         </MenuItem.Icon>
@@ -1666,7 +1669,7 @@
                                             <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                         </MenuItem.Tag>
                                     </MenuItem>
-                                    <MenuItem Header="Global" Click="mISetAttributeOtherPrivilegeRight2_Click">
+                                    <MenuItem Header="Global" Click="mISetOtherPrivilegeRight2_Click">
                                         <MenuItem.Icon>
                                             <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                         </MenuItem.Icon>

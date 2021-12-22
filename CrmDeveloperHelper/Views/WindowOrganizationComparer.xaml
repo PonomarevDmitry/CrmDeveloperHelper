@@ -264,7 +264,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
-                                        <CheckBox IsChecked="{Binding IsReadOnly}" Margin="6,3" ToolTip="{Binding ToolTip}" IsEnabled="False"  />
+                                        <CheckBox IsChecked="{Binding IsReadOnly}" Margin="6,3" ToolTip="{Binding ToolTip}" IsEnabled="False" />
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

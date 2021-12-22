@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
+﻿using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
@@ -161,6 +163,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+        }
+
+        protected static void ExecuteSelectBaseEntityPrivilegeViewItems(DataGrid dataGrid, bool clearCurrentSelection, Func<BaseEntityPrivilegeViewItem, bool> checker)
+        {
+            if (clearCurrentSelection)
+            {
+                dataGrid.SelectedItems.Clear();
+            }
+
+            var list = dataGrid.Items.OfType<BaseEntityPrivilegeViewItem>().Where(i => checker(i)).ToList();
+
+            foreach (var item in list)
+            {
+                dataGrid.SelectedItems.Add(item);
             }
         }
     }

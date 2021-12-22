@@ -51,7 +51,7 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator x:Uid="contMnEntity" />

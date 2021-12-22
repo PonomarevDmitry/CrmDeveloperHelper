@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class RoleLinkedOtherPrivilegeViewItem : LinkedPrivilegeViewItem
+    public class RoleLinkedOtherPrivilegeViewItem : BaseLinkedPrivilegeViewItem
     {
         public string Name => (Privilege1 ?? Privilege2).Name;
 

@@ -30,6 +30,24 @@
                 <MenuItem Header="Open Customization in Browser" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy to Clipboard Unique Name" Click="mICopySolutionUniqueNameToClipboard_Click" />
+                    <MenuItem Header="Copy to Clipboard Friendly Name" Click="mICopySolutionFriendlyNameToClipboard_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Version" Click="mICopySolutionVersionToClipboard_Click" />
+                    <MenuItem Header="Copy to Clipboard Publisher Name" Click="mICopySolutionPublisherNameToClipboard_Click" />
+                    <MenuItem Header="Copy to Clipboard Prefix" Click="mICopySolutionPrefixToClipboard_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Description" Click="mICopySolutionDescriptionToClipboard_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Solution Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                    <MenuItem Header="Copy to Clipboard Solution Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click" />
 
                 <Separator/>
@@ -72,13 +90,14 @@
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}" />
+                    <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Solution Name" Width="260" Binding="{Binding SolutionName}" />
+                <DataGridTextColumn Header="Unique Name" Width="260" Binding="{Binding UniqueName}" />
 
-                <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName}" />
+                <DataGridTextColumn Header="Friendly Name" Width="200" Binding="{Binding FriendlyName}" />
 
                 <DataGridTextColumn Header="Solution Type" Width="200" Binding="{Binding SolutionType}" />
 
@@ -89,6 +108,12 @@
                 <DataGridTextColumn Header="Publisher Name" Width="200" Binding="{Binding PublisherName}" />
 
                 <DataGridTextColumn Header="Prefix" Width="70" Binding="{Binding Prefix}" />
+
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}" CanUserResize="False">
+                    <DataGridCheckBoxColumn.Header>
+                        <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
 
             </DataGrid.Columns>
         </DataGrid>

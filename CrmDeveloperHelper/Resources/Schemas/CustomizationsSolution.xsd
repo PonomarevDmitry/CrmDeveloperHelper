@@ -224,7 +224,7 @@
             <xs:element name="Descriptions" type="DescriptionsType" minOccurs="0" maxOccurs="1" />
           </xs:sequence>
           <xs:attribute name="value" use="required" type="xs:integer" />
-          <xs:attribute name="Color" type="xs:string"/>
+          <xs:attribute name="Color" type="xs:string" />
           <xs:attribute name="defaultstatus" use="required" type="xs:integer" />
           <xs:attribute name="invariantname" use="required" type="xs:string" />
           <xs:attribute name="addedby" type="xs:string"></xs:attribute>
@@ -576,7 +576,7 @@
             <xs:element name="SearchProviderName" type="xs:string" minOccurs="0" maxOccurs="1" />
             <xs:element name="SearchProviderResultsPage" type="xs:string" minOccurs="0" maxOccurs="1" />
             <xs:element name="IsLocalized" type="TrueFalse01Type" minOccurs="0" maxOccurs="1" />
-            <xs:element name="IsEnabled" type="TrueFalse01Type" minOccurs="0" maxOccurs="1"  />
+            <xs:element name="IsEnabled" type="TrueFalse01Type" minOccurs="0" maxOccurs="1" />
             <xs:element name="IsSearchBoxVisible" type="TrueFalse01Type" minOccurs="0" maxOccurs="1" />
           </xs:sequence>
           <xs:attribute name="GlobalSearchConfigurationId" use="required" type="xs:string" />
@@ -636,7 +636,7 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element name="database" type="xs:string" minOccurs="1" maxOccurs="1" />
-            <xs:element name="target" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="target" type="xs:string" minOccurs="1" maxOccurs="1" />
             <xs:element name="file" type="xs:string" minOccurs="1" maxOccurs="1" />
             <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1" />
           </xs:sequence>
@@ -2337,9 +2337,9 @@
       <xs:element name="ClientType" minOccurs="0" maxOccurs="1">
         <xs:simpleType>
           <xs:restriction base="xs:integer">
-            <xs:enumeration value="2"/>
-            <xs:enumeration value="4"/>
-            <xs:enumeration value="8"/>
+            <xs:enumeration value="2" />
+            <xs:enumeration value="4" />
+            <xs:enumeration value="8" />
           </xs:restriction>
         </xs:simpleType>
       </xs:element>

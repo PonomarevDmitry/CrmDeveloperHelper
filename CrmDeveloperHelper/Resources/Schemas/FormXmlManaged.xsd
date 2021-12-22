@@ -6,7 +6,7 @@
 		<xs:attribute name="src" use="required">
 			<xs:simpleType>
 				<xs:restriction base ="xs:string">
-					<xs:pattern value ="(\$webresource:|/)(.)+"/>
+					<xs:pattern value ="(\$webresource:|/)(.)+" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
@@ -34,15 +34,15 @@
 											<xs:attribute name="name" use ="required">
 												<xs:simpleType>
 													<xs:restriction base ="xs:string">
-														<xs:pattern value="LOCID_([A-Za-z0-9_])+"/>
-														<xs:maxLength value ="32"/>
+														<xs:pattern value="LOCID_([A-Za-z0-9_])+" />
+														<xs:maxLength value ="32" />
 													</xs:restriction>
 												</xs:simpleType>
 											</xs:attribute>
 											<xs:attribute name ="resourceid" use="required" >
 												<xs:simpleType>
 													<xs:restriction base ="xs:string">
-														<xs:pattern value="([A-Za-z0-9_.])+"/>
+														<xs:pattern value="([A-Za-z0-9_.])+" />
 													</xs:restriction>
 												</xs:simpleType>
 											</xs:attribute>
@@ -65,11 +65,11 @@
 								<xs:sequence>
 									<xs:element name ="webresource" minOccurs ="0" maxOccurs ="100000">
 										<xs:complexType>
-											<xs:attribute name="path" type="xs:string" use ="required"/>
+											<xs:attribute name="path" type="xs:string" use ="required" />
 											<xs:attribute name="type" use ="required">
 												<xs:simpleType>
 													<xs:restriction base="xs:string">
-														<xs:enumeration value="jscript"/>
+														<xs:enumeration value="jscript" />
 														<xs:enumeration value ="css" />
 													</xs:restriction>
 												</xs:simpleType>
@@ -166,8 +166,8 @@
 								<xs:sequence >
 									<xs:element name ="Privilege" minOccurs ="0" maxOccurs ="100000">
 										<xs:complexType>
-											<xs:attribute name ="Entity" type ="xs:string" use ="required"/>
-											<xs:attribute name="Privilege" type ="xs:string" use ="required"/>
+											<xs:attribute name ="Entity" type ="xs:string" use ="required" />
+											<xs:attribute name="Privilege" type ="xs:string" use ="required" />
 											<xs:attribute name="solutionaction" type="solutionactionType" />
 										</xs:complexType>
 									</xs:element>
@@ -275,8 +275,8 @@
 							<xs:complexType>
 								<xs:all>
 									<xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" />
-									<xs:element name="tabheader" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
-									<xs:element name="tabfooter" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
+									<xs:element name="tabheader" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
+									<xs:element name="tabfooter" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
 									<xs:element name="columns" minOccurs="0" maxOccurs="1">
 										<xs:complexType>
 											<xs:sequence>
@@ -301,12 +301,12 @@
 																													<xs:choice minOccurs="0" maxOccurs="4"> <xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" /> <xs:element name="events" type="FormXmlEventsType" minOccurs="0" maxOccurs="1" /> <xs:element name="control" type="FormXmlControlType" minOccurs="0" maxOccurs="1" /></xs:choice>
 																													<xs:attribute name="auto" type="xs:boolean" />
 																													<xs:attribute name="addedby" type="xs:string" />
-																													<xs:attributeGroup ref="FormXmlCellCommon"/>
+																													<xs:attributeGroup ref="FormXmlCellCommon" />
 																												</xs:complexType>
 																											</xs:element>
 																										</xs:sequence>
 																										<xs:attribute name="addedby" type="xs:string" />
-																										<xs:attributeGroup ref="FormXmlRowCommon"/>
+																										<xs:attributeGroup ref="FormXmlRowCommon" />
 																									</xs:complexType>
 																								</xs:element>
 																							</xs:sequence>
@@ -329,7 +329,7 @@
 																				<xs:attribute name="visible" type="xs:boolean" />
 																				<xs:attribute name="rowheight" type="xs:nonNegativeInteger" use="optional" />
 																				<xs:attribute name="autoexpand" type="xs:boolean" use="optional" />
-																				<xs:attributeGroup ref="FormXmlSectionCommon"/>
+																				<xs:attributeGroup ref="FormXmlSectionCommon" />
 																				<xs:attribute name="ordinalvalue" type="xs:nonNegativeInteger" />
 																			</xs:complexType>
 																		</xs:element>
@@ -379,19 +379,19 @@
 					<xs:attribute name="solutionaction" type="solutionactionType" />
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="header" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="footer" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="header" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="footer" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="events" type="FormXmlEventsType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="formLibraries" type="FormXmlLibraryType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="externaldependencies" type="FormXmlExternalDependenciesType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="formparameters" type="FormParametersType" minOccurs="0" maxOccurs="1">
 				<xs:unique name="UniqueName">
-					<xs:selector xpath ="./querystringparameter"/>
-					<xs:field xpath ="@name"/>
+					<xs:selector xpath ="./querystringparameter" />
+					<xs:field xpath ="@name" />
 				</xs:unique>
 			</xs:element>
 			<xs:element name ="clientresources" type ="ClientResourcesType" minOccurs ="0" maxOccurs ="1"></xs:element>
-			<xs:element name="Navigation" type="FormNavigationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Navigation" type="FormNavigationType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="DisplayConditions" type="FormDisplayConditionsType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="RibbonDiffXml" type="RibbonEntityDiffXmlType" minOccurs="0" maxOccurs="1" />
 		</xs:all>
@@ -428,14 +428,14 @@
 							<xs:element name="IsColorValue" type="solutionBooleanType" minOccurs="0" maxOccurs="1" />
 							<!--Web Resource related parameters. Included in this section since they 
 								can include Url, PassParameters etc-->
-							<xs:element name="Height" type="solutionUnsignedIntType" minOccurs="0" maxOccurs="1"/>
-							<xs:element name="Width" type="solutionUnsignedIntType" minOccurs="0" maxOccurs="1"/>
-							<xs:element name="AltText" type="solutionStringType" minOccurs="0" maxOccurs="1"/>
-							<xs:element name="SizeType" type="solutionWebResourceSizeType" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="Height" type="solutionUnsignedIntType" minOccurs="0" maxOccurs="1" />
+							<xs:element name="Width" type="solutionUnsignedIntType" minOccurs="0" maxOccurs="1" />
+							<xs:element name="AltText" type="solutionStringType" minOccurs="0" maxOccurs="1" />
+							<xs:element name="SizeType" type="solutionWebResourceSizeType" minOccurs="0" maxOccurs="1" />
 							<xs:element name="ShowInROF" type="solutionBooleanType" minOccurs="0" maxOccurs="1" />
 							<xs:element name="ShowOnMobileClient" type="solutionBooleanType" minOccurs="0" maxOccurs="1" />
-							<xs:element name="HorizontalAlignment" type="solutionImageHorizontalAlignmentType" minOccurs="0" maxOccurs="1"/>
-							<xs:element name="VerticalAlignment" type="solutionImageVerticalAlignmentType" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="HorizontalAlignment" type="solutionImageHorizontalAlignmentType" minOccurs="0" maxOccurs="1" />
+							<xs:element name="VerticalAlignment" type="solutionImageVerticalAlignmentType" minOccurs="0" maxOccurs="1" />
 							<xs:element name="Data" type="solutionStringType" minOccurs="0" maxOccurs="1" />
 							<xs:element name="WebResourceId" type="solutionStringType" minOccurs="0" maxOccurs="1" />
 							<!--Parameters for Rich Editor Control-->
@@ -776,11 +776,11 @@
 												<xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" />
 												<xs:element name="control" type="FormXmlControlType" minOccurs="0" maxOccurs="1" />
 											</xs:all>
-											<xs:attributeGroup ref="FormXmlCellCommon"/>
+											<xs:attributeGroup ref="FormXmlCellCommon" />
 										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
-								<xs:attributeGroup ref="FormXmlRowCommon"/>
+								<xs:attributeGroup ref="FormXmlRowCommon" />
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
@@ -798,17 +798,17 @@
 		<xs:attribute name="celllabelalignment" use="optional">
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:enumeration value="Center"/>
-					<xs:enumeration value="Left"/>
-					<xs:enumeration value="Right"/>
+					<xs:enumeration value="Center" />
+					<xs:enumeration value="Left" />
+					<xs:enumeration value="Right" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
 		<xs:attribute name="celllabelposition" use="optional">
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:enumeration value="Top"/>
-					<xs:enumeration value="Left"/>
+					<xs:enumeration value="Top" />
+					<xs:enumeration value="Left" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
@@ -826,7 +826,7 @@
 		<xs:attribute name="rowspan" type="xs:nonNegativeInteger" />
 		<xs:attribute name="colspan" type="xs:nonNegativeInteger" />
 		<xs:attribute name="userspacer" type="xs:boolean" />
-		<xs:attribute name="ispreviewcell" type="xs:boolean"/>
+		<xs:attribute name="ispreviewcell" type="xs:boolean" />
 		<xs:attribute name="visible" type="xs:boolean" />
 		<xs:attribute name="availableforphone" type="xs:boolean" />
 		<xs:attribute name="isstreamcell" type="xs:boolean" />
@@ -890,14 +890,14 @@
 	</xs:simpleType>
 	<xs:simpleType name="FormQueryStringParameterNameAttributeType">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="(?![cC][rR][mM]_)([A-Za-z0-9])+([_])+([A-Za-z0-9_])*"/>
+			<xs:pattern value="(?![cC][rR][mM]_)([A-Za-z0-9])+([_])+([A-Za-z0-9_])*" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="GridResizeType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Auto"/>
-			<xs:enumeration value="Fixed"/>
-			<xs:enumeration value="AutoWithFixedMax"/>
+			<xs:enumeration value="Auto" />
+			<xs:enumeration value="Fixed" />
+			<xs:enumeration value="AutoWithFixedMax" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ImageHorizontalAlignmentType">
@@ -958,77 +958,77 @@
 	<xs:complexType name ="solutionStringType">
 		<xs:simpleContent>
 			<xs:extension base="xs:string">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionBooleanType">
 		<xs:simpleContent>
 			<xs:extension base="xs:boolean">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionFormGuidType">
 		<xs:simpleContent>
 			<xs:extension base="FormGuidType">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionUnsignedIntType">
 		<xs:simpleContent>
 			<xs:extension base="xs:unsignedInt">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionWebResourceSizeType">
 		<xs:simpleContent>
 			<xs:extension base="WebResourceSizeType">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionImageHorizontalAlignmentType">
 		<xs:simpleContent>
 			<xs:extension base="ImageHorizontalAlignmentType">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionFormatType">
 		<xs:simpleContent>
 			<xs:extension base="FormatType">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionImageVerticalAlignmentType">
 		<xs:simpleContent>
 			<xs:extension base="ImageVerticalAlignmentType">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionRelationshipRoleOrdinalType">
 		<xs:simpleContent>
 			<xs:extension base="RelationshipRoleOrdinalType">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionGridResizeType">
 		<xs:simpleContent>
 			<xs:extension base="GridResizeType">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name ="solutionUnsignedShortType">
 		<xs:simpleContent>
 			<xs:extension base="xs:unsignedShort">
-				<xs:attributeGroup ref="FormXmlBaseElementCommon"/>
+				<xs:attributeGroup ref="FormXmlBaseElementCommon" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>

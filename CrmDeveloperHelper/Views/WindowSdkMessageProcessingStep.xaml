@@ -166,8 +166,8 @@
                                 <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
 
-                            <Button x:Name="btnSelectUser" Content="Select user" Grid.Row="0" Grid.Column="0" TabIndex="16" Click="btnSelectUser_Click"  />
-                            <Button x:Name="btnClearUser" Content="Clear user" Grid.Row="0" Grid.Column="1" TabIndex="17" Click="btnClearUser_Click"  />
+                            <Button x:Name="btnSelectUser" Content="Select user" Grid.Row="0" Grid.Column="0" TabIndex="16" Click="btnSelectUser_Click" />
+                            <Button x:Name="btnClearUser" Content="Clear user" Grid.Row="0" Grid.Column="1" TabIndex="17" Click="btnClearUser_Click" />
                         </Grid>
 
                     </Grid>

@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
@@ -71,9 +71,9 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100*" />
-                <ColumnDefinition Width="Auto"  />
-                <ColumnDefinition Width="100"  />
-                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button x:Name="btnOK" Content="OK" Grid.Row="0" Grid.Column="1" Click="btnOK_Click" Height="25" Width="100" Margin="3" />

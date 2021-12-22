@@ -4388,6 +4388,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonSecurityRolesExplorerCommandId = 0x2182;
 
+            public const int CommonTeamTemplateExplorerCommandId = 0x2295;
+
             public const int CommonOrganizationExplorerCommandId = 0x2038;
 
             public const int CommonGlobalOptionSetsExplorerCommandId = 0x2039;
@@ -4665,6 +4667,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputTeamsExplorerCommandId = 0x21F7;
 
             public const int OutputSecurityRolesExplorerCommandId = 0x21F8;
+
+            public const int OutputTeamTemplateExplorerCommandId = 0x2296;
 
             public const int OutputOrganizationExplorerCommandId = 0x21F9;
 

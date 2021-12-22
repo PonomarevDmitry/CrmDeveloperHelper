@@ -200,7 +200,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Version" Grid.Row="0" Grid.Column="0" />
-                    <TextBox x:Name="txtBVersion" Grid.Row="0" Grid.Column="1"  />
+                    <TextBox x:Name="txtBVersion" Grid.Row="0" Grid.Column="1" />
 
                     <Label Content="FriendlyName" Grid.Row="1" Grid.Column="0" />
                     <TextBox x:Name="txtBFriendlyName" Grid.Row="1" Grid.Column="1" />

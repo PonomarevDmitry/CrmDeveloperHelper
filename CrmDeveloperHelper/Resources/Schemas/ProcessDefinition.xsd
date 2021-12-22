@@ -3,81 +3,81 @@
   <xs:element name="processcontrol">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="labels" type="LabelsType" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="entities" type="EntitiesType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="labels" type="LabelsType" minOccurs="0" maxOccurs="1" />
+        <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="entities" type="EntitiesType" minOccurs="1" maxOccurs="1" />
       </xs:sequence>
-      <xs:attribute name="id" type="GuidType" use="required"/>
+      <xs:attribute name="id" type="GuidType" use="required" />
     </xs:complexType>
   </xs:element>
 
   <xs:complexType name="EntitiesType">
     <xs:sequence>
-      <xs:element name="entity" type="EntityType" minOccurs="1" maxOccurs="2"/>
+      <xs:element name="entity" type="EntityType" minOccurs="1" maxOccurs="2" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="EntityType">
     <xs:sequence>
-      <xs:element name="showprevious" type="ConditionalType" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="navigateforward" type="ConditionalType" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="stages" type="StagesType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="showprevious" type="ConditionalType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="navigateforward" type="ConditionalType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="stages" type="StagesType" minOccurs="1" maxOccurs="1" />
     </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="StagesType">
     <xs:sequence>
-      <xs:element name="stage" type="StageType" minOccurs="0" maxOccurs="30"/>
+      <xs:element name="stage" type="StageType" minOccurs="0" maxOccurs="30" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="StageType">
     <xs:sequence>
-      <xs:element name="labels" type="LabelsType" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="steps" type="StepsType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="labels" type="LabelsType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="steps" type="StepsType" minOccurs="1" maxOccurs="1" />
     </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="id" type="GuidType" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="id" type="GuidType" use="required" />
   </xs:complexType>
 
   <xs:complexType name="ConditionalType">
-    <xs:attribute name="enabled" type="xs:boolean" use="required"/>
-    <xs:attribute name="attribute" type="xs:string" use="optional"/>
-    <xs:attribute name="operator" type="xs:string" use="optional"/>
+    <xs:attribute name="enabled" type="xs:boolean" use="required" />
+    <xs:attribute name="attribute" type="xs:string" use="optional" />
+    <xs:attribute name="operator" type="xs:string" use="optional" />
   </xs:complexType>
 
   <xs:complexType name="StepsType">
     <xs:sequence>
-      <xs:element name="step" type="StepType" minOccurs="1" maxOccurs="30"/>
+      <xs:element name="step" type="StepType" minOccurs="1" maxOccurs="30" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="StepType">
     <xs:sequence>
-      <xs:element name="labels" type="LabelsType" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="controls" type="ControlsType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="labels" type="LabelsType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="controls" type="ControlsType" minOccurs="1" maxOccurs="1" />
     </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="id" type="GuidType" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="id" type="GuidType" use="required" />
   </xs:complexType>
 
   <xs:complexType name="ControlsType">
     <xs:sequence>
-      <xs:element name="control" type="ControlType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="control" type="ControlType" minOccurs="1" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 
   <!--The elements below can be refactored with the Form Xsd  - especially once we make the Proces Definition Solution Aware-->
   <xs:complexType name="ControlType">
     <xs:sequence>
-      <xs:element name="parameters" type="ParametersType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="parameters" type="ParametersType" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
-    <xs:attribute name="id" type="xs:string"/>
-    <xs:attribute name="classid" type="GuidType"/>
-    <xs:attribute name="datafieldname" type="xs:string"/>
-    <xs:attribute name="issystemcontrol" type="xs:boolean"/>
+    <xs:attribute name="id" type="xs:string" />
+    <xs:attribute name="classid" type="GuidType" />
+    <xs:attribute name="datafieldname" type="xs:string" />
+    <xs:attribute name="issystemcontrol" type="xs:boolean" />
   </xs:complexType>
 
   <xs:complexType name="ParametersType">
@@ -102,13 +102,13 @@
 
   <xs:complexType name="LabelsType">
     <xs:sequence>
-      <xs:element name="label" type="LabelType" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="label" type="LabelType" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="LabelType">
-    <xs:attribute name="description" type="xs:string" use="required"/>
-    <xs:attribute name="languagecode" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="description" type="xs:string" use="required" />
+    <xs:attribute name="languagecode" type="xs:positiveInteger" use="required" />
   </xs:complexType>
 
   <xs:simpleType name="GuidType">

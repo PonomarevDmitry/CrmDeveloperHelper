@@ -198,19 +198,17 @@
 
                 <Grid Grid.Row="0">
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="30*"  />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="lblFilterEnitity" Content="Filter" Grid.Row="0" Grid.Column="0" />
-                    <TextBox x:Name="txtBFilterEnitity" KeyDown="txtBFilterEnitity_KeyDown" Grid.Row="0" Grid.Column="1" />
-                    <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="EntityMetadata Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
+                    <Label x:Name="lblFilterEnitity" Content="Filter" Grid.Column="0" />
+                    
+                    <TextBox x:Name="txtBFilterEnitity" KeyDown="txtBFilterEnitity_KeyDown" Grid.Column="1" />
+                    
+                    <Button x:Name="btnEntityMetadataFilter" Grid.Column="2" Content="EntityMetadata Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwEntities" Grid.Row="1" Margin="5" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
@@ -274,12 +272,14 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="lblFilterEntityRelationship" Content="Filter" Grid.Row="0" Grid.Column="0" />
-                    <TextBox x:Name="txtBFilterEntityRelationship" KeyDown="txtBFilterEntityRelationship_KeyDown" Grid.Row="0" Grid.Column="1" />
-                    <Button x:Name="btnEntityRelationshipMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Relationship Filter" Padding="0" Margin="5" Click="btnEntityRelationshipMetadataFilter_Click" IsTabStop="False" />
+                    <Label x:Name="lblFilterEntityRelationship" Content="Filter" Grid.Column="0" />
+                    
+                    <TextBox x:Name="txtBFilterEntityRelationship" KeyDown="txtBFilterEntityRelationship_KeyDown" Grid.Column="1" />
+                    
+                    <Button x:Name="btnEntityRelationshipMetadataFilter" Grid.Column="2" Content="Relationship Filter" Padding="0" Margin="5" Click="btnEntityRelationshipMetadataFilter_Click" IsTabStop="False" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwEntityRelationships" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" MouseDoubleClick="lstVwEntityRelationships_MouseDoubleClick" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -300,7 +300,7 @@
                         <DataGridTextColumn Header="ReferencingEntity" Width="120" Binding="{Binding ReferencingEntity, Mode=OneTime}" />
                         <DataGridTextColumn Header="ReferencingAttribute" Width="120" Binding="{Binding ReferencingAttribute, Mode=OneTime}" />
 
-                        <DataGridTextColumn Header="SchemaName" Width="260" Binding="{Binding SchemaName, Mode=OneTime}"  />
+                        <DataGridTextColumn Header="SchemaName" Width="260" Binding="{Binding SchemaName, Mode=OneTime}" />
 
                         <DataGridCheckBoxColumn Header="IsHierarchical" Width="120" Binding="{Binding IsHierarchical, Mode=OneTime}" />
 

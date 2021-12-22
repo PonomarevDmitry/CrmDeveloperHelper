@@ -246,7 +246,7 @@
 
   <xs:complexType name="ComboBoxType">
     <xs:sequence>
-      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="AllowFreeForm" type="xs:boolean" default="false" />
     <xs:attribute name="AltArrow" type="AltType" />
@@ -260,7 +260,7 @@
     <xs:attribute name="CommandPreview" type="CommandType" />
     <xs:attribute name="CommandPreviewRevert" type="CommandType" />
     <xs:attribute name="ImeEnabled" type="xs:boolean" />
-    <xs:attribute name="InitialItem" type="MenuItemIdType"/>
+    <xs:attribute name="InitialItem" type="MenuItemIdType" />
     <xs:attribute name="Id" type="IdType" use="required" />
     <xs:attribute name="QueryCommand" type="CommandType" />
     <xs:attribute name="PopulateDynamically" type="xs:boolean" default="false" />
@@ -308,7 +308,7 @@
 
   <xs:complexType name="ContextualTabsType">
     <xs:sequence>
-      <xs:element name="ContextualGroup" type="ContextualGroupType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ContextualGroup" type="ContextualGroupType" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="Id" type="IdType" use="required" />
   </xs:complexType>
@@ -349,7 +349,7 @@
 
   <xs:complexType name="DropDownType">
     <xs:sequence>
-      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="AltArrow" type="AltType" />
     <xs:attribute name="Alt" type="AltType" />
@@ -382,7 +382,7 @@
 
   <xs:complexType name="FlyoutAnchorType">
     <xs:sequence>
-      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="Alt" type="AltType" />
     <xs:attribute name="CacheMenuVersions" type="xs:boolean" default="false" />
@@ -505,7 +505,7 @@
 
   <xs:complexType name="JewelType">
     <xs:sequence>
-      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="Alt" type="AltType" />
     <xs:attribute name="CacheMenuVersions" type="xs:boolean" default="false" />
@@ -618,8 +618,8 @@
       <xs:element name="Gallery" type="GalleryType" minOccurs="1" maxOccurs="1" />
     </xs:choice>
     <xs:attribute name="Id" type="IdType" use="required" />
-    <xs:attribute name="Title" type="TitleType"/>
-    <xs:attribute name="Scrollable" type="xs:boolean" default="false"/>
+    <xs:attribute name="Title" type="TitleType" />
+    <xs:attribute name="Scrollable" type="xs:boolean" default="false" />
     <xs:attribute name="Sequence" type="SequenceType" />
     <xs:attribute name="MaxHeight" type="PixelLengthType" />
     <xs:attribute name="DisplayMode" type="DisplayModeType" default="Menu" />
@@ -640,7 +640,7 @@
 
   <xs:complexType name="MRUSplitButtonType">
     <xs:sequence>
-      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="Alt" type="AltType" />
     <xs:attribute name="CacheMenuVersions" type="xs:boolean" default="false" />
@@ -788,10 +788,10 @@
 
   <xs:complexType name="ScalingType">
     <xs:sequence>
-      <xs:element name="MaxSize" type="MaxSizeType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="MaxSize" type="MaxSizeType" minOccurs="0" maxOccurs="unbounded" />
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Scale" type="ScaleType" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="LowScaleWarning" type="LowScaleWarningType" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Scale" type="ScaleType" minOccurs="0" maxOccurs="1" />
+        <xs:element name="LowScaleWarning" type="LowScaleWarningType" minOccurs="0" maxOccurs="1" />
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="Id" type="IdType" use="required" />
@@ -833,7 +833,7 @@
 
   <xs:complexType name="SplitButtonType">
     <xs:sequence>
-      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Menu" type="MenuType" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="Alt" type="AltType" />
     <xs:attribute name="CacheMenuVersions" type="xs:boolean" default="false" />

@@ -42,7 +42,7 @@
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolution" />
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
 
                 <Separator/>
@@ -117,7 +117,7 @@
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolutionEntityReference" />
-                <MenuItem x:Uid="contMnAddToSolutionEntityReferenceLast" Header="Add EntityReference to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolutionEntityReferenceLast" Header="Add EntityReference to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddToSolutionEntityReference" Header="Add EntityReference to Crm Solution" Click="AddToCrmSolutionEntityReference_Click" />
 
                 <Separator/>
@@ -154,7 +154,7 @@
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddToSolution" />
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
 
                 <Separator/>
@@ -358,7 +358,7 @@
                                 <MenuItem Header="Set Business Process Flow on Selected Entities" Click="miSetBusinessProcessFlowOnSelectedEntities_Click" />
 
                                 <Separator x:Uid="contMnAddToSolution" />
-                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add Selected Entities to Last Crm Solution"  />
+                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add Selected Entities to Last Crm Solution" />
                                 <MenuItem x:Uid="contMnAddToSolution" Header="Add Selected Entities to Crm Solution" Click="AddToCrmSolutionSelectedEntities_Click" />
 
                                 <Separator />
@@ -399,7 +399,7 @@
                                 <MenuItem Header="Set Business Process Flow on All Entities" Click="miSetBusinessProcessFlowOnAllEntities_Click" />
 
                                 <Separator x:Uid="contMnAddToSolution" />
-                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add All Entities to Last Crm Solution"  />
+                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add All Entities to Last Crm Solution" />
                                 <MenuItem x:Uid="contMnAddToSolution" Header="Add All Entities to Crm Solution" Click="AddToCrmSolutionAllEntities_Click" />
 
                                 <Separator />

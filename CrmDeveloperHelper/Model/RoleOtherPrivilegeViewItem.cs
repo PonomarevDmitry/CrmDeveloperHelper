@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class RoleOtherPrivilegeViewItem : SinglePrivilegeViewItem
+    public class RoleOtherPrivilegeViewItem : BaseSinglePrivilegeViewItem
     {
         public Privilege Privilege { get; private set; }
 

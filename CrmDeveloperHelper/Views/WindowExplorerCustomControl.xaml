@@ -172,11 +172,11 @@
 
                 <DataGridTextColumn Header="CompatibleDataTypes" Width="150" Binding="{Binding CompatibleDataTypes}" />
 
-                <DataGridTextColumn Width="150" Binding="{Binding IsManaged}">
-                    <DataGridTextColumn.Header>
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsManaged, Mode=OneTime}" CanUserResize="False">
+                    <DataGridCheckBoxColumn.Header>
                         <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
 
             </DataGrid.Columns>
         </DataGrid>

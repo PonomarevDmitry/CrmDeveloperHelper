@@ -107,9 +107,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBTeamIsDefault.SelectedItem = false;
             cmBTeamIsTeamTemplate.SelectedItem = false;
 
-            FillComboBoxTrueFalse(cmBRoleIsCustomizable);
             FillComboBoxTrueFalse(cmBRoleIsManaged);
             FillComboBoxTrueFalse(cmBRoleIsTemplate);
+            FillComboBoxTrueFalse(cmBRoleIsCustomizable);
 
             LoadFromConfig();
 

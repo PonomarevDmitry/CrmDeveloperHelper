@@ -25,8 +25,8 @@
 							<xs:complexType>
 								<xs:all>
 									<xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" />
-									<xs:element name="tabheader" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
-									<xs:element name="tabfooter" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
+									<xs:element name="tabheader" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
+									<xs:element name="tabfooter" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
 									<xs:element name="columns" minOccurs="1" maxOccurs="1">
 										<xs:complexType>
 											<xs:sequence>
@@ -51,12 +51,12 @@
 																													<xs:all> <xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" /> <xs:element name="control" type="FormXmlControlType" minOccurs="0" maxOccurs="1" /> </xs:all>
 																													<xs:attribute name="auto" type="xs:boolean" />
 																													<xs:attribute name="addedby" type="xs:string" />
-																													<xs:attributeGroup ref="FormXmlCellCommon"/>
+																													<xs:attributeGroup ref="FormXmlCellCommon" />
 																												</xs:complexType>
 																											</xs:element>
 																										</xs:sequence>
 																										<xs:attribute name="addedby" type="xs:string" />
-																										<xs:attributeGroup ref="FormXmlRowCommon"/>
+																										<xs:attributeGroup ref="FormXmlRowCommon" />
 																									</xs:complexType>
 																								</xs:element>
 																							</xs:sequence>
@@ -80,7 +80,7 @@
 																				<xs:attribute name="availableforphone" type="xs:boolean" />
 																				<xs:attribute name="rowheight" type="xs:nonNegativeInteger" use="optional" />
 																				<xs:attribute name="autoexpand" type="xs:boolean" use="optional" />
-																				<xs:attributeGroup ref="FormXmlSectionCommon"/>
+																				<xs:attributeGroup ref="FormXmlSectionCommon" />
 																				
 																			</xs:complexType>
 																		</xs:element>
@@ -130,8 +130,8 @@
 					
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="header" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="footer" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="header" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="footer" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1" />
 
 		</xs:all>
 		<xs:attribute name="enablerelatedinformation" type="xs:boolean" />
@@ -167,9 +167,9 @@
 							<xs:element name="IsColorValue" type="xs:boolean" minOccurs="0" maxOccurs="1" />
 							<!--Web Resource related parameters. Included in this section since they 
 								can include Url, PassParameters etc-->
-							<xs:element name="Height" type="xs:unsignedInt" minOccurs="0" maxOccurs="1"/>
-							<xs:element name="Width" type="xs:unsignedInt" minOccurs="0" maxOccurs="1"/>
-							<xs:element name="AltText" type="xs:string" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="Height" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
+							<xs:element name="Width" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
+							<xs:element name="AltText" type="xs:string" minOccurs="0" maxOccurs="1" />
 							<xs:element name="ShowInROF" type="xs:boolean" minOccurs="0" maxOccurs="1" />
 							<xs:element name="ShowOnMobileClient" type="xs:boolean" minOccurs="0" maxOccurs="1" />
 							<xs:element name="Data" type="xs:string" minOccurs="0" maxOccurs="1" />
@@ -328,11 +328,11 @@
 												<xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" />
 												<xs:element name="control" type="FormXmlControlType" minOccurs="0" maxOccurs="1" />
 											</xs:all>
-											<xs:attributeGroup ref="FormXmlCellCommon"/>
+											<xs:attributeGroup ref="FormXmlCellCommon" />
 										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
-								<xs:attributeGroup ref="FormXmlRowCommon"/>
+								<xs:attributeGroup ref="FormXmlRowCommon" />
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
@@ -349,17 +349,17 @@
 		<xs:attribute name="celllabelalignment" use="optional">
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:enumeration value="Center"/>
-					<xs:enumeration value="Left"/>
-					<xs:enumeration value="Right"/>
+					<xs:enumeration value="Center" />
+					<xs:enumeration value="Left" />
+					<xs:enumeration value="Right" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
 		<xs:attribute name="celllabelposition" use="optional">
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:enumeration value="Top"/>
-					<xs:enumeration value="Left"/>
+					<xs:enumeration value="Top" />
+					<xs:enumeration value="Left" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
@@ -377,7 +377,7 @@
 		<xs:attribute name="rowspan" type="xs:nonNegativeInteger" />
 		<xs:attribute name="colspan" type="xs:nonNegativeInteger" />
 		<xs:attribute name="userspacer" type="xs:boolean" />
-		<xs:attribute name="ispreviewcell" type="xs:boolean"/>
+		<xs:attribute name="ispreviewcell" type="xs:boolean" />
 		<xs:attribute name="visible" type="xs:boolean" />
 		<xs:attribute name="availableforphone" type="xs:boolean" />
 		<xs:attribute name="isstreamcell" type="xs:boolean" />

@@ -1303,6 +1303,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Exporting Custom Controls.
+        /// </summary>
+        internal static string ExportingCustomControlFormat1 {
+            get {
+                return ResourceManager.GetString("ExportingCustomControlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Exporting Entity Attributes Dependent Components.
         /// </summary>
         internal static string ExportingEntityAttributesDependentComponentsFormat1 {
@@ -1434,6 +1443,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExportingSystemSavedQueryXmlFormat1 {
             get {
                 return ResourceManager.GetString("ExportingSystemSavedQueryXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Exporting TeamTemplates.
+        /// </summary>
+        internal static string ExportingTeamTemplateFormat1 {
+            get {
+                return ResourceManager.GetString("ExportingTeamTemplateFormat1", resourceCulture);
             }
         }
         

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class OtherPrivilegeRolePrivilegeViewItem : SinglePrivilegeViewItem
+    public class OtherPrivilegeRolePrivilegeViewItem : BaseSinglePrivilegeViewItem
     {
         public Role Role { get; private set; }
 

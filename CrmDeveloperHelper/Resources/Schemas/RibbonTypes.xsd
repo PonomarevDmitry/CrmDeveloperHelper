@@ -322,9 +322,9 @@
   </xs:complexType>
 
   <xs:complexType name="OptionSetRuleType">
-    <xs:attribute name="OptionSet" type="xs:string" use="required"/>
-    <xs:attribute name="StateCode" type="xs:string" use="required"/>
-    <xs:attribute name="ObjectTypeCode" type="xs:string" use="required"/>
+    <xs:attribute name="OptionSet" type="xs:string" use="required" />
+    <xs:attribute name="StateCode" type="xs:string" use="required" />
+    <xs:attribute name="ObjectTypeCode" type="xs:string" use="required" />
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
 
@@ -569,10 +569,10 @@
   </xs:complexType>
 
   <xs:complexType name="CrmOutlookClientVersionRuleType">
-    <xs:attribute name="Major" type="xs:integer" use="required"/>
-    <xs:attribute name="Minor" type="xs:integer" use="optional"/>
-    <xs:attribute name="Build" type="xs:integer" use="optional"/>
-    <xs:attribute name="Revision" type="xs:integer" use="optional"/>
+    <xs:attribute name="Major" type="xs:integer" use="required" />
+    <xs:attribute name="Minor" type="xs:integer" use="optional" />
+    <xs:attribute name="Build" type="xs:integer" use="optional" />
+    <xs:attribute name="Revision" type="xs:integer" use="optional" />
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
 

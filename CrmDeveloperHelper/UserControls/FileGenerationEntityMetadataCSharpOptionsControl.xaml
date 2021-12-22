@@ -210,7 +210,7 @@
                         <RadioButton x:Name="rBReadOnly" GroupName="ConstantType" Content="ReadOnly" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
                     </StackPanel>
 
-                    <Separator Grid.Column="1"  />
+                    <Separator Grid.Column="1" />
 
                     <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Stretch">
                         <Label Content="OptionSets Values:" />

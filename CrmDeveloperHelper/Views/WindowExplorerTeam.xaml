@@ -512,19 +512,17 @@
 
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="100*" />
-                                <ColumnDefinition Width="30*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Label x:Name="lblFilterEntity" Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0" />
-                            <TextBox x:Name="txtBEntityFilter" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
-                            <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="EntityMetadata Filter" Padding="0" Margin="5" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
+                            <Label x:Name="lblFilterEntity" Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Column="0" />
+                            
+                            <TextBox x:Name="txtBEntityFilter" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Column="1" />
+                            
+                            <Button x:Name="btnEntityMetadataFilter" Grid.Column="2" Content="EntityMetadata Filter" Padding="0" Margin="5" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwEntityPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -668,20 +666,17 @@
 
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="100*" />
-                                <ColumnDefinition Width="30*"  />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Label x:Name="lblFilterOtherPrivileges" Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0" />
-                            <TextBox x:Name="txtBOtherPrivilegesFilter" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBOtherPrivilegesFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                            <Label x:Name="lblFilterOtherPrivileges" Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Column="0" />
+                            
+                            <TextBox x:Name="txtBOtherPrivilegesFilter" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBOtherPrivilegesFilter_KeyDown" VerticalContentAlignment="Center" Grid.Column="1" />
 
-                            <Button x:Name="btnPrivilegeFilter" Grid.Row="1" Grid.Column="2" Content="Privilege Filter" Click="btnPrivilegeFilter_Click" IsTabStop="False" />
+                            <Button x:Name="btnPrivilegeFilter" Grid.Column="2" Content="Privilege Filter" Click="btnPrivilegeFilter_Click" IsTabStop="False" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwOtherPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

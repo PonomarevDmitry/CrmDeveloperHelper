@@ -588,6 +588,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
+        public static void OpenTeamTemplateExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+        )
+        {
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerTeamTemplate
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , service
+                    , filter
+                )
+            );
+        }
+
         public static void OpenTraceReaderExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service

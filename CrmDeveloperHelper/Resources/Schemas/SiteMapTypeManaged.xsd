@@ -7,7 +7,7 @@
 	  <xs:fractionDigits value="0"
 						 fixed="true" />
 	  <xs:totalDigits value="5" />
-	  <xs:maxInclusive value="65535"/>
+	  <xs:maxInclusive value="65535" />
 	</xs:restriction>
   </xs:simpleType>
   <xs:complexType name="TitlesType_SiteMap">
@@ -635,7 +635,7 @@
 		<xs:documentation>Valid Entity has length greater than 1.</xs:documentation>
 	</xs:annotation>
 	<xs:restriction base="xs:string">
-		<xs:minLength value="1"/>
+		<xs:minLength value="1" />
 	</xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="CRM_DynamicPage_SiteMap">
@@ -644,7 +644,7 @@
 		<xs:documentation>Valid Dynamic Page has length greater than 0.</xs:documentation>
 	</xs:annotation>
 	<xs:restriction base="xs:string">
-		<xs:minLength value="1"/>
+		<xs:minLength value="1" />
 	</xs:restriction>
   </xs:simpleType>
 </xs:schema>

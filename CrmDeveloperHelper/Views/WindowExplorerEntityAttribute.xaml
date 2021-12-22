@@ -200,19 +200,17 @@
 
                 <Grid Grid.Row="1">
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="30*"  />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="lblFilterEnitity" Content="Filter" Padding="0" Margin="5" Grid.Row="0" Grid.Column="0" />
-                    <TextBox x:Name="txtBFilterEnitity" Padding="0" Margin="5" KeyDown="txtBFilterEnitity_KeyDown" Grid.Row="0" Grid.Column="1" />
-                    <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="EntityMetadata Filter" Padding="0" Margin="5" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
+                    <Label x:Name="lblFilterEnitity" Content="Filter" Padding="0" Margin="5" Grid.Column="0" />
+                    
+                    <TextBox x:Name="txtBFilterEnitity" Padding="0" Margin="5" KeyDown="txtBFilterEnitity_KeyDown" Grid.Column="1" />
+                    
+                    <Button x:Name="btnEntityMetadataFilter" Grid.Column="2" Content="EntityMetadata Filter" Padding="0" Margin="5" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwEntities" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
@@ -465,12 +463,15 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="lblFilterAttribute" Content="Filter" Padding="0" Margin="5" Grid.Row="0" Grid.Column="0" />
-                    <TextBox x:Name="txtBFilterAttribute" Padding="0" Margin="5" KeyDown="txtBFilterAttribute_KeyDown" Grid.Row="0" Grid.Column="1" />
-                    <Button x:Name="btnAttributeMetadataFilter" Grid.Row="0" Grid.Column="2" Content="AttributeMetadata Filter" Padding="0" Margin="5" Click="btnAttributeMetadataFilter_Click" IsTabStop="False" />
+                    <Label x:Name="lblFilterAttribute" Content="Filter" Padding="0" Margin="5" Grid.Column="0" />
+                    
+                    <TextBox x:Name="txtBFilterAttribute" Padding="0" Margin="5" KeyDown="txtBFilterAttribute_KeyDown" Grid.Column="1" />
+                    
+                    <Button x:Name="btnAttributeMetadataFilter" Grid.Column="2" Content="AttributeMetadata Filter" Padding="0" Margin="5" Click="btnAttributeMetadataFilter_Click" IsTabStop="False" />
+                    
                 </Grid>
 
                 <DataGrid x:Name="lstVwAttributes" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwAttributes_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

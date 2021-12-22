@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class RoleLinkedEntitiesPrivilegeViewItem : LinkedPrivilegeViewItem
+    public class RoleLinkedEntitiesPrivilegeViewItem : BaseLinkedPrivilegeViewItem
     {
         public string LogicalName => (EntityMetadata1 ?? EntityMetadata2).LogicalName;
 

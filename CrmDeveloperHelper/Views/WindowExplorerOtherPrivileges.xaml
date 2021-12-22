@@ -168,20 +168,17 @@
 
                 <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="30*"  />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="lblFilterOtherPrivileges" Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
-                    <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBOtherPrivilegesFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
+                    <Label x:Name="lblFilterOtherPrivileges" Content="Filter" HorizontalAlignment="Left" Grid.Column="0" />
+                    
+                    <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBOtherPrivilegesFilter_KeyDown" Grid.Column="1" />
 
-                    <Button x:Name="btnPrivilegeFilter" Grid.Row="1" Grid.Column="2" Content="Privilege Filter" Click="btnPrivilegeFilter_Click" IsTabStop="False" />
+                    <Button x:Name="btnPrivilegeFilter" Grid.Column="2" Content="Privilege Filter" Click="btnPrivilegeFilter_Click" IsTabStop="False" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwOtherPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top" SelectionChanged="lstVwOtherPrivileges_SelectionChanged">
@@ -246,7 +243,7 @@
                     <Menu x:Name="menuSetPrivilege" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
 
                         <MenuItem Header="Set Privilege">
-                            <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRight_Click">
+                            <MenuItem Header="None" Click="mISetOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
                                 </MenuItem.Icon>
@@ -254,7 +251,7 @@
                                     <model:PrivilegeDepthExtended>None</model:PrivilegeDepthExtended>
                                 </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Basic" x:Name="mISetAttributeOtherPrivilegeRightBasic" Click="mISetAttributeOtherPrivilegeRight_Click">
+                            <MenuItem Header="Basic" x:Name="mISetOtherPrivilegeRightBasic" Click="mISetOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
                                 </MenuItem.Icon>
@@ -262,7 +259,7 @@
                                     <model:PrivilegeDepthExtended>Basic</model:PrivilegeDepthExtended>
                                 </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Local" x:Name="mISetAttributeOtherPrivilegeRightLocal" Click="mISetAttributeOtherPrivilegeRight_Click">
+                            <MenuItem Header="Local" x:Name="mISetOtherPrivilegeRightLocal" Click="mISetOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
                                 </MenuItem.Icon>
@@ -270,7 +267,7 @@
                                     <model:PrivilegeDepthExtended>Local</model:PrivilegeDepthExtended>
                                 </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Deep" x:Name="mISetAttributeOtherPrivilegeRightDeep" Click="mISetAttributeOtherPrivilegeRight_Click">
+                            <MenuItem Header="Deep" x:Name="mISetOtherPrivilegeRightDeep" Click="mISetOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
                                 </MenuItem.Icon>
@@ -278,7 +275,7 @@
                                     <model:PrivilegeDepthExtended>Deep</model:PrivilegeDepthExtended>
                                 </MenuItem.Tag>
                             </MenuItem>
-                            <MenuItem Header="Global" x:Name="mISetAttributeOtherPrivilegeRightGlobal" Click="mISetAttributeOtherPrivilegeRight_Click">
+                            <MenuItem Header="Global" x:Name="mISetOtherPrivilegeRightGlobal" Click="mISetOtherPrivilegeRight_Click">
                                 <MenuItem.Icon>
                                     <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
                                 </MenuItem.Icon>
@@ -297,10 +294,28 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="50*" />
+
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="txtBFilterSecurityRole" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterSecurityRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+
+                    <Label Content="Customizable" Grid.Row="1" Grid.Column="2" Padding="0" Margin="5" />
+                    <ComboBox x:Name="cmBRoleIsCustomizable" Grid.Row="1" Grid.Column="3" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBRole_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                    <Label Content="Managed" Grid.Row="1" Grid.Column="4" Padding="0" Margin="5" />
+                    <ComboBox x:Name="cmBRoleIsManaged" Grid.Row="1" Grid.Column="5" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBRole_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                    <Label Content="Template" Grid.Row="1" Grid.Column="6" Padding="0" Margin="5" />
+                    <ComboBox x:Name="cmBRoleIsTemplate" Grid.Row="1" Grid.Column="7" Padding="0" Margin="5" IsEditable="False" SelectionChanged="cmBRole_SelectionChanged" HorizontalContentAlignment="Stretch" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwSecurityRoles" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwSecurityRoles_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
@@ -378,6 +393,19 @@
                             </DataGridCheckBoxColumn.ElementStyle>
                             <DataGridCheckBoxColumn.Header>
                                 <Label Content="Cust" Margin="0" Padding="0" ToolTip="Is Customizable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsManaged, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Mng" Margin="0" Padding="0" ToolTip="IsManaged" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                             </DataGridCheckBoxColumn.Header>
                         </DataGridCheckBoxColumn>
 

@@ -112,13 +112,13 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click"  />
+                            <MenuItem Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection1ApplicationRibbonDiffXml_Click"  />
+                            <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection1ApplicationRibbonDiffXml_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection1ApplicationRibbonArchive_Click"  />
+                            <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection1ApplicationRibbonArchive_Click" />
                         </MenuItem>
                     </Menu>
 
@@ -131,7 +131,7 @@
                             <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection2ApplicationRibbonDiffXml_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection2ApplicationRibbonArchive_Click"  />
+                            <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection2ApplicationRibbonArchive_Click" />
                         </MenuItem>
                     </Menu>
 

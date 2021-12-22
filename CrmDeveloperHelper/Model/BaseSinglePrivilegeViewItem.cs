@@ -1,6 +1,6 @@
 ﻿namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public abstract class SinglePrivilegeViewItem : BasePrivilegeViewItem
+    public abstract class BaseSinglePrivilegeViewItem : BasePrivilegeViewItem
     {
         public bool IsChanged { get; protected set; }
 

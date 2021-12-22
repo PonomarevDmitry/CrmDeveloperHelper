@@ -293,8 +293,8 @@
                 <xs:sequence >
                   <xs:element name ="Privilege" minOccurs ="1" maxOccurs ="100000">
                     <xs:complexType>
-                      <xs:attribute name ="Entity" type ="xs:string" use ="required"/>
-                      <xs:attribute name="Privilege" type ="xs:string" use ="required"/>
+                      <xs:attribute name ="Entity" type ="xs:string" use ="required" />
+                      <xs:attribute name="Privilege" type ="xs:string" use ="required" />
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>

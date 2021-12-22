@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Set Attribute
 
-        private void mISetAttributeEntityPrivilegeAll1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAll1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1326,7 +1326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeCreate1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeCreate1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1337,7 +1337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeRead1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeRead1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1348,7 +1348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeUpdate1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeUpdate1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1359,7 +1359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeDelete1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeDelete1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1370,7 +1370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeAppend1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAppend1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1381,7 +1381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeAppendTo1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAppendTo1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1392,7 +1392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeAssign1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAssign1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1403,7 +1403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeShare1_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeShare1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1495,7 +1495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeAll2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAll2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1524,7 +1524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeCreate2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeCreate2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1535,7 +1535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeRead2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeRead2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1546,7 +1546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeUpdate2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeUpdate2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1557,7 +1557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeDelete2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeDelete2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1568,7 +1568,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeAppend2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAppend2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1579,7 +1579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeAppendTo2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAppendTo2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1590,7 +1590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeAssign2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeAssign2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1601,7 +1601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeEntityPrivilegeShare2_Click(object sender, RoutedEventArgs e)
+        private void mISetEntityPrivilegeShare2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1693,7 +1693,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeOtherPrivilegeRight1_Click(object sender, RoutedEventArgs e)
+        private void mISetOtherPrivilegeRight1_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
@@ -1722,7 +1722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mISetAttributeOtherPrivilegeRight2_Click(object sender, RoutedEventArgs e)
+        private void mISetOtherPrivilegeRight2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null

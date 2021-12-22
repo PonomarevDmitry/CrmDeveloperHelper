@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSolutionSelect : WindowWithSingleConnection
     {
-        private readonly ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<SolutionViewItem> _itemsSource;
 
         private object _syncObject = new object();
 
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.LastSelectedSolutionsUniqueName, _syncObject);
 
-            this._itemsSource = new ObservableCollection<EntityViewItem>();
+            this._itemsSource = new ObservableCollection<SolutionViewItem>();
 
             this.lstVwSolutions.ItemsSource = _itemsSource;
 
@@ -111,44 +111,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
 
-            LoadSolutions(list);
-
-            ToggleControls(true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
-        }
-
-        private class EntityViewItem
-        {
-            public Solution Solution { get; private set; }
-
-            public string SolutionName => Solution.UniqueName;
-
-            public string DisplayName => Solution.FriendlyName;
-
-            public string SolutionType => Solution.FormattedValues[Solution.Schema.Attributes.ismanaged];
-
-            public string Visible => Solution.FormattedValues[Solution.Schema.Attributes.isvisible];
-
-            public DateTime? InstalledOn => Solution.InstalledOn?.ToLocalTime();
-
-            public string PublisherName => Solution.PublisherId?.Name;
-
-            public string Prefix => Solution.PublisherCustomizationPrefix;
-
-            public string Version => Solution.Version;
-
-            public EntityViewItem(Solution Solution)
-            {
-                this.Solution = Solution;
-            }
-        }
-
-        private void LoadSolutions(IEnumerable<Solution> results)
-        {
             this.lstVwSolutions.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results)
+                foreach (var solution in list)
                 {
-                    _itemsSource.Add(new EntityViewItem(entity));
+                    _itemsSource.Add(new SolutionViewItem(solution));
                 }
 
                 if (_itemsSource.Count == 1)
@@ -156,6 +123,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwSolutions.SelectedItem = this.lstVwSolutions.Items[0];
                 }
             });
+
+            ToggleControls(true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -217,8 +186,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Solution GetSelectedEntity()
         {
-            return this.lstVwSolutions.SelectedItems.OfType<EntityViewItem>().Count() == 1
-                ? this.lstVwSolutions.SelectedItems.OfType<EntityViewItem>().Select(e => e.Solution).SingleOrDefault() : null;
+            return this.lstVwSolutions.SelectedItems.OfType<SolutionViewItem>().Count() == 1
+                ? this.lstVwSolutions.SelectedItems.OfType<SolutionViewItem>().Select(e => e.Solution).SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -230,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+                SolutionViewItem item = GetItemFromRoutedDataContext<SolutionViewItem>(e);
 
                 if (item != null && item.Solution != null)
                 {
@@ -478,5 +447,75 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             btnSelectLastSolution1.IsEnabled = btnSelectLastSolution2.IsEnabled = !string.IsNullOrEmpty(selectedSolution);
         }
+
+        #region Clipboard
+
+        private void mICopyEntityInstanceIdToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is SolutionViewItem entity)
+                )
+            {
+                return;
+            }
+
+            ClipboardHelper.SetText(entity.Solution.Id.ToString());
+        }
+
+        private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is SolutionViewItem entity)
+                )
+            {
+                return;
+            }
+
+            var url = _service.ConnectionData.GetSolutionUrl(entity.Solution.Id);
+
+            ClipboardHelper.SetText(url);
+        }
+
+        private void mICopySolutionUniqueNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionViewItem>(e, ent => ent.UniqueName);
+        }
+
+        private void mICopySolutionFriendlyNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionViewItem>(e, ent => ent.FriendlyName);
+        }
+
+        private void mICopySolutionVersionToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionViewItem>(e, ent => ent.Version);
+        }
+
+        private void mICopySolutionPublisherNameToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionViewItem>(e, ent => ent.PublisherName);
+        }
+
+        private void mICopySolutionPrefixToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionViewItem>(e, ent => ent.Prefix);
+        }
+
+        private void mICopySolutionDescriptionToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionViewItem>(e, ent => ent.Description);
+        }
+
+        #endregion Clipboard
     }
 }
