@@ -295,7 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void LoadFromDiskProxyClass(FileGenerationOptions diskData)
+        private void LoadFromDiskEntityProxyClass(FileGenerationOptions diskData)
         {
             this.GenerateProxyClassesAttributes = diskData.GenerateProxyClassesAttributes;
             this.GenerateProxyClassesManyToOne = diskData.GenerateProxyClassesManyToOne;

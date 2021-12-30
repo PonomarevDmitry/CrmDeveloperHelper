@@ -43,8 +43,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private string _NamespaceSdkMessagesCSharp;
+        [DataMember]
+        public string NamespaceSdkMessagesCSharp
+        {
+            get => _NamespaceSdkMessagesCSharp;
+            set
+            {
+                this.OnPropertyChanging(nameof(NamespaceSdkMessagesCSharp));
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+
+                this._NamespaceSdkMessagesCSharp = value;
+                this.OnPropertyChanged(nameof(NamespaceSdkMessagesCSharp));
+            }
+        }
+
         private void LoadFromDiskSdkMessageRequest(FileGenerationOptions diskData)
         {
+            this.NamespaceSdkMessagesCSharp = diskData.NamespaceSdkMessagesCSharp;
+
             this.GenerateSdkMessageRequestWithDebuggerNonUserCode = diskData.GenerateSdkMessageRequestWithDebuggerNonUserCode;
 
             this.GenerateSdkMessageRequestMakeAllPropertiesEditable = diskData.GenerateSdkMessageRequestMakeAllPropertiesEditable;

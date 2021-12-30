@@ -4,55 +4,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
     public partial class FileGenerationOptions
     {
-        private const int _defaultGenerateCommonSpaceCount = 4;
-
-        private int _GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
-        /// <summary>
-        /// Количество пробелов для отступа в файле с метаданными сущности
-        /// </summary>
-        [DataMember]
-        public int GenerateCommonSpaceCount
-        {
-            get => _GenerateCommonSpaceCount;
-            set
-            {
-                if (_GenerateCommonSpaceCount == value)
-                {
-                    return;
-                }
-
-                if (value <= 0)
-                {
-                    value = _defaultGenerateCommonSpaceCount;
-                }
-
-                this.OnPropertyChanging(nameof(GenerateCommonSpaceCount));
-                this._GenerateCommonSpaceCount = value;
-                this.OnPropertyChanged(nameof(GenerateCommonSpaceCount));
-            }
-        }
-
-        private IndentType _GenerateCommonIndentType = IndentType.Spaces;
-        /// <summary>
-        /// Тип отступа в файле с метаданными сущности
-        /// </summary>
-        [DataMember]
-        public IndentType GenerateCommonIndentType
-        {
-            get => _GenerateCommonIndentType;
-            set
-            {
-                if (_GenerateCommonIndentType == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(GenerateCommonIndentType));
-                this._GenerateCommonIndentType = value;
-                this.OnPropertyChanged(nameof(GenerateCommonIndentType));
-            }
-        }
-
         private ConstantType _GenerateSchemaConstantType = ConstantType.Constant;
         /// <summary>
         /// Тип записей в файле с метаданными сущности. const или read only
@@ -89,22 +40,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(GenerateSchemaOptionSetExportType));
                 this._GenerateSchemaOptionSetExportType = value;
                 this.OnPropertyChanged(nameof(GenerateSchemaOptionSetExportType));
-            }
-        }
-
-        private bool _GenerateCommonAllDescriptions = true;
-        /// <summary>
-        /// Генерировать все описания (description) или только первое по приоритету в файле с метаданными сущности
-        /// </summary>
-        [DataMember]
-        public bool GenerateCommonAllDescriptions
-        {
-            get => _GenerateCommonAllDescriptions;
-            set
-            {
-                this.OnPropertyChanging(nameof(GenerateCommonAllDescriptions));
-                this._GenerateCommonAllDescriptions = value;
-                this.OnPropertyChanged(nameof(GenerateCommonAllDescriptions));
             }
         }
 
@@ -301,34 +236,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public string GetTabSpacer()
+        private void LoadFromDiskEntitySchemaClass(FileGenerationOptions diskData)
         {
-            if (this.GenerateCommonSpaceCount <= 0)
-            {
-                this.GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
-            }
-
-            switch (this.GenerateCommonIndentType)
-            {
-                case IndentType.Tab:
-                    return "\t";
-
-                case IndentType.Spaces:
-                default:
-                    return new string(' ', this.GenerateCommonSpaceCount);
-            }
-        }
-
-        private void LoadFromDiskEntitySchema(FileGenerationOptions diskData)
-        {
-            this.GenerateCommonSpaceCount = diskData.GenerateCommonSpaceCount;
-            this.GenerateCommonIndentType = diskData.GenerateCommonIndentType;
-
-            this.GenerateCommonAllDescriptions = diskData.GenerateCommonAllDescriptions;
-
             this.GenerateSchemaIntoSchemaClass = diskData.GenerateSchemaIntoSchemaClass;
 
             this.GenerateSchemaAttributes = diskData.GenerateSchemaAttributes;
+            this.GenerateSchemaAttributesProperties = diskData.GenerateSchemaAttributesProperties;
             this.GenerateSchemaManyToOne = diskData.GenerateSchemaManyToOne;
             this.GenerateSchemaOneToMany = diskData.GenerateSchemaOneToMany;
             this.GenerateSchemaManyToMany = diskData.GenerateSchemaManyToMany;

@@ -17,8 +17,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private string _NamespaceGlobalOptionSetsCSharp;
+        [DataMember]
+        public string NamespaceGlobalOptionSetsCSharp
+        {
+            get => _NamespaceGlobalOptionSetsCSharp;
+            set
+            {
+                this.OnPropertyChanging(nameof(NamespaceGlobalOptionSetsCSharp));
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+
+                this._NamespaceGlobalOptionSetsCSharp = value;
+                this.OnPropertyChanged(nameof(NamespaceGlobalOptionSetsCSharp));
+            }
+        }
+
         private void LoadFromDiskGlobalOptionSetSchema(FileGenerationOptions diskData)
         {
+            this.NamespaceGlobalOptionSetsCSharp = diskData.NamespaceGlobalOptionSetsCSharp;
             this.GenerateSchemaGlobalOptionSetsWithDependentComponents = diskData.GenerateSchemaGlobalOptionSetsWithDependentComponents;
         }
     }

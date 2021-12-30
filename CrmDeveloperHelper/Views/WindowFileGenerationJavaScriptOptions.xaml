@@ -9,7 +9,7 @@
     mc:Ignorable="d"
                 
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowFileGenerationJavaScriptOptions"
-    Title="EntityMetadata File Generation Options" 
+    Title="JavaScript File Generation Options" 
     SizeToContent="WidthAndHeight"
     ResizeMode="NoResize"
     WindowStartupLocation="Manual"

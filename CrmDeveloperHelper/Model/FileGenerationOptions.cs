@@ -84,51 +84,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private string _NamespaceGlobalOptionSetsCSharp;
+        private const int _defaultGenerateCommonSpaceCount = 4;
+
+        private int _GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
+        /// <summary>
+        /// Количество пробелов для отступа в файле с метаданными сущности
+        /// </summary>
         [DataMember]
-        public string NamespaceGlobalOptionSetsCSharp
+        public int GenerateCommonSpaceCount
         {
-            get => _NamespaceGlobalOptionSetsCSharp;
+            get => _GenerateCommonSpaceCount;
             set
             {
-                this.OnPropertyChanging(nameof(NamespaceGlobalOptionSetsCSharp));
-
-                if (!string.IsNullOrEmpty(value))
+                if (_GenerateCommonSpaceCount == value)
                 {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
+                    return;
                 }
 
-                this._NamespaceGlobalOptionSetsCSharp = value;
-                this.OnPropertyChanged(nameof(NamespaceGlobalOptionSetsCSharp));
+                if (value <= 0)
+                {
+                    value = _defaultGenerateCommonSpaceCount;
+                }
+
+                this.OnPropertyChanging(nameof(GenerateCommonSpaceCount));
+                this._GenerateCommonSpaceCount = value;
+                this.OnPropertyChanged(nameof(GenerateCommonSpaceCount));
             }
         }
 
-        private string _NamespaceSdkMessagesCSharp;
+        private IndentType _GenerateCommonIndentType = IndentType.Spaces;
+        /// <summary>
+        /// Тип отступа в файле с метаданными сущности
+        /// </summary>
         [DataMember]
-        public string NamespaceSdkMessagesCSharp
+        public IndentType GenerateCommonIndentType
         {
-            get => _NamespaceSdkMessagesCSharp;
+            get => _GenerateCommonIndentType;
             set
             {
-                this.OnPropertyChanging(nameof(NamespaceSdkMessagesCSharp));
-
-                if (!string.IsNullOrEmpty(value))
+                if (_GenerateCommonIndentType == value)
                 {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
+                    return;
                 }
 
-                this._NamespaceSdkMessagesCSharp = value;
-                this.OnPropertyChanged(nameof(NamespaceSdkMessagesCSharp));
+                this.OnPropertyChanging(nameof(GenerateCommonIndentType));
+                this._GenerateCommonIndentType = value;
+                this.OnPropertyChanged(nameof(GenerateCommonIndentType));
             }
         }
+
+        private bool _GenerateCommonAllDescriptions = true;
+        /// <summary>
+        /// Генерировать все описания (description) или только первое по приоритету в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateCommonAllDescriptions
+        {
+            get => _GenerateCommonAllDescriptions;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateCommonAllDescriptions));
+                this._GenerateCommonAllDescriptions = value;
+                this.OnPropertyChanged(nameof(GenerateCommonAllDescriptions));
+            }
+        }
+
+        #region INotifyPropertyChanging, INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -136,19 +157,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void OnPropertyChanged(string propertyName)
         {
-            if ((this.PropertyChanged != null))
+            PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+
+            if (propertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
         private void OnPropertyChanging(string propertyName)
         {
-            if ((this.PropertyChanging != null))
+            PropertyChangingEventHandler propertyChanging = this.PropertyChanging;
+
+            if (propertyChanging != null)
             {
-                this.PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+                propertyChanging(this, new PropertyChangingEventArgs(propertyName));
             }
         }
+
+        #endregion INotifyPropertyChanging, INotifyPropertyChanged
 
         [OnDeserialized]
         private void AfterDeserialize(StreamingContext context)
@@ -166,17 +193,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return;
             }
 
+            this.GenerateCommonSpaceCount = diskData.GenerateCommonSpaceCount;
+            this.GenerateCommonIndentType = diskData.GenerateCommonIndentType;
+
+            this.GenerateCommonAllDescriptions = diskData.GenerateCommonAllDescriptions;
+
             this.NamespaceClassesCSharp = diskData.NamespaceClassesCSharp;
-            this.NamespaceGlobalOptionSetsCSharp = diskData.NamespaceGlobalOptionSetsCSharp;
-            this.NamespaceSdkMessagesCSharp = diskData.NamespaceSdkMessagesCSharp;
 
             this.SolutionComponentWithManagedInfo = diskData.SolutionComponentWithManagedInfo;
             this.TypeConverterName = diskData.TypeConverterName;
 
-            this.LoadFromDiskEntitySchema(diskData);
+            this.LoadFromDiskJavaScript(diskData);
+
+            this.LoadFromDiskEntityProxyClass(diskData);
+            this.LoadFromDiskEntitySchemaClass(diskData);
+
             this.LoadFromDiskGlobalOptionSetSchema(diskData);
 
-            this.LoadFromDiskProxyClass(diskData);
+            this.LoadFromDiskSdkMessageRequest(diskData);
         }
 
         public FileGenerationOptions Clone()
@@ -284,6 +318,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                         mutex.ReleaseMutex();
                     }
                 }
+            }
+        }
+
+        public string GetTabSpacer()
+        {
+            if (this.GenerateCommonSpaceCount <= 0)
+            {
+                this.GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
+            }
+
+            switch (this.GenerateCommonIndentType)
+            {
+                case IndentType.Tab:
+                    return "\t";
+
+                case IndentType.Spaces:
+                default:
+                    return new string(' ', this.GenerateCommonSpaceCount);
             }
         }
     }
