@@ -298,11 +298,29 @@
                     <DataGridCheckBoxColumn.Header>
                         <Label Content="I" Margin="0" Padding="0" ToolTip="IsIntersect" />
                     </DataGridCheckBoxColumn.Header>
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
                 </DataGridCheckBoxColumn>
 
                 <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName}" />
 
                 <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
+
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomEntity, Mode=OneTime}" CanUserResize="False">
+                    <DataGridCheckBoxColumn.Header>
+                        <Label Content="C" Margin="0" Padding="0" ToolTip="IsCustomEntity" />
+                    </DataGridCheckBoxColumn.Header>
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
 
                 <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" CanUserResize="False">
                     <DataGridTextColumn.Header>

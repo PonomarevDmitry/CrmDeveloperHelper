@@ -65,7 +65,7 @@
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
                 <Separator/>
-                <MenuItem Header="Export All Form Information" Click="btnExportAll_Click" />
+                <MenuItem Header="Export All CustomControl Information" Click="btnExportAll_Click" />
             </ContextMenu>
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
@@ -210,11 +210,11 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Button x:Name="btnExportAll" Content="Export All Form Information" Click="btnExportAll_Click" />
+                    <Button x:Name="btnExportAll" Content="Export All CustomControl Information" Click="btnExportAll_Click" />
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportCustomControl" Header="Export Form Information" VerticalAlignment="Center">
+                        <MenuItem x:Name="tSDDBExportCustomControl" Header="Export CustomControl Information" VerticalAlignment="Center">
                             <MenuItem Header="Open CustomControl in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
@@ -229,13 +229,13 @@
                             <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Form XML" Click="mIExportCustomControlManifest_Click" />
-                            <MenuItem Header="Form Json" Click="mIExportCustomControlClientJson_Click" />
+                            <MenuItem Header="CustomControl Manifest" Click="mIExportCustomControlManifest_Click" />
+                            <MenuItem Header="CustomControl ClientJson" Click="mIExportCustomControlClientJson_Click" />
 
                             <Separator />
                             <MenuItem Header="Change CustomControl Attribute" VerticalAlignment="Center">
-                                <MenuItem Header="Form XML" Click="mIUpdateCustomControlManifest_Click" />
-                                <MenuItem Header="Form Json" Click="mIUpdateCustomControlClientJson_Click" />
+                                <MenuItem Header="CustomControl Manifest" Click="mIUpdateCustomControlManifest_Click" />
+                                <MenuItem Header="CustomControl ClientJson" Click="mIUpdateCustomControlClientJson_Click" />
                             </MenuItem>
 
                             <Separator/>

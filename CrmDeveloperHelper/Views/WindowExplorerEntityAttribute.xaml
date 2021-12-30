@@ -4,6 +4,7 @@
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
     xmlns:sdk="clr-namespace:Microsoft.Xrm.Sdk.Metadata;assembly=Microsoft.Xrm.Sdk"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityAttribute"
     Title="Entity Attribute Explorer"
     Height="540"
@@ -127,7 +128,7 @@
             <Menu Background="{x:Null}">
                 <MenuItem x:Name="miExplorers" Header="Open Entity Information" />
             </Menu>
-            
+
             <Separator />
             <Menu Background="{x:Null}">
                 <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
@@ -181,18 +182,48 @@
                 <ToolBar Grid.Row="0" Margin="0" Height="Auto">
                     <Menu Background="{x:Null}">
                         <MenuItem Header="Select Entities">
-                            <MenuItem Header="Select Custom Entities" Click="miSelectCustomEntities_Click" />
+                            
+                            <MenuItem Header="Custom Entities with Value">
+                                <MenuItem Header="False" Click="miSelectCustomEntities_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectCustomEntities_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            
                             <Separator/>
-                            <MenuItem Header="Select IsAuditEnabled with Value">
-                                <MenuItem Header="False" Click="miSelectEntityIsAuditEnabledWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectEntityIsAuditEnabledWithTrue_Click" />
+                            <MenuItem Header="IsAuditEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectEntityIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectEntityIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
                         </MenuItem>
+                        
                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                         <MenuItem Header="Set Entity Property">
                             <MenuItem Header="IsAuditEnabled to">
-                                <MenuItem Header="False" Click="mISetEntitiesIsAuditEnabledToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetEntitiesIsAuditEnabledToTrue_Click" />
+                                <MenuItem Header="False" Click="mISetEntitiesIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetEntitiesIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
                         </MenuItem>
                     </Menu>
@@ -207,9 +238,9 @@
                     </Grid.ColumnDefinitions>
 
                     <Label x:Name="lblFilterEnitity" Content="Filter" Padding="0" Margin="5" Grid.Column="0" />
-                    
+
                     <TextBox x:Name="txtBFilterEnitity" Padding="0" Margin="5" KeyDown="txtBFilterEnitity_KeyDown" Grid.Column="1" />
-                    
+
                     <Button x:Name="btnEntityMetadataFilter" Grid.Column="2" Content="EntityMetadata Filter" Padding="0" Margin="5" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
                 </Grid>
 
@@ -234,35 +265,39 @@
                                 <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="IsEnabled" Value="False" />
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
-                            <DataGridCheckBoxColumn.EditingElementStyle>
-                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomEntity, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="C" Margin="0" Padding="0" ToolTip="IsCustomEntity" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                 </Style>
-                            </DataGridCheckBoxColumn.EditingElementStyle>
-
+                            </DataGridCheckBoxColumn.ElementStyle>
                         </DataGridCheckBoxColumn>
 
-                        <DataGridTextColumn x:Name="colEntityName" Header="Entity Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn x:Name="colEntityDisplayName" Header="Display Name" Width="260" Binding="{Binding DisplayName}" IsReadOnly="True" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" CanUserResize="False">
+                        <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" IsReadOnly="True" CanUserResize="False">
                             <DataGridTextColumn.Header>
                                 <Label Content="OBT" Margin="0" Padding="0" ToolTip="Object Type Code" />
                             </DataGridTextColumn.Header>
@@ -294,7 +329,7 @@
                             </DataGridCheckBoxColumn.EditingElementStyle>
                         </DataGridCheckBoxColumn>
 
-                        <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                        <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="False" CanUserResize="False">
                             <DataGridTemplateColumn.Header>
                                 <Label Content="Pub" Margin="0" Padding="0" ToolTip="Publish Entity" />
                             </DataGridTemplateColumn.Header>
@@ -325,126 +360,579 @@
 
                 <ToolBar Margin="0" Height="Auto" Grid.Row="0">
                     <Menu Background="{x:Null}">
+
                         <MenuItem Header="Select Attributes">
-                            <MenuItem Header="Select Custom Attributes" Click="miSelectCustomAttributes_Click" />
+
+                            <MenuItem Header="Attributes on Forms" Click="miSelectAttributesOnForms_Click" />
+
                             <Separator/>
-                            <MenuItem Header="Select Attributes on Forms" Click="miSelectAttributesOnForms_Click" />
+                            <MenuItem Header="Custom Attributes with Value">
+                                <MenuItem Header="False" Click="miSelectCustomAttributes_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectCustomAttributes_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
                             <Separator/>
-                            <MenuItem Header="Select Required Level with Value">
-                                <MenuItem Header="None" Click="miSelectAttributeRequiredLevelWithNone_Click" />
-                                <MenuItem Header="Recommended" Click="miSelectAttributeRequiredLevelWithRecommended_Click" />
-                                <MenuItem Header="ApplicationRequired" Click="miSelectAttributeRequiredLevelWithApplicationRequired_Click" />
-                                <MenuItem Header="SystemRequired" Click="miSelectAttributeRequiredLevelWithSystemRequired_Click" />
+                            <MenuItem Header="Required Level with Value">
+                                <MenuItem Header="None" Click="miSelectAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>None</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="Recommended" Click="miSelectAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>Recommended</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="ApplicationRequired" Click="miSelectAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>ApplicationRequired</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="SystemRequired" Click="miSelectAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>SystemRequired</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsAuditEnabled with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsAuditEnabledWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsAuditEnabledWithTrue_Click" />
+                            <MenuItem Header="IsRequiredForForm with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsRequiredForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsRequiredForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsCustomizable with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsCustomizableWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsCustomizableWithTrue_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="IsAuditEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsRenameable with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsRenameableWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsRenameableWithTrue_Click" />
+                            <MenuItem Header="IsCustomizable with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsCustomizable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsCustomizable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsValidForAdvancedFind with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsValidForAdvancedFindWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsValidForAdvancedFindWithTrue_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="IsRenameable with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsRenameable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsRenameable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select CanModifyAdditionalSettings with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeCanModifyAdditionalSettingsWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeCanModifyAdditionalSettingsWithTrue_Click" />
+                            <MenuItem Header="CanModifyAdditionalSettings with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeCanModifyAdditionalSettings_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeCanModifyAdditionalSettings_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsSecured with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsSecuredWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsSecuredWithTrue_Click" />
+                            <MenuItem Header="IsSecured with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsSecured_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsSecured_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsDataSourceSecret with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsDataSourceSecretWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsDataSourceSecretWithTrue_Click" />
+                            <MenuItem Header="IsDataSourceSecret with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsDataSourceSecret_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsDataSourceSecret_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsValidForForm with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsValidForFormWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsValidForFormWithTrue_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="IsValidForAdvancedFind with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsValidForAdvancedFind_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsValidForAdvancedFind_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsRequiredForForm with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsRequiredForFormWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsRequiredForFormWithTrue_Click" />
+                            <MenuItem Header="IsValidForForm with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsValidForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsValidForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsValidForGrid with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsValidForGridWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsValidForGridWithTrue_Click" />
+                            <MenuItem Header="IsValidForGrid with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsValidForGrid_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsValidForGrid_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsSortableEnabled with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsSortableEnabledWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsSortableEnabledWithTrue_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="IsSortableEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsSortableEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsSortableEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Select IsGlobalFilterEnabled with Value">
-                                <MenuItem Header="False" Click="miSelectAttributeIsGlobalFilterEnabledWithFalse_Click" />
-                                <MenuItem Header="True" Click="miSelectAttributeIsGlobalFilterEnabledWithTrue_Click" />
+                            <MenuItem Header="IsGlobalFilterEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsGlobalFilterEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectAttributeIsGlobalFilterEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
                         </MenuItem>
                     </Menu>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
 
+                        <MenuItem Header="Select Only Attributes">
+
+                            <MenuItem Header="Attributes on Forms" Click="miSelectOnlyAttributesOnForms_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Custom Attributes with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyCustomAttributes_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyCustomAttributes_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <Separator/>
+                            <MenuItem Header="Required Level with Value">
+                                <MenuItem Header="None" Click="miSelectOnlyAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>None</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="Recommended" Click="miSelectOnlyAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>Recommended</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="ApplicationRequired" Click="miSelectOnlyAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>ApplicationRequired</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="SystemRequired" Click="miSelectOnlyAttributeRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>SystemRequired</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsRequiredForForm with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsRequiredForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsRequiredForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <Separator/>
+                            <MenuItem Header="IsAuditEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsCustomizable with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsCustomizable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsCustomizable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <Separator/>
+                            <MenuItem Header="IsRenameable with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsRenameable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsRenameable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="CanModifyAdditionalSettings with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeCanModifyAdditionalSettings_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeCanModifyAdditionalSettings_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsSecured with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsSecured_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsSecured_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsDataSourceSecret with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsDataSourceSecret_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsDataSourceSecret_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <Separator/>
+                            <MenuItem Header="IsValidForAdvancedFind with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsValidForAdvancedFind_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsValidForAdvancedFind_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsValidForForm with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsValidForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsValidForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsValidForGrid with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsValidForGrid_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsValidForGrid_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <Separator/>
+                            <MenuItem Header="IsSortableEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsSortableEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsSortableEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsGlobalFilterEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectOnlyAttributeIsGlobalFilterEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="miSelectOnlyAttributeIsGlobalFilterEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
 
                         <MenuItem Header="Set Attribute Property">
+                            
                             <MenuItem Header="Required Level to">
-                                <MenuItem Header="None" Click="mISetAttributesRequiredLevelToNone_Click" />
-                                <MenuItem Header="Recommended" Click="mISetAttributesRequiredLevelToRecommended_Click" />
-                                <MenuItem Header="ApplicationRequired" Click="mISetAttributesRequiredLevelToApplicationRequired_Click" />
-                                <MenuItem Header="SystemRequired" Click="mISetAttributesRequiredLevelToSystemRequired_Click" />
-                            </MenuItem>
-                            <MenuItem Header="IsAuditEnabled to">
-                                <MenuItem Header="False" Click="mISetAttributesIsAuditEnabledToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsAuditEnabledToTrue_Click" />
-                            </MenuItem>
-                            <MenuItem Header="IsCustomizable to">
-                                <MenuItem Header="False" Click="mISetAttributesIsCustomizableToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsCustomizableToTrue_Click" />
-                            </MenuItem>
-                            <MenuItem Header="IsRenameable to">
-                                <MenuItem Header="False" Click="mISetAttributesIsRenameableToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsRenameableToTrue_Click" />
-                            </MenuItem>
-                            <MenuItem Header="IsValidForAdvancedFind to">
-                                <MenuItem Header="False" Click="mISetAttributesIsValidForAdvancedFindToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsValidForAdvancedFindToTrue_Click" />
-                            </MenuItem>
-                            <MenuItem Header="CanModifyAdditionalSettings to">
-                                <MenuItem Header="False" Click="mISetAttributesCanModifyAdditionalSettingsToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesCanModifyAdditionalSettingsToTrue_Click" />
-                            </MenuItem>
-                            <MenuItem Header="IsSecured to">
-                                <MenuItem Header="False" Click="mISetAttributesIsSecuredToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsSecuredToTrue_Click" />
-                            </MenuItem>
-                            <MenuItem Header="IsDataSourceSecret to">
-                                <MenuItem Header="False" Click="mISetAttributesIsDataSourceSecretToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsDataSourceSecretToTrue_Click" />
-                            </MenuItem>
-                            <MenuItem Header="IsValidForForm to">
-                                <MenuItem Header="False" Click="mISetAttributesIsValidForFormToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsValidForFormToTrue_Click" />
+                                <MenuItem Header="None" Click="mISetAttributesRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>None</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="Recommended" Click="mISetAttributesRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>Recommended</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="ApplicationRequired" Click="mISetAttributesRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>ApplicationRequired</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="SystemRequired" Click="mISetAttributesRequiredLevelFromTag_Click">
+                                    <MenuItem.Tag>
+                                        <sdk:AttributeRequiredLevel>SystemRequired</sdk:AttributeRequiredLevel>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
                             <MenuItem Header="IsRequiredForForm to">
-                                <MenuItem Header="False" Click="mISetAttributesIsRequiredForFormToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsRequiredForFormToTrue_Click" />
+                                <MenuItem Header="False" Click="mISetAttributesIsRequiredForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsRequiredForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <Separator/>
+                            <MenuItem Header="IsAuditEnabled to">
+                                <MenuItem Header="False" Click="mISetAttributesIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsAuditEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsCustomizable to">
+                                <MenuItem Header="False" Click="mISetAttributesIsCustomizable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsCustomizable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            
+                            <MenuItem Header="IsRenameable to">
+                                <MenuItem Header="False" Click="mISetAttributesIsRenameable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsRenameable_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="CanModifyAdditionalSettings to">
+                                <MenuItem Header="False" Click="mISetAttributesCanModifyAdditionalSettings_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesCanModifyAdditionalSettings_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsSecured to">
+                                <MenuItem Header="False" Click="mISetAttributesIsSecured_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsSecured_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsDataSourceSecret to">
+                                <MenuItem Header="False" Click="mISetAttributesIsDataSourceSecret_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsDataSourceSecret_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <Separator/>
+                            <MenuItem Header="IsValidForAdvancedFind to">
+                                <MenuItem Header="False" Click="mISetAttributesIsValidForAdvancedFind_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsValidForAdvancedFind_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="IsValidForForm to">
+                                <MenuItem Header="False" Click="mISetAttributesIsValidForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsValidForForm_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
                             <MenuItem Header="IsValidForGrid to">
-                                <MenuItem Header="False" Click="mISetAttributesIsValidForGridToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsValidForGridToTrue_Click" />
+                                <MenuItem Header="False" Click="mISetAttributesIsValidForGrid_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsValidForGrid_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
+
+                            <Separator/>
                             <MenuItem Header="IsSortableEnabled to">
-                                <MenuItem Header="False" Click="mISetAttributesIsSortableEnabledToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsSortableEnabledToTrue_Click" />
+                                <MenuItem Header="False" Click="mISetAttributesIsSortableEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsSortableEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
                             <MenuItem Header="IsGlobalFilterEnabled to">
-                                <MenuItem Header="False" Click="mISetAttributesIsGlobalFilterEnabledToFalse_Click" />
-                                <MenuItem Header="True" Click="mISetAttributesIsGlobalFilterEnabledToTrue_Click" />
+                                <MenuItem Header="False" Click="mISetAttributesIsGlobalFilterEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>False</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
+                                <MenuItem Header="True" Click="mISetAttributesIsGlobalFilterEnabled_Click">
+                                    <MenuItem.Tag>
+                                        <system:Boolean>True</system:Boolean>
+                                    </MenuItem.Tag>
+                                </MenuItem>
                             </MenuItem>
                         </MenuItem>
                     </Menu>
@@ -467,11 +955,11 @@
                     </Grid.ColumnDefinitions>
 
                     <Label x:Name="lblFilterAttribute" Content="Filter" Padding="0" Margin="5" Grid.Column="0" />
-                    
+
                     <TextBox x:Name="txtBFilterAttribute" Padding="0" Margin="5" KeyDown="txtBFilterAttribute_KeyDown" Grid.Column="1" />
-                    
+
                     <Button x:Name="btnAttributeMetadataFilter" Grid.Column="2" Content="AttributeMetadata Filter" Padding="0" Margin="5" Click="btnAttributeMetadataFilter_Click" IsTabStop="False" />
-                    
+
                 </Grid>
 
                 <DataGrid x:Name="lstVwAttributes" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwAttributes_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -495,40 +983,45 @@
                                 <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="IsEnabled" Value="False" />
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
-                            <DataGridCheckBoxColumn.EditingElementStyle>
-                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridTextColumn Header="Attribute Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Attribute Type" Width="260" Binding="{Binding AttributeTypeName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomAttribute, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="C" Margin="0" Padding="0" ToolTip="IsCustomAttribute" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                 </Style>
-                            </DataGridCheckBoxColumn.EditingElementStyle>
+                            </DataGridCheckBoxColumn.ElementStyle>
                         </DataGridCheckBoxColumn>
-
-                        <DataGridTextColumn x:Name="colAttributeName" Header="Attribute Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn x:Name="colAttributeDisplayName" Header="Display Name" Width="260" Binding="{Binding DisplayName}" IsReadOnly="True" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn x:Name="colAttributeType" Header="Attribute Type" Width="260" Binding="{Binding AttributeTypeName}" IsReadOnly="True" >
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
 
                         <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="RequiredLevel">
                             <DataGridTemplateColumn.Header>
@@ -574,7 +1067,7 @@
 
                         <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomizable, UpdateSourceTrigger=PropertyChanged}">
                             <DataGridCheckBoxColumn.Header>
-                                <Label Content="Cust" Margin="0" Padding="0" ToolTip="Is Customizable" />
+                                <Label Content="C-able" Margin="0" Padding="0" ToolTip="Is Customizable" />
                             </DataGridCheckBoxColumn.Header>
                             <DataGridCheckBoxColumn.CellStyle>
                                 <Style TargetType="DataGridCell">

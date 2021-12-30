@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var connectionData = GetSelectedConnection();
 
-            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingForms);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingTeamTemplates);
 
             string textName = string.Empty;
 
@@ -171,9 +171,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwTeamTemplates.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in list)
+                foreach (var teamTemplate in list)
                 {
-                    var item = new EntityViewItem(entity);
+                    string entityName = string.Empty;
+
+                    if (teamTemplate.ObjectTypeCode.HasValue)
+                    {
+                        if (connectionData != null
+                            && connectionData.EntitiesIntellisenseData != null
+                            && connectionData.EntitiesIntellisenseData.Entities != null
+                        )
+                        {
+                            var entityIntellisense = connectionData.EntitiesIntellisenseData.Entities.Values.FirstOrDefault(e => e.ObjectTypeCode == teamTemplate.ObjectTypeCode.Value);
+
+                            if (entityIntellisense != null)
+                            {
+                                entityName = entityIntellisense.EntityLogicalName;
+                            }
+                        }
+                    }
+
+                    var item = new EntityViewItem(teamTemplate, entityName);
 
                     this._itemsSource.Add(item);
                 }
@@ -184,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingFormsCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingTeamTemplatesCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -195,13 +213,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public int? DefaultAccessRightsMask => TeamTemplate.DefaultAccessRightsMask;
 
+            public bool IsSystem => TeamTemplate.IsSystem.GetValueOrDefault();
+
             public TeamTemplate.Schema.OptionSets.DefaultAccessRightsMask? DefaultAccessRightsMaskEnum => TeamTemplate.DefaultAccessRightsMaskEnum;
 
             public TeamTemplate TeamTemplate { get; private set; }
 
-            public EntityViewItem(TeamTemplate TeamTemplate)
+            public string EntityName { get; private set; }
+
+            public EntityViewItem(TeamTemplate TeamTemplate, string entityName)
             {
                 this.TeamTemplate = TeamTemplate;
+                this.EntityName = entityName;
             }
         }
 
@@ -563,6 +586,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void mIClipboardCopyTeamTemplateId_Click(object sender, RoutedEventArgs e)
         {
             GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.TeamTemplate.Id.ToString());
+        }
+
+        private void mIClipboardCopyTeamTemplateUrl_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null)
+            {
+                GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => connectionData.GetEntityInstanceUrl(ent.TeamTemplate.LogicalName, ent.TeamTemplate.Id));
+            }
+        }
+
+        private void mIClipboardCopyObjectTypeCode_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.ObjectTypeCode.ToString());
+        }
+
+        private void mIClipboardCopyEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.EntityName);
+        }
+
+        private void mIClipboardCopyDefaultAccessRightsMask_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.DefaultAccessRightsMask.ToString());
+        }
+
+        private void mIClipboardCopyDefaultAccessRightsMaskEnum_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.DefaultAccessRightsMaskEnum.ToString());
         }
 
         #endregion Clipboard

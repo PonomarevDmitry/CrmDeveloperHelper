@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
                     {
-                        EntityMetadataRepository repository = new EntityMetadataRepository(service);
+                        var repository = new EntityMetadataRepository(service);
 
                         var task = repository.GetEntitiesDisplayNameAsync();
 

@@ -13,6 +13,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool IsIntersect => EntityMetadata.IsIntersect.GetValueOrDefault();
 
+        public bool IsCustomEntity => EntityMetadata.IsCustomEntity.GetValueOrDefault();
+
         public int ObjectTypeCode => EntityMetadata.ObjectTypeCode.GetValueOrDefault();
 
         public EntityMetadataListViewItem(EntityMetadata entityMetadata)

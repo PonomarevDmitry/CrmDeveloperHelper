@@ -62,6 +62,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string AttributeTypeName => AttributeMetadata.AttributeType.ToString();
 
+        public bool IsCustomAttribute => AttributeMetadata.IsCustomAttribute.GetValueOrDefault();
+
         private bool? _initialIsAuditEnabled;
         private bool? _initialIsGlobalFilterEnabled;
         private bool? _initialIsSortableEnabled;

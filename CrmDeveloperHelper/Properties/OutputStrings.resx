@@ -1338,6 +1338,18 @@
   <data name="LoadingFormsCompletedFormat1" xml:space="preserve">
     <value>{0} forms loaded.</value>
   </data>
+  <data name="LoadingCustomControls" xml:space="preserve">
+    <value>Loading custom controls...</value>
+  </data>
+  <data name="LoadingCustomControlsCompletedFormat1" xml:space="preserve">
+    <value>{0} custom controls loaded.</value>
+  </data>
+  <data name="LoadingTeamTemplates" xml:space="preserve">
+    <value>Loading team templates...</value>
+  </data>
+  <data name="LoadingTeamTemplatesCompletedFormat1" xml:space="preserve">
+    <value>{0} team templates loaded.</value>
+  </data>
   <data name="LoadingMissingComponents" xml:space="preserve">
     <value>Loading Missing Components...</value>
   </data>

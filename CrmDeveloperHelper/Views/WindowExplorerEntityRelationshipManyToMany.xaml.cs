@@ -20,7 +20,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerEntityRelationshipManyToMany : WindowWithConnectionList
+    public partial class WindowExplorerEntityRelationshipManyToMany : WindowWithEntityMetadata
     {
         private readonly Popup _popupEntityMetadataFilter;
         private readonly EntityMetadataFilter _entityMetadataFilter;
@@ -31,8 +31,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<EntityMetadataListViewItem> _itemsSourceEntityList;
 
         private readonly ObservableCollection<ManyToManyRelationshipMetadataViewItem> _itemsSourceEntityRelationshipList;
-
-        private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
         private readonly Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
 
@@ -132,16 +130,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             return entity?.LogicalName;
-        }
-
-        private IEnumerable<EntityMetadata> GetEntityMetadataList(Guid connectionId)
-        {
-            if (_cacheEntityMetadata.ContainsKey(connectionId))
-            {
-                return _cacheEntityMetadata[connectionId];
-            }
-
-            return null;
         }
 
         private void LoadFromConfig()
@@ -252,16 +240,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        EntityMetadataRepository repository = new EntityMetadataRepository(service);
+                    var temp = await GetEntityMetadataEnumerable(service);
 
-                        var temp = await repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity);
-
-                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
-                    }
-
-                    list = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(e => new EntityMetadataListViewItem(e)).ToList();
+                    list = temp.Select(e => new EntityMetadataListViewItem(e)).ToList();
                 }
             }
             catch (Exception ex)
@@ -1069,7 +1050,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                _cacheEntityMetadata.Remove(connectionData.ConnectionId);
+                RemoveEntityMetadataCache(connectionData.ConnectionId);
 
                 UpdateButtonsEnable();
 
@@ -1093,7 +1074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIClearAllConnectionsEntityAndEntityRelationshipCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
-            _cacheEntityMetadata.Clear();
+            ClearEntityMetadataCache();
             _cacheEntityManyToMany.Clear();
 
             UpdateButtonsEnable();
@@ -1103,7 +1084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIClearAllConnectionsEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
-            _cacheEntityMetadata.Clear();
+            ClearEntityMetadataCache();
 
             UpdateButtonsEnable();
 

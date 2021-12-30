@@ -886,14 +886,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IInputElement element = e.MouseDevice.DirectlyOver;
             if (element != null
                 && element is FrameworkElement frameworkElement
-                )
+            )
             {
                 if (frameworkElement.Parent is DataGridCell cell)
                 {
-                    if (cell.Column == colBusinessUnit
-                        || cell.Column == colRoleName
-                        || cell.Column == colRoleTemplate
-                        )
+                    if (cell.Column.IsReadOnly)
                     {
                         OtherPrivilegeRolePrivilegeViewItem item = GetItemFromRoutedDataContext<OtherPrivilegeRolePrivilegeViewItem>(e);
 

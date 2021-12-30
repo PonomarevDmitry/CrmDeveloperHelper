@@ -219,11 +219,29 @@
                             <DataGridCheckBoxColumn.Header>
                                 <Label Content="I" Margin="0" Padding="0" ToolTip="IsIntersect" />
                             </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
                         </DataGridCheckBoxColumn>
 
                         <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName, Mode=OneTime}" />
 
                         <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName, Mode=OneTime}" />
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomEntity, Mode=OneTime}" CanUserResize="False">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="C" Margin="0" Padding="0" ToolTip="IsCustomEntity" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                        </DataGridCheckBoxColumn>
 
                         <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" CanUserResize="False">
                             <DataGridTextColumn.Header>
@@ -1420,7 +1438,6 @@
                                 <Style TargetType="CheckBox">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="IsEnabled" Value="False" />
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
                             <DataGridCheckBoxColumn.Header>
@@ -1428,21 +1445,21 @@
                             </DataGridCheckBoxColumn.Header>
                         </DataGridCheckBoxColumn>
 
-                        <DataGridTextColumn x:Name="colRoleName" Header="Role Name" Width="200" Binding="{Binding RoleName, Mode=OneTime}">
+                        <DataGridTextColumn Header="Role Name" Width="200" Binding="{Binding RoleName, Mode=OneTime}" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn x:Name="colRoleTemplate" Header="RoleTemplate" Width="200" Binding="{Binding RoleTemplateName, Mode=OneTime}" >
+                        <DataGridTextColumn Header="RoleTemplate" Width="200" Binding="{Binding RoleTemplateName, Mode=OneTime}" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn x:Name="colBusinessUnit" Header="BusinessUnit" Width="200" Binding="{Binding BusinessUnitName, Mode=OneTime}" >
+                        <DataGridTextColumn Header="BusinessUnit" Width="200" Binding="{Binding BusinessUnitName, Mode=OneTime}" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -1455,11 +1472,10 @@
                                 <Style TargetType="CheckBox">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="IsEnabled" Value="False" />
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
                             <DataGridCheckBoxColumn.Header>
-                                <Label Content="Cust" Margin="0" Padding="0" ToolTip="IsCustomizable" />
+                                <Label Content="C-able" Margin="0" Padding="0" ToolTip="IsCustomizable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                             </DataGridCheckBoxColumn.Header>
                         </DataGridCheckBoxColumn>
 
@@ -1468,7 +1484,6 @@
                                 <Style TargetType="CheckBox">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="IsEnabled" Value="False" />
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
                             <DataGridCheckBoxColumn.Header>
@@ -1612,16 +1627,15 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomizable, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsCustomizable, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
                             <DataGridCheckBoxColumn.ElementStyle>
                                 <Style TargetType="CheckBox">
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="IsEnabled" Value="False" />
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
                             <DataGridCheckBoxColumn.Header>
-                                <Label Content="Cust" Margin="0" Padding="0" ToolTip="Is Customizable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                <Label Content="C-able" Margin="0" Padding="0" ToolTip="IsCustomizable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                             </DataGridCheckBoxColumn.Header>
                         </DataGridCheckBoxColumn>
 

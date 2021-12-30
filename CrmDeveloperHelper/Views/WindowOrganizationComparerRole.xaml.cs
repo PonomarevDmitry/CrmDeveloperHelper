@@ -22,20 +22,15 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowOrganizationComparerRole : WindowWithConnectionList
+    public partial class WindowOrganizationComparerRole : WindowWithEntityAndOtherPrivileges
     {
         private readonly Popup _popupEntityMetadataFilter;
         private readonly EntityMetadataFilter _entityMetadataFilter;
 
         private readonly ObservableCollection<EntityViewItem> _itemsSourceRoles;
 
-        private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).Cast<PrivilegeType>().ToList();
-
         private readonly ObservableCollection<RoleLinkedEntitiesPrivilegeViewItem> _itemsSourceEntityPrivileges;
         private readonly ObservableCollection<RoleLinkedOtherPrivilegeViewItem> _itemsSourceOtherPrivileges;
-
-        private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
-        private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
 
         private readonly List<RoleLinkedEntitiesPrivilegeViewItem> _currentRoleEntityPrivileges;
         private readonly List<RoleLinkedOtherPrivilegeViewItem> _currentRoleOtherPrivileges;
@@ -153,66 +148,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var roleLink = GetSelectedRoleLink();
 
             return roleLink?.Name1 ?? txtBFilterRole.Text.Trim();
-        }
-
-        //private IEnumerable<EntityMetadata> GetEntityMetadataList(Guid connectionId)
-        //{
-        //    if (_cacheEntityMetadata.ContainsKey(connectionId))
-        //    {
-        //        return _cacheEntityMetadata[connectionId];
-        //    }
-
-        //    return null;
-        //}
-
-        //private IEnumerable<Privilege> GetOtherPrivilegesList(Guid connectionId)
-        //{
-        //    if (_cachePrivileges.ContainsKey(connectionId))
-        //    {
-        //        return _cachePrivileges[connectionId];
-        //    }
-
-        //    return null;
-        //}
-
-        private async Task<IEnumerable<Privilege>> GetOtherPrivileges(IOrganizationServiceExtented service)
-        {
-            if (!_cachePrivileges.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                PrivilegeRepository repository = new PrivilegeRepository(service);
-
-                var temp = await repository.GetListOtherPrivilegeAsync(new ColumnSet(
-                    Privilege.Schema.Attributes.privilegeid
-                    , Privilege.Schema.Attributes.name
-                    , Privilege.Schema.Attributes.accessright
-
-                    , Privilege.Schema.Attributes.canbebasic
-                    , Privilege.Schema.Attributes.canbelocal
-                    , Privilege.Schema.Attributes.canbedeep
-                    , Privilege.Schema.Attributes.canbeglobal
-
-                    , Privilege.Schema.Attributes.canbeentityreference
-                    , Privilege.Schema.Attributes.canbeparententityreference
-                ));
-
-                _cachePrivileges.Add(service.ConnectionData.ConnectionId, temp);
-            }
-
-            return _cachePrivileges[service.ConnectionData.ConnectionId];
-        }
-
-        private async Task<IEnumerable<EntityMetadata>> GetEntityMetadataEnumerable(IOrganizationServiceExtented service)
-        {
-            if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                EntityMetadataRepository repository = new EntityMetadataRepository(service);
-
-                var temp = await repository.GetEntitiesDisplayNameWithPrivilegesAsync();
-
-                _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
-            }
-
-            return _cacheEntityMetadata[service.ConnectionData.ConnectionId];
         }
 
         private void LoadFromConfig()
@@ -460,8 +395,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
-                        IEnumerable<Privilege> otherPrivileges1 = await GetOtherPrivileges(service1);
-                        IEnumerable<Privilege> otherPrivileges2 = await GetOtherPrivileges(service2);
+                        IEnumerable<Privilege> otherPrivileges1 = await GetOtherPrivilegesEnumerable(service1);
+                        IEnumerable<Privilege> otherPrivileges2 = await GetOtherPrivilegesEnumerable(service2);
 
                         IEnumerable<EntityMetadata> entityMetadataList1 = await GetEntityMetadataEnumerable(service1);
                         IEnumerable<EntityMetadata> entityMetadataList2 = await GetEntityMetadataEnumerable(service2);
@@ -533,7 +468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else
                     {
-                        var otherPrivileges1 = await GetOtherPrivileges(service1);
+                        var otherPrivileges1 = await GetOtherPrivilegesEnumerable(service1);
 
                         IEnumerable<EntityMetadata> entityMetadataList1 = await GetEntityMetadataEnumerable(service1);
 

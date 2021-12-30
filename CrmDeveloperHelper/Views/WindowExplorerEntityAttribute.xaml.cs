@@ -630,9 +630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (frameworkElement.Parent is DataGridCell cell)
                 {
-                    if (cell.Column == colEntityName
-                        || cell.Column == colEntityDisplayName
-                    )
+                    if (cell.Column.IsReadOnly)
                     {
                         EntityMetadataAuditViewItem entity = GetItemFromRoutedDataContext<EntityMetadataAuditViewItem>(e);
                         ConnectionData connectionData = GetSelectedConnection();
@@ -660,10 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (frameworkElement.Parent is DataGridCell cell)
                 {
-                    if (cell.Column == colAttributeName
-                        || cell.Column == colAttributeDisplayName
-                        || cell.Column == colAttributeType
-                    )
+                    if (cell.Column.IsReadOnly)
                     {
                         ConnectionData connectionData = GetSelectedConnection();
 
@@ -797,9 +792,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void AddToCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-               )
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+            )
             {
                 await AddToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0);
             }
@@ -808,9 +803,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void AddToCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-               )
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+            )
             {
                 await AddToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1);
             }
@@ -819,9 +814,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void AddToCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-               )
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+            )
             {
                 await AddToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2);
             }
@@ -854,9 +849,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void AddAttributeToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-               )
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+            )
             {
                 await AddAttributeToSolution(false, solutionUniqueName);
             }
@@ -1273,316 +1268,200 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Set Attributes Properties
 
-        private void ExecuteOnSelectedAttributes(Action<AttributeMetadataViewItem> action)
+        private void SetItemBoolAttributeFromTag(object sender, Action<AttributeMetadataViewItem, bool> action)
         {
-            var list = lstVwAttributes.SelectedItems.OfType<AttributeMetadataViewItem>().ToList();
-
-            foreach (var item in list)
+            if (action == null)
             {
-                action?.Invoke(item);
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is bool value
+            )
+            {
+                ExecuteOnSelectedViewItems<AttributeMetadataViewItem>(lstVwAttributes, item => action(item, value));
             }
         }
 
-        private void mISetAttributesRequiredLevelToNone_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesRequiredLevelFromTag_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.None);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is AttributeRequiredLevel value
+            )
+            {
+                ExecuteOnSelectedViewItems<AttributeMetadataViewItem>(lstVwAttributes, item => item.RequiredLevel = value);
+            }
         }
 
-        private void mISetAttributesRequiredLevelToRecommended_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsAuditEnabled_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.Recommended);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsAuditEnabled = value);
         }
 
-        private void mISetAttributesRequiredLevelToApplicationRequired_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsCustomizable_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.ApplicationRequired);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsCustomizable = value);
         }
 
-        private void mISetAttributesRequiredLevelToSystemRequired_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsRenameable_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.RequiredLevel = AttributeRequiredLevel.SystemRequired);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsRenameable = value);
         }
 
-        private void mISetAttributesIsAuditEnabledToFalse_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsValidForAdvancedFind_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsAuditEnabled = false);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsValidForAdvancedFind = value);
         }
 
-        private void mISetAttributesIsAuditEnabledToTrue_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesCanModifyAdditionalSettings_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsAuditEnabled = true);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.CanModifyAdditionalSettings = value);
         }
 
-        private void mISetAttributesIsCustomizableToFalse_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsSecured_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsCustomizable = false);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsSecured = value);
         }
 
-        private void mISetAttributesIsCustomizableToTrue_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsDataSourceSecret_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsCustomizable = true);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsDataSourceSecret = value);
         }
 
-        private void mISetAttributesIsRenameableToFalse_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsValidForForm_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsRenameable = false);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsValidForForm = value);
         }
 
-        private void mISetAttributesIsRenameableToTrue_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsRequiredForForm_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsRenameable = true);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsRequiredForForm = value);
         }
 
-        private void mISetAttributesIsValidForAdvancedFindToFalse_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsValidForGrid_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsValidForAdvancedFind = false);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsValidForGrid = value);
         }
 
-        private void mISetAttributesIsValidForAdvancedFindToTrue_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsSortableEnabled_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.IsValidForAdvancedFind = true);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsSortableEnabled = value);
         }
 
-        private void mISetAttributesCanModifyAdditionalSettingsToFalse_Click(object sender, RoutedEventArgs e)
+        private void mISetAttributesIsGlobalFilterEnabled_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOnSelectedAttributes(item => item.CanModifyAdditionalSettings = false);
-        }
-
-        private void mISetAttributesCanModifyAdditionalSettingsToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.CanModifyAdditionalSettings = true);
-        }
-
-        private void mISetAttributesIsSecuredToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSecured = false);
-        }
-
-        private void mISetAttributesIsSecuredToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSecured = true);
-        }
-
-        private void mISetAttributesIsDataSourceSecretToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsDataSourceSecret = false);
-        }
-
-        private void mISetAttributesIsDataSourceSecretToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsDataSourceSecret = true);
-        }
-
-        private void mISetAttributesIsValidForFormToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForForm = false);
-        }
-
-        private void mISetAttributesIsValidForFormToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForForm = true);
-        }
-
-        private void mISetAttributesIsRequiredForFormToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsRequiredForForm = false);
-        }
-
-        private void mISetAttributesIsRequiredForFormToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsRequiredForForm = true);
-        }
-
-        private void mISetAttributesIsValidForGridToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForGrid = false);
-        }
-
-        private void mISetAttributesIsValidForGridToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsValidForGrid = true);
-        }
-
-        private void mISetAttributesIsSortableEnabledToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSortableEnabled = false);
-        }
-
-        private void mISetAttributesIsSortableEnabledToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsSortableEnabled = true);
-        }
-
-        private void mISetAttributesIsGlobalFilterEnabledToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsGlobalFilterEnabled = false);
-        }
-
-        private void mISetAttributesIsGlobalFilterEnabledToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedAttributes(item => item.IsGlobalFilterEnabled = true);
+            SetItemBoolAttributeFromTag(sender, (item, value) => item.IsGlobalFilterEnabled = value);
         }
 
         #endregion Set Attributes Properties
 
-        #region Select Attributes
-
-        private void ExecuteSelectAttributes(Func<AttributeMetadataViewItem, bool> checker)
+        private void ExecuteSelectAttributes(bool clearCurrentSelection, Func<AttributeMetadataViewItem, bool> checker)
         {
-            var list = lstVwAttributes.Items.OfType<AttributeMetadataViewItem>().Where(i => checker(i)).ToList();
+            ExecuteSelectViewItems<AttributeMetadataViewItem>(lstVwAttributes, clearCurrentSelection, checker);
+        }
 
-            foreach (var item in list)
+        private void SelectItemBoolAttributeFromTag(object sender, bool clearCurrentSelection, Func<AttributeMetadataViewItem, bool, bool> checker)
+        {
+            if (checker == null)
             {
-                lstVwAttributes.SelectedItems.Add(item);
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is bool value
+            )
+            {
+                ExecuteSelectAttributes(clearCurrentSelection, item => checker(item, value));
             }
         }
 
-        private void miSelectAttributeRequiredLevelWithNone_Click(object sender, RoutedEventArgs e)
+        #region Select Attributes
+
+        private void miSelectAttributeRequiredLevelFromTag_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.None);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is AttributeRequiredLevel value
+            )
+            {
+                ExecuteSelectAttributes(false, item => item.RequiredLevel == value);
+            }
         }
 
-        private void miSelectAttributeRequiredLevelWithRecommended_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsAuditEnabled_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.Recommended);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsAuditEnabled == value);
         }
 
-        private void miSelectAttributeRequiredLevelWithApplicationRequired_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsCustomizable_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.ApplicationRequired);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsCustomizable == value);
         }
 
-        private void miSelectAttributeRequiredLevelWithSystemRequired_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsRenameable_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.RequiredLevel == AttributeRequiredLevel.SystemRequired);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsRenameable == value);
         }
 
-        private void miSelectAttributeIsAuditEnabledWithFalse_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsValidForAdvancedFind_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsAuditEnabled == false);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsValidForAdvancedFind == value);
         }
 
-        private void miSelectAttributeIsAuditEnabledWithTrue_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeCanModifyAdditionalSettings_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsAuditEnabled == true);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.CanModifyAdditionalSettings == value);
         }
 
-        private void miSelectAttributeIsCustomizableWithFalse_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsSecured_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsCustomizable == false);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsSecured == value);
         }
 
-        private void miSelectAttributeIsCustomizableWithTrue_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsDataSourceSecret_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsCustomizable == true);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsDataSourceSecret == value);
         }
 
-        private void miSelectAttributeIsRenameableWithFalse_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsValidForForm_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsRenameable == false);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsValidForForm == value);
         }
 
-        private void miSelectAttributeIsRenameableWithTrue_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsRequiredForForm_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsRenameable == true);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsRequiredForForm == value);
         }
 
-        private void miSelectAttributeIsValidForAdvancedFindWithFalse_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsValidForGrid_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsValidForAdvancedFind == false);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsValidForGrid == value);
         }
 
-        private void miSelectAttributeIsValidForAdvancedFindWithTrue_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsSortableEnabled_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.IsValidForAdvancedFind == true);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsSortableEnabled == value);
         }
 
-        private void miSelectAttributeCanModifyAdditionalSettingsWithFalse_Click(object sender, RoutedEventArgs e)
+        private void miSelectAttributeIsGlobalFilterEnabled_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.CanModifyAdditionalSettings == false);
-        }
-
-        private void miSelectAttributeCanModifyAdditionalSettingsWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.CanModifyAdditionalSettings == true);
-        }
-
-        private void miSelectAttributeIsSecuredWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSecured == false);
-        }
-
-        private void miSelectAttributeIsSecuredWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSecured == true);
-        }
-
-        private void miSelectAttributeIsDataSourceSecretWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsDataSourceSecret == false);
-        }
-
-        private void miSelectAttributeIsDataSourceSecretWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsDataSourceSecret == true);
-        }
-
-        private void miSelectAttributeIsValidForFormWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForForm == false);
-        }
-
-        private void miSelectAttributeIsValidForFormWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForForm == true);
-        }
-
-        private void miSelectAttributeIsRequiredForFormWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsRequiredForForm == false);
-        }
-
-        private void miSelectAttributeIsRequiredForFormWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsRequiredForForm == true);
-        }
-
-        private void miSelectAttributeIsValidForGridWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForGrid == false);
-        }
-
-        private void miSelectAttributeIsValidForGridWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsValidForGrid == true);
-        }
-
-        private void miSelectAttributeIsSortableEnabledWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSortableEnabled == false);
-        }
-
-        private void miSelectAttributeIsSortableEnabledWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsSortableEnabled == true);
-        }
-
-        private void miSelectAttributeIsGlobalFilterEnabledWithFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsGlobalFilterEnabled == false);
-        }
-
-        private void miSelectAttributeIsGlobalFilterEnabledWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectAttributes(item => item.IsGlobalFilterEnabled == true);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsGlobalFilterEnabled == value);
         }
 
         private void miSelectCustomAttributes_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectAttributes(item => item.AttributeMetadata.IsCustomAttribute.GetValueOrDefault() == true);
+            SelectItemBoolAttributeFromTag(sender, false, (item, value) => item.IsCustomAttribute == value);
         }
 
         private async void miSelectAttributesOnForms_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectAttributesOnForms(false);
+        }
+
+        private async Task SelectAttributesOnForms(bool clearCurrentSelection)
         {
             string entityLogicalName = string.Empty;
 
@@ -1621,7 +1500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (attrField != null
                             && !string.IsNullOrEmpty(attrField.Value)
-                            )
+                        )
                         {
                             hashAttributes.Add(attrField.Value);
                         }
@@ -1631,61 +1510,134 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwAttributes.Dispatcher.Invoke(() =>
             {
-                ExecuteSelectAttributes(item => hashAttributes.Contains(item.LogicalName));
+                ExecuteSelectAttributes(clearCurrentSelection, item => hashAttributes.Contains(item.LogicalName));
             });
         }
 
         #endregion Select Attributes
 
-        #region Select Entities
+        #region Select Only Attributes
 
-        private void ExecuteSelectEntities(Func<EntityMetadataAuditViewItem, bool> checker)
+        private void miSelectOnlyAttributeRequiredLevelFromTag_Click(object sender, RoutedEventArgs e)
         {
-            var list = lstVwEntities.Items.OfType<EntityMetadataAuditViewItem>().Where(i => checker(i)).ToList();
-
-            foreach (var item in list)
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is AttributeRequiredLevel value
+            )
             {
-                lstVwEntities.SelectedItems.Add(item);
+                ExecuteSelectAttributes(true, item => item.RequiredLevel == value);
             }
         }
 
+        private void miSelectOnlyAttributeIsAuditEnabled_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsAuditEnabled == value);
+        }
+
+        private void miSelectOnlyAttributeIsCustomizable_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsCustomizable == value);
+        }
+
+        private void miSelectOnlyAttributeIsRenameable_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsRenameable == value);
+        }
+
+        private void miSelectOnlyAttributeIsValidForAdvancedFind_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsValidForAdvancedFind == value);
+        }
+
+        private void miSelectOnlyAttributeCanModifyAdditionalSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.CanModifyAdditionalSettings == value);
+        }
+
+        private void miSelectOnlyAttributeIsSecured_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsSecured == value);
+        }
+
+        private void miSelectOnlyAttributeIsDataSourceSecret_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsDataSourceSecret == value);
+        }
+
+        private void miSelectOnlyAttributeIsValidForForm_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsValidForForm == value);
+        }
+
+        private void miSelectOnlyAttributeIsRequiredForForm_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsRequiredForForm == value);
+        }
+
+        private void miSelectOnlyAttributeIsValidForGrid_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsValidForGrid == value);
+        }
+
+        private void miSelectOnlyAttributeIsSortableEnabled_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsSortableEnabled == value);
+        }
+
+        private void miSelectOnlyAttributeIsGlobalFilterEnabled_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsGlobalFilterEnabled == value);
+        }
+
+        private void miSelectOnlyCustomAttributes_Click(object sender, RoutedEventArgs e)
+        {
+            SelectItemBoolAttributeFromTag(sender, true, (item, value) => item.IsCustomAttribute == value);
+        }
+
+        private async void miSelectOnlyAttributesOnForms_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectAttributesOnForms(true);
+        }
+
+        #endregion Select Only Attributes
+
+        #region Select Entities
+
         private void miSelectCustomEntities_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectEntities(item => item.EntityMetadata.IsCustomEntity.GetValueOrDefault() == true);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is bool value
+            )
+            {
+                ExecuteSelectViewItems<EntityMetadataAuditViewItem>(lstVwEntities, false, item => item.IsCustomEntity == value);
+            }
         }
 
-        private void miSelectEntityIsAuditEnabledWithFalse_Click(object sender, RoutedEventArgs e)
+        private void miSelectEntityIsAuditEnabled_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteSelectEntities(item => item.IsAuditEnabled == false);
-        }
-
-        private void miSelectEntityIsAuditEnabledWithTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSelectEntities(item => item.IsAuditEnabled == true);
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is bool value
+            )
+            {
+                ExecuteSelectViewItems<EntityMetadataAuditViewItem>(lstVwEntities, false, item => item.IsAuditEnabled == value);
+            }
         }
 
         #endregion Select Entities
 
         #region Set Entity Properties
 
-        private void ExecuteOnSelectedEntities(Action<EntityMetadataAuditViewItem> action)
+        private void mISetEntitiesIsAuditEnabled_Click(object sender, RoutedEventArgs e)
         {
-            var list = lstVwEntities.SelectedItems.OfType<EntityMetadataAuditViewItem>().ToList();
-
-            foreach (var item in list)
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is bool value
+            )
             {
-                action?.Invoke(item);
+                ExecuteOnSelectedViewItems<EntityMetadataAuditViewItem>(lstVwEntities, item => item.IsAuditEnabled = value);
             }
-        }
-
-        private void mISetEntitiesIsAuditEnabledToFalse_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedEntities(item => item.IsAuditEnabled = false);
-        }
-
-        private void mISetEntitiesIsAuditEnabledToTrue_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOnSelectedEntities(item => item.IsAuditEnabled = true);
         }
 
         #endregion Set Entity Properties

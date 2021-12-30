@@ -1011,5 +1011,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 element.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
             }
         }
+
+        protected static void ExecuteSelectViewItems<T>(DataGrid dataGrid, bool clearCurrentSelection, Func<T, bool> checker)
+        {
+            if (checker == null)
+            {
+                return;
+            }
+
+            if (clearCurrentSelection)
+            {
+                dataGrid.SelectedItems.Clear();
+            }
+
+            var list = dataGrid.Items.OfType<T>().Where(i => checker(i)).ToList();
+
+            dataGrid.Dispatcher.Invoke(() =>
+            {
+                foreach (var item in list)
+                {
+                    dataGrid.SelectedItems.Add(item);
+                }
+            });
+        }
+
+        protected static void ExecuteOnSelectedViewItems<T>(DataGrid dataGrid, Action<T> action)
+        {
+            if (action == null)
+            {
+                return;
+            }
+
+            var list = dataGrid.SelectedItems.OfType<T>().ToList();
+
+            dataGrid.Dispatcher.Invoke(() =>
+            {
+                foreach (var item in list)
+                {
+                    action?.Invoke(item);
+                }
+            });
+        }
     }
 }

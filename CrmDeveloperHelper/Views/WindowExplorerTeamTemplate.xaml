@@ -26,9 +26,16 @@
                 <MenuItem Header="Clipboard">
 
                     <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Object Type Code" Click="mIClipboardCopyObjectTypeCode_Click" />
+                    <MenuItem Header="Copy to Clipboard EntityName" Click="mIClipboardCopyEntityName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard DefaultAccessRightsMask" Click="mIClipboardCopyDefaultAccessRightsMask_Click" />
+                    <MenuItem Header="Copy to Clipboard DefaultAccessRightsMaskEnum" Click="mIClipboardCopyDefaultAccessRightsMaskEnum_Click" />
 
                     <Separator/>
                     <MenuItem Header="Copy to Clipboard TeamTemplate Id" Click="mIClipboardCopyTeamTemplateId_Click" />
+                    <MenuItem Header="Copy to Clipboard TeamTemplate Url" Click="mIClipboardCopyTeamTemplateUrl_Click" />
 
                 </MenuItem>
 
@@ -112,11 +119,31 @@
 
                 <DataGridTextColumn Header="TeamTemplateName" Width="350" Binding="{Binding TeamTemplateName}" />
 
-                <DataGridTextColumn Header="OTC" Width="50" Binding="{Binding ObjectTypeCode}" />
+                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" CanUserResize="False">
+                    <DataGridTextColumn.Header>
+                        <Label Content="OTC" Margin="0" Padding="0" ToolTip="Object Type Code" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
-                <DataGridTextColumn Header="DefaultAccessRightsMask" Width="100" Binding="{Binding DefaultAccessRightsMask}" />
+                <DataGridTextColumn Header="Entity Name" Width="250" Binding="{Binding EntityName}" />
 
-                <DataGridTextColumn Header="DefaultAccessRightsMaskEnum" Width="100" Binding="{Binding DefaultAccessRightsMaskEnum}" />
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsSystem, Mode=OneTime}" CanUserResize="False">
+                    <DataGridCheckBoxColumn.Header>
+                        <Label Content="S" Margin="0" Padding="0" ToolTip="IsSystem" />
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+
+                <DataGridTextColumn Width="Auto" Binding="{Binding DefaultAccessRightsMask}" CanUserResize="False">
+                    <DataGridTextColumn.Header>
+                        <Label Content="DARM" Margin="0" Padding="0" ToolTip="DefaultAccessRightsMask" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Width="Auto" Binding="{Binding DefaultAccessRightsMaskEnum}" CanUserResize="False">
+                    <DataGridTextColumn.Header>
+                        <Label Content="DARME" Margin="0" Padding="0" ToolTip="DefaultAccessRightsMaskEnum" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

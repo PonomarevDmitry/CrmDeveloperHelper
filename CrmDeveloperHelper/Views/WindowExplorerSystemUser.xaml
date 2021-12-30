@@ -1,4 +1,4 @@
-﻿<src:WindowWithSolutionComponentDescriptor
+﻿<src:WindowWithEntityAndOtherPrivileges
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
@@ -9,7 +9,7 @@
     Width="1233"
     WindowStartupLocation="Manual"
     >
-    <src:WindowWithSolutionComponentDescriptor.Resources>
+    <src:WindowWithEntityAndOtherPrivileges.Resources>
 
         <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
@@ -288,7 +288,7 @@
             <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
         </ContextMenu>
 
-    </src:WindowWithSolutionComponentDescriptor.Resources>
+    </src:WindowWithEntityAndOtherPrivileges.Resources>
     <DockPanel LastChildFill="True">
         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
             <Button x:Name="btnRefreshSystemUsers" HorizontalAlignment="Left" Click="btnRefreshSystemUsers_Click">
@@ -640,7 +640,7 @@
 
                                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
                                     <DataGridCheckBoxColumn.ElementStyle>
-                                        <Style TargetType="CheckBox">
+                                        <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
                                             <Setter Property="VerticalAlignment" Value="Center" />
                                             <Setter Property="HorizontalAlignment" Value="Center" />
                                         </Style>
@@ -650,16 +650,28 @@
                                     </DataGridCheckBoxColumn.Header>
                                 </DataGridCheckBoxColumn>
 
-                                <DataGridTextColumn Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" />
-                                <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" />
+                                <DataGridTextColumn Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" IsReadOnly="True" />
 
-                                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" CanUserResize="False">
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomEntity, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="C" Margin="0" Padding="0" ToolTip="IsCustomEntity" />
+                                    </DataGridCheckBoxColumn.Header>
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                </DataGridCheckBoxColumn>
+
+                                <DataGridTextColumn Width="Auto" Binding="{Binding ObjectTypeCode}" IsReadOnly="True" CanUserResize="False">
                                     <DataGridTextColumn.Header>
                                         <Label Content="OBT" Margin="0" Padding="0" ToolTip="Object Type Code" />
                                     </DataGridTextColumn.Header>
                                 </DataGridTextColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="CreateRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="C" Margin="0" Padding="0" ToolTip="Create" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -670,7 +682,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="ReadRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="R" Margin="0" Padding="0" ToolTip="Read" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -681,7 +693,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="UpdateRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="U" Margin="0" Padding="0" ToolTip="Update" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -692,7 +704,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="DeleteRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="D" Margin="0" Padding="0" ToolTip="Delete" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -703,7 +715,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="AppendRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="App" Margin="0" Padding="0" ToolTip="Append" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -714,7 +726,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="AppendToRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="AppTo" Margin="0" Padding="0" ToolTip="AppendTo" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -725,7 +737,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="AssignRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="As" Margin="0" Padding="0" ToolTip="Assign" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -736,7 +748,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight" CanUserResize="False">
+                                <DataGridTemplateColumn Width="Auto" IsReadOnly="True" CanUserSort="True" SortMemberPath="ShareRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="Sh" Margin="0" Padding="0" ToolTip="Share" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -834,4 +846,4 @@
             </TabControl>
         </Grid>
     </DockPanel>
-</src:WindowWithSolutionComponentDescriptor>
+</src:WindowWithEntityAndOtherPrivileges>

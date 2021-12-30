@@ -1416,6 +1416,8 @@
     <Compile Include="Views\BaseWindows\CompareWindowsHelper.cs" />
     <Compile Include="Views\BaseWindows\ExplorersHelper.cs" />
     <Compile Include="Views\BaseWindows\WindowWithConnectionList.cs" />
+    <Compile Include="Views\BaseWindows\WindowWithEntityAndOtherPrivileges.cs" />
+    <Compile Include="Views\BaseWindows\WindowWithEntityMetadata.cs" />
     <Compile Include="Views\BaseWindows\WindowWithMessageFilters.cs" />
     <Compile Include="Views\BaseWindows\WindowWithOutput.cs" />
     <Compile Include="Views\BaseWindows\WindowWithOutputAndCommonConfig.cs" />

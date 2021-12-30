@@ -187,10 +187,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.SchemaName)
                 , nameof(EntityMetadata.Description)
                 , nameof(EntityMetadata.DisplayCollectionName)
-                , nameof(EntityMetadata.OwnershipType)
                 , nameof(EntityMetadata.ObjectTypeCode)
                 , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.IsCustomEntity)
                 , nameof(EntityMetadata.IsActivity)
+
+                , nameof(EntityMetadata.OwnershipType)
             )
             {
                 AllProperties = false,
@@ -300,9 +302,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.SchemaName)
                 , nameof(EntityMetadata.Description)
                 , nameof(EntityMetadata.DisplayCollectionName)
-                , nameof(EntityMetadata.OwnershipType)
                 , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.IsCustomEntity)
                 , nameof(EntityMetadata.Attributes)
+
+                , nameof(EntityMetadata.OwnershipType)
             )
             {
                 AllProperties = false,
@@ -359,6 +364,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.DisplayCollectionName)
                 , nameof(EntityMetadata.OwnershipType)
                 , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.IsCustomEntity)
                 , nameof(EntityMetadata.Attributes)
             )
             {
@@ -509,6 +516,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.PrimaryIdAttribute)
                 , nameof(EntityMetadata.PrimaryNameAttribute)
                 , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.IsCustomEntity)
                 , nameof(EntityMetadata.Attributes)
             )
             {
@@ -829,10 +838,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.DisplayName)
                 , nameof(EntityMetadata.SchemaName)
                 , nameof(EntityMetadata.Description)
+                , nameof(EntityMetadata.DisplayCollectionName)
                 , nameof(EntityMetadata.ObjectTypeCode)
-                , nameof(EntityMetadata.Privileges)
                 , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.IsCustomEntity)
                 , nameof(EntityMetadata.IsActivity)
+
+                , nameof(EntityMetadata.Privileges)
             )
             {
                 AllProperties = false,

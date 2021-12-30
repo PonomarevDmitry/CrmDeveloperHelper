@@ -10,7 +10,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -146,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var connectionData = GetSelectedConnection();
 
-            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingForms);
+            ToggleControls(connectionData, false, Properties.OutputStrings.LoadingCustomControls);
 
             string textName = string.Empty;
 
@@ -182,9 +181,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
-            LoadCustomControls(list);
+            this.lstVwCustomControls.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in list
+                    .OrderBy(ent => ent.Name)
+                    .ThenBy(ent => ent.CompatibleDataTypes)
+                )
+                {
+                    var item = new EntityViewItem(entity);
 
-            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingFormsCompletedFormat1, list.Count());
+                    this._itemsSource.Add(item);
+                }
+
+                if (this.lstVwCustomControls.Items.Count == 1)
+                {
+                    this.lstVwCustomControls.SelectedItem = this.lstVwCustomControls.Items[0];
+                }
+            });
+
+            ToggleControls(connectionData, true, Properties.OutputStrings.LoadingCustomControlsCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -201,27 +216,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this.CustomControl = CustomControl;
             }
-        }
-
-        private void LoadCustomControls(IEnumerable<CustomControl> results)
-        {
-            this.lstVwCustomControls.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results
-                    .OrderBy(ent => ent.Name)
-                    .ThenBy(ent => ent.CompatibleDataTypes)
-                )
-                {
-                    var item = new EntityViewItem(entity);
-
-                    this._itemsSource.Add(item);
-                }
-
-                if (this.lstVwCustomControls.Items.Count == 1)
-                {
-                    this.lstVwCustomControls.SelectedItem = this.lstVwCustomControls.Items[0];
-                }
-            });
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)

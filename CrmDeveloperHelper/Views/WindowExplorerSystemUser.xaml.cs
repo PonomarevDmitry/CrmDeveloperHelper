@@ -24,7 +24,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerSystemUser : WindowWithSolutionComponentDescriptor
+    public partial class WindowExplorerSystemUser : WindowWithEntityAndOtherPrivileges
     {
         private string _tabSpacer = "    ";
 
@@ -46,9 +46,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly List<RoleEntityPrivilegeViewItem> _currentRoleEntityPrivileges;
         private readonly List<RoleOtherPrivilegeViewItem> _currentRoleOtherPrivileges;
 
-        private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
-        private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
-
         public WindowExplorerSystemUser(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -64,15 +61,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             SetInputLanguageEnglish();
 
-            if (entityMetadataList != null && entityMetadataList.Any(e => e.Privileges != null && e.Privileges.Any()))
-            {
-                _cacheEntityMetadata[service.ConnectionData.ConnectionId] = entityMetadataList;
-            }
-
-            if (privileges != null)
-            {
-                _cachePrivileges[service.ConnectionData.ConnectionId] = privileges;
-            }
+            StoreEntityMetadataCache(service.ConnectionData.ConnectionId, entityMetadataList);
+            StoreOtherPrivilegeCache(service.ConnectionData.ConnectionId, privileges);
 
             _entityMetadataFilter = new EntityMetadataFilter();
             _entityMetadataFilter.CloseClicked += this.entityMetadataFilter_CloseClicked;
@@ -189,26 +179,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var privilege = GetSelectedOtherPrivilege();
 
             return privilege?.Name;
-        }
-
-        private IEnumerable<EntityMetadata> GetEntityMetadataList(Guid connectionId)
-        {
-            if (_cacheEntityMetadata.ContainsKey(connectionId))
-            {
-                return _cacheEntityMetadata[connectionId];
-            }
-
-            return null;
-        }
-
-        private IEnumerable<Privilege> GetOtherPrivilegesList(Guid connectionId)
-        {
-            if (_cachePrivileges.ContainsKey(connectionId))
-            {
-                return _cachePrivileges[connectionId];
-            }
-
-            return null;
         }
 
         private void LoadFromConfig()
@@ -620,7 +590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service != null)
                 {
-                    var otherPrivileges = await GetPrivileges(service);
+                    var otherPrivileges = await GetOtherPrivilegesEnumerable(service);
 
                     var entityMetadataList = await GetEntityMetadataEnumerable(service);
 
@@ -730,46 +700,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             ToggleControls(connectionData, true, Properties.OutputStrings.FilteringOtherPrivilegesCompletedFormat1, listOtherPrivileges.Count());
-        }
-
-        private async Task<IEnumerable<Privilege>> GetPrivileges(IOrganizationServiceExtented service)
-        {
-            if (!_cachePrivileges.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                PrivilegeRepository repository = new PrivilegeRepository(service);
-
-                var temp = await repository.GetListOtherPrivilegeAsync(new ColumnSet(
-                    Privilege.Schema.Attributes.privilegeid
-                    , Privilege.Schema.Attributes.name
-                    , Privilege.Schema.Attributes.accessright
-
-                    , Privilege.Schema.Attributes.canbebasic
-                    , Privilege.Schema.Attributes.canbelocal
-                    , Privilege.Schema.Attributes.canbedeep
-                    , Privilege.Schema.Attributes.canbeglobal
-
-                    , Privilege.Schema.Attributes.canbeentityreference
-                    , Privilege.Schema.Attributes.canbeparententityreference
-                ));
-
-                _cachePrivileges.Add(service.ConnectionData.ConnectionId, temp);
-            }
-
-            return _cachePrivileges[service.ConnectionData.ConnectionId];
-        }
-
-        private async Task<IEnumerable<EntityMetadata>> GetEntityMetadataEnumerable(IOrganizationServiceExtented service)
-        {
-            if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                EntityMetadataRepository repository = new EntityMetadataRepository(service);
-
-                var temp = await repository.GetEntitiesDisplayNameWithPrivilegesAsync();
-
-                _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
-            }
-
-            return _cacheEntityMetadata[service.ConnectionData.ConnectionId];
         }
 
         private IEnumerable<RoleEntityPrivilegeViewItem> FilterEntityList(IEnumerable<RoleEntityPrivilegeViewItem> list, string textName)
@@ -1350,8 +1280,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                _cacheEntityMetadata.Remove(connectionData.ConnectionId);
-                _cachePrivileges.Remove(connectionData.ConnectionId);
+                RemoveEntityMetadataCache(connectionData.ConnectionId);
+                RemoveOtherPrivilegeCache(connectionData.ConnectionId);
 
                 await RefreshSystemUserInfo();
             }
@@ -1359,8 +1289,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIClearAllConnectionsEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
-            _cacheEntityMetadata.Clear();
-            _cachePrivileges.Clear();
+            ClearEntityMetadataCache();
+            ClearOtherPrivilegeCache();
 
             await RefreshSystemUserInfo();
         }

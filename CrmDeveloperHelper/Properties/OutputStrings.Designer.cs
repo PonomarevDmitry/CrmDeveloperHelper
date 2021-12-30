@@ -4228,6 +4228,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading custom controls....
+        /// </summary>
+        internal static string LoadingCustomControls {
+            get {
+                return ResourceManager.GetString("LoadingCustomControls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} custom controls loaded..
+        /// </summary>
+        internal static string LoadingCustomControlsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingCustomControlsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading Dependencies For Delete....
         /// </summary>
         internal static string LoadingDependenciesForDelete {
@@ -4971,6 +4989,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingTeamSystemUsersCompletedFormat1 {
             get {
                 return ResourceManager.GetString("LoadingTeamSystemUsersCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading team templates....
+        /// </summary>
+        internal static string LoadingTeamTemplates {
+            get {
+                return ResourceManager.GetString("LoadingTeamTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} team templates loaded..
+        /// </summary>
+        internal static string LoadingTeamTemplatesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingTeamTemplatesCompletedFormat1", resourceCulture);
             }
         }
         
