@@ -514,7 +514,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     continue;
                 }
 
-                if (!FileOperations.SupportsWebResourceTextType(selectedFile.FilePath))
+                if (!FileOperations.SupportsWebResourceTextType(selectedFile.FilePath)
+                    && !FileOperations.SupportsCSharpType(selectedFile.FilePath)
+                )
                 {
                     continue;
                 }
@@ -556,8 +558,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             if (str.Length > 0)
                             {
                                 str.Append(", ");
-                                str.Append(enc.EncodingName);
                             }
+
+                            str.Append(enc.EncodingName);
                         }
 
                         if (hasUTF8)
@@ -572,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    tableNotHaveBOM.AddLine(selectedFile.FriendlyFilePath,  selectedFile.UrlFriendlyFilePath);
+                    tableNotHaveBOM.AddLine(selectedFile.FriendlyFilePath, selectedFile.UrlFriendlyFilePath);
 
                     filesWithoutUTF8Encoding.Add(selectedFile);
                 }

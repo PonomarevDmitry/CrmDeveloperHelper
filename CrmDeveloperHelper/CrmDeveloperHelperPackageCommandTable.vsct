@@ -102,7 +102,7 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_Group2" priority="0x06000" />
 
 
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEncoding" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" priority="0x06000" />
 
@@ -278,6 +278,8 @@
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_Group2" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEncoding" priority="0x06000" />
+
       <!-- #endregion codeMenuCSharp -->
 
       <!-- #endregion Code Window -->
@@ -419,6 +421,8 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEncoding" priority="0x06000" />
 
       <!-- #endregion documentsMenuCSharp -->
 
@@ -581,6 +585,9 @@
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
+
       <!-- #endregion fileMenuCSharp -->
 
       <!-- #endregion Files -->
@@ -709,6 +716,9 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
 
       <!-- #endregion folderMenuCSharp -->
 
@@ -2213,21 +2223,19 @@
 
       <!-- #region documentsMenuCSharp -->
 
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu" priority="0x06000" type="Menu">
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <Strings>
-          <ButtonText>Action on Projects and PluginAssemblies</ButtonText>
-          <MenuText>Action on Projects and PluginAssemblies</MenuText>
-        </Strings>
-      </Menu>
-
-
-
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Crm C# Files All Opened</ButtonText>
           <MenuText>Crm C# Files All Opened</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginAssembly_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Action on Projects and PluginAssemblies</ButtonText>
+          <MenuText>Action on Projects and PluginAssemblies</MenuText>
         </Strings>
       </Menu>
 
@@ -2581,6 +2589,16 @@
         </Strings>
       </Menu>
 
+
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding_MenuCommands" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Check Encoding</ButtonText>
+          <MenuText>Check Encoding</MenuText>
+        </Strings>
+      </Menu>
+
       <!-- #endregion fileMenuCSharp -->
 
 
@@ -2826,6 +2844,16 @@
         <Strings>
           <ButtonText>Action on PluginTypes (Recursive)</ButtonText>
           <MenuText>Action on PluginTypes (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+
+
+
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding_MenuCommands" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Check Encoding (Recursive)</ButtonText>
+          <MenuText>Check Encoding (Recursive)</MenuText>
         </Strings>
       </Menu>
 
@@ -8838,6 +8866,18 @@
         </Strings>
       </Button>
 
+
+
+      <Button guid="guidCommandSet" id="CodeCSharpCheckEncodingCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Check Encoding for UTF8</ButtonText>
+        </Strings>
+      </Button>
+
       <!-- #endregion CodeCSharp Buttons Definitions -->
 
       <!-- #region CodePublishList Buttons Definitions -->
@@ -9934,6 +9974,16 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>DocumentsCSharpUpdateGlobalOptionSetsFileCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="DocumentsCSharpCheckEncodingCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Check Encoding for UTF8</ButtonText>
         </Strings>
       </Button>
 
@@ -11457,6 +11507,25 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="FileCSharpCheckEncodingCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Check Encoding for UTF8</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="FileCSharpCheckEncodingOpenFilesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open without UTF8</ButtonText>
+        </Strings>
+      </Button>
+
       <!-- #endregion FileCSharp Buttons Definitions -->
 
       <!-- #endregion File Buttons Definitions -->
@@ -12526,6 +12595,29 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>FolderCSharpUpdateGlobalOptionSetsFileCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
+
+
+
+      <Button guid="guidCommandSet" id="FolderCSharpCheckEncodingCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Check Encoding for UTF8 (Recursive)</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="FolderCSharpCheckEncodingOpenFilesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open without UTF8 (Recursive)</ButtonText>
         </Strings>
       </Button>
 
@@ -16398,7 +16490,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm" priority="0x06090">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x060A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEncoding" priority="0x060A0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" priority="0x060B0">
@@ -16909,13 +17001,13 @@
 
 
 
-    <!-- #region CommandPlacements codeMenuWebResource_GroupCheckFileEncoding -->
+    <!-- #region CommandPlacements codeMenuWebResource_GroupEncoding -->
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceCheckEncodingCommandId" priority="0x0104">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEncoding" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements codeMenuWebResource_GroupCheckFileEncoding -->
+    <!-- #endregion CommandPlacements codeMenuWebResource_GroupEncoding -->
 
     <!-- #region CommandPlacements codeMenuWebResource_GroupExplorer -->
 
@@ -17813,13 +17905,16 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupLinkedGlobalOptionSet" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginExplorers" priority="0x06050">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEncoding" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddToSolution" priority="0x06060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginExplorers" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType" priority="0x06070">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddToSolution" priority="0x06070">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupActionOnPluginType" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
 
@@ -18210,6 +18305,15 @@
     <!-- #endregion CommandPlacements codeMenuCSharp_GroupLinkedGlobalOptionSet_Menu_Group2 -->
 
 
+    <!-- #region CommandPlacements codeMenuCSharp_GroupEncoding -->
+
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpCheckEncodingCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEncoding" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements codeMenuCSharp_GroupEncoding -->
+
+
 
 
 
@@ -18569,19 +18673,19 @@
 
     <!-- #region CommandPlacements documentsMenuWebResource_GroupEncoding -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCompareFilesCommandId" priority="0x0112">
+    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCompareFilesCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommandId" priority="0x0113">
+    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
 
@@ -18803,10 +18907,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupAddToSolution" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEncoding" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupAddToSolution" priority="0x06040">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupActionOnPluginType" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
 
@@ -18957,6 +19064,14 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements documentsMenuCSharp_GroupGlobalOptionSets -->
+
+    <!-- #region CommandPlacements documentsMenuCSharp_GroupEncoding -->
+
+    <CommandPlacement guid="guidCommandSet" id="DocumentsCSharpCheckEncodingCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEncoding" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuCSharp_GroupEncoding -->
 
     <!-- #region CommandPlacements documentsMenuCSharp_GroupAddToSolution -->
 
@@ -19835,13 +19950,16 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x06050">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType" priority="0x06060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x06060">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType" priority="0x06070">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
 
@@ -20007,6 +20125,33 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements fileMenuCSharp_GroupGlobalOptionSets -->
+
+    <!-- #region CommandPlacements fileMenuCSharp_GroupEncoding -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding_MenuCommands" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupEncoding -->
+
+    <!-- #region CommandPlacements fileMenuCSharp_GroupEncoding_MenuCommands -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding_MenuCommands" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupEncoding_MenuCommands -->
+
+    <!-- #region CommandPlacements fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpCheckEncodingCommandId" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpCheckEncodingOpenFilesCommandId" priority="0x6010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands -->
 
     <!-- #region CommandPlacements fileMenuCSharp_GroupPluginExplorers -->
 
@@ -20577,24 +20722,24 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuWebResource_GroupEncoding -->
 
     <!-- #region CommandPlacements folderMenuWebResource_GroupEncoding_MenuCommands_Group-->
 
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingOpenFilesCommandId" priority="0x06000">
+    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingCompareFilesCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingOpenFilesCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingCompareWithDetailsFilesCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingCompareFilesCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceCheckEncodingCompareWithDetailsFilesCommandId" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" />
     </CommandPlacement>
 
@@ -20726,10 +20871,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution" priority="0x06040">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupActionOnPluginType" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
 
@@ -20880,6 +21028,33 @@
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuCSharp_GroupGlobalOptionSets -->
+
+    <!-- #region CommandPlacements folderMenuCSharp_GroupEncoding -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding_MenuCommands" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuCSharp_GroupEncoding -->
+
+    <!-- #region CommandPlacements folderMenuCSharp_GroupEncoding_MenuCommands -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding_MenuCommands" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuCSharp_GroupEncoding_MenuCommands -->
+
+    <!-- #region CommandPlacements folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands -->
+
+    <CommandPlacement guid="guidCommandSet" id="FolderCSharpCheckEncodingCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FolderCSharpCheckEncodingOpenFilesCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands -->
 
     <!-- #region CommandPlacements folderMenuCSharp_GroupAddToSolution -->
 
@@ -27210,7 +27385,7 @@
 
 
 
-      <IDSymbol name="codeMenuWebResource_GroupCheckFileEncoding" value="0x1005" />
+      <IDSymbol name="codeMenuWebResource_GroupEncoding" value="0x1005" />
 
       <IDSymbol name="codeMenuWebResource_GroupExplorer" value="0x1006" />
 
@@ -27456,6 +27631,8 @@
 
       <IDSymbol name="codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x1460" />
 
+      <IDSymbol name="codeMenuCSharp_GroupEncoding" value="0x163D" />
+
       <!-- #endregion codeMenuCSharp GroupAndMenuSet Definitions -->
 
       <!-- #endregion codeMenu GroupAndMenuSet Definitions -->
@@ -27662,6 +27839,8 @@
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14AC" />
 
       <IDSymbol name="documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x1469" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupEncoding" value="0x163E" />
 
       <!-- #endregion documentsMenuCSharp GroupAndMenuSet Definitions -->
 
@@ -27907,6 +28086,11 @@
 
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x1472" />
 
+      <IDSymbol name="fileMenuCSharp_GroupEncoding" value="0x163F" />
+      <IDSymbol name="fileMenuCSharp_GroupEncoding_MenuCommands" value="0x1640" />
+      <IDSymbol name="fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" value="0x1641" />
+
+
       <!-- #endregion fileMenuCSharp GroupAndMenuSet Definitions -->
 
       <!-- #endregion fileMenu GroupAndMenuSet Definitions -->
@@ -28103,6 +28287,10 @@
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo" value="0x14B5" />
 
       <IDSymbol name="folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther" value="0x147B" />
+
+      <IDSymbol name="folderMenuCSharp_GroupEncoding" value="0x1642" />
+      <IDSymbol name="folderMenuCSharp_GroupEncoding_MenuCommands" value="0x1643" />
+      <IDSymbol name="folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands" value="0x1644" />
 
       <!-- #endregion folderMenuCSharp GroupAndMenuSet Definitions -->
 
@@ -30928,6 +31116,8 @@
 
       <IDSymbol name="CodeCSharpLinkedGlobalOptionSetExplorerCommandId" value="0x228C" />
 
+      <IDSymbol name="CodeCSharpCheckEncodingCommandId" value="0x2297" />
+
       <!-- #endregion CodeCSharp Commands Definitions -->
 
       <!-- #region CodePublishList Commands Definitions -->
@@ -31004,6 +31194,8 @@
       <IDSymbol name="DocumentsCSharpProjectPluginTypeCreateEntityDescriptionCommandId" value="0x2256" />
       <IDSymbol name="DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" value="0x2257" />
       <IDSymbol name="DocumentsCSharpProjectPluginTypeCreateDescriptionCommandId" value="0x2258" />
+
+      <IDSymbol name="DocumentsCSharpCheckEncodingCommandId" value="0x2298" />
 
       <!-- #endregion DocumentsCSharp Commands Definitions -->
 
@@ -31106,6 +31298,9 @@
       <IDSymbol name="FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId" value="0x14CA" />
       <IDSymbol name="FileCSharpProjectPluginAssemblyCreateDescriptionCommandId" value="0x14CB" />
 
+      <IDSymbol name="FileCSharpCheckEncodingCommandId" value="0x2299" />
+      <IDSymbol name="FileCSharpCheckEncodingOpenFilesCommandId" value="0x229A" />
+
       <!-- #endregion FileCSharp Commands Definitions -->
 
       <!-- #endregion File Commands Definitions -->
@@ -31176,6 +31371,9 @@
       <IDSymbol name="FolderCSharpProjectPluginTypeCreateEntityDescriptionCommandId" value="0x2259" />
       <IDSymbol name="FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" value="0x225A" />
       <IDSymbol name="FolderCSharpProjectPluginTypeCreateDescriptionCommandId" value="0x225B" />
+
+      <IDSymbol name="FolderCSharpCheckEncodingCommandId" value="0x229B" />
+      <IDSymbol name="FolderCSharpCheckEncodingOpenFilesCommandId" value="0x229C" />
 
       <!-- #endregion FolderCSharp Commands Definitions -->
 
@@ -31568,10 +31766,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x163D -->
+    <!-- 0x1645 -->
 
     <!-- Commands -->
-    <!-- 0x2297 -->
+    <!-- 0x229D -->
 
     <!-- Commands Dynamic -->
     <!-- guidDynamicCommandSet 21150 -->

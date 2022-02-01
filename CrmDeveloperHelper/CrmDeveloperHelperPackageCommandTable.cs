@@ -205,7 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedGlobalOptionSet_Menu_Group2 = 0x15F4;
 
-            public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
+            public const int codeMenuWebResource_GroupEncoding = 0x1005;
 
             public const int codeMenuWebResource_GroupExplorer = 0x1006;
 
@@ -439,6 +439,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1460;
 
+            public const int codeMenuCSharp_GroupEncoding = 0x163D;
+
             public const int documentsMenuWebResource = 0x116E;
 
             public const int documentsMenuWebResource_GroupPublish = 0x116F;
@@ -636,6 +638,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14AC;
 
             public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1469;
+
+            public const int documentsMenuCSharp_GroupEncoding = 0x163E;
 
             public const int fileMenuWebResource = 0x100F;
 
@@ -867,6 +871,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1472;
 
+            public const int fileMenuCSharp_GroupEncoding = 0x163F;
+
+            public const int fileMenuCSharp_GroupEncoding_MenuCommands = 0x1640;
+
+            public const int fileMenuCSharp_GroupEncoding_MenuCommands_GroupCommands = 0x1641;
+
             public const int folderMenuWebResource = 0x1061;
 
             public const int folderMenuWebResource_GroupPublish = 0x1062;
@@ -1050,6 +1060,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14B5;
 
             public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x147B;
+
+            public const int folderMenuCSharp_GroupEncoding = 0x1642;
+
+            public const int folderMenuCSharp_GroupEncoding_MenuCommands = 0x1643;
+
+            public const int folderMenuCSharp_GroupEncoding_MenuCommands_GroupCommands = 0x1644;
 
             public const int folderMenuFolder = 0x107B;
 
@@ -4054,6 +4070,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpLinkedGlobalOptionSetExplorerCommandId = 0x228C;
 
+            public const int CodeCSharpCheckEncodingCommandId = 0x2297;
+
             public const int CodePublishListAddCommandId = 0x2070;
 
             public const int CodePublishListRemoveCommandId = 0x2071;
@@ -4111,6 +4129,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId = 0x2257;
 
             public const int DocumentsCSharpProjectPluginTypeCreateDescriptionCommandId = 0x2258;
+
+            public const int DocumentsCSharpCheckEncodingCommandId = 0x2298;
 
             public const int FileWebResourceUpdateContentPublishCommandId = 0x2043;
 
@@ -4204,6 +4224,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpProjectPluginAssemblyCreateDescriptionCommandId = 0x14CB;
 
+            public const int FileCSharpCheckEncodingCommandId = 0x2299;
+
+            public const int FileCSharpCheckEncodingOpenFilesCommandId = 0x229A;
+
             public const int FolderWebResourceUpdateContentPublishCommandId = 0x205D;
 
             public const int FolderJavaScriptUpdateContentIncludeReferencesPublishCommandId = 0x2265;
@@ -4261,6 +4285,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId = 0x225A;
 
             public const int FolderCSharpProjectPluginTypeCreateDescriptionCommandId = 0x225B;
+
+            public const int FolderCSharpCheckEncodingCommandId = 0x229B;
+
+            public const int FolderCSharpCheckEncodingOpenFilesCommandId = 0x229C;
 
             public const int FolderAddSolutionFileCommandId = 0x206E;
 

@@ -118,6 +118,8 @@
     <Compile Include="Commands\CodeLinkedGlobalOptionSetPublishInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityInstanceByIdCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpCheckEncodingCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpCheckEncodingOpenFilesCommand.cs" />
     <Compile Include="Commands\Explorers\CommonTeamTemplateExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputTeamTemplateExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenWebResourcesInSolutionLastSelectedCommand.cs" />

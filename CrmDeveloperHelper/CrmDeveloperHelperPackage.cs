@@ -495,6 +495,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize,
 
+            CSharpCheckEncodingCommand.Initialize,
+            CSharpCheckEncodingOpenFilesCommand.Initialize,
+
             CSharpProjectPluginTypeActionOnComponentCommand.Initialize,
             CSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize,
             CSharpProjectPluginTypeActionOnComponentInConnectionWithoutCurrentCommand.Initialize,
